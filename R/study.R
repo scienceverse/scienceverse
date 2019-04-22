@@ -412,7 +412,7 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
   # make a copy to modify for JSON format
   json_study <- study
 
-  if (!grep("\\.json$", filename)) {
+  if (!length(grep("\\.json$", filename))) {
     # add .json extension if not already specified
     filename <- paste0(filename, ".json")
   }
@@ -465,8 +465,8 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
 #'
 study_report <- function(study, template = "prereg",
                          filename = "study.html") {
-  if (!grep("\\.html$", filename)) {
-    # add .json extension if not already specified
+  if (!length(grep("\\.html$", filename))) {
+    # add .html extension if not already specified
     filename <- paste0(filename, ".html")
   }
   if (substr(filename, 1, 1) != "/") {
@@ -479,10 +479,11 @@ study_report <- function(study, template = "prereg",
   } else if (template == "postreg") {
     template <- system.file("rmarkdown", "postreg.Rmd", package = "reg")
   }
-
+  options(knitr.duplicate.label = 'allow')
   rmarkdown::render(template,
                     output_file = filename,
                     quiet = TRUE,
+                    envir = new.env(),
                     encoding = "UTF-8")
   invisible(study)
 }

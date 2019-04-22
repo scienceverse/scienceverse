@@ -58,11 +58,12 @@ study_save(iris_study, "iris.json")
 
 ``` r
 # generate a post-registration report
-study_report(iris_study, "postreg")
+study_report(iris_study, "postreg", "postreg.html")
+#> Saving to/Users/lisad/rproj/scienceverse/reg/postreg.html
 ```
 
 ``` r
-# output section of the report
+# output sections of the report
 iris_study %>%
   output_hypotheses() %>%
   output_analyses() %>%

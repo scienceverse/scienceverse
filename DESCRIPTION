@@ -19,13 +19,13 @@ RoxygenNote: 6.1.1
 Imports: 
     magrittr,
     jsonlite,
-    faux (>= 0.0.0.9003)
+    faux (>= 0.0.0.9003),
+    rmarkdown
 Suggests: 
     testthat,
-    knitr,
-    rmarkdown
+    knitr
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
 VignetteBuilder: knitr
-Remotes:  
+Remotes: 
     debruine/faux

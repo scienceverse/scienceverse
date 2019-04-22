@@ -108,11 +108,13 @@ mystudy <- add_criterion(
   hypothesis_id = "H2",
   analysis_id = "H2_cor"
 )
+
+study_save(mystudy, "iat.json")
 ```
 
-```{r, eval = FALSE}
+```{r}
 # generate pre-registration report
-study_report(mystudy, template="prereg", filename = "pre")
+study_report(mystudy, template="prereg", filename = "prereg")
 ```
 
 ```{r, results='asis', echo = FALSE}
@@ -134,10 +136,9 @@ mystudy <- add_data(mystudy, dat)
 mystudy <- study_analyse(mystudy)
 ```
 
-```{r eval = FALSE}
+```{r}
 # generate post-registration report
-study_report(mystudy, template="postreg")
-
+study_report(mystudy, template="postreg", filename = "postreg")
 ```
 
 ```{r, results='asis', echo = FALSE}
@@ -214,9 +215,9 @@ mystudy <- study("IAT Demo")  %>%
   study_analyse()
 ```
 
-```{r, eval = FALSE}
+```{r}
 mystudy %>%
-  study_report(template="prereg", filename = "pre")
+  study_report(template="prereg", filename = "pre") %>%
   study_report(template="postreg", filename = "post")
 ```
 
