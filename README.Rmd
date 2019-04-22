@@ -55,9 +55,12 @@ study_save(iris_study, "iris.json")
 study_report(iris_study, "postreg")
 ```
 
-`r output_hypotheses(iris_study)`
-`r output_analyses(iris_study)`
-`r output_results(iris_study)`
+```{r, results='asis'}
+iris_study %>%
+  output_hypotheses() %>%
+  output_analyses() %>%
+  output_results()
+```
 
 
 Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.

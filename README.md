@@ -47,6 +47,43 @@ study_save(iris_study, "iris.json")
 study_report(iris_study, "postreg")
 ```
 
+``` r
+iris_study %>%
+  output_hypotheses() %>%
+  output_analyses() %>%
+  output_results()
+```
+
+Hypotheses
+----------
+
+### Hypothesis 1
+
+Petal length and width will be significantly correlated
+
+-   Criterion 1 is confirmed if analysis yields p.value &lt; 0.05
+
+If all criteria are met, this hypothesis is supported.
+
+Analyses
+--------
+
+### 
+
+We will run `cor.test(x = .data$Petal.Length, y = .data$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
+
+Results
+-------
+
+### Hypothesis 1
+
+Petal length and width will be significantly correlated
+
+-   Criterion 1 was p.value &lt; 0.05 in analysis 1.
+    The result was p.value = 0
+
+**Conclusion**: Congratulations! All criteria were met, this hypothesis was supported.
+
 Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.
 
 ``` r
