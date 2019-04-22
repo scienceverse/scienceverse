@@ -290,7 +290,7 @@ add_analysis <- function(study,
 #'
 #' @export
 #'
-add_data <- function(study, id, data = NULL) {
+add_data <- function(study, id = NULL, data = NULL) {
   vm <- list()
   if (is.data.frame(data)) {
     # get variableMeasured list from table structure
