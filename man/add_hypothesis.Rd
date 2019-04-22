@@ -4,17 +4,17 @@
 \alias{add_hypothesis}
 \title{Add Hypothesis}
 \usage{
-add_hypothesis(study, id = NULL,
-  description = "Describe your hypothesis", evaluation = "&")
+add_hypothesis(study, description = "Describe your hypothesis",
+  evaluation = "&", id = NULL)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
 
-\item{id}{The id for this hypothesis (index or character) if NULL, this creates a new hypothesis, if a hypothesis with this id already exists, it will overwrite it}
-
 \item{description}{The text descriiption of the hypothesis}
 
 \item{evaluation}{The rule for evaluating this criterion c("&", "and", "|", "or")}
+
+\item{id}{The id for this hypothesis (index or character) if NULL, this creates a new hypothesis, if a hypothesis with this id already exists, it will overwrite it}
 }
 \value{
 A study object with class reg_study
@@ -25,6 +25,6 @@ Add a hypothesis to a study object
 \examples{
 
 mystudy <- study("Iris Petals") \%>\%
-  add_hypothesis(1, "Petal length and width will be significantly correlated")
+  add_hypothesis("Petal length and width will be significantly correlated")
 
 }

@@ -27,11 +27,11 @@ test_that("warnings", {
   testthat::expect_equal(i$id, 1)
   testthat::expect_equal(i$idx, 1)
 
-  i <- study() %>% add_hypothesis("test") %>% get_id_idx(1)
+  i <- study() %>% add_hypothesis(id="test") %>% get_id_idx(1)
   testthat::expect_equal(i$id, "test")
   testthat::expect_equal(i$idx, 1)
 
-  i <- study() %>% add_hypothesis("test") %>% get_id_idx("test")
+  i <- study() %>% add_hypothesis(id="test") %>% get_id_idx("test")
   testthat::expect_equal(i$id, "test")
   testthat::expect_equal(i$idx, 1)
 })

@@ -15,7 +15,7 @@ test_that("set values", {
   params <- list(data = ".data")
   code <- "m <- function(data) { mean(data[[1]]) }"
   s <- study() %>%
-    add_analysis("A1", "m", params, code)
+    add_analysis("m", params, code, "A1")
 
   expect_equal(s$analyses[[1]]$id, "A1")
   expect_equal(s$analyses[[1]]$func, "m")

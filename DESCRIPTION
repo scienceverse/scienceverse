@@ -18,7 +18,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Imports: 
     magrittr,
-    jsonlite
+    jsonlite,
+    faux (>= 0.0.0.9003)
 Suggests: 
     testthat,
     knitr,
@@ -26,3 +27,5 @@ Suggests:
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
 VignetteBuilder: knitr
+Remotes:  
+    debruine/faux

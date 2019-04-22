@@ -4,14 +4,14 @@
 \alias{add_data}
 \title{Add Data}
 \usage{
-add_data(study, id, data = NULL)
+add_data(study, data = NULL, id = NULL)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
 
-\item{id}{The id for this dataset (index or character) if NULL, this creates a new dataset, if an analysis with this id already exists, it will overwrite it}
-
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
+
+\item{id}{The id for this dataset (index or character) if NULL, this creates a new dataset, if an analysis with this id already exists, it will overwrite it}
 }
 \value{
 A study object with class reg_study
@@ -22,6 +22,6 @@ Add a dataset to a study object
 \examples{
 
 mystudy <- study() \%>\%
-  add_data(1, iris)
+  add_data(iris)
 
 }

@@ -19,12 +19,12 @@ test_that("defaults", {
 
 test_that("set", {
   s <- study() %>%
-    add_hypothesis("A") %>%
-    add_hypothesis("B") %>%
-    add_analysis("C") %>%
-    add_analysis("D") %>%
-    add_data("E") %>%
-    add_data("F")
+    add_hypothesis(id="A") %>%
+    add_hypothesis(id="B") %>%
+    add_analysis(id="C") %>%
+    add_analysis(id="D") %>%
+    add_data(id="E") %>%
+    add_data(id="F")
 
   # return correct idx for id
   expect_equal(get_idx(s, "A", "hypotheses"), 1)

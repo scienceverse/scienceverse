@@ -20,13 +20,13 @@ Generate a study report
 \examples{
 
 mystudy <- study("Iris Study") \%>\%
-  add_hypothesis(1, "Petal length and width will be significantly correlated") \%>\%
-  add_analysis(1, "cor.test", list(
+  add_hypothesis("Petal length and width will be significantly correlated") \%>\%
+  add_analysis("cor.test", list(
     x = ".data$Petal.Length",
     y = ".data$Petal.Width"
   )) \%>\%
-  add_criterion(1, 1, "p.value", "<", 0.05) \%>\%
-  add_data(1, iris) \%>\%
+  add_criterion("p.value", "<", 0.05) \%>\%
+  add_data(iris) \%>\%
   study_analyse() \%>\%
   study_report(type = "postreg")
 
