@@ -89,9 +89,9 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
             "Creating a default item with id = ",
             ifelse(is.null(id), "NULL", id))
 
-    if (section == "hypotheses") study <- add_hypothesis(study, id)
-    if (section == "analyses") study <- add_analysis(study, id)
-    if (section == "data") study <- add_data(study, id)
+    if (section == "hypotheses") study <- add_hypothesis(study, id=id)
+    if (section == "analyses") study <- add_analysis(study, id=id)
+    if (section == "data") study <- add_data(study, id=id)
   }
   n <- length(study[[section]])
   idx <- n # default to the last one
@@ -106,9 +106,9 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
               " exists. Creating a default item at index = ",
               n+1)
 
-      if (section == "hypotheses") study <- add_hypothesis(study)
-      if (section == "analyses") study <- add_analysis(study)
-      if (section == "data") study <- add_data(study, id)
+      if (section == "hypotheses") study <- add_hypothesis(study, id=id)
+      if (section == "analyses") study <- add_analysis(study, id=id)
+      if (section == "data") study <- add_data(study, id=id)
 
       idx <- length(study[[section]])
     } else {
@@ -127,9 +127,9 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
               " exists. Creating a default item with at index = ",
               n+1)
 
-      if (section == "hypotheses") study <- add_hypothesis(study, id)
-      if (section == "analyses") study <- add_analysis(study, id)
-      if (section == "data") study <- add_data(study, id)
+      if (section == "hypotheses") study <- add_hypothesis(study, id=id)
+      if (section == "analyses") study <- add_analysis(study, id=id)
+      if (section == "data") study <- add_data(study, id=id)
 
       idx <- length(study[[section]])
     }
@@ -146,21 +146,21 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
 #' Add a hypothesis to a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param id The id for this hypothesis (index or character) if NULL, this creates a new hypothesis, if a hypothesis with this id already exists, it will overwrite it
 #' @param description The text descriiption of the hypothesis
 #' @param evaluation The rule for evaluating this criterion c("&", "and", "|", "or")
+#' @param id The id for this hypothesis (index or character) if NULL, this creates a new hypothesis, if a hypothesis with this id already exists, it will overwrite it
 #' @return A study object with class reg_study
 #' @examples
 #'
 #' mystudy <- study("Iris Petals") %>%
-#'   add_hypothesis(1, "Petal length and width will be significantly correlated")
+#'   add_hypothesis("Petal length and width will be significantly correlated")
 #'
 #' @export
 #'
 add_hypothesis <- function(study,
-                           id = NULL,
                            description = "Describe your hypothesis",
-                           evaluation = "&") {
+                           evaluation = "&",
+                           id = NULL) {
   hypothesis <- list(
     id = id,
     description = description,
@@ -182,11 +182,11 @@ add_hypothesis <- function(study,
 #' Add a criterion to a hypothesis in a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
-#' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
 #' @param result The name of the item in the analysis results list to compare
 #' @param operator The operator for comparison c("<", "=", ">", "!=")
 #' @param comparator The value to compare
+#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
+#' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
 #' @return A study object with class reg_study
 #' @examples
 #'
@@ -197,11 +197,11 @@ add_hypothesis <- function(study,
 #' @export
 #'
 add_criterion <- function(study,
-                          hypothesis_id = NULL,
-                          analysis_id = NULL,
                           result,
                           operator,
-                          comparator) {
+                          comparator,
+                          hypothesis_id = NULL,
+                          analysis_id = NULL) {
   # get ids and indices
   hypothesis <- get_id_idx(study, hypothesis_id, "hypotheses")
   analysis <- get_id_idx(study, analysis_id, "analyses")
@@ -234,31 +234,19 @@ add_criterion <- function(study,
 #' Add an analysis to a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param id The id for this analysis (index or character) if NULL, this creates a new analysis, if an analysis with this id already exists, it will overwrite it
 #' @param func The name of the function to run
 #' @param params A list of parameters for the function arguments
 #' @param code Code to define custom functions
+#' @param id The id for this analysis (index or character) if NULL, this creates a new analysis, if an analysis with this id already exists, it will overwrite it
 #' @return A study object with class reg_study
-#' @examples
-#'
-#' mystudy <- study("Iris Petals") %>%
-#'   add_hypothesis(1, "Petal length and width will be significantly correlated") %>%
-#'   add_criterion(1, 1, "p.value", "<", 0.05) %>%
-#'   add_analysis(1, "cor.test", list(
-#'     x = ".data[1]$Petal.Length",
-#'     y = ".data[1]$Petal.Width",
-#'     alternative = "two.sided",
-#'     method = "pearson",
-#'     conf.level = 0.95
-#'   ))
 #'
 #' @export
 #'
 add_analysis <- function(study,
-                         id = NULL,
                          func = "list",
                          params = list(),
-                         code = NULL) {
+                         code = NULL,
+                         id = NULL) {
   analysis <- list(
     id = id,
     func = func,
@@ -280,17 +268,17 @@ add_analysis <- function(study,
 #' Add a dataset to a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param id The id for this dataset (index or character) if NULL, this creates a new dataset, if an analysis with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
+#' @param id The id for this dataset (index or character) if NULL, this creates a new dataset, if an analysis with this id already exists, it will overwrite it
 #' @return A study object with class reg_study
 #' @examples
 #'
 #' mystudy <- study() %>%
-#'   add_data(1, iris)
+#'   add_data(iris)
 #'
 #' @export
 #'
-add_data <- function(study, id = NULL, data = NULL) {
+add_data <- function(study, data = NULL, id = NULL) {
   vm <- list()
   if (is.data.frame(data)) {
     # get variableMeasured list from table structure

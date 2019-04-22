@@ -109,17 +109,17 @@ You can also pipe together the steps to create a study object, save it, and gene
 
 ``` r
 iris_study <- study("Iris Petals") %>%
-  add_hypothesis(1, "Petal length and width will be positively and significantly correlated") %>%
-  add_analysis(1, "cor.test", list(
+  add_hypothesis("Petal length and width will be positively and significantly correlated") %>%
+  add_analysis("cor.test", list(
     x = ".data$Petal.Length",
     y = ".data$Petal.Width",
     alternative = "two.sided",
     method = "pearson",
     conf.level = 0.95
   )) %>%
-  add_criterion(1, 1, "p.value", "<", 0.05) %>%
-  add_criterion(1, 1, "estimate", ">", 0) %>%
-  add_data(1, iris) %>%
+  add_criterion("p.value", "<", 0.05) %>%
+  add_criterion("estimate", ">", 0) %>%
+  add_data(iris) %>%
   study_analyse() %>%
   study_save("iris.json") %>%
   study_report("postreg")
