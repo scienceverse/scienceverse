@@ -32,8 +32,8 @@ iris_study <- add_hypothesis(iris_study, description = "Petal length and width w
 iris_study <- add_analysis(
   iris_study, func = "cor.test", 
   params = list(
-    x = ".data$Petal.Length",
-    y = ".data$Petal.Width",
+    x = ".data[1]$Petal.Length",
+    y = ".data[1]$Petal.Width",
     alternative = "two.sided",
     method = "pearson",
     conf.level = 0.95
@@ -86,7 +86,7 @@ Analyses
 
 ### 
 
-We will run `cor.test(x = .data$Petal.Length, y = .data$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
+We will run `cor.test(x = .data[1]$Petal.Length, y = .data[1]$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
 
 Results
 -------
@@ -114,8 +114,8 @@ You can also pipe together the steps to create a study object, save it, and gene
 iris_study <- study("Iris Petals") %>%
   add_hypothesis("Petal length and width will be positively and significantly correlated") %>%
   add_analysis("cor.test", list(
-    x = ".data$Petal.Length",
-    y = ".data$Petal.Width",
+    x = ".data[1]$Petal.Length",
+    y = ".data[1]$Petal.Width",
     alternative = "two.sided",
     method = "pearson",
     conf.level = 0.95

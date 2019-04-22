@@ -61,8 +61,8 @@ study <- function(name = "Demo Study") {
 get_idx <- function(study, id = NULL, section = "hypotheses") {
   n <- length(study[[section]])
   idx <- n + 1
-  if (is.numeric(id)) {
-    if (n >= id) idx <- id
+  if (length(grep("^\\d+$", id))) { # is an integer
+    if (n >= id) idx <- as.numeric(id)
   } else if (is.character(id) & n > 0) {
     for (i in 1:n) {
       if (study[[section]][[i]]$id == id) idx <- i
@@ -84,7 +84,7 @@ get_idx <- function(study, id = NULL, section = "hypotheses") {
 #'
 get_id_idx <- function(study, id = NULL, section = "hypotheses") {
   if (length(study[[section]]) == 0) {
-    if (is.numeric(id)) id <- 1
+    if (length(grep("^\\d+$", id))) id <- 1
     warning("No ", section, " items exist. ",
             "Creating a default item with id = ",
             ifelse(is.null(id), "NULL", id))
@@ -100,7 +100,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
     # set to last item
     last_id <- study[[section]][[n]]$id
     id <- ifelse(is.null(last_id), n, last_id)
-  } else if (is.numeric(id)) {
+  } else if (length(grep("^\\d+$", id))) {
     if (id > n) {
       warning("No ", section, " item with index = ", id,
               " exists. Creating a default item at index = ",
@@ -112,7 +112,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
 
       idx <- length(study[[section]])
     } else {
-      idx <- id
+      idx <- as.numeric(id)
       id <- study[[section]][[idx]]$id
     }
   } else if (is.character(id)) {
@@ -325,26 +325,41 @@ add_data <- function(study, data = NULL, id = NULL) {
 #' @export
 #'
 study_analyse <- function(study) {
-  data <- study$data[[1]]$data
-
   analysis_n <- length(study$analyses)
   for (i in 1:analysis_n) {
     func <- study$analyses[[i]]$func
     params <- study$analyses[[i]]$params
-    # replace any params equal to ".data" with the data frame
-    replace_data <- grep("^\\.data$", params)
+    # replace any params equal to ".data[id]" with the data frame
+    pattern <- "^\\.data\\[(.+)\\]$"
+    replace_data <- grep(pattern, params)
     if (length(replace_data)) {
       for (j in replace_data) {
-        params[[j]] <- data
+        id <- params[[j]] %>%
+          regexpr(pattern, .) %>%
+          regmatches(params[[j]], .) %>%
+          gsub(".data[", "", ., fixed = TRUE) %>%
+          gsub("]", "", ., fixed = TRUE)
+        idx <- get_idx(study, id, "data")
+        if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+        params[[j]] <- study$data[[idx]]$data
       }
     }
 
-    # replace any params equal to ".data$col" with the column vector
-    replace_data_cols <- grep("^\\.data\\$", params)
+    # replace any params equal to ".data[id]$col" with the column vector
+    pattern <- "^\\.data\\[(.+)\\]\\$"
+    replace_data_cols <- grep(pattern, params)
     if (length(replace_data_cols)) {
       for (j in replace_data_cols) {
-        col <- gsub("^\\.data\\$", "", params[j])
-        params[[j]] <- data[[col]]
+        id <- params[[j]] %>%
+          regexpr(pattern, .) %>%
+          regmatches(params[[j]], .) %>%
+          gsub(".data[", "", ., fixed = TRUE) %>%
+          gsub("]$", "", ., fixed = TRUE)
+        idx <- get_idx(study, id, "data")
+        if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+
+        col <- gsub(pattern, "", params[j])
+        params[[j]] <- study$data[[idx]]$data[[col]]
       }
     }
 
