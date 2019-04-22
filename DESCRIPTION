@@ -1,0 +1,25 @@
+Package: reg
+Title: Machine-Readable Study Descriptions
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Daniel",
+           family = "Lakens",
+           role = c("aut", "cre"),
+           email = "lakens@gmail.com")
+    person(given = "Lisa",
+           family = "DeBruine",
+           role = c("aut", "cre"),
+           email = "debruine@gmail.com")
+Description: Generate and process machine-readable study descriptions.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Imports: 
+    magrittr,
+    jsonlite
+Suggests: 
+    testthat
+URL: https://github.com/scienceverse/reg
+BugReports: https://github.com/scienceverse/reg/issues
