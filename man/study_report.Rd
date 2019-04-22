@@ -4,12 +4,14 @@
 \alias{study_report}
 \title{Generate a Report}
 \usage{
-study_report(study, type = "prereg")
+study_report(study, template = "prereg", filename = "study.html")
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
 
-\item{type}{The type of report c("prereg", "postreg")}
+\item{template}{The type of report c("prereg", "postreg") or a path to a custom template}
+
+\item{filename}{The file path to save to}
 }
 \value{
 A study object with class reg_study
@@ -28,6 +30,6 @@ mystudy <- study("Iris Study") \%>\%
   add_criterion("p.value", "<", 0.05) \%>\%
   add_data(iris) \%>\%
   study_analyse() \%>\%
-  study_report(type = "postreg")
+  study_report(template = "postreg")
 
 }

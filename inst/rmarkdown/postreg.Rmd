@@ -1,0 +1,28 @@
+---
+title: "Evaluation of Statistical Hypotheses"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r results = 'asis'}
+cat("### ", study$name, "Preregistration", sep = " ")
+```
+
+```{r results='asis'}
+output_hypotheses(study)
+```
+
+```{r results='asis'}
+output_analyses(study)
+```
+
+```{r results='asis'}
+output_results(study)
+```
+
+

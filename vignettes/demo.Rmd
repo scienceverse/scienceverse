@@ -108,10 +108,21 @@ mystudy <- add_criterion(
   hypothesis_id = "H2",
   analysis_id = "H2_cor"
 )
+```
 
+```{r, eval = FALSE}
 # generate pre-registration report
-study_report(mystudy, type="prereg")
+study_report(mystudy, template="prereg", filename = "pre")
+```
 
+```{r, results='asis', echo = FALSE}
+# output section of the report
+mystudy %>%
+  output_hypotheses() %>%
+  output_analyses()
+```
+
+```{r}
 # add data
 n_sub <- 50
 dat <- faux::rnorm_multi(n_sub, 2, .5, c(500, 750), 250,
@@ -121,17 +132,17 @@ mystudy <- add_data(mystudy, dat)
 
 # run analyses
 mystudy <- study_analyse(mystudy)
+```
 
+```{r eval = FALSE}
 # generate post-registration report
-study_report(mystudy, type="postreg")
+study_report(mystudy, template="postreg")
 
 ```
 
-```{r, results='asis'}
+```{r, results='asis', echo = FALSE}
 # output section of the report
 mystudy %>%
-  output_hypotheses() %>%
-  output_analyses() %>%
   output_results()
 ```
 
@@ -199,10 +210,13 @@ mystudy <- study("IAT Demo")  %>%
     hypothesis_id = "H2",
     analysis_id = "H2_cor"
   ) %>%
-  study_report(type="prereg") %>%
   add_data(dat) %>%
-  study_analyse() %>%
-  study_report(type="postreg")
+  study_analyse()
+```
 
+```{r, eval = FALSE}
+mystudy %>%
+  study_report(template="prereg", filename = "pre")
+  study_report(template="postreg", filename = "post")
 ```
 

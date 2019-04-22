@@ -445,7 +445,8 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
 #' Generate a study report
 #'
 #' @param study A study list object with class reg_study
-#' @param type The type of report c("prereg", "postreg")
+#' @param template The type of report c("prereg", "postreg") or a path to a custom template
+#' @param filename The file path to save to
 #' @return A study object with class reg_study
 #' @examples
 #'
@@ -458,11 +459,31 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
 #'   add_criterion("p.value", "<", 0.05) %>%
 #'   add_data(iris) %>%
 #'   study_analyse() %>%
-#'   study_report(type = "postreg")
+#'   study_report(template = "postreg")
 #'
 #' @export
 #'
-study_report <- function(study, type = "prereg") {
+study_report <- function(study, template = "prereg",
+                         filename = "study.html") {
+  if (!grep("\\.html$", filename)) {
+    # add .json extension if not already specified
+    filename <- paste0(filename, ".html")
+  }
+  if (substr(filename, 1, 1) != "/") {
+    filename <- paste0(getwd(), "/", filename)
+  }
+  message("Saving to", filename)
+
+  if (template == "prereg") {
+    template <- system.file("rmarkdown", "prereg.Rmd", package = "reg")
+  } else if (template == "postreg") {
+    template <- system.file("rmarkdown", "postreg.Rmd", package = "reg")
+  }
+
+  rmarkdown::render(template,
+                    output_file = filename,
+                    quiet = TRUE,
+                    encoding = "UTF-8")
   invisible(study)
 }
 

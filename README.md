@@ -54,7 +54,9 @@ iris_study <- study_analyse(iris_study)
 
 # save the framework to a JSON file
 study_save(iris_study, "iris.json")
+```
 
+``` r
 # generate a post-registration report
 study_report(iris_study, "postreg")
 ```
@@ -121,6 +123,5 @@ iris_study <- study("Iris Petals") %>%
   add_criterion("estimate", ">", 0) %>%
   add_data(iris) %>%
   study_analyse() %>%
-  study_save("iris.json") %>%
-  study_report("postreg")
+  study_save("iris.json")
 ```
