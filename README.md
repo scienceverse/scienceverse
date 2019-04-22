@@ -46,6 +46,36 @@ study_save(iris_study, "iris.json")
 study_report(iris_study, "postreg")
 ```
 
+``` r
+output_hypotheses(iris_study)
+#> ## Hypotheses
+#> 
+#> ### Hypothesis 1
+#> 
+#> Petal length and width will be significantly correlated
+#> 
+#> * Criterion 1 is confirmed if analysis yields p.value < 0.05   
+#> 
+#> If all criteria are met, this hypothesis is supported.
+output_analyses(iris_study)
+#> ## Analyses
+#> 
+#> ### 
+#> 
+#> We will run `cor.test(x = .data$Petal.Length, y = .data$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
+output_results(iris_study)
+#> ## Results
+#> 
+#> ### Hypothesis 1
+#> 
+#> Petal length and width will be significantly correlated
+#> 
+#> * Criterion 1 was p.value < 0.05 in analysis 1.  
+#>     The result was p.value = 0  
+#> 
+#> **Conclusion**: Congratulations! All criteria were met, this hypothesis was supported.
+```
+
 Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.
 
 ``` r
@@ -71,7 +101,41 @@ iris_study <- study("Iris Petals") %>%
   add_data(1, iris) %>%
   study_analyse() %>%
   study_save("iris.json") %>%
-  study_report("postreg")
+  study_report("postreg") %>%
+  output_hypotheses() %>%
+  output_analyses() %>%
+  output_results()
+#> ## Hypotheses
+#> 
+#> ### Hypothesis 1
+#> 
+#> Petal length and width will be positively and significantly correlated
+#> 
+#> * Criterion 1 is confirmed if analysis yields p.value < 0.05   
+#> * Criterion 2 is confirmed if analysis yields estimate > 0   
+#> 
+#> If all criteria are met, this hypothesis is supported.
+#> 
+#> 
+#> ## Analyses
+#> 
+#> ### 
+#> 
+#> We will run `cor.test(x = .data$Petal.Length, y = .data$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
+#> 
+#> 
+#> ## Results
+#> 
+#> ### Hypothesis 1
+#> 
+#> Petal length and width will be positively and significantly correlated
+#> 
+#> * Criterion 1 was p.value < 0.05 in analysis 1.  
+#>     The result was p.value = 0  
+#> * Criterion 2 was estimate > 0 in analysis 1.  
+#>     The result was estimate = 0.963  
+#> 
+#> **Conclusion**: Congratulations! All criteria were met, this hypothesis was supported.
 ```
 
 ### Functional Setup

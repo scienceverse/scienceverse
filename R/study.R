@@ -477,3 +477,159 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
 study_report <- function(study, type = "prereg") {
   invisible(study)
 }
+
+
+
+#' Output hypotheses
+#'
+#' Output hypotheses specified in the json file
+#'
+#' @param study A study list object created with pipeline()
+#' @return The study object
+#'
+#' @export
+
+output_hypotheses <- function(study) {
+  cat("## Hypotheses\n\n")
+
+  for (i in 1:length(study$hypotheses)) {
+
+    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[i]]$desc, "\n\n", sep = "")
+
+    criteria <- study$hypotheses[[i]]$criteria
+
+    for (j in 1:length(criteria)) {
+      cat("* Criterion", j, "is confirmed if analysis",
+          criteria[[j]]$test, "yields",
+          criteria[[j]]$result,
+          criteria[[j]]$operator,
+          criteria[[j]]$comparator,
+          "  \n"
+      )
+    }
+
+    cat("\n")
+
+    # explain evaluation
+    eval <- study$hypotheses[[i]]$evaluation
+    if (eval %in% c("&", "and")) {
+      cat("If all criteria are met, this hypothesis is supported.")
+    } else if (eval %in% c("|", "or")) {
+      cat("If any criteria are met, this hypothesis is supported.")
+    } else {
+      cat(eval)
+    }
+
+    cat("\n\n\n")
+  }
+
+  invisible(study)
+}
+
+
+#' Output results
+#'
+#' Output results specified in the json file
+#'
+#' @param study A study list object created with pipeline()
+#' @param digits integer indicating the number of decimal places.
+#' @return The study object
+#'
+#' @export
+
+output_results <- function(study, digits = 3) {
+  cat("## Results\n\n")
+  for (i in 1:length(study$hypotheses)) {
+
+    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[1]]$desc, "\n\n", sep = "")
+
+    criteria <- study$hypotheses[[i]]$criteria
+
+    for (j in 1:length(criteria)) {
+      analysis <- grep(criteria[[j]]$analysis, study$analyses, fixed = TRUE)
+      result <- study$analyses[[analysis]]$results[[criteria[[j]]$result]]
+
+      cat("* Criterion ", j, " was ",
+          criteria[[j]]$result, " ",
+          criteria[[j]]$operator, " ",
+          criteria[[j]]$comparator,
+          " in analysis ", criteria[[j]]$analysis, ".  \n    The result was ",
+          criteria[[j]]$result, " = ", round_char(result, digits),
+          "  \n",
+          sep = ""
+      )
+    }
+
+    cat("\n**Conclusion**: ")
+    eval <- study$hypotheses[[i]]$evaluation
+    conclusion <- study$hypotheses[[i]]$conclusion
+    if (eval %in% c("&", "and")) {
+      if (conclusion) {
+        cat("Congratulations! All criteria were met, this hypothesis was supported.")
+      } else {
+        cat("All criteria were not met, this hypothesis was not supported.")
+      }
+    } else if (eval %in% c("|", "or")) {
+      if (conclusion) {
+        cat("At least one criterion was met, this hypothesis was supported.")
+      } else {
+        cat("No criteria were met, this hypothesis was not supported.")
+      }
+    } else {
+      cat("The evaluation criteria could not be automatically evaluated.")
+    }
+
+    cat("\n\n")
+  }
+
+  invisible(study)
+}
+
+
+#' Output analyses
+#'
+#' Output analysis plan specified in the json file
+#'
+#' @param study A study list object created with pipeline()
+#' @return The study object
+#'
+#' @export
+
+output_analyses <- function(study) {
+  cat("## Analyses\n\n")
+
+  for (i in 1:length(study$analyses)) {
+    cat("###", study$analyses[[i]]$name, "\n\n")
+
+    func <- study$analyses[[i]]$func
+    params <- study$analyses[[1]]$params
+
+    keys <- names(params)
+    vals <- unlist(params) %>% unname()
+    x <- c()
+    for (j in 1:length(keys)) {
+      x[j] <- paste0(keys[j], " = ", vals[j])
+    }
+
+    cat("We will run `",
+        func, "(", paste0(x, collapse = ", "), ")`\n\n\n",
+        sep = "")
+  }
+
+  invisible(study)
+}
+
+#' Character-safe rounding
+#'
+#' Round a vector if it is numeric, but return the original vector if it is character.
+#'
+#' @param x	a character vector.
+#' @param digits integer indicating the number of decimal places.
+#' @param ...	arguments to be passed to methods.
+#' @return The character vector or the rounded version if numeric.
+#'
+round_char <- function(x, digits = 0, ...) {
+  num_x <- suppressWarnings(as.numeric(x))
+  if (is.na(num_x)) return(x)
+  round(num_x, digits, ...)
+}
