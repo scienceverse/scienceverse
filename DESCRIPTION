@@ -20,6 +20,9 @@ Imports:
     magrittr,
     jsonlite
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
+VignetteBuilder: knitr
