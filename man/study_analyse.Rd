@@ -2,9 +2,12 @@
 % Please edit documentation in R/study.R
 \name{study_analyse}
 \alias{study_analyse}
+\alias{study_analyze}
 \title{Run analysis}
 \usage{
 study_analyse(study)
+
+study_analyze(study)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
@@ -14,4 +17,20 @@ A study object with class reg_study
 }
 \description{
 Run the analyses on the data
+}
+\examples{
+study() \%>\%
+  add_hypothesis() \%>\%
+  add_analysis("cor.test", list(
+    x = ".data[1]$Petal.Width",
+    y = ".data[1]$Petal.Length"
+  )) \%>\%
+  add_criterion(
+    result = "p.value",
+    operator = "<",
+    comparator = 0.05
+  ) \%>\%
+  add_data(iris) \%>\%
+  study_analyse()
+
 }

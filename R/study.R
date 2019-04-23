@@ -320,8 +320,21 @@ add_data <- function(study, data = NULL, id = NULL) {
 #'
 #' @param study A study list object with class reg_study
 #' @return A study object with class reg_study
-#'
 #' @export
+#' @examples
+#' study() %>%
+#'   add_hypothesis() %>%
+#'   add_analysis("cor.test", list(
+#'     x = ".data[1]$Petal.Width",
+#'     y = ".data[1]$Petal.Length"
+#'   )) %>%
+#'   add_criterion(
+#'     result = "p.value",
+#'     operator = "<",
+#'     comparator = 0.05
+#'   ) %>%
+#'   add_data(iris) %>%
+#'   study_analyse()
 #'
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)
@@ -410,6 +423,11 @@ study_analyse <- function(study) {
 
   invisible(study)
 }
+
+
+#' @rdname study_analyse
+#' @export
+study_analyze <- study_analyse
 
 #' Save study
 #'
