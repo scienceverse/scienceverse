@@ -44,7 +44,7 @@ study <- function(name = "Demo Study") {
     )
   }
 
-  class(study) <- c(class(study), "reg_study")
+  class(study) <- c("reg_study", "list")
 
   invisible(study)
 }
@@ -168,7 +168,7 @@ add_hypothesis <- function(study,
     evaluation = evaluation
   )
 
-  class(hypothesis) <- c(class(hypothesis), "reg_study_hypothesis")
+  class(hypothesis) <- c("reg_study_hypothesis", "list")
 
   idx <- get_idx(study, id, "hypotheses")
 
@@ -215,8 +215,7 @@ add_criterion <- function(study,
     comparator = comparator
   )
 
-  class(criterion) <- c(class(criterion),
-                        "reg_study_hypothesis_criterion")
+  class(criterion) <- c("reg_study_hypothesis_criterion", "list")
 
   # add criterion to hypothesis
   crit_idx <- length(study$hypotheses[[hypothesis$idx]]$criteria) + 1
@@ -254,7 +253,7 @@ add_analysis <- function(study,
     code = code
   )
 
-  class(analysis) <- c(class(analysis), "reg_study_analysis")
+  class(analysis) <- c("reg_study_analysis", "list")
 
   idx <- get_idx(study, id, "analyses")
 
@@ -306,7 +305,7 @@ add_data <- function(study, data = NULL, id = NULL) {
     data = as.data.frame(data)
   )
 
-  class(d) <- c(class(d), "reg_study_data")
+  class(d) <- c("reg_study_data", "list")
 
   idx <- get_idx(study, id, "data")
 
@@ -468,8 +467,8 @@ study_save <- function(study, filename = "study.json", data_values = TRUE) {
 #' mystudy <- study("Iris Study") %>%
 #'   add_hypothesis("Petal length and width will be significantly correlated") %>%
 #'   add_analysis("cor.test", list(
-#'     x = ".data$Petal.Length",
-#'     y = ".data$Petal.Width"
+#'     x = ".data[1]$Petal.Length",
+#'     y = ".data[1]$Petal.Width"
 #'   )) %>%
 #'   add_criterion("p.value", "<", 0.05) %>%
 #'   add_data(iris) %>%

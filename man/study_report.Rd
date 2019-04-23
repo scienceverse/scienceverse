@@ -24,8 +24,8 @@ Generate a study report
 mystudy <- study("Iris Study") \%>\%
   add_hypothesis("Petal length and width will be significantly correlated") \%>\%
   add_analysis("cor.test", list(
-    x = ".data$Petal.Length",
-    y = ".data$Petal.Width"
+    x = ".data[1]$Petal.Length",
+    y = ".data[1]$Petal.Width"
   )) \%>\%
   add_criterion("p.value", "<", 0.05) \%>\%
   add_data(iris) \%>\%
