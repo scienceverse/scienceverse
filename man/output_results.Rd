@@ -7,7 +7,7 @@
 output_results(study, digits = 3)
 }
 \arguments{
-\item{study}{A study list object created with pipeline()}
+\item{study}{A study list object with class reg_study}
 
 \item{digits}{integer indicating the number of decimal places.}
 }

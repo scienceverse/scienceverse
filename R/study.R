@@ -434,7 +434,7 @@ study_report <- function(study, template = "prereg",
 #'
 #' Output hypotheses specified in the json file
 #'
-#' @param study A study list object created with pipeline()
+#' @param study A study list object with class reg_study
 #' @return The study object
 #'
 #' @export
@@ -481,7 +481,7 @@ output_hypotheses <- function(study) {
 #'
 #' Output results specified in the json file
 #'
-#' @param study A study list object created with pipeline()
+#' @param study A study list object with class reg_study
 #' @param digits integer indicating the number of decimal places.
 #' @return The study object
 #'
@@ -540,7 +540,7 @@ output_results <- function(study, digits = 3) {
 #'
 #' Output analysis plan specified in the json file
 #'
-#' @param study A study list object created with pipeline()
+#' @param study A study list object with class reg_study
 #' @return The study object
 #'
 #' @export
