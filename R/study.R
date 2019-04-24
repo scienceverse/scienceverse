@@ -3,6 +3,7 @@
 #' Create or load a study object
 #'
 #' @param name The name of the study or a file path to a json file
+#' @param ... further arguments to add
 #' @return A study object with class reg_study
 #' @examples
 #'
@@ -10,7 +11,7 @@
 #'
 #' @export
 #'
-study <- function(name = "Demo Study") {
+study <- function(name = "Demo Study", ...) {
   if (grep("\\.json$", name) && file.exists(name)) {
     study <- jsonlite::read_json(name)
 
@@ -35,12 +36,15 @@ study <- function(name = "Demo Study") {
       }
     }
   } else {
-    study <- list(
-      name = name,
-      hypotheses = list(),
-      methods = list(),
-      data = list(),
-      analyses = list()
+    study <- c(
+      list(name = name),
+      list(...),
+      list(
+        hypotheses = list(),
+        methods = list(),
+        data = list(),
+        analyses = list()
+      )
     )
   }
 

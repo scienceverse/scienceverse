@@ -4,10 +4,12 @@
 \alias{study}
 \title{Study}
 \usage{
-study(name = "Demo Study")
+study(name = "Demo Study", ...)
 }
 \arguments{
 \item{name}{The name of the study or a file path to a json file}
+
+\item{...}{further arguments to add}
 }
 \value{
 A study object with class reg_study
