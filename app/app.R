@@ -29,7 +29,7 @@ hypo_tab <- tabItem(
   h3("Hypotheses"),
   textInput("hypo_id", "Hypothesis ID", "Hypothesis 1", "100%"),
   textAreaInput("hypo_description", "Hypothesis Description", "", "100%"),
-  selectInput("hypo_evaluation", "Evaluation", c("&", "|"), "&"),
+  selectInput("hypo_evaluation", "Evaluation", c("All criteria must be true" = "&", "At least one criterion must be true" = "|"), "&"),
   h4("Criteria"),
 
   fluidRow(
@@ -163,8 +163,7 @@ server <- function(input, output, session) {
 
     if (!is.null(input$data_file)) {
       data <- rio::import(input$data_file$datapath)
-      study <- add_data(study, data) %>%
-        study_analyse()
+      study <- add_data(study, data)
     }
 
     study_json(study)
