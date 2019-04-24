@@ -352,33 +352,16 @@ study_analyze <- study_analyse
 #'
 #' @export
 #'
-study_save <- function(study, filename = "study.json", data_values = TRUE) {
-  # make a copy to modify for JSON format
-  json_study <- study
+study_save <- function(study,
+                       filename = "study.json",
+                       data_values = TRUE) {
 
   if (!length(grep("\\.json$", filename))) {
     # add .json extension if not already specified
     filename <- paste0(filename, ".json")
   }
 
-  n_data <- length(json_study$data)
-  if (n_data > 0) {
-    for (i in 1:n_data) {
-      # remove data frame
-      json_study$data[[i]]$data <- NULL
-
-      n_vars <- length(json_study$data[[i]]$variableMeasured)
-      if (!data_values && n_vars > 0) {
-        for (j in 1:n_vars) {
-          json_study$data[[i]]$variableMeasured$values <- NULL
-        }
-      }
-    }
-  }
-
-  json_study %>%
-    jsonlite::toJSON(auto_unbox = TRUE) %>%
-    jsonlite::prettify(indent = 2) %>%
+  study_json(study, data_values) %>%
     writeLines(filename)
 
   invisible(study)
@@ -573,4 +556,42 @@ output_analyses <- function(study) {
   invisible(study)
 }
 
+#' Study Object to JSON strong
+#'
+#' Convert a study object to a JSON string
+#'
+#' @param study A study list object with class reg_study
+#' @param data_values Whether to include data values in the JSON file (defaults to TRUE)
+#' @return A prettified JSON string
+#' @export
+#'
+study_json <- function (study, data_values = TRUE) {
+  n_data <- length(study$data)
+  if (n_data > 0) {
+    for (i in 1:n_data) {
+      # remove data frame
+      study$data[[i]]$data <- NULL
+
+      n_vars <- length(study$data[[i]]$variableMeasured)
+      if (!data_values && n_vars > 0) {
+        for (j in 1:n_vars) {
+          study$data[[i]]$variableMeasured$values <- NULL
+        }
+      }
+    }
+  }
+
+  study %>%
+    jsonlite::toJSON(auto_unbox = TRUE) %>%
+    jsonlite::prettify(4) %>%
+    # collapse empty brackets
+    gsub("\\[\\s*\\]", "\\[\\]", .) %>%
+    gsub("\\{\\s*\\}", "\\{\\}", .) %>%
+    # collapse short string arrays
+    #gsub('"(.{0,5})",\\s*"(.{0,5})"', '"\\1", "\\2"', ., perl = TRUE) %>%
+    # collapse numeric arrays
+    gsub('(?<=\\d)\\s*,\\s*(?=(\\-?\\.?\\d))', ', ', ., perl = TRUE) %>%
+    gsub("\\[\\s+(?=(\\-?\\.?\\d))", "\\[", ., perl = TRUE) %>%
+    gsub("(?<=\\d)\\s+\\]", "\\]", ., perl = TRUE)
+}
 

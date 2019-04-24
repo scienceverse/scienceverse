@@ -156,8 +156,7 @@ server <- function(input, output, session) {
       study <- add_data(study, data)
     }
 
-    jsonlite::toJSON(study, auto_unbox = TRUE) %>%
-      jsonlite::prettify()
+    study_json(study)
   })
 
   ### output$param_table ----

@@ -1,0 +1,28 @@
+```{r, results='asis'}
+
+text <- '{
+    "a": "apple",
+    "b": "banana",
+    "c": [
+        "carrot",
+        "cake",
+        "carrot \"cake\"",
+        "cucumber"
+    ],
+    "d": [
+      "dragon fruit",
+      "durum",
+      "diet coke"
+    ]
+}'
+
+start_bracket <- '(?<=\\[)\\s*'
+end_bracket <- '\\s*(?=\\])'
+item <- '(".{0,20}?")'
+items <- paste0('(', item, '\\s*,\\s*)*')
+
+pattern <- paste0(start_bracket, items, item, end_bracket)
+
+gsub(pattern, '\\2, \\3', text, perl = T) %>% cat()
+```
+
