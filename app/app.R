@@ -10,17 +10,28 @@ options("scipen"=10, "digits"=4)
 
 ## Functions ----
 
+makeReactiveTrigger <- function() {
+  rv <- reactiveValues(a = 0)
+  list(
+    depend = function() {
+      rv$a
+      invisible()
+    },
+    trigger = function() {
+      rv$a <- isolate(rv$a + 1)
+    }
+  )
+}
+
 
 ## Interface Tab Items ----
 
-### start_tab ----
-start_tab <- tabItem(
-  tabName = "start_tab",
-  h3("Getting Started"),
+### study_tab ----
+study_tab <- tabItem(
+  tabName = "study_tab",
+  h3("Study Info"),
   textInput("study_name", "Study Name", "", "100%"),
-  textAreaInput("study_description", "Study Description", "", "100%"),
-  h3("JSON Text"),
-  verbatimTextOutput("json_text")
+  textAreaInput("study_description", "Study Description", "", "100%")
 )
 
 ### hypo_tab ----
@@ -52,6 +63,7 @@ meth_tab <- tabItem(
 data_tab <- tabItem(
   tabName = "data_tab",
   h3("Data"),
+  textInput("data_id", "Data ID", "Data 1", "100%"),
   fileInput("data_file", "Upload Data"),
   tableOutput("data_table")
 )
@@ -64,33 +76,33 @@ anal_tab <- tabItem(
   selectInput("anal_func", "Test Function",
               c("t.test",
                 "cor.test",
-                "effect_size_d_paired",
                 "custom")),
+  hidden(textAreaInput("anal_code", "Custom Analysis Function", "", "100%")),
   h4("Parameters"),
   DTOutput("param_table"),
   actionButton("add_param", "Add Parameter", icon("plus")),
-  textAreaInput("anal_code", "Custom Analysis Function", "", "100%"),
   actionButton("add_analysis", "Add Analysis", icon("plus"))
 )
 
-### about_tab ----
-about_tab <- tabItem(
-  tabName = "about_tab",
-  h3("About this App"),
-  p("Stuff about this")
+### json_tab ----
+json_tab <- tabItem(
+  tabName = "json_tab",
+  h3("JSON Text"),
+  verbatimTextOutput("json_text")
 )
+
 
 ## UI ----
 ui <- dashboardPage(
   dashboardHeader(title = "Reg"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Start", tabName = "start_tab"),
+      menuItem("Study Info", tabName = "study_tab"),
       menuItem("Hypotheses", tabName = "hypo_tab"),
       #menuItem("Methods", tabName = "meth_tab"),
       menuItem("Data", tabName = "data_tab"),
       menuItem("Analysis", tabName = "anal_tab"),
-      menuItem("About", tabName = "about_tab")
+      menuItem("JSON", tabName = "json_tab")
     )
   ),
   dashboardBody(
@@ -99,55 +111,25 @@ ui <- dashboardPage(
       tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
     ),
     tabItems(
-      start_tab,
+      study_tab,
       hypo_tab,
       #meth_tab,
       data_tab,
       anal_tab,
-      about_tab
+      json_tab
     )
-  )
-)
-
-## func.params ----
-func.params <- list(
-  t.test = list(
-    x = ".data[1]$x",
-    y = ".data[1]$y",
-    alternative = "two.sided",
-    mu = 0,
-    paired = FALSE,
-    var.equal = FALSE,
-    conf.level = 0.95
-  ),
-  cor.test = list(
-    x = ".data1[1]$x",
-    y = ".data[1]$y",
-    alternative = "two.sided",
-    method = "pearson",
-    conf.level = 0.95
   )
 )
 
 ## server ----
 server <- function(input, output, session) {
-  ### add_hypothesis ----
-  observeEvent(input$add_hypo, {
+  # trigger to call reactive functions programmatically
+  myTrigger <- makeReactiveTrigger()
 
-  })
-
-  ### output$data_table ----
-  output$data_table <- renderTable({
-    req(input$data_file)
-
-    data <- rio::import(input$data_file$datapath)
-
-    data
-  })
-
-  ### output$json_text  ----
-  output$json_text <- renderText({
-    study <- study(input$study_name, description = input$study_description) %>%
+  # myStudy ----
+  myStudy <- reactive({
+    study <- study(input$study_name,
+                   description = input$study_description) %>%
       add_hypothesis(input$hypo_description,
                      input$hypo_evaluation,
                      input$hypo_id) %>%
@@ -162,27 +144,76 @@ server <- function(input, output, session) {
                     input$anal_id)
 
     if (!is.null(input$data_file)) {
-      data <- rio::import(input$data_file$datapath)
-      study <- add_data(study, data)
+      study <- add_data(study, loadedData(), input$data_id)
     }
 
-    study_json(study)
+    study
+  })
+
+  # loadedData ----
+  loadedData <- reactive({
+    req(input$data_file)
+    rio::import(input$data_file$datapath)
+  })
+
+  ### output$data_table ----
+  output$data_table <- renderTable({
+    loadedData()
+  })
+
+  ### output$json_text  ----
+  output$json_text <- renderText({
+    myStudy() %>% study_json()
+  })
+
+  ## func.params ----
+  func.params <- list(
+    t.test = list(
+      x = ".data[1]$x",
+      y = ".data[1]$y",
+      alternative = "two.sided",
+      mu = 0,
+      paired = FALSE,
+      var.equal = FALSE,
+      conf.level = 0.95
+    ),
+    cor.test = list(
+      x = ".data1[1]$x",
+      y = ".data[1]$y",
+      alternative = "two.sided",
+      method = "pearson",
+      conf.level = 0.95
+    ),
+    custom = list(
+      data = ".data[1]"
+    )
+  )
+
+  # param_table ----
+  param_table <- reactive({
+    myTrigger$depend()
+
+    if (input$anal_func == "custom") {
+      show("anal_code")
+    } else {
+      hide("anal_code")
+    }
+
+    func.params[[input$anal_func]] %>%
+      as.data.frame() %>% t() %>%
+      tibble::as_tibble(rownames = "parameter") %>%
+      rename("value" = "V1")
   })
 
   param_table_proxy <- dataTableProxy('param_table')
 
   ### output$param_table ----
   output$param_table <- renderDataTable({
-    param_table <- data.frame(
-      parameter = func.params[[input$anal_func]] %>% names(),
-      value = func.params[[input$anal_func]] %>% unlist() %>% unname(),
-      stringsAsFactors = FALSE
-    )
-
-    datatable(param_table, editable = TRUE, rownames = T)
+    datatable(param_table(), editable = TRUE,
+              rownames = T, options = list())
   })
 
-
+  # param_table_cell_edit ----
   observeEvent(input$param_table_cell_edit, {
     info = input$param_table_cell_edit
     str(info)
@@ -191,14 +222,10 @@ server <- function(input, output, session) {
     } else if (info$col == 2) {
       func.params[[input$anal_func]][info$row] <<- info$value
     }
+    myTrigger$trigger() # update param_table()
 
-    param_table <- data.frame(
-      parameter = func.params[[input$anal_func]] %>% names(),
-      value = func.params[[input$anal_func]] %>% unlist() %>% unname(),
-      stringsAsFactors = FALSE
-    )
-
-    replaceData(param_table_proxy, param_table, resetPaging = FALSE)  # important
+    replaceData(param_table_proxy, param_table(),
+                resetPaging = FALSE)  # important
   })
 } # end server()
 
