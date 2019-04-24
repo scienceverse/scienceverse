@@ -131,6 +131,10 @@ func.params <- list(
 
 ## server ----
 server <- function(input, output, session) {
+  ### add_hypothesis ----
+  observeEvent(input$add_hypo, {
+
+  })
 
   ### output$data_table ----
   output$data_table <- renderTable({
@@ -150,23 +154,52 @@ server <- function(input, output, session) {
       add_analysis(input$anal_func,
                    func.params[[input$anal_func]],
                    input$anal_code,
-                   input$anal_id)
+                   input$anal_id) %>%
+      add_criterion(input$hypo_result,
+                    input$hypo_operator,
+                    input$hypo_comparator,
+                    input$hypo_id,
+                    input$anal_id)
+
     if (!is.null(input$data_file)) {
       data <- rio::import(input$data_file$datapath)
-      study <- add_data(study, data)
+      study <- add_data(study, data) %>%
+        study_analyse()
     }
 
     study_json(study)
   })
 
+  param_table_proxy <- dataTableProxy('param_table')
+
   ### output$param_table ----
   output$param_table <- renderDataTable({
     param_table <- data.frame(
       parameter = func.params[[input$anal_func]] %>% names(),
-      value = func.params[[input$anal_func]] %>% unlist() %>% unname()
+      value = func.params[[input$anal_func]] %>% unlist() %>% unname(),
+      stringsAsFactors = FALSE
     )
 
     datatable(param_table, editable = TRUE, rownames = T)
+  })
+
+
+  observeEvent(input$param_table_cell_edit, {
+    info = input$param_table_cell_edit
+    str(info)
+    if (info$col == 1) {
+      names(func.params[[input$anal_func]])[info$row] <<- info$value
+    } else if (info$col == 2) {
+      func.params[[input$anal_func]][info$row] <<- info$value
+    }
+
+    param_table <- data.frame(
+      parameter = func.params[[input$anal_func]] %>% names(),
+      value = func.params[[input$anal_func]] %>% unlist() %>% unname(),
+      stringsAsFactors = FALSE
+    )
+
+    replaceData(param_table_proxy, param_table, resetPaging = FALSE)  # important
   })
 } # end server()
 
