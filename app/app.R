@@ -143,7 +143,7 @@ server <- function(input, output, session) {
 
   ### output$json_text  ----
   output$json_text <- renderText({
-    study <- study(input$study_name, input$study_description) %>%
+    study <- study(input$study_name, description = input$study_description) %>%
       add_hypothesis(input$hypo_description,
                      input$hypo_evaluation,
                      input$hypo_id) %>%
