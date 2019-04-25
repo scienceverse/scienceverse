@@ -1,5 +1,4 @@
-```{r, results='asis'}
-
+```{r}
 text <- '{
     "a": "apple",
     "b": "banana",
@@ -13,8 +12,16 @@ text <- '{
       "dragon fruit",
       "durum",
       "diet coke"
+    ],
+    "e": [
+      "eggplant"
     ]
 }'
+```
+
+
+
+```{r, results='asis'}
 
 start_bracket <- '(?<=\\[)\\s*'
 end_bracket <- '\\s*(?=\\])'

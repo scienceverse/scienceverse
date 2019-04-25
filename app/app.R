@@ -8,21 +8,7 @@ library(dplyr)
 library(tidyr)
 options("scipen"=10, "digits"=4)
 
-## Functions ----
-
-makeReactiveTrigger <- function() {
-  rv <- reactiveValues(a = 0)
-  list(
-    depend = function() {
-      rv$a
-      invisible()
-    },
-    trigger = function() {
-      rv$a <- isolate(rv$a + 1)
-    }
-  )
-}
-
+source("R/utils.R")
 
 ## Interface Tab Items ----
 
@@ -123,9 +109,6 @@ ui <- dashboardPage(
 
 ## server ----
 server <- function(input, output, session) {
-  # trigger to call reactive functions programmatically
-  myTrigger <- makeReactiveTrigger()
-
   # myStudy ----
   myStudy <- reactive({
     study <- study(input$study_name,
@@ -189,9 +172,12 @@ server <- function(input, output, session) {
     )
   )
 
+  # trigger to call reactive functions programmatically
+  paramTrigger <- makeReactiveTrigger()
+
   # param_table ----
   param_table <- reactive({
-    myTrigger$depend()
+    paramTrigger$depend()
 
     if (input$anal_func == "custom") {
       show("anal_code")
@@ -222,7 +208,7 @@ server <- function(input, output, session) {
     } else if (info$col == 2) {
       func.params[[input$anal_func]][info$row] <<- info$value
     }
-    myTrigger$trigger() # update param_table()
+    paramTrigger$trigger() # update param_table()
 
     replaceData(param_table_proxy, param_table(),
                 resetPaging = FALSE)  # important
