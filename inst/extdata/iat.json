@@ -1,0 +1,351 @@
+{
+  "name": "IAT Example",
+  "hypotheses": [
+    {
+      "desc": "Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.",
+      "criteria": [
+        {
+          "analysis": "H1_ttest",
+          "result": "p.value",
+          "direction": "<",
+          "comparator": 0.05
+        },
+        {
+          "analysis": "H1_ttest",
+          "result": "estimate",
+          "direction": ">",
+          "comparator": 0
+        }
+      ],
+      "evaluation": "&"
+    },
+    {
+      "desc": "Reaction times for congruent and incongruent trials will be signifiantly and positively correlated.",
+      "criteria": [
+        {
+          "analysis": "H2_cor",
+          "result": "p.value",
+          "direction": "<",
+          "comparator": 0.05
+        },
+        {
+          "analysis": "H2_cor",
+          "result": "estimate",
+          "direction": ">",
+          "comparator": 0
+        }
+      ],
+      "evaluation": "&"
+    }
+  ],
+  "methods": [
+
+  ],
+  "data": [
+    {
+      "name": "IAT Data",
+      "description": "This is an example dataset for pipeline",
+      "schemaVersion": "Psych-DS 0.1.0",
+      "variableMeasured": [
+        {
+          "unitText": "Subject ID",
+          "name": "sub_id",
+          "description": "Identity of each subject. Provides a unique rowid in this dataset.",
+          "naValues": "NA"
+        },
+        {
+          "unitText": "Congruent RT",
+          "name": "congruent",
+          "description": "The mean reaction time to congruent trials, in milliseconds",
+          "minValue": "0",
+          "naValues": "NA"
+        },
+        {
+          "unitText": "Incongruent RT",
+          "name": "incongruent",
+          "description": "The mean reaction time to incongruent trials, in milliseconds",
+          "minValue": "0",
+          "naValues": "NA"
+        }
+      ],
+      "data": [
+        {
+          "congruent": 453.7517,
+          "incongruent": 1030.0338,
+          "sub_id": 1
+        },
+        {
+          "congruent": 664.8711,
+          "incongruent": 711.544,
+          "sub_id": 2
+        },
+        {
+          "congruent": 539.218,
+          "incongruent": 515.5828,
+          "sub_id": 3
+        },
+        {
+          "congruent": 357.8091,
+          "incongruent": 871.8627,
+          "sub_id": 4
+        },
+        {
+          "congruent": 20.9951,
+          "incongruent": 467.2604,
+          "sub_id": 5
+        },
+        {
+          "congruent": 239.3013,
+          "incongruent": 294.526,
+          "sub_id": 6
+        },
+        {
+          "congruent": 448.9923,
+          "incongruent": 674.8044,
+          "sub_id": 7
+        },
+        {
+          "congruent": -118.3959,
+          "incongruent": 497.6184,
+          "sub_id": 8
+        },
+        {
+          "congruent": 714.0074,
+          "incongruent": 366.523,
+          "sub_id": 9
+        },
+        {
+          "congruent": 1.9942,
+          "incongruent": 884.708,
+          "sub_id": 10
+        },
+        {
+          "congruent": 470.0017,
+          "incongruent": 648.379,
+          "sub_id": 11
+        },
+        {
+          "congruent": 779.7144,
+          "incongruent": 927.8243,
+          "sub_id": 12
+        },
+        {
+          "congruent": 594.6144,
+          "incongruent": 711.3358,
+          "sub_id": 13
+        },
+        {
+          "congruent": 498.6404,
+          "incongruent": 921.7579,
+          "sub_id": 14
+        },
+        {
+          "congruent": 860.1922,
+          "incongruent": 980.8939,
+          "sub_id": 15
+        },
+        {
+          "congruent": 638.4687,
+          "incongruent": 1081.1876,
+          "sub_id": 16
+        },
+        {
+          "congruent": 268.6664,
+          "incongruent": 1109.8646,
+          "sub_id": 17
+        },
+        {
+          "congruent": 791.0463,
+          "incongruent": 1168.8471,
+          "sub_id": 18
+        },
+        {
+          "congruent": 842.9797,
+          "incongruent": 1177.1736,
+          "sub_id": 19
+        },
+        {
+          "congruent": -90.2622,
+          "incongruent": 402.3572,
+          "sub_id": 20
+        },
+        {
+          "congruent": 556.3847,
+          "incongruent": 621.3136,
+          "sub_id": 21
+        },
+        {
+          "congruent": 922.9804,
+          "incongruent": 1041.2616,
+          "sub_id": 22
+        },
+        {
+          "congruent": 540.6809,
+          "incongruent": 641.6588,
+          "sub_id": 23
+        },
+        {
+          "congruent": 354.8669,
+          "incongruent": 514.8879,
+          "sub_id": 24
+        },
+        {
+          "congruent": 495.085,
+          "incongruent": 685.2253,
+          "sub_id": 25
+        },
+        {
+          "congruent": 667.2034,
+          "incongruent": 712.983,
+          "sub_id": 26
+        },
+        {
+          "congruent": 390.2977,
+          "incongruent": 846.9954,
+          "sub_id": 27
+        },
+        {
+          "congruent": 730.753,
+          "incongruent": 910.235,
+          "sub_id": 28
+        },
+        {
+          "congruent": 415.2245,
+          "incongruent": 475.6714,
+          "sub_id": 29
+        },
+        {
+          "congruent": 261.6683,
+          "incongruent": 683.7038,
+          "sub_id": 30
+        },
+        {
+          "congruent": 509.1108,
+          "incongruent": 946.4023,
+          "sub_id": 31
+        },
+        {
+          "congruent": 379.2606,
+          "incongruent": 256.2548,
+          "sub_id": 32
+        },
+        {
+          "congruent": 703.1267,
+          "incongruent": 1265.3775,
+          "sub_id": 33
+        },
+        {
+          "congruent": 768.7281,
+          "incongruent": 1121.8472,
+          "sub_id": 34
+        },
+        {
+          "congruent": 530.052,
+          "incongruent": 703.7566,
+          "sub_id": 35
+        },
+        {
+          "congruent": 475.7688,
+          "incongruent": 1017.0225,
+          "sub_id": 36
+        },
+        {
+          "congruent": 647.5839,
+          "incongruent": 643.9025,
+          "sub_id": 37
+        },
+        {
+          "congruent": 1154.48,
+          "incongruent": 830.6478,
+          "sub_id": 38
+        },
+        {
+          "congruent": 981.9162,
+          "incongruent": 1034.704,
+          "sub_id": 39
+        },
+        {
+          "congruent": 378.9843,
+          "incongruent": 619.592,
+          "sub_id": 40
+        },
+        {
+          "congruent": 482.0366,
+          "incongruent": 589.6375,
+          "sub_id": 41
+        },
+        {
+          "congruent": 61.3728,
+          "incongruent": 1213.6385,
+          "sub_id": 42
+        },
+        {
+          "congruent": 531.056,
+          "incongruent": 992.1186,
+          "sub_id": 43
+        },
+        {
+          "congruent": 828.1786,
+          "incongruent": 1201.1445,
+          "sub_id": 44
+        },
+        {
+          "congruent": 302.2326,
+          "incongruent": 1223.3157,
+          "sub_id": 45
+        },
+        {
+          "congruent": 679.2238,
+          "incongruent": 496.2488,
+          "sub_id": 46
+        },
+        {
+          "congruent": 755.6263,
+          "incongruent": 688.9633,
+          "sub_id": 47
+        },
+        {
+          "congruent": 238.6784,
+          "incongruent": 573.1297,
+          "sub_id": 48
+        },
+        {
+          "congruent": 507.4308,
+          "incongruent": 739.0803,
+          "sub_id": 49
+        },
+        {
+          "congruent": 797.5004,
+          "incongruent": 1342.6433,
+          "sub_id": 50
+        }
+      ]
+    }
+  ],
+  "analyses": [
+    {
+      "name": "H1_ttest",
+      "func": "t.test",
+      "params": {
+        "x": ".data$incongruent",
+        "y": ".data$congruent",
+        "alternative": "two.sided",
+        "paired": true,
+        "var.equal": false,
+        "conf.level": 0.95
+      }
+    },
+    {
+      "name": "H2_cor",
+      "func": "cor.test",
+      "params": {
+        "x": ".data$congruent",
+        "y": ".data$incongruent",
+        "alternative": "two.sided",
+        "method": "pearson",
+        "conf.level": 0.95
+      }
+    }
+  ]
+}
+

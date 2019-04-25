@@ -1,0 +1,36 @@
+{
+  "name": "Apathy Depression Example",
+  "hypotheses": [
+    {
+      "desc": "The correlation between the apathy and depression scale is smaller than 0.3",
+      "criteria": [
+        {
+          "test": "eq_test_r",
+          "result": "TOST_p2",
+          "direction": "<",
+          "comparator": 0.01
+        }
+      ],
+      "evaluation": "&"
+    }
+  ],
+  "methods": [
+
+  ],
+  "data": [
+
+  ],
+  "analysis": {
+    "eq_test_r": {
+      "test": "TOSTr",
+      "params": {
+        "n": 460,
+        "r": 0.11,
+        "low_eqbound_r": -1,
+        "high_eqbound_r": 0.3,
+        "alpha": 0.05
+      }
+    }
+  }
+}
+

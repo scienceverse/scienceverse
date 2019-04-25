@@ -190,13 +190,26 @@ add_analysis <- function(study,
 #' @export
 #'
 add_data <- function(study, data = NULL, id = NULL) {
+  d <- list(id = id)
+
   if (is.character(data)) {
-    if (!file.exists(data))
-        stop("The file ", data, " does not exist.")
+    if (!file.exists(data)) {
+      warning("The file ", data, " does not exist.")
+      return(invisible(study))
+    }
+
+    accepted_ext <- c("csv", "xls", "xlsx", "txt", "tsv", "sav")
 
     filename <- data
-
-    data <- rio::import(filename)
+    ext <- strsplit(basename(filename), split="\\.")[[1]][-1]
+    if (ext == "json") {
+      json <- jsonlite::read_json(filename)
+      d <- c(d, json)
+    } else if (ext %in% accepted_ext) {
+      data <- rio::import(filename)
+    } else {
+      warning("The ", ext, " format is not supported.\nPlease add data in one of the following formats: ", paste(accepted_ext, collapse = ", "))
+    }
   }
 
   vm <- list()
@@ -217,15 +230,14 @@ add_data <- function(study, data = NULL, id = NULL) {
         vm[[i]]$maxValue <- max(data[[i]], na.rm = TRUE)
       }
     }
+    d <- list(
+      id = id,
+      "@type" = "Dataset",
+      schemaVersion = "Psych-DS 0.1.0",
+      variableMeasured = vm,
+      data = data
+    )
   }
-
-  d <- list(
-    id = id,
-    "@type" = "Dataset",
-    schemaVersion = "Psych-DS 0.1.0",
-    variableMeasured = vm,
-    data = as.data.frame(data)
-  )
 
   class(d) <- c("reg_study_data", "list")
 

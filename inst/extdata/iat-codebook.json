@@ -1,0 +1,52 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "Dataset",
+  "name": "IAT Data",
+  "description": "This is an example dataset for pipeline",
+  "schemaVersion": "Psych-DS 0.1.0",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Lisa DeBruine",
+      "email": "debruine@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "name": "Daniel Lakens",
+      "email": "lakens@gmail.com"
+    }
+  ],
+  "citation": "DeBruine & Lakens (2019). Not a real paper, No Journal, p. 1-2.",
+  "sameAs": "https://doi.org/doi-goes-here",
+  "temporalCoverage": "2019-04-16/2019-04-20",
+  "keywords": [
+    "iat",
+    "pipeline",
+    "example"
+  ],
+  "variableMeasured": [
+    {
+      "type": "PropertyValue",
+      "unitText": "Subject ID",
+      "name": "sub_id",
+      "description": "Identity of each subject. Provides a unique rowid in this dataset.",
+      "naValues": "NA"
+    },
+    {
+      "type": "PropertyValue",
+      "unitText": "Congruent RT",
+      "name": "congruent",
+      "description": "The mean reaction time to congruent trials, in milliseconds",
+      "minValue": "0",
+      "naValues": "NA"
+    },
+    {
+      "type": "PropertyValue",
+      "unitText": "Incongruent RT",
+      "name": "incongruent",
+      "description": "The mean reaction time to incongruent trials, in milliseconds",
+      "minValue": "0",
+      "naValues": "NA"
+    }
+  ]
+}
