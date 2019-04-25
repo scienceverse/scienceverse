@@ -190,6 +190,15 @@ add_analysis <- function(study,
 #' @export
 #'
 add_data <- function(study, data = NULL, id = NULL) {
+  if (is.character(data)) {
+    if (!file.exists(data))
+        stop("The file ", data, " does not exist.")
+
+    filename <- data
+
+    data <- rio::import(filename)
+  }
+
   vm <- list()
   if (is.data.frame(data)) {
     # get variableMeasured list from table structure
@@ -209,6 +218,7 @@ add_data <- function(study, data = NULL, id = NULL) {
       }
     }
   }
+
   d <- list(
     id = id,
     "@type" = "Dataset",

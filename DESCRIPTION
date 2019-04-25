@@ -20,7 +20,8 @@ Imports:
     magrittr,
     jsonlite,
     faux (>= 0.0.0.9003),
-    rmarkdown
+    rmarkdown,
+    rio
 Suggests: 
     testthat,
     knitr
