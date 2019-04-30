@@ -8,7 +8,7 @@ The goal of reg is to generate and process machine-readable study descriptions.
 Installation
 ------------
 
-You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/reg) with:
+You can install reg from [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
 devtools::install_github("scienceverse/reg")
@@ -59,15 +59,11 @@ study_save(iris_study, "iris.json")
 ``` r
 # generate a post-registration report
 study_report(iris_study, "postreg", "postreg.html")
-#> Saving to/Users/lisad/rproj/scienceverse/reg/postreg.html
 ```
 
 ``` r
 # output sections of the report
-iris_study %>%
-  output_hypotheses() %>%
-  output_analyses() %>%
-  output_results()
+output_hypotheses(iris_study) 
 ```
 
 Hypotheses
@@ -81,24 +77,13 @@ Petal length and width will be significantly correlated
 
 If all criteria are met, this hypothesis is supported.
 
-Analyses
---------
+``` r
+output_analyses(iris_study) 
+```
 
-### 
-
-We will run `cor.test(x = .data[1]$Petal.Length, y = .data[1]$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
-
-Results
--------
-
-### Hypothesis 1
-
-Petal length and width will be significantly correlated
-
--   Criterion 1 was p.value &lt; 0.05 in analysis 1.
-    The result was p.value = 0
-
-**Conclusion**: Congratulations! All criteria were met, this hypothesis was supported.
+``` r
+output_results(iris_study)
+```
 
 Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.
 

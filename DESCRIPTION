@@ -1,15 +1,17 @@
 Package: reg
 Title: Machine-Readable Study Descriptions
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Daniel",
-           family = "Lakens",
-           role = c("aut", "cre"),
-           email = "lakens@gmail.com")
-    person(given = "Lisa",
+Authors@R: c(
+  person(given = "Lisa",
            family = "DeBruine",
            role = c("aut", "cre"),
-           email = "debruine@gmail.com")
+           email = "debruine@gmail.com",
+           comment = c(ORCID = "0000-0002-7523-5539")),
+    person(given = "Daniel",
+           family = "Lakens",
+           role = c("aut"),
+           email = "lakens@gmail.com",
+           comment = c(ORCID = "0000-0002-0247-239X")))
 Description: Generate and process machine-readable study descriptions.
 License: MIT + file LICENSE
 Encoding: UTF-8

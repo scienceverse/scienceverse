@@ -4,7 +4,7 @@ author: "Lisa DeBruine & Daniel Lakens"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Registration Demo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -112,7 +112,7 @@ mystudy <- add_criterion(
 study_save(mystudy, "iat.json")
 ```
 
-```{r}
+```{r, eval = FALSE}
 # generate pre-registration report
 study_report(mystudy, template="prereg", filename = "prereg")
 ```
@@ -136,7 +136,7 @@ mystudy <- add_data(mystudy, dat)
 mystudy <- study_analyse(mystudy)
 ```
 
-```{r}
+```{r, eval = FALSE}
 # generate post-registration report
 study_report(mystudy, template="postreg", filename = "postreg")
 ```
@@ -215,7 +215,7 @@ mystudy <- study("IAT Demo")  %>%
   study_analyse()
 ```
 
-```{r}
+```{r, eval = FALSE}
 mystudy %>%
   study_report(template="prereg", filename = "pre") %>%
   study_report(template="postreg", filename = "post")

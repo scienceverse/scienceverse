@@ -524,7 +524,7 @@ output_results <- function(study, digits = 3) {
     conclusion <- study$hypotheses[[i]]$conclusion
     if (eval %in% c("&", "and")) {
       if (conclusion) {
-        cat("Congratulations! All criteria were met, this hypothesis was supported.")
+        cat("All criteria were met, this hypothesis was supported.")
       } else {
         cat("All criteria were not met, this hypothesis was not supported.")
       }

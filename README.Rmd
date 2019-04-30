@@ -12,13 +12,14 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # reg
 
 The goal of reg is to generate and process machine-readable study descriptions.
 
 ## Installation
 
-You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/reg) with:
+You can install reg from [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
 devtools::install_github("scienceverse/reg")
@@ -64,17 +65,22 @@ iris_study <- study_analyse(iris_study)
 study_save(iris_study, "iris.json")
 ```
 
-```{r}
+```{r, eval = FALSE}
 # generate a post-registration report
 study_report(iris_study, "postreg", "postreg.html")
 ```
 
-```{r, results='asis'}
+```{r hypo, results='asis'}
 # output sections of the report
-iris_study %>%
-  output_hypotheses() %>%
-  output_analyses() %>%
-  output_results()
+output_hypotheses(iris_study) 
+```
+
+```{r analyses, results='asis'}
+output_analyses(iris_study) 
+```
+
+```{r results, results='asis'}
+output_results(iris_study)
 ```
 
 
