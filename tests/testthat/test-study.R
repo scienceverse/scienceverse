@@ -17,3 +17,39 @@ test_that("study with name", {
 
   expect_equal(s$name, "Test Name")
 })
+
+test_that("study from json", {
+  mean_abs_diff <- function(x, y) {
+    (x - y) %>%
+      abs() %>%
+      mean() %>%
+      magrittr::set_names("mean_abs_diff") %>%
+      as.list()
+  }
+
+  s <- study() %>%
+    add_analysis("mean_abs_diff", list(
+      x = ".data[1]$Petal.Width",
+      y = ".data[1]$Petal.Length"
+    ), mean_abs_diff)
+
+  # remove function to force load from code
+  study_save(s, "test.json")
+  rm(mean_abs_diff)
+  s2 <- study("test.json")
+  file.remove("test.json")
+})
+
+test_that("study from json - error", {
+  s <- study() %>%
+    add_analysis("not_there", list(
+      x = ".data[1]$Petal.Width",
+      y = ".data[1]$Petal.Length"
+    ))
+
+  # remove function to force load from code
+  study_save(s, "test.json")
+  expect_error(study("test.json"), "The function not_there in analysis 1 is not defined")
+
+  file.remove("test.json")
+})

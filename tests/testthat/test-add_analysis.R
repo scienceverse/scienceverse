@@ -13,14 +13,13 @@ test_that("defaults", {
 
 test_that("set values", {
   params <- list(data = ".data")
-  code <- "m <- function(data) { mean(data[[1]]) }"
   s <- study() %>%
-    add_analysis("m", params, code, "A1")
+    add_analysis("t.test", params, id= "A1")
 
   expect_equal(s$analyses[[1]]$id, "A1")
-  expect_equal(s$analyses[[1]]$func, "m")
+  expect_equal(s$analyses[[1]]$func, "t.test")
   expect_equal(s$analyses[[1]]$params, params)
-  expect_equal(s$analyses[[1]]$code, code)
+  expect_null(s$analyses[[1]]$code)
 })
 
 # custom ----
@@ -45,4 +44,12 @@ test_that("custom", {
   expect_equal(s$analyses[[1]]$params %>% names(), c("x", "y"))
   expect_equal(s$analyses[[1]]$params$x, ".data[1]$Petal.Width")
   expect_equal(s$analyses[[1]]$params$y, ".data[1]$Petal.Length")
+
+  study_save(s, "demotext.json")
+  rm(mean_abs_diff)
+  study <- study("demotext.json")
+  file.remove("demotext.json")
+
+  expect_true(exists("mean_abs_diff"))
+  expect_true(is.function(mean_abs_diff))
 })

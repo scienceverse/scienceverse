@@ -1,5 +1,49 @@
 context("test-study_analyse")
 
+# errors ----
+test_that("errors", {
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("wrong_test", list(
+      x = ".data[1]$Petal.Width",
+      y = ".data[1]$Petal.Length"
+    )) %>%
+    add_criterion(
+      result = "p.value",
+      operator = "<",
+      comparator = 0.05) %>%
+    add_data(iris)
+
+    if (exists("wrong_test")) rm(wrong_test)
+    expect_error(study_analyse(s), "The function wrong_test in analysis 1 is not defined")
+
+    wrong_test <- "string"
+    expect_error(study_analyse(s), "The function wrong_test in analysis 1 is not defined")
+})
+
+test_that("wrong_test", {
+  wrong_test <- function(x, z) {
+    sum(x) %>%
+      set_names("sum") %>%
+      as.list()
+  }
+
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("wrong_test", list(
+      x = ".data[1]$Petal.Width",
+      y = ".data[1]$Petal.Length"
+    ), wrong_test) %>%
+    add_criterion(
+      result = "p.value",
+      operator = "<",
+      comparator = 0.05) %>%
+    add_data(iris)
+
+  #expect_error(study_analyse(s), "Some arguments in analysis 1 are not in function wrong_test: z")
+})
+
+# defaults ----
 test_that("defaults", {
   s <- study() %>%
     add_hypothesis() %>%
@@ -28,6 +72,7 @@ test_that("defaults", {
   }
 })
 
+# alias ----
 test_that("alias", {
   s <- study() %>%
     add_hypothesis() %>%
@@ -51,4 +96,37 @@ test_that("alias", {
   for (name in names) {
     expect_equal(calc_res[[name]], true_res[[name]])
   }
+})
+
+# custom ----
+test_that("custom", {
+  mean_abs_diff <- function(x, y) {
+    (x - y) %>%
+      abs() %>%
+      mean() %>%
+      magrittr::set_names("mean_abs_diff") %>%
+      as.list()
+  }
+
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("mean_abs_diff", list(
+      x = ".data[1]$Petal.Width",
+      y = ".data[1]$Petal.Length"
+    ), mean_abs_diff) %>%
+    add_criterion(result = "mean_abs_diff", operator = ">", comparator = 1)
+
+  # remove function to force load from code
+  study_save(s, "demotext.json")
+  rm(mean_abs_diff)
+  s2 <- study("demotext.json") %>%
+    add_data(iris) %>%
+    study_analyse()
+  file.remove("demotext.json")
+
+  calc_res <- s2$analyses[[1]]$results
+  comp_res <- (iris$Petal.Width - iris$Petal.Length) %>%
+    abs() %>% mean()
+
+  expect_equal(calc_res$mean_abs_diff, comp_res)
 })
