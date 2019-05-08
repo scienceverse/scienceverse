@@ -1,0 +1,26 @@
+---
+title: "Registration of Statistical Hypotheses"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(pipeline)
+study <- pipeline(json_file_name)
+```
+```{r results = 'asis'}
+cat("### ", study$name, "Preregistration", sep = " ")
+
+```
+
+```{r results='asis'}
+summary(study, "hypotheses", "analyses")
+```
+
+## Exact analysis
+
+```{r}
+unlist(study$analyses[[1]]$custom_func)
+```
+

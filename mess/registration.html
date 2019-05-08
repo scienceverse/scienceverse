@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Daniel Lakens &amp; Lisa DeBruine" />
+
+<meta name="date" content="2019-04-21" />
+
+<title>Using pipeline for Registered Reports</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using pipeline for Registered Reports</h1>
+<h4 class="author">Daniel Lakens &amp; Lisa DeBruine</h4>
+<h4 class="date">2019-04-21</h4>
+
+
+
+<p>The goal of pipeline is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:</p>
+<ol style="list-style-type: decimal">
+<li>Generate a pre-registration file that specifies how each hypothesis is analyzed.</li>
+<li>Generate a post-registration file that evaluates, based on the datafile, whether running preregistered analyses on the data support the predictions.</li>
+<li>Search archival JSON files for variables, measures, and data.</li>
+<li>Automated reporting of statistical tests.</li>
+<li>Reproduce the reported results by running the analysis code on the data.</li>
+</ol>
+<p>In this working vignette we demonstrate points 1 and 2 above.</p>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>You can install the released version of pipeline from <a href="https://github.com/debruine/pipeline">GitHub</a> with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;debruine/pipeline&quot;</span>)</code></pre></div>
+</div>
+<div id="a-study-to-distinguish-apathy-from-depression" class="section level2">
+<h2>A Study to Distinguish Apathy from Depression</h2>
+<p>We plan to perform a study that tests whether apathy is distinct from depression. Apathy is defined as diminished motivation, while depression should involve emotional distress. Where earlier theoretical work has suggested apathy is part of depression, our theoretical model suggests the two should be distinct. We measure peoples apathy score using the Apathy Scale, and depression using the Depression Scale. Although we do not assume the correlation between the two measurements is exactly zero, we predict the two measurements will show a correlation that is smaller than 0.3. If so, we will take this finding as support for our prediction that apathy and depression are distinct enough, such that apathy should not be considered a part of depression.</p>
+<p>To set up the json file, it makes sense to first think about what our data will look like, and then what our statistical hypothesis is. We will collect data from two scales. We know these scales have 5 items each, we will analyze the average score for each of the two scales. We will name these columns ‘apathy’ and ‘depression’, and calculate them from the mean of the five apathy items (a1 to a5 in our dataframe) and the five depression items (d1 to d5 in our dataframe).</p>
+<p>Our statistical hypothesis is that we will interpret the data as support for our prediction when we can statistically reject effects larger than <em>r</em> = 0.3. We can do this by performing an equivalence test, and checking whether the observed correlation is statistically smaller than 0.3.</p>
+<p>We can enter all information we need to specify our hypothesis in the json fie below. H1 contains our hypothesis, with the list of criteria that need to be satisfied.</p>
+<div id="setting-up-the-json-file" class="section level3">
+<h3>Setting up the JSON file</h3>
+<p>First, in the section “H1” we describe our hypothesis as “The correlation between the apathy and depression scale is smaller than 0.3” One goal of the <code>pipeline</code> is to automate the evaluation of the prediction. A researcher specifies the prediction in the preregistration, collects the data, and pipeline can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not.</p>
+<p>Another goal of pipeline is to remove ambiguity in how hypotheses are specified. The best way to preregister a hypothesis is to write the analysis script before the data is collected. Pipeline takes this analysis script, and combines it with user defined evaluation criteria. These make it clear when a hypothesis is confirmed in the preregistration, but can also generate an automatic evaluation of the hypotheses.</p>
+<p>We define the criteria by first specifying the anaysis name <code>eq_test_r</code>. This analysis is always performed on the raw data, and returns a list. We can use any parameter in this list to evaluate the result. In this case we know we will perform an equivalence test. To specify the statistical conditions that need to be met, we look at the TOSTr function. The output value from the TOSTr function that is called TOST_p2 is the p-value against the upper bound, so when we set the upper equivalence bound to 0.3, and we check if the TOST_p2 is smaller than our alpha level, our prediction is supported.</p>
+<p>We plan to collect a large sample size of 460 people, and should have very high power for the equivalence test, and to balance our error rates, we set the alpha level to 0.01. Because we will compare our p-value to the alpha level, our comparator is the alpha level of 0.01, and our hypothesis is supported when the p-value is smaller than 0.01, and therefore we specify the direction as <code>&lt;</code>. Note that this example uses Null Hypothesis Significance Testing, but you can also make other predictions, such as a mean that is larger than some value, or any other prediction based on parameters from the analyses you perform.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">H1 &lt;-<span class="st"> </span><span class="kw">list</span>(
+  <span class="dt">desc =</span> <span class="st">&quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span>,
+  <span class="dt">criteria =</span> <span class="kw">list</span>(
+    <span class="kw">list</span>(
+      <span class="dt">analysis =</span> <span class="st">&quot;eq_test_r&quot;</span>, <span class="co"># name of the analysis specified in detail below</span>
+      <span class="dt">result =</span> <span class="st">&quot;TOST_p2&quot;</span>,     <span class="co"># parameter from the analysis named above</span>
+      <span class="dt">direction =</span> <span class="st">&quot;&lt;&quot;</span>,        <span class="co"># should the parameter be smaller or larger than the comparator?</span>
+      <span class="dt">comparator =</span> .<span class="dv">01</span>        <span class="co"># which value do we compare our parameter to?</span>
+    )
+  ),
+  <span class="dt">evaluation =</span> <span class="st">&quot;&amp;&quot;</span>
+)</code></pre></div>
+<p>We then specify our analysis. In simple cases this might just be a single test applied to the unmodified raw data. But often, some data pre-processing is needed. <code>pipeline</code> does not yet have a dedicated module for data preprocessing. For now we will preregister a single script that for our study computes the mean scores for the apathy and depression scales. To perform the equivalence test, we need the sample size and the correlation between the two scales. The pipeline package will take the parameters from the last thing that is done in your script (or, if you use an existing function, the parameters that are returned by the function).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myTOSTr &lt;-<span class="st"> </span><span class="cf">function</span>(data, low_eqbound_r, high_eqbound_r, alpha, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) {
+  <span class="co">#Data preprocessing. Calculate means of the apathy and depression score.</span>
+  data<span class="op">$</span>apathy &lt;-<span class="st"> </span>(data<span class="op">$</span>a1 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>a2 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>a3 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>a4 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>a5)<span class="op">/</span><span class="dv">5</span>
+  data<span class="op">$</span>depression &lt;-<span class="st"> </span>(data<span class="op">$</span>d1 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>d2 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>d3 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>d4 <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>d5)<span class="op">/</span><span class="dv">5</span>
+  <span class="co">#The TOSTER function needs summary statistics.</span>
+  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(data) <span class="co"># get the total sample size</span>
+  r &lt;-<span class="st"> </span><span class="kw">cor</span>(data<span class="op">$</span>apathy, data<span class="op">$</span>depression) <span class="co">#calculate the correlation between the apathy and depression scores</span>
+  <span class="co">#Perform the equivalence test</span>
+  <span class="kw">TOSTr</span>(n, r, low_eqbound_r,high_eqbound_r, alpha, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
+}</code></pre></div>
+<p>To make it possible for <code>pipeline</code> to run the analysis, we need to specify for the named <code>eq_test_r</code> which function should be run (in this case <code>myTOSTr</code> which is our custum function that loads the data, calculates mean scores, and performs the equivalence test). We pass along the parameters for the test (and these will be stored in the JSON file).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eq_test_r &lt;-<span class="st"> </span><span class="kw">list</span>(
+  <span class="dt">name =</span> <span class="st">&quot;eq_test_r&quot;</span>,
+  <span class="dt">func =</span> <span class="st">&quot;myTOSTr&quot;</span>,
+  <span class="dt">custom_func =</span> myTOSTr,
+  <span class="dt">params =</span> <span class="kw">list</span>(
+    <span class="dt">data =</span> <span class="st">&quot;.data&quot;</span>,
+    <span class="dt">low_eqbound_r =</span> <span class="op">-</span><span class="dv">1</span>,
+    <span class="dt">high_eqbound_r =</span> <span class="fl">0.3</span>,
+    <span class="dt">alpha =</span> <span class="fl">0.05</span>,
+    <span class="dt">plot =</span> <span class="ot">FALSE</span>,
+    <span class="dt">verbose =</span> <span class="ot">FALSE</span>
+  )
+)</code></pre></div>
+<p>Now we combine the lists that were created above in a single list called ‘study’.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">study &lt;-<span class="st"> </span><span class="kw">setup_pipeline_study</span>(
+  <span class="dt">name =</span> <span class="st">&quot;Apathy Depression Example&quot;</span>,
+  <span class="dt">hypotheses =</span> <span class="kw">list</span>(H1),
+  <span class="dt">methods =</span> <span class="kw">list</span>(),
+  <span class="dt">data =</span> <span class="kw">list</span>(),
+  <span class="dt">analyses =</span> <span class="kw">list</span>(eq_test_r)
+)</code></pre></div>
+<p>This <code>study</code> list of lists can be stored as a JSON file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save_pipeline</span>(study, <span class="st">&quot;apathy_depression.json&quot;</span>)</code></pre></div>
+<p>We can read back the JSON file into an R list and take a look at the structure.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">pipeline</span>(<span class="st">&quot;apathy_depression.json&quot;</span>)
+<span class="kw">str</span>(apathy_depression_study)
+<span class="co">#&gt; List of 5</span>
+<span class="co">#&gt;  $ name      : chr &quot;Apathy Depression Example&quot;</span>
+<span class="co">#&gt;  $ hypotheses:List of 1</span>
+<span class="co">#&gt;   ..$ :List of 3</span>
+<span class="co">#&gt;   .. ..$ desc      : chr &quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span>
+<span class="co">#&gt;   .. ..$ criteria  :List of 1</span>
+<span class="co">#&gt;   .. .. ..$ :List of 4</span>
+<span class="co">#&gt;   .. .. .. ..$ analysis  : chr &quot;eq_test_r&quot;</span>
+<span class="co">#&gt;   .. .. .. ..$ result    : chr &quot;TOST_p2&quot;</span>
+<span class="co">#&gt;   .. .. .. ..$ direction : chr &quot;&lt;&quot;</span>
+<span class="co">#&gt;   .. .. .. ..$ comparator: num 0.01</span>
+<span class="co">#&gt;   .. ..$ evaluation: chr &quot;&amp;&quot;</span>
+<span class="co">#&gt;  $ methods   : list()</span>
+<span class="co">#&gt;  $ data      : list()</span>
+<span class="co">#&gt;  $ analyses  :List of 1</span>
+<span class="co">#&gt;   ..$ :List of 4</span>
+<span class="co">#&gt;   .. ..$ name       : chr &quot;eq_test_r&quot;</span>
+<span class="co">#&gt;   .. ..$ func       : chr &quot;myTOSTr&quot;</span>
+<span class="co">#&gt;   .. ..$ custom_func:List of 11</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;function (data, low_eqbound_r, high_eqbound_r, alpha, plot = FALSE, &quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    verbose = FALSE) &quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;{&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    data$apathy &lt;- (data$a1 + data$a2 + data$a3 + data$a4 + data$a5)/5&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    data$depression &lt;- (data$d1 + data$d2 + data$d3 + data$d4 + &quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;        data$d5)/5&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    n &lt;- nrow(data)&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    r &lt;- cor(data$apathy, data$depression)&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;    TOSTr(n, r, low_eqbound_r, high_eqbound_r, alpha, plot = FALSE, &quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;        verbose = FALSE)&quot;</span>
+<span class="co">#&gt;   .. .. ..$ : chr &quot;}&quot;</span>
+<span class="co">#&gt;   .. ..$ params     :List of 6</span>
+<span class="co">#&gt;   .. .. ..$ data          : chr &quot;.data&quot;</span>
+<span class="co">#&gt;   .. .. ..$ low_eqbound_r : int -1</span>
+<span class="co">#&gt;   .. .. ..$ high_eqbound_r: num 0.3</span>
+<span class="co">#&gt;   .. .. ..$ alpha         : num 0.05</span>
+<span class="co">#&gt;   .. .. ..$ plot          : logi FALSE</span>
+<span class="co">#&gt;   .. .. ..$ verbose       : logi FALSE</span>
+<span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:2] &quot;list&quot; &quot;pipeline_study&quot;</span></code></pre></div>
+</div>
+</div>
+<div id="preregistering-your-hypothesis-and-analysis-plan." class="section level2">
+<h2>Preregistering your hypothesis and analysis plan.</h2>
+<p>Because we specified our test and evaluation criteria for our prediction in detail in the JSON file, we can automaticaly extract this information, and summarize it in a human-readable format that can be used to preregister our statistical prediction.</p>
+<p>We can do this by creating a summary of the JSON file that contains the sections that are relevant for the preregistration. In this case, it means running <code>summary</code> command, asking for the ‘hypotheses’ and the ‘analyses’. This will return the output below, with a hypothesis section and a analysis section.</p>
+<hr />
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">pipeline</span>(<span class="st">'apathy_depression.json'</span>)
+
+<span class="kw">summary</span>(apathy_depression_study, <span class="st">&quot;hypotheses&quot;</span>, <span class="st">&quot;analyses&quot;</span>)</code></pre></div>
+</div>
+<div id="hypotheses" class="section level2">
+<h2>Hypotheses</h2>
+<div id="hypothesis-1" class="section level3">
+<h3>Hypothesis 1</h3>
+<p>The correlation between the apathy and depression scale is smaller than 0.3</p>
+<ul>
+<li>Criterion 1 is confirmed if analysis yields TOST_p2 &lt; 0.01</li>
+</ul>
+<p>If all criteria are met, this hypothesis is supported.</p>
+</div>
+</div>
+<div id="analyses" class="section level2">
+<h2>Analyses</h2>
+<div id="eq_test_r" class="section level3">
+<h3>eq_test_r</h3>
+<p>We will run <code>myTOSTr(data = .data, low_eqbound_r = -1, high_eqbound_r = 0.3, alpha = 0.05, plot = FALSE, verbose = FALSE)</code></p>
+<p>The function we have preregistered to run is named (<code>myTOSTr</code>), but also contained in the JSON file, and we can take a look at the exact code we plan to run if we want to.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+display_custom_func &lt;-<span class="st"> </span><span class="cf">function</span>(analysis) {
+  <span class="kw">cat</span>(<span class="st">&quot;```</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">cat</span>(analysis<span class="op">$</span>func, <span class="st">&quot;-&gt; &quot;</span>)
+  analysis<span class="op">$</span>custom_func <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">cat</span>()
+  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">```</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}
+
+analysis &lt;-<span class="st"> </span>apathy_depression_study<span class="op">$</span>analyses[[<span class="dv">1</span>]]
+<span class="kw">display_custom_func</span>(analysis)
+<span class="co">#&gt; ```</span>
+<span class="co">#&gt; myTOSTr -&gt; function (data, low_eqbound_r, high_eqbound_r, alpha, plot = FALSE, </span>
+<span class="co">#&gt;     verbose = FALSE) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     data$apathy &lt;- (data$a1 + data$a2 + data$a3 + data$a4 + data$a5)/5</span>
+<span class="co">#&gt;     data$depression &lt;- (data$d1 + data$d2 + data$d3 + data$d4 + </span>
+<span class="co">#&gt;         data$d5)/5</span>
+<span class="co">#&gt;     n &lt;- nrow(data)</span>
+<span class="co">#&gt;     r &lt;- cor(data$apathy, data$depression)</span>
+<span class="co">#&gt;     TOSTr(n, r, low_eqbound_r, high_eqbound_r, alpha, plot = FALSE, </span>
+<span class="co">#&gt;         verbose = FALSE)</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; ```</span></code></pre></div>
+</div>
+</div>
+<div id="postregistration" class="section level2">
+<h2>Postregistration</h2>
+<p>After the preregistration we collect the data.</p>
+<p>Here, we create simulated correlated data (using the faux package by Lisa DeBruine which can be installed from GitHub using <code>devtools::install_github(&quot;debruine/faux&quot;)</code>). Our data has 5 columns for the apathy items (a1 to a5) and 5 columns for the depression data (d1 to d5). We create data for 460 participants, and write the data to disk.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># devtools::install_github(&quot;debruine/faux&quot;)</span>
+
+n_sub &lt;-<span class="st"> </span><span class="dv">460</span>
+varnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a1&quot;</span>, <span class="st">&quot;a2&quot;</span>, <span class="st">&quot;a3&quot;</span>, <span class="st">&quot;a4&quot;</span>, <span class="st">&quot;a5&quot;</span>,
+               <span class="st">&quot;d1&quot;</span>, <span class="st">&quot;d2&quot;</span>, <span class="st">&quot;d3&quot;</span>, <span class="st">&quot;d4&quot;</span>, <span class="st">&quot;d5&quot;</span>)
+dat &lt;-<span class="st"> </span>faux<span class="op">::</span><span class="kw">rnorm_multi</span>(n_sub, 
+                         <span class="dt">vars =</span> <span class="dv">10</span>, 
+                         <span class="dt">cors =</span> .<span class="dv">01</span>, 
+                         <span class="dt">mu =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">5</span>, <span class="dv">5</span>), <span class="kw">rep</span>(<span class="dv">6</span>, <span class="dv">5</span>)), 
+                         <span class="dt">sd =</span> <span class="dv">2</span>, 
+                         <span class="dt">varnames =</span> varnames)
+dat<span class="op">$</span>sub_id &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>n_sub
+
+<span class="kw">write.csv</span>(dat, <span class="st">&quot;apathy_depression.csv&quot;</span>)</code></pre></div>
+<p>Now that we have ‘collected’ the data we can use the <code>pipeline</code> package to evaluate the preregistered results. The <code>pipeline</code>package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria.</p>
+<p>We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01.</p>
+<p>We now read in both the json file (which contains our predictions) and the data. <code>pipeline</code> allows us to ask for a summary, not just of the hypotheses and analyses (which we submitted in our preregistration) but also for the results. Because the json file contains the analyses we plan to run, we can evaluate the pre-registered hypotheses. The summary returns a conclusion, based on the planned analysis and the collected data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Our analysis require the TOSTER package</span>
+apathy_depression_study &lt;-<span class="st"> </span><span class="kw">pipeline</span>(<span class="st">'apathy_depression.json'</span>, <span class="st">'apathy_depression.csv'</span>)
+
+<span class="kw">summary</span>(apathy_depression_study, <span class="st">&quot;results&quot;</span>)</code></pre></div>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<div id="hypothesis-1-1" class="section level3">
+<h3>Hypothesis 1</h3>
+<p>The correlation between the apathy and depression scale is smaller than 0.3</p>
+<ul>
+<li>Criterion 1 was TOST_p2 &lt; 0.01 in analysis eq_test_r.<br />
+The result was TOST_p2 = 0</li>
+</ul>
+<p><strong>Conclusion</strong>: Congratulations! All criteria were met, this hypothesis was supported.</p>
+<p>Because the observed <em>p</em>-value in the equivalence test is smaller than 0.01, the conclusion is that the hypothesis is supported. This evaluation is performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported.</p>
+</div>
+</div>
+<div id="creating-the-pregistration-file" class="section level2">
+<h2>Creating the pregistration file</h2>
+<p>Using the <code>prereg_pipeline</code> function we can generate a .html file that contains the hypotheses and planned analyses. This file can be uploaded to for example the Open Science Framework, together with the .json file, where it will provide formally specified predictions for each hypothesis.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#generate a html file from the json</span>
+<span class="co">#currently assumes you are in working dir, and all files are there</span>
+<span class="co">#works if working directory is set to vignette folder. </span>
+<span class="kw">prereg_pipeline</span>(<span class="st">'apathy_depression.json'</span>)</code></pre></div>
+</div>
+<div id="creating-the-evaluation-and-archival-file" class="section level2">
+<h2>Creating the evaluation and archival file</h2>
+<p>Using the <code>postreg_pipeline</code> function we can generate a .html file that contains the hypotheses, planned analyses, and evaluation. This file can be sent to reviewers and the editor, together with a link the preregistration. Reviewers can see, in human readable format, which hypotheses were supported based on the predictions made before the data were collected, and which were not.</p>
+<p>A feature we are planning to build in is to add both the planned analysis as the final analysis to the json file, and compare the two analysis scripts in the evaluation file. This will allow reviewers to easily see where changes are made in the planned analyses, and will allow researchers to explain any deviations from the original plan.</p>
+<p>The <code>postreg_pipeline</code> function also creates an archive json file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postreg_pipeline</span>(<span class="st">'apathy_depression.json'</span>, <span class="st">'apathy_depression.csv'</span>)</code></pre></div>
+<p>This archive file contains a copy of the data. For example, we can request the raw data of participant 1, response on question a1, directly from the json file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">pipeline</span>(<span class="st">'archive_apathy_depression.json'</span>)
+
+<span class="kw">unlist</span>(apathy_depression_study<span class="op">$</span>data[[<span class="dv">1</span>]]<span class="op">$</span>a1)</code></pre></div>
+<p>[1] 5.4575</p>
+<p>The goal is to create a <code>reproduce_pipeline</code> function that will allow anyone to reproduce the analyses from the original data based only on the archive json file. Another goal is to create standardized report template files based on the standaridzed json file. Another goal is to make it easy for researchers to search through the archive files. If measures have standardized names (e.g., ‘age’, ‘PANAS_Q1’) and analyses and their outputs have standardized names (e.g., ‘ind_t_test_welch’, p_value_ind_t_test_welch’) then researchers could search through a database of archive json files for information they need.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+#devtools::install_github("debruine/pipeline")
+
+library(pipeline)
+library(TOSTER)
+options(scipen=99)
+
+```
+# Vignette 1: Using pipeline for Registered Reports
+
+The goal of pipeline is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:
+
+1. Generate a pre-registration file that specifies how each hypothesis is analyzed.
+2. Generate a post-registration file that evaluates, based on the datafile, whether running preregistered analyses on the data support the predictions.
+3. Search archival JSON files for variables, measures, and data.
+4. Automated reporting of statistical tests.
+5. Reproduce the reported results by running the analysis code on the data.
+
+In this working vignette we demonstrate points 4 above. 
+
+## Installation
+
+You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/pipeline) with:
+
+``` r
+devtools::install_github("scienceverse/pipeline")
+```
+
+##A Study to Distinguish Apathy from Depression
+
+We plan to perform a study that tests whether apathy is distinct from depresssion. Apathy is defined as diminished motivation, while depression should involve emotional distress. Where earlier theoretical work has suggested apathy is part of depression, our theoretical model suggests the two should be distinct. We measure peoples apathy score using the Apathy Scale, and depression using the Depression Scale. Although we do not assume the correlation between the two measurements is exactly zero, we predict the two measurements will show a correlation that is smaller than 0.3. If so, we will take this finding as support for our prediction that apathy and depression are distinct enough, such that apathy should not be considered a part of depression.
+
+To set up the json file, it makes sense to first think about what our data will look like, and then what our statistical hypothesis is. We will collect data from two scales. We know these scales have 5 items each, we will analyze the average score for each of the two scales. We will name these columns 'apathy' and 'depression', and calculate them from the mean of the five apathy items (a1 to a5 in our dataframe) and the five depression items (d1 to d5 in our dataframe). 
+
+Our statistical hypothesis is that we will interpret the data as support for our prediction when we can statistically reject effects larger than *r* = 0.3. We can do this by performing an equivalence test, and checking whether the observed correlation is statistically smaller than 0.3.
+
+We can enter all information we need to specify our hypothesis in the json fie below. H1 contains our hypothesis, with the list of criteria that need to be satisfied. 
+
+###Setting up the JSON file
+
+First, in the section "H1" we describe our hypothesis as "The correlation between the apathy and depression scale is smaller than 0.3" One goal of the `pipeline` is to automate the evaluation of the prediction. A researcher specifies the prediction in the preregistration, collects the data, and pipeline can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not. 
+
+Another goal of pipeline is to remove ambiguity in how hypotheses are specified. The best way to preregister a hypothesis is to write the analysis script before the data is collected. Pipeline takes this analysis script, and combines it with user defined evaluation criteria. These make it clear when a hypothesis is confirmed in the preregistration, but can also generate an automatic evaluation of the hypotheses.
+
+We define the criteria by first specifying the anaysis name `eq_test_r`. This analysis is always performed on the raw data, and returns a list. We can use any parameter in this list to evaluate the result. In this case we know we will perform an equivalence test. To specify the statistical conditions that need to be met, we look at the TOSTr function. The output value from the TOSTr function that is called TOST_p2 is the p-value against the upper bound, so when we set the upper equivalence bound to 0.3, and we check if the TOST_p2 is smaller than our alpha level, our prediction is supported.
+
+We plan to collect a large sample size of 460 people, and should have very high power for the equivalence test, and to balance our error rates, we set the alpha level to 0.01. Because we will compare our p-value to the alpha level, our comparator is the alpha level of 0.01, and our hypothesis is supported when the p-value is smaller than 0.01, and therefore we specify the direction as `<`. Note that this example uses Null Hypothesis Significance Testing, but you can also make other predictions, such as a mean that is larger than some value, or any other prediction based on parameters from the analyses you perform.
+
+```{r}
+H1 <- list(
+  desc = "The correlation between the apathy and depression scale is smaller than 0.3",
+  criteria = list(
+    list(
+      analysis = "eq_test_r", # name of the analysis specified in detail below
+      result = "TOST_p2",     # parameter from the analysis named above
+      direction = "<",        # should the parameter be smaller or larger than the comparator?
+      comparator = .01        # which value do we compare our parameter to?
+    )
+  ),
+  evaluation = "&"
+)
+```
+
+We then specify our analysis. In simple cases this might just be a single test applied to the unmodified raw data. But often, some data preprocessing is needed. `pipeline` does not yet have a dedicated module for data preprocessing. For now we will preregister a single script that for our study computes the mean scores for the apathy and depression scales. To perform the equivalence test, we need the sample size and the correlation between the two scales. The pipeline package will take the parameters from the last thing that is done in your script (or, if you use an existing function, the parameters that are returned by the function).
+
+```{r} 
+myTOSTr <- function(data, low_eqbound_r, high_eqbound_r, alpha, plot = FALSE, verbose = FALSE) {
+  #Data preprocessing. Calculate means of the apathyand depression score.
+  data$apathy <- (data$a1 + data$a2 + data$a3 + data$a4 + data$a5)/5
+  data$depression <- (data$d1 + data$d2 + data$d3 + data$d4 + data$d5)/5
+  #The TOSTER function needs summary statistics.
+  n <- nrow(data) # get the total sample size
+  r <- cor(data$apathy, data$depression) #calculate the correlation between the apathy and depression scores
+  #Perform the equivalence test
+  TOSTr(n, r, low_eqbound_r,high_eqbound_r, alpha, plot = FALSE, verbose = FALSE)
+}
+```
+
+To make it possible for `pipeline` to run the analysis, we need to specify for the named `eq_test_r` which function should be run (in this case `myTOSTr` which is our custum function that loads the data, calculates mean scores, and performs the equivalence test). We pass along the parameters for the test (and these will be stored in the JSON file).
+
+```{r}
+eq_test_r <- list(
+  name = "eq_test_r",
+  func = "myTOSTr",
+  custom_func = myTOSTr,
+  params = list(
+    data = ".data",
+    low_eqbound_r = -1,
+    high_eqbound_r = 0.3,
+    alpha = 0.05,
+    plot = FALSE,
+    verbose = FALSE
+  )
+)
+```
+
+Now we combine the lists that were created above in a single list called 'study'. 
+
+```{r}
+study <- list(
+  name = "Apathy Depression Example",
+  hypotheses = list(H1),
+  methods = list(),
+  data = list(),
+  analyses = list(eq_test_r)
+)
+```
+
+This `study` list of lists can be stored as a JSON file. 
+
+```{r, eval = FALSE}
+save_pipeline(study, "apathy_depression.json")
+```
+
+We can read back the JSON file into an R list and take a look at the structure.
+
+```{r}
+apathy_depression_study <- pipeline("apathy_depression.json")
+apathy_depression_study
+```
+
+## Preregistering your hypothesis and analysis plan.
+
+Because we specified our test and evaluation criteria for our prediction in detail in the JSON file, we can automaticaly extract this information, and summarize it in a human-readable format that can be used to preregister our statistica prediction. 
+
+We can do this by creating a summary of the JSON file that contains the sections that are relevant for the preregistration. In this case, it means running `summary` command, asking for the 'hypotheses' and the 'analyses'. This will return the output below, with a hypothesis section and a analysis section. 
+
+----------------------------------------------------------------
+
+```{r, results='asis'}
+apathy_depression_study <- pipeline('apathy_depression.json')
+
+summary(apathy_depression_study, "hypotheses", "analyses")
+```
+
+----------------------------------------------------------------
+
+The function we have preregistered to run is named (`myTOSTr`), but also contained in the JSON file, and we can take a look at the exact code we plan to run if we want to.
+
+```{r}
+unlist(apathy_depression_study$analyses[[1]]$custom_func)
+```
+
+#Postregistration
+
+After the preregistration we collect the data. 
+
+Here, we create simulated correlated data (using the faux package by Lisa DeBruine which can be installed from GitHub using `devtools::install_github("debruine/faux")`). Our data has 5 columns for the apathy items (a1 to a5) and 5 columns for the depression data (d1 to d5). We create data for 460 participants, and write the data to disk.
+
+```{r sim-data}
+# devtools::install_github("debruine/faux")
+
+n_sub <- 460
+varnames <- c("a1", "a2", "a3", "a4", "a5",
+               "d1", "d2", "d3", "d4", "d5")
+dat <- faux::rnorm_multi(n_sub, 
+                         vars = 10, 
+                         cors = .01, 
+                         mu = c(rep(5, 5), rep(6, 5)), 
+                         sd = 2, 
+                         varnames = varnames)
+dat$sub_id <- 1:n_sub
+
+write.csv(dat, "apathy_depression.csv")
+
+```
+
+Now that we have 'collected' the data we can use the `pipeline` package to evaluate the preregistered results. The `pipeline`package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria. 
+
+We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01. 
+
+We now read in both the json file (which contains our predictions) and the data. We can now ask for a summary, not just of the hypotheses and analyses (which we submitted in our preregistration) but also for the results.
+
+----------------------------------------------------------------
+
+```{r, results='asis'}
+# find file paths to data included with this package installation
+json_file_name <- system.file("extdata", "iat.json", package = "pipeline")
+data_file_name <- system.file("extdata", "iat.csv", package = "pipeline")
+report_type <- 'dependent_group_comparison'
+
+```
+
+```{r}
+
+report_pipeline(json_file_name = json_file_name,
+                data_file_name = data_file_name,
+                report_type = report_type)
+```

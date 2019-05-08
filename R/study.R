@@ -613,7 +613,7 @@ output_analyses <- function(study) {
   invisible(study)
 }
 
-#' Study Object to JSON strong
+#' Study Object to JSON string
 #'
 #' Convert a study object to a JSON string
 #'

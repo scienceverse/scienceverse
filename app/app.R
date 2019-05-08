@@ -7,7 +7,6 @@ library(reg)
 library(dplyr)
 library(tidyr)
 options("scipen"=10, "digits"=4)
-
 source("R/utils.R")
 
 ## Interface Tab Items ----
