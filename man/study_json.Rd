@@ -2,7 +2,7 @@
 % Please edit documentation in R/study.R
 \name{study_json}
 \alias{study_json}
-\title{Study Object to JSON strong}
+\title{Study Object to JSON string}
 \usage{
 study_json(study, data_values = TRUE)
 }

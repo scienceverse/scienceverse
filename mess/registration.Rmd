@@ -15,14 +15,13 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-#devtools::install_github("debruine/scienceverse/reg")
+#devtools::install_github("scienceverse/reg")
 #devtools::install_github("debruine/faux")
 #install.packages(TOSTER)
 
 library(reg)
 library(TOSTER)
 options(scipen=99)
-
 
 ```
 
@@ -39,10 +38,10 @@ In this working vignette we demonstrate points 1 and 2 above.
 
 ## Installation
 
-You can install the released version of pipeline from [GitHub](https://github.com/debruine/scienceverse/reg) with:
+You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
-devtools::install_github("debruine/scienceverse/reg")
+devtools::install_github("scienceverse/reg")
 ```
 
 ## A Study to Distinguish Apathy from Depression
@@ -66,13 +65,14 @@ apathy_depression_study <- study("Distinguishing Apathy from Depression")
 The object we created is basically a list of lists, which we will populate with information:
 
 ```{r}
-apathy_depression_study
+str(apathy_depression_study)
 ```
 
 First, in the section "hypotheses" section we need to describe our hypothesis as "The correlation between the apathy and depression scale is smaller than 0.3" One goal of `reg` is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and `reg` can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not. 
 
 ```{r}
-apathy_depression_study <- add_hypothesis(apathy_depression_study, "The correlation between the apathy and depression scale is smaller than 0.3")
+apathy_depression_study <- add_hypothesis(apathy_depression_study, 
+                                          "The correlation between the apathy and depression scale is smaller than 0.3")
 ```
 
 Another goal of `reg` is to remove ambiguity in how hypotheses are specified. The best way to preregister a hypothesis is to write the analysis script before the data is collected. `Reg` takes this analysis script, and combines it with user defined evaluation criteria. These make it clear when a hypothesis is confirmed in the preregistration, but can also generate an automatic evaluation of the hypotheses.
@@ -84,7 +84,7 @@ We plan to collect a large sample size of 460 people, and should have very high 
 ```{r}
 #Data preprocessing. Calculate means of the apathyand depression score.
 #READ RAW DATA
-apathy_depression_data <- read.csv("apathy_depression.csv")
+#apathy_depression_data <- read.csv("apathy_depression.csv")
 # 
 # data$apathy <- (data$a1 + data$a2 + data$a3 + data$a4 + data$a5)/5
 # data$depression <- (data$d1 + data$d2 + data$d3 + data$d4 + data$d5)/5
@@ -92,18 +92,18 @@ apathy_depression_data <- read.csv("apathy_depression.csv")
 # write.csv(data, "apathy_depression.csv", row.names = FALSE)
 
 source("eq_test_r.R")
-res <- eq_test_r(data = apathy_depression_data, "apathy", "depression", alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)
 
 apathy_depression_study <- add_analysis(apathy_depression_study, 
                                        func = "eq_test_r",
                                        params = list(
-                                         data = ".data[1]", #when entering .data it gave an error? object '.data' not found - because I already named something data?
+                                         data = ".data[1]", 
                                          col1 = "apathy",
                                          col2 = "depression",
                                          alpha = 0.05,
-                                         high_eqbound_r = -0.3,
-                                         low_eqbound_r = 0.3
-                                       )
+                                         high_eqbound_r = 0.3,
+                                         low_eqbound_r = -0.3
+                                       ),
+                                       code = eq_test_r
 )
 
 apathy_depression_study <- add_criterion(apathy_depression_study, 
@@ -122,10 +122,19 @@ study_save(apathy_depression_study, "apathy_depression.json")
 We can read back the JSON file into an R list and take a look at the structure.
 
 ```{r}
+# remove study and function to load from JSON
+rm(apathy_depression_study)
+rm(eq_test_r)
+```
+
+
+```{r}
 apathy_depression_study <- study("apathy_depression.json")
 #Lisa, this gave an error because eq_test_r was not defined: 
 #The function eq_test_r in analysis 1 is not defined
 #I had to first load the function. The code could do this, and give an error if it does not load? 
+
+# Daniel I think you just need to update your version of reg. It does this now.
 str(apathy_depression_study)
 ```
 
@@ -138,18 +147,31 @@ We can do this by creating a summary of the JSON file that contains the sections
 ----------------------------------------------------------------
 
 ```{r, results='asis'}
-study_report(apathy_depression_study, template = "prereg", filename = "prereg_apathy_depression_study.html")
+study_report(apathy_depression_study, 
+             template = "prereg", 
+             filename = "prereg_apathy_depression_study.html")
 
 #Lisa, the analysis in the html file does not look good:
 #
 #eq_test_r(data = function (..., list = character(), package = NULL, lib.loc = NULL, , col1 =     verbose = getOption("verbose"), envir = .GlobalEnv) , col2 = {, alpha =     fileExt <- function(x) {, high_eqbound_r =         db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x), low_eqbound_r =         ans <- sub(".*\\.", "", x))
+
+# Daniel this seems fine now
 ```
 
 The function we have preregistered to run is named (`myTOSTr`), but also contained in the JSON file, and we can take a look at the exact code we plan to run if we want to.
 
-```{r}
-#There is a ' code' entry in the analysis list - is that supposed to have the code? It is empty now. 
+```{r, results='asis'}
+# I'll add a function to more easily inspect functions
+
+apathy_depression_study$analyses[[1]]$func %>% cat()
+
+cat(" <- ")
+
+apathy_depression_study$analyses[[1]]$code %>%
+  paste(collapse= "\n") %>%
+  cat()
 ```
+
 
 ## Postregistration
 
@@ -163,12 +185,27 @@ We now read in both the json file (which contains our predictions) and the data.
 
 ```{r, results='asis'}
 #Our analysis require the TOSTER package
-apathy_depression_study <- pipeline('apathy_depression.json', 'apathy_depression.csv')
 
-summary(apathy_depression_study, "results")
+# add data from filename
+apathy_depression_study <- add_data(apathy_depression_study,
+                                    'apathy_depression.csv')
+
+# run analysis
+apathy_depression_study <- study_analyze(apathy_depression_study)
+
+# inspect results of analysis
+apathy_depression_study$analyses[[1]]$results %>% str()
+
 ```
 
 Because the observed *p*-value in the equivalence test is smaller than 0.01, the conclusion is that the hypothesis is supported. This evaluation is performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. 
+
+```{r}
+study_report(apathy_depression_study, 
+             template = "postreg", 
+             filename = "postreg_apathy_depression_study.html")
+```
+
 
 ## Creating the pregistration file
 
@@ -178,7 +215,7 @@ Using the `prereg_pipeline` function we can generate a .html file that contains 
 #generate a html file from the json
 #currently assumes you are in working dir, and all files are there
 #works if working directory is set to vignette folder. 
-prereg_pipeline('apathy_depression.json')
+
 ```
 
 ## Creating the evaluation and archival file
@@ -190,15 +227,14 @@ A feature we are planning to build in is to add both the planned analysis as the
 The `postreg_pipeline` function also creates an archive json file. 
 
 ```{r, eval = F, results='asis'}
-postreg_pipeline('apathy_depression.json', 'apathy_depression.csv')
+
+
 ```
 
 This archive file contains a copy of the data. For example, we can request the raw data of participant 1, response on question a1, directly from the json file:
 
 ```{r, results='asis'}
-apathy_depression_study <- pipeline('archive_apathy_depression.json')
 
-unlist(apathy_depression_study$data[[1]]$a1)
 ```
 
 The goal is to create a `reproduce_pipeline` function that will allow anyone to reproduce the analyses from the original data based only on the archive json file. Another goal is to create standardized report template files based on the standaridzed json file. Another goal is to make it easy for researchers to search through the archive files. If measures have standardized names (e.g., 'age', 'PANAS_Q1') and analyses and their outputs have standardized names (e.g., 'ind_t_test_welch', p_value_ind_t_test_welch') then researchers could search through a database of archive json files for information they need.
