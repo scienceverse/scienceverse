@@ -21,7 +21,7 @@ RoxygenNote: 6.1.1
 Imports: 
     magrittr,
     jsonlite,
-    faux (>= 0.0.0.9003),
+    faux (>= 0.0.0.9007),
     rmarkdown,
     rio
 Suggests: 
