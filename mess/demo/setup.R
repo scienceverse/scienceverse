@@ -46,7 +46,7 @@ rm(s)
 rm(eq_test_r)
 rm(prep_func)
 
-s <- study("study.json")
+s <- study("pre_study.json")
 
 
 s <- add_data(s, "original_data/apathy_depression_raw.csv", id = "ad")
