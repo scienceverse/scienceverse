@@ -35,6 +35,16 @@ study <- function(name = "Demo Study", ...) {
         }
       }
     }
+
+    # set up data prep
+    if (length(study$prep)) {
+      make_func("prep_func",
+                study$prep$params,
+                study$prep$code,
+                study$prep$return)
+      message("Loaded data prep function")
+    }
+
     # set up dataframes from data
     n_data <- length(study$data)
     if (n_data > 0) {
@@ -162,27 +172,60 @@ add_criterion <- function(study,
 #' Add a data prep step to a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param data The raw data id or index (defaults to 1)
-#' @param code Code to define the custom prep function
-#' @param id The id for this prep step (index or character) if NULL, this creates a new prep step, if a step with this id already exists, it will overwrite it
+#' @param code Code to define the custom prep function or a reference to the file with the code
+#' @param params A list of parameters for the function arguments
+#' @return A list of object names to return from the prep code
 #' @return A study object with class reg_study
 #'
 #' @export
 #'
-add_prep <- function(study, data = 1, code = "{ data }", id = NULL) {
+add_prep <- function(study, code,
+                     params = list("data" = ".data[1]"),
+                     return = "data") {
+
+  if (file.exists(code)) {
+    code <- readLines(code)
+  }
+
   prep <- list(
-    id = id,
-    data = data,
-    code = code
+    params = params,
+    code = code,
+    return = return
   )
+
+  make_func("prep_func", params, code, return)
 
   class(prep) <- c("reg_study_prep", "list")
 
-  idx <- get_idx(study, id, "prep")
-
-  study$prep[[idx]] <- prep
+  study$prep <- prep
 
   invisible(study)
+}
+
+
+make_func <- function(func, params, code, return = c()) {
+  if (length(return)) {
+    for (r in 1:length(return)) {
+      var <-  return[r]
+      return[r] <- paste0('  "', var, '" = ', var)
+    }
+  }
+
+  if (is.list(params) && !is.null(names(params))) {
+    # params is a named list, use names for parameters
+    params <- names(params)
+  }
+
+  p <- paste(
+    "prep_func <- function(",
+    paste(params, collapse = ", "),
+    ") {\n", paste(code, collapse = "\n"),
+    "\n\nlist(",
+    paste(return, collapse = ",\n"),
+    ")\n}"
+  )
+
+  eval(parse(text = p), envir = .GlobalEnv)
 }
 
 
@@ -310,9 +353,62 @@ data_prep <- function(study) {
     return(invisible(study))
   }
 
-  for (i in 1:prep_n) {
-    study$prep[[i]]$code %>% message()
+  params <- load_params(study$prep$params, study)
+
+  res <- do.call("prep_func",params)
+
+  for (i in 1:length(res)) {
+    study <- add_data(study, data = res[[i]], id = names(res)[i])
   }
+
+  invisible(study)
+}
+
+#' Load Params
+#'
+#' Load .data[id] and .data[id]$col references from the data
+#'
+#' @param params a list of parameter names and values
+#' @param study the study object to get the data from
+#'
+#' @return params list
+#'
+load_params <- function(params, study) {
+  # replace any params equal to ".data[id]" with the data frame
+  pattern <- "^\\.data\\[(.+)\\]$"
+  replace_data <- grep(pattern, params)
+  if (length(replace_data)) {
+    for (j in replace_data) {
+      id <- params[[j]] %>%
+        regexpr(pattern, .) %>%
+        regmatches(params[[j]], .) %>%
+        gsub(".data[", "", ., fixed = TRUE) %>%
+        gsub("]", "", ., fixed = TRUE)
+      idx <- get_idx(study, id, "data")
+      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+      params[[j]] <- study$data[[idx]]$data
+    }
+  }
+
+  # replace any params equal to ".data[id]$col" with the column vector
+  pattern <- "^\\.data\\[(.+)\\]\\$"
+  replace_data_cols <- grep(pattern, params)
+  if (length(replace_data_cols)) {
+    for (j in replace_data_cols) {
+      id <- params[[j]] %>%
+        regexpr(pattern, .) %>%
+        regmatches(params[[j]], .) %>%
+        gsub(".data[", "", ., fixed = TRUE) %>%
+        gsub("]$", "", ., fixed = TRUE)
+      idx <- get_idx(study, id, "data")
+      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+
+      col <- gsub(pattern, "", params[j])
+      params[[j]] <- study$data[[idx]]$data[[col]]
+    }
+  }
+
+  params
 }
 
 #' Run analysis
@@ -346,40 +442,8 @@ study_analyse <- function(study) {
 
   for (i in 1:analysis_n) {
     func <- study$analyses[[i]]$func
-    params <- study$analyses[[i]]$params
-    # replace any params equal to ".data[id]" with the data frame
-    pattern <- "^\\.data\\[(.+)\\]$"
-    replace_data <- grep(pattern, params)
-    if (length(replace_data)) {
-      for (j in replace_data) {
-        id <- params[[j]] %>%
-          regexpr(pattern, .) %>%
-          regmatches(params[[j]], .) %>%
-          gsub(".data[", "", ., fixed = TRUE) %>%
-          gsub("]", "", ., fixed = TRUE)
-        idx <- get_idx(study, id, "data")
-        if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
-        params[[j]] <- study$data[[idx]]$data
-      }
-    }
-
-    # replace any params equal to ".data[id]$col" with the column vector
-    pattern <- "^\\.data\\[(.+)\\]\\$"
-    replace_data_cols <- grep(pattern, params)
-    if (length(replace_data_cols)) {
-      for (j in replace_data_cols) {
-        id <- params[[j]] %>%
-          regexpr(pattern, .) %>%
-          regmatches(params[[j]], .) %>%
-          gsub(".data[", "", ., fixed = TRUE) %>%
-          gsub("]$", "", ., fixed = TRUE)
-        idx <- get_idx(study, id, "data")
-        if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
-
-        col <- gsub(pattern, "", params[j])
-        params[[j]] <- study$data[[idx]]$data[[col]]
-      }
-    }
+    params <- study$analyses[[i]]$params %>%
+      load_params(study)
 
     # check the function exists
     if (!exists(func)) {
