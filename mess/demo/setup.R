@@ -35,7 +35,11 @@ s <- add_criterion(
   analysis_id = "A1"
 )
 
-study_save(s, "study.json")
+study_report(s, "prereg", "pre")
+
+study_save(s, "pre_study.json")
+
+
 
 # remove objects from environment to test reloading from json
 rm(s)
@@ -49,6 +53,6 @@ s <- add_data(s, "original_data/apathy_depression_raw.csv", id = "ad")
 s <- data_prep(s)
 s <- study_analyze(s)
 
-output_hypotheses(s)
-output_analyses(s)
-output_results(s)
+study_report(s, "postreg", "post")
+
+study_save(s, "post_study.json")
