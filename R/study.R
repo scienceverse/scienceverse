@@ -63,6 +63,7 @@ study <- function(name = "Demo Study", ...) {
         hypotheses = list(),
         methods = list(),
         data = list(),
+        prep = list(),
         analyses = list()
       )
     )
@@ -156,8 +157,33 @@ add_criterion <- function(study,
   invisible(study)
 }
 
+#' Add Data Prep
+#'
+#' Add a data prep step to a study object
+#'
+#' @param study A study list object with class reg_study
+#' @param data The raw data id or index (defaults to 1)
+#' @param code Code to define the custom prep function
+#' @param id The id for this prep step (index or character) if NULL, this creates a new prep step, if a step with this id already exists, it will overwrite it
+#' @return A study object with class reg_study
+#'
+#' @export
+#'
+add_prep <- function(study, data = 1, code = "{ data }", id = NULL) {
+  prep <- list(
+    id = id,
+    data = data,
+    code = code
+  )
 
+  class(prep) <- c("reg_study_prep", "list")
 
+  idx <- get_idx(study, id, "prep")
+
+  study$prep[[idx]] <- prep
+
+  invisible(study)
+}
 
 
 #' Add Analysis
@@ -193,6 +219,8 @@ add_analysis <- function(study,
 
   invisible(study)
 }
+
+
 
 #' Add Data
 #'
@@ -268,6 +296,25 @@ add_data <- function(study, data = NULL, id = NULL) {
   invisible(study)
 }
 
+#' Run data prep
+#'
+#' Run the data prep on the raw data
+#'
+#' @param study A study list object with class reg_study
+#' @return A study object with class reg_study
+#' @export
+data_prep <- function(study) {
+  prep_n <- length(study$prep)
+  if (prep_n == 0) {
+    message("No prep has been specified")
+    return(invisible(study))
+  }
+
+  for (i in 1:prep_n) {
+    study$prep[[i]]$code %>% message()
+  }
+}
+
 #' Run analysis
 #'
 #' Run the analyses on the data
@@ -292,6 +339,11 @@ add_data <- function(study, data = NULL, id = NULL) {
 #'
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)
+  if (analysis_n == 0) {
+    message("No analyses have been specified")
+    return(invisible(study))
+  }
+
   for (i in 1:analysis_n) {
     func <- study$analyses[[i]]$func
     params <- study$analyses[[i]]$params
