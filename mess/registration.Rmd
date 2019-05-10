@@ -162,14 +162,7 @@ The function we have preregistered to run is named (`myTOSTr`), but also contain
 
 ```{r, results='asis'}
 # I'll add a function to more easily inspect functions
-
-apathy_depression_study$analyses[[1]]$func %>% cat()
-
-cat(" <- ")
-
-apathy_depression_study$analyses[[1]]$code %>%
-  paste(collapse= "\n") %>%
-  cat()
+output_custom_code(apathy_depression_study$analyses[[1]]) %>% cat()
 ```
 
 

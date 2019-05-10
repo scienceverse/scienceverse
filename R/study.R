@@ -472,6 +472,42 @@ study_report <- function(study, template = "prereg",
   invisible(study)
 }
 
+#' Output custom code
+#'
+#' Output custom code specified in an analysis component
+#'
+#' @param study A study list object with class reg_study
+#' @param analysis_id The id or index for the analysis code to output (defaults to index 1)
+#'
+#' @return string of the function definition
+#' @export
+#'
+#' @examples
+#'
+#' custom <- function() { 1:10 }
+#' s <- study() %>%
+#'   add_analysis("custom", code = custom) %>%
+#'   output_custom_code()
+output_custom_code <- function(study, analysis_id = 1) {
+  analysis <- study$analyses[[analysis_id]]
+
+  if (is.function(analysis$code)) {
+    analysis$code <- analysis$code %>%
+      jsonlite::toJSON() %>%
+      jsonlite::fromJSON() %>%
+      as.list()
+  }
+
+  if (is.list(analysis$code)) {
+    paste(
+      analysis$func, "<-",
+      paste(analysis$code, collapse= "\n")
+    )
+  } else if (is.null(analysis$code)) {
+    analysis$func
+  }
+}
+
 
 
 #' Output hypotheses
