@@ -28,7 +28,7 @@ options(scipen=99)
 ```
 
 
-The goal of pipeline is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:
+The goal of `reg` is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:
 
 1. Generate a pre-registration file that specifies how each hypothesis is analyzed.
 2. Generate a post-registration file that evaluates, based on the datafile, whether running preregistered analyses on the data support the predictions.
@@ -40,7 +40,7 @@ In this working vignette we demonstrate points 1 and 2 above.
 
 ## Installation
 
-You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/reg) with:
+You can install the released version of `reg` from [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
 devtools::install_github("scienceverse/reg")
@@ -58,7 +58,7 @@ We can enter all information we need to specify our hypothesis in a json file be
 
 ### Setting up the JSON file
 
-We set up our study by giving it a name using the `study` function **[suggestion - name create_study]**:
+We set up our study by giving it a name using the `study` function:
 
 ```{r}
 apathy_depression_study <- study("Distinguishing Apathy from Depression")
@@ -170,16 +170,10 @@ The correlation between the apathy and depression scale is smaller than 0.3
     Criterion 1 is confirmed if analysis yields TOST_p2 < 0.01
 
 If all criteria are met, this hypothesis is supported.
+
 ## Analyses
 
 We will run `eq_test_r(data = .data[1], col1 = apathy, col2 = depression, alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)`
-
-The function we have preregistered to run is named (`myTOSTr`), but also contained in the JSON file, and we can take a look at the exact code we plan to run if we want to.
-
-```{r, results='asis'}
-# I'll add a function to more easily inspect functions
-output_custom_code(apathy_depression_study$analyses[[1]]) %>% cat()
-```
 
 ## Post Registration
 
