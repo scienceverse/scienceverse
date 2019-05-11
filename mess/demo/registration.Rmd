@@ -28,7 +28,7 @@ options(scipen=99)
 ```
 
 
-The goal of pipeline is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:
+The goal of `reg` is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:
 
 1. Generate a pre-registration file that specifies how each hypothesis is analyzed.
 2. Generate a post-registration file that evaluates, based on the datafile, whether running preregistered analyses on the data support the predictions.
@@ -40,7 +40,7 @@ In this working vignette we demonstrate points 1 and 2 above.
 
 ## Installation
 
-You can install the released version of pipeline from [GitHub](https://github.com/scienceverse/reg) with:
+You can install the released version of `reg` from [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
 devtools::install_github("scienceverse/reg")

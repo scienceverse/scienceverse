@@ -3,7 +3,7 @@ Using reg for Registered Reports
 Daniel Lakens & Lisa DeBruine
 2019-05-11
 
-The goal of pipeline is to generate and process machine-readable study
+The goal of `reg` is to generate and process machine-readable study
 descriptions. Studies are described as JSON files on the levels of the
 hypothesis, methods, data, and analysis. These machine readable
 description can be used in several ways, such as:
@@ -22,7 +22,7 @@ In this working vignette we demonstrate points 1 and 2 above.
 
 ## Installation
 
-You can install the released version of pipeline from
+You can install the released version of `reg` from
 [GitHub](https://github.com/scienceverse/reg) with:
 
 ``` r
