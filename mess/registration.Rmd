@@ -101,7 +101,6 @@ apathy_depression_study <- add_analysis(apathy_depression_study, func = "eq_test
                                           high_eqbound_r = 0.3,
                                           low_eqbound_r = -0.3
                                         ),
-                                        code = eq_test_r,
                                         id = "main_analysis")
 
 ```
@@ -179,7 +178,7 @@ The function we have preregistered to run is named (`myTOSTr`), but also contain
 
 ```{r, results='asis'}
 # I'll add a function to more easily inspect functions
-output_custom_code(apathy_depression_study$analyses[[1]]) %>% cat()
+output_custom_code(apathy_depression_study, 1) %>% cat()
 ```
 
 
