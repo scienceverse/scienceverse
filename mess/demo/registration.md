@@ -1,0 +1,406 @@
+Using reg for Registered Reports
+================
+Daniel Lakens & Lisa DeBruine
+2019-05-11
+
+The goal of pipeline is to generate and process machine-readable study
+descriptions. Studies are described as JSON files on the levels of the
+hypothesis, methods, data, and analysis. These machine readable
+description can be used in several ways, such as:
+
+1.  Generate a pre-registration file that specifies how each hypothesis
+    is analyzed.
+2.  Generate a post-registration file that evaluates, based on the
+    datafile, whether running preregistered analyses on the data support
+    the predictions.
+3.  Search archival JSON files for variables, measures, and data.
+4.  Automated reporting of statistical tests.
+5.  Reproduce the reported results by running the analysis code on the
+    data.
+
+In this working vignette we demonstrate points 1 and 2 above.
+
+## Installation
+
+You can install the released version of pipeline from
+[GitHub](https://github.com/scienceverse/reg) with:
+
+``` r
+devtools::install_github("scienceverse/reg")
+```
+
+## A Study to Distinguish Apathy from Depression
+
+We plan to perform a study that tests whether apathy is distinct from
+depression. Apathy is defined as diminished motivation, while depression
+should involve emotional distress. Where earlier theoretical work has
+suggested apathy is part of depression, our theoretical model suggests
+the two should be distinct. We measure peoples apathy score using the
+Apathy Scale, and depression using the Depression Scale. Although we do
+not assume the correlation between the two measurements is exactly zero,
+we predict the two measurements will show a correlation that is smaller
+than 0.3. If so, we will take this finding as support for our prediction
+that apathy and depression are distinct enough, such that apathy should
+not be considered a part of depression.
+
+To set up the json file, it makes sense to first think about what our
+data will look like, and then what our statistical hypothesis is. We
+will collect data from two scales. We know these scales have 5 items
+each, we will analyze the average score for each of the two scales. We
+will name these columns ‘apathy’ and ‘depression’, and calculate them
+from the mean of the five apathy items (a1 to a5 in our dataframe) and
+the five depression items (d1 to d5 in our dataframe).
+
+Our statistical hypothesis is that we will interpret the data as support
+for our prediction when we can statistically reject effects larger than
+*r* = 0.3. We can do this by performing an equivalence test, and
+checking whether the observed correlation is statistically smaller than
+0.3.
+
+We can enter all information we need to specify our hypothesis in a json
+file below.
+
+### Setting up the JSON file
+
+We set up our study by giving it a name using the `study` function:
+
+``` r
+apathy_depression_study <- study("Distinguishing Apathy from Depression")
+```
+
+The object we created is basically a list of lists, which we will
+populate with information:
+
+``` r
+str(apathy_depression_study)
+#> List of 6
+#>  $ name      : chr "Distinguishing Apathy from Depression"
+#>  $ hypotheses: list()
+#>  $ methods   : list()
+#>  $ data      : list()
+#>  $ prep      : list()
+#>  $ analyses  : list()
+#>  - attr(*, "class")= chr [1:2] "reg_study" "list"
+```
+
+First, in the section “hypotheses” section we need to describe our
+hypothesis as “The correlation between the apathy and depression scale
+is smaller than 0.3” One goal of `reg` is to automate the evaluation of
+predictions. A researcher specifies the prediction in the
+preregistration, collects the data, and `reg` can then take the
+preregistration file and the data and automatically evaluate whether the
+predictions were confirmed or not. We also add an ID to the hypothesis
+so we can link it to the corresponding analyses later on - naming them
+H1, H2, H3a etc is typically enough.
+
+``` r
+apathy_depression_study <- add_hypothesis(apathy_depression_study, 
+                                          "The correlation between the apathy and depression scale is smaller than 0.3", 
+                                          id = "H1")
+```
+
+Another goal of `reg` is to remove ambiguity in how hypotheses are
+specified. The best way to preregister a hypothesis is to write the
+analysis script before the data is collected. `Reg` takes this analysis
+script, and combines it with user defined evaluation criteria. These
+make it clear when a hypothesis is confirmed in the preregistration, but
+can also generate an automatic evaluation of the hypotheses.
+
+It means we need to have an analysis script for our data. It also means
+it is typically recommended to simulate data that mirrors the data you
+will collect. You can then run your analysis code on the simulated data,
+and see if you can perform the tests you want to run on the real data.
+In this example we plan to perform an equivalence test. We have written
+an analysis script, named `eq_test_r.R` that takes in a dataframe, and
+performs an equivalence test. The script is:
+
+``` r
+source("command_files/eq_test_r.R")
+eq_test_r
+#> function (data, col1 = "", col2 = "", alpha = alpha, high_eqbound_r = high_eqbound_r, 
+#>     low_eqbound_r = low_eqbound_r) 
+#> {
+#>     x <- data[[col1]]
+#>     y <- data[[col2]]
+#>     r <- cor(x, y)
+#>     n <- length(x)
+#>     test_res <- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, 
+#>         low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, 
+#>         verbose = FALSE)
+#>     invisible(test_res)
+#> }
+```
+
+The test we will run on the data requires certain parameters that
+specify the input, such as data (which dataframe will be used), which
+columns in the dataframe are used, what is the alpha level, etc. The
+function also gives output (`test_res`) which we can use to evaluate the
+test results (e.g., the *p*-value for the equivalence test).
+
+Below we specify the study we want to add an analysis to
+(`apathy_depression_study`), and we give it a name `id =
+"main_analyis"`. We specify the function that should be run
+(`"eq_test_r"`) and repeat the name to save the code itself in our JSON
+file `code = eq_test_r`. Then we specify *all* the parameters that our
+function needs to run. These are basically the values you need to
+specify for any R function to run without throwing an eror for a missing
+argument. We also add an analysis ID - you might have many different
+analyses you will run on a data file, and distinguishing them based on
+what they do (e.g., manipulation\_check, main\_analysis) might be
+useful.
+
+``` r
+apathy_depression_study <- add_analysis(apathy_depression_study, func = "eq_test_r",
+                                        params = list(
+                                          data = ".data[processed_data]",
+                                          col1 = "apathy",
+                                          col2 = "depression",
+                                          alpha = 0.05,
+                                          high_eqbound_r = 0.3,
+                                          low_eqbound_r = -0.3
+                                        ),
+                                        id = "main_analysis")
+```
+
+Now that we have specified our analysis, we can also foresee the
+parameters we will have that we will use to evaluate the results. We can
+use any parameter in the list of results from `test_res` to evaluate the
+result. In this case we know we will perform an equivalence test. To
+specify the statistical conditions that need to be met, we look at the
+TOSTr function. The output value from the TOSTr function we need for our
+hypothesis test is called TOST\_p2, which is the p-value against the
+upper bound. So when we set the upper equivalence bound to 0.3, and we
+check if the TOST\_p2 is smaller than our alpha level, we know if our
+prediction is supported.
+
+We plan to collect a large sample size of 460 people, and should have
+very high power for the equivalence test, and to balance our error
+rates, we set the alpha level to 0.01. Because we will compare our
+p-value to the alpha level, our comparator is the alpha level of 0.01,
+and our hypothesis is supported when the p-value is smaller than 0.01,
+and therefore we specify the direction as `<`. Note that this example
+uses Hypothesis Testing, but you can also make other predictions, such
+as a mean that is larger than some value, or any other prediction based
+on parameters from the analyses you perform.
+
+We know exactly how we will evaluate our results, and when our
+hypothesis will be considered confirmed, names when the TOST\_p2 p-value
+is smaller than our alpha level of 0.01. We add this criterion to our
+study file. We link this criterion to the hypothesis and analysis that
+it relates to (`H1` and `main_analysis`).
+
+``` r
+apathy_depression_study <- add_criterion(apathy_depression_study, 
+                            result = "TOST_p2", 
+                            operator = "<", 
+                            comparator = 0.01,
+                            hypothesis_id = "H1",
+                            analysis_id = "main_analysis")
+```
+
+This `study` list of lists can be stored as a JSON file.
+
+``` r
+# save the framework to a JSON file
+study_save(apathy_depression_study, "pre_data_apathy_depression.json")
+```
+
+We can read back the JSON file into an R list and take a look at the
+structure. We first remove the files from R:
+
+``` r
+# remove study and function to load from JSON
+rm(apathy_depression_study)
+rm(eq_test_r)
+```
+
+And then read them back in:
+
+``` r
+apathy_depression_study <- study("pre_data_apathy_depression.json")
+#> Loaded custom function: eq_test_r
+str(apathy_depression_study)
+#> List of 6
+#>  $ name      : chr "Distinguishing Apathy from Depression"
+#>  $ hypotheses:List of 1
+#>   ..$ :List of 4
+#>   .. ..$ id         : chr "H1"
+#>   .. ..$ description: chr "The correlation between the apathy and depression scale is smaller than 0.3"
+#>   .. ..$ criteria   :List of 1
+#>   .. .. ..$ :List of 5
+#>   .. .. .. ..$ hypothesis_id: chr "H1"
+#>   .. .. .. ..$ analysis_id  : chr "main_analysis"
+#>   .. .. .. ..$ result       : chr "TOST_p2"
+#>   .. .. .. ..$ operator     : chr "<"
+#>   .. .. .. ..$ comparator   : num 0.01
+#>   .. ..$ evaluation : chr "&"
+#>  $ methods   : list()
+#>  $ data      : list()
+#>  $ prep      : list()
+#>  $ analyses  :List of 1
+#>   ..$ :List of 4
+#>   .. ..$ id    : chr "main_analysis"
+#>   .. ..$ func  : chr "eq_test_r"
+#>   .. ..$ params:List of 6
+#>   .. .. ..$ data          : chr ".data[processed_data]"
+#>   .. .. ..$ col1          : chr "apathy"
+#>   .. .. ..$ col2          : chr "depression"
+#>   .. .. ..$ alpha         : num 0.05
+#>   .. .. ..$ high_eqbound_r: num 0.3
+#>   .. .. ..$ low_eqbound_r : num -0.3
+#>   .. ..$ code  :List of 12
+#>   .. .. ..$ : chr "function (data, col1 = \"\", col2 = \"\", alpha = alpha, high_eqbound_r = high_eqbound_r, "
+#>   .. .. ..$ : chr "    low_eqbound_r = low_eqbound_r) "
+#>   .. .. ..$ : chr "{"
+#>   .. .. ..$ : chr "    x <- data[[col1]]"
+#>   .. .. ..$ : chr "    y <- data[[col2]]"
+#>   .. .. ..$ : chr "    r <- cor(x, y)"
+#>   .. .. ..$ : chr "    n <- length(x)"
+#>   .. .. ..$ : chr "    test_res <- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, "
+#>   .. .. ..$ : chr "        low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, "
+#>   .. .. ..$ : chr "        verbose = FALSE)"
+#>   .. .. ..$ : chr "    invisible(test_res)"
+#>   .. .. ..$ : chr "}"
+#>  - attr(*, "class")= chr [1:2] "reg_study" "list"
+```
+
+## Preregistering your hypothesis and analysis plan.
+
+Because we specified our test and evaluation criteria for our prediction
+in detail in the JSON file, we can automatically extract this
+information, and summarize it in a human-readable format that can be
+used to preregister our statistical prediction with enough detail so
+that there is no ambiguity in our prediction, or what would support our
+prediction.
+
+We can do this by creating a summary of the JSON file that contains the
+sections that are relevant for the preregistration. In this case, it
+means running `study_report` command, asking for the ‘prereg’ template.
+This will write an html file names
+`prereg_apathy_depression_study.html`.
+
+-----
+
+``` r
+study_report(apathy_depression_study, 
+             template = "prereg", 
+             filename = "prereg_apathy_depression_study.html")
+#> Saving toC:/Users/Daniel/surfdrive/R/reg/mess/demo/prereg_apathy_depression_study.html
+```
+
+This writes an .html file to the working directory, that should look
+like:
+
+# Registration of Statistical Hypotheses
+
+### 11 mei, 2019
+
+## Distinguishing Apathy from Depression Preregistration
+
+## Hypotheses
+
+### Hypothesis 1
+
+The correlation between the apathy and depression scale is smaller than
+0.3
+
+    Criterion 1 is confirmed if analysis yields TOST_p2 < 0.01
+
+If all criteria are met, this hypothesis is supported.
+
+## Analyses
+
+We will run `eq_test_r(data = .data[1], col1 = apathy, col2 =
+depression, alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)`
+
+## Post Registration
+
+After the preregistration we collect the data. Our data has 5 columns
+for the apathy items (a1 to a5) and 5 columns for the depression data
+(d1 to d5).
+
+Now that we have ‘collected’ (in this case simulated) the data we can
+use the `reg` package to evaluate the preregistered results. The `reg`
+package does this by taking the data, running the preregistered analysis
+script, and comparing the results to the preregistered evaluation
+criteria. We will first load the data, which we assume is stored in a
+folder named ‘original\_data’. We give the data an ID so we can
+reference it later (in case there are multiple hypotheses, based on
+different raw data files).
+
+``` r
+apathy_depression_study <- add_data(apathy_depression_study, "original_data/apathy_depression_raw.csv", id = "apathy_depression_raw")
+```
+
+Often, the raw data needs to be prepared for analysis. For example,
+outliers might need to be removed, scales need to be summed, and other
+calculations are performed. In general, it is recommended to never
+change the raw data files. Instead, you read in the raw data files, and
+save an analysis data file where all calculations are performed,
+outliers are removed, etc. So we run the data preparation code from a
+dedicated R script that pre-processes the raw data on the code. We
+assume this data processing code is stored in a folder named
+’command\_files"). We specify the raw data this pre-processing code
+should be run on, and the name of the data when the pre-processing is
+done (in this case, `processed_data`, which matched the dataframe as
+outputted by our data\_prep.R script).
+
+``` r
+apathy_depression_study <- add_prep(apathy_depression_study, code = "command_files/data_prep.R",
+              params = list("raw_data" = ".data[apathy_depression_raw]"),
+              return = c("processed_data"))
+```
+
+We preregistered that we would consider the results supported when the
+p-value for the test against the upper equivalence bound (a correlation
+of r = 0.3) would be smaller than the alpha level of 0.01.
+
+Because the JSON file contains the data, as well as all analyses we plan
+to run, we can evaluate the pre-registered hypotheses automatically. The
+summary returns a conclusion, based on the planned analysis and the
+collected data.
+
+We first run the data preparation on the raw data (this is a seperate
+step, for cases in which the data preparation takes a long time, so it
+only needs to be performed once).
+
+``` r
+apathy_depression_study <- data_prep(apathy_depression_study)
+#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
+#> v ggplot2 3.1.1       v purrr   0.3.2  
+#> v tibble  2.1.1       v dplyr   0.8.0.1
+#> v tidyr   0.8.3       v stringr 1.4.0  
+#> v readr   1.3.1       v forcats 0.4.0
+#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
+```
+
+Then we run the analyses on the analysis data.
+
+``` r
+apathy_depression_study <- study_analyze(apathy_depression_study)
+```
+
+The evaluation of our analysis can performed automatically. It
+demonstrates how machine readable hypotheses are an easy way to check
+whether the predictions that were made in a preregistration are formally
+supported. We can generate a report that can be submitted with the
+manuscript that summarizes whether each pre-registered hypothesis was
+supported:
+
+``` r
+study_report(apathy_depression_study, 
+             template = "postreg", 
+             filename = "postreg_apathy_depression_study.html")
+#> Saving toC:/Users/Daniel/surfdrive/R/reg/mess/demo/postreg_apathy_depression_study.html
+```
+
+Finally, when we are all done, we same the JSON file. This is an
+archival copy that contains everything we need to reproduce the reported
+results - it contains the raw data, the data preparation, the analyses,
+and the results. Pretty cool, right? ;)
+
+``` r
+study_save(apathy_depression_study, "post_study.json")
+```
