@@ -203,32 +203,6 @@ add_prep <- function(study, code,
 }
 
 
-make_func <- function(func, params, code, return = c()) {
-  if (length(return)) {
-    for (r in 1:length(return)) {
-      var <-  return[r]
-      return[r] <- paste0('  "', var, '" = ', var)
-    }
-  }
-
-  if (is.list(params) && !is.null(names(params))) {
-    # params is a named list, use names for parameters
-    params <- names(params)
-  }
-
-  p <- paste(
-    "prep_func <- function(",
-    paste(params, collapse = ", "),
-    ") {\n", paste(code, collapse = "\n"),
-    "\n\nlist(",
-    paste(return, collapse = ",\n"),
-    ")\n}"
-  )
-
-  eval(parse(text = p), envir = .GlobalEnv)
-}
-
-
 #' Add Analysis
 #'
 #' Add an analysis to a study object
@@ -236,6 +210,7 @@ make_func <- function(func, params, code, return = c()) {
 #' @param study A study list object with class reg_study
 #' @param func The name of the function to run
 #' @param params A list of parameters for the function arguments
+#' @param return A list of object names to return from the prep code
 #' @param id The id for this analysis (index or character) if NULL, this creates a new analysis, if an analysis with this id already exists, it will overwrite it
 #' @return A study object with class reg_study
 #'
@@ -244,16 +219,41 @@ make_func <- function(func, params, code, return = c()) {
 add_analysis <- function(study,
                          func = "list",
                          params = list(),
+                         return = c(),
                          id = NULL) {
-  # TODO: handle pckg::func version of func
+
+  idx <- get_idx(study, id, "analyses")
+
+  if (file.exists(func)) {
+    # make function from .R file
+    code <- readLines(func)
+    aid <- ifelse(is.null(id), idx , id)
+    func <- paste0("analysis_", id, "_func")
+    make_func(func, params, code, return)
+  }
+
+  # handle pckg::func version of func
+  func_parts <- strsplit(func, "::", TRUE)
+  pckg <- ""
+  if (length(func_parts) == 2) {
+    func <- func_parts[2]
+    pckg <- func_parts[1]
+  }
+
   if (!methods::existsFunction(func)) {
     stop("The function ", func, " is not defined")
   }
 
   code <- NULL
-  func_env <- getEnvName(func)
-  if ("R_GlobalEnv" %in% func_env) {
+  func_env <- get_env_name(func)
+  if (pckg %in% func_env) {
+    func <- paste0(pckg, "::", func)
+  } else if ("R_GlobalEnv" %in% func_env) {
     code <- methods::getFunction(func, where = .GlobalEnv)
+  } else if (length(func_env) > 1) {
+    stop(func, " is in more than one package: ", paste(func, collapse = ", "))
+  } else if (!(func_env %in% c("base", "stats"))) {
+    func <- paste0(func_env[1], "::", func)
   }
 
   analysis <- list(
@@ -264,8 +264,6 @@ add_analysis <- function(study,
   )
 
   class(analysis) <- c("reg_study_analysis", "list")
-
-  idx <- get_idx(study, id, "analyses")
 
   study$analyses[[idx]] <- analysis
 
@@ -373,52 +371,6 @@ data_prep <- function(study) {
   invisible(study)
 }
 
-#' Load Params
-#'
-#' Load .data\[id\] and .data\[id\]$col references from the data
-#'
-#' @param params a list of parameter names and values
-#' @param study the study object to get the data from
-#'
-#' @return params list
-#'
-load_params <- function(params, study) {
-  # replace any params equal to ".data[id]" with the data frame
-  pattern <- "^\\.data\\[(.+)\\]$"
-  replace_data <- grep(pattern, params)
-  if (length(replace_data)) {
-    for (j in replace_data) {
-      id <- params[[j]] %>%
-        regexpr(pattern, .) %>%
-        regmatches(params[[j]], .) %>%
-        gsub(".data[", "", ., fixed = TRUE) %>%
-        gsub("]", "", ., fixed = TRUE)
-      idx <- get_idx(study, id, "data")
-      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
-      params[[j]] <- study$data[[idx]]$data
-    }
-  }
-
-  # replace any params equal to ".data[id]$col" with the column vector
-  pattern <- "^\\.data\\[(.+)\\]\\$"
-  replace_data_cols <- grep(pattern, params)
-  if (length(replace_data_cols)) {
-    for (j in replace_data_cols) {
-      id <- params[[j]] %>%
-        regexpr(pattern, .) %>%
-        regmatches(params[[j]], .) %>%
-        gsub(".data[", "", ., fixed = TRUE) %>%
-        gsub("]$", "", ., fixed = TRUE)
-      idx <- get_idx(study, id, "data")
-      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
-
-      col <- gsub(pattern, "", params[j])
-      params[[j]] <- study$data[[idx]]$data[[col]]
-    }
-  }
-
-  params
-}
 
 #' Run analysis
 #'
@@ -597,182 +549,6 @@ study_report <- function(study, template = "prereg",
   invisible(study)
 }
 
-#' Output custom code
-#'
-#' Output custom code specified in an analysis component
-#'
-#' @param study A study list object with class reg_study
-#' @param analysis_id The id or index for the analysis code to output (defaults to index 1)
-#'
-#' @return string of the function definition
-#' @export
-#'
-#' @examples
-#'
-#' custom <- function() { 1:10 }
-#' s <- study() %>%
-#'   add_analysis("custom") %>%
-#'   output_custom_code()
-output_custom_code <- function(study, analysis_id = 1) {
-  analysis <- study$analyses[[analysis_id]]
-
-  if (is.function(analysis$code)) {
-    analysis$code <- analysis$code %>%
-      jsonlite::toJSON() %>%
-      jsonlite::fromJSON() %>%
-      as.list()
-  }
-
-  if (is.list(analysis$code)) {
-    paste(
-      analysis$func, "<-",
-      paste(analysis$code, collapse= "\n")
-    )
-  } else if (is.null(analysis$code)) {
-    analysis$func
-  }
-}
-
-
-
-#' Output hypotheses
-#'
-#' Output hypotheses specified in the json file
-#'
-#' @param study A study list object with class reg_study
-#' @return The study object
-#'
-#' @export
-
-output_hypotheses <- function(study) {
-  cat("## Hypotheses\n\n")
-
-  for (i in 1:length(study$hypotheses)) {
-
-    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[i]]$desc, "\n\n", sep = "")
-
-    criteria <- study$hypotheses[[i]]$criteria
-
-    for (j in 1:length(criteria)) {
-      cat("* Criterion", j, "is confirmed if analysis",
-          criteria[[j]]$test, "yields",
-          criteria[[j]]$result,
-          criteria[[j]]$operator,
-          criteria[[j]]$comparator,
-          "  \n"
-      )
-    }
-
-    cat("\n")
-
-    # explain evaluation
-    eval <- study$hypotheses[[i]]$evaluation
-    if (eval %in% c("&", "and")) {
-      cat("If all criteria are met, this hypothesis is supported.")
-    } else if (eval %in% c("|", "or")) {
-      cat("If any criteria are met, this hypothesis is supported.")
-    } else {
-      cat(eval)
-    }
-
-    cat("\n\n\n")
-  }
-
-  invisible(study)
-}
-
-
-#' Output results
-#'
-#' Output results specified in the json file
-#'
-#' @param study A study list object with class reg_study
-#' @param digits integer indicating the number of decimal places.
-#' @return The study object
-#'
-#' @export
-
-output_results <- function(study, digits = 3) {
-  cat("## Results\n\n")
-  for (i in 1:length(study$hypotheses)) {
-
-    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[1]]$desc, "\n\n", sep = "")
-
-    criteria <- study$hypotheses[[i]]$criteria
-
-    for (j in 1:length(criteria)) {
-      analysis <- grep(criteria[[j]]$analysis, study$analyses, fixed = TRUE)
-      result <- study$analyses[[analysis]]$results[[criteria[[j]]$result]]
-
-      cat("* Criterion ", j, " was ",
-          criteria[[j]]$result, " ",
-          criteria[[j]]$operator, " ",
-          criteria[[j]]$comparator,
-          " in analysis ", criteria[[j]]$analysis, ".  \n    The result was ",
-          criteria[[j]]$result, " = ", round_char(result, digits),
-          "  \n",
-          sep = ""
-      )
-    }
-
-    cat("\n**Conclusion**: ")
-    eval <- study$hypotheses[[i]]$evaluation
-    conclusion <- study$hypotheses[[i]]$conclusion
-    if (eval %in% c("&", "and")) {
-      if (conclusion) {
-        cat("All criteria were met, this hypothesis was supported.")
-      } else {
-        cat("All criteria were not met, this hypothesis was not supported.")
-      }
-    } else if (eval %in% c("|", "or")) {
-      if (conclusion) {
-        cat("At least one criterion was met, this hypothesis was supported.")
-      } else {
-        cat("No criteria were met, this hypothesis was not supported.")
-      }
-    } else {
-      cat("The evaluation criteria could not be automatically evaluated.")
-    }
-
-    cat("\n\n")
-  }
-
-  invisible(study)
-}
-
-
-#' Output analyses
-#'
-#' Output analysis plan specified in the json file
-#'
-#' @param study A study list object with class reg_study
-#' @return The study object
-#'
-#' @export
-
-output_analyses <- function(study) {
-  cat("## Analyses\n\n")
-
-  for (i in 1:length(study$analyses)) {
-    cat("###", study$analyses[[i]]$name, "\n\n")
-
-    func <- study$analyses[[i]]$func
-    params <- study$analyses[[1]]$params
-
-    keys <- names(params)
-    vals <- unlist(params) %>% unname()
-    x <- c()
-    for (j in 1:length(keys)) {
-      x[j] <- paste0(keys[j], " = ", vals[j])
-    }
-
-    cat("We will run `",
-        func, "(", paste0(x, collapse = ", "), ")`\n\n\n",
-        sep = "")
-  }
-
-  invisible(study)
-}
 
 #' Study Object to JSON string
 #'

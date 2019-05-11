@@ -103,17 +103,103 @@ round_char <- function(x, digits = 0, ...) {
 }
 
 
-#' Get Package Name
+#' Get Package
 #'
 #' @param f the function to search (as a character string)
 #'
-#' @return a list of packages the function is in
+#' @return a list of packages/environments the function is in
 #' @keywords internal
 
-getEnvName <- function(f) {
+get_env_name <- function(f) {
   # from https://stackoverflow.com/questions/6429180/how-do-you-you-determine-the-namespace-of-a-function
   # https://stackoverflow.com/users/1863950/artem-klevtsov
   attached <- c(environmentName(.GlobalEnv), loadedNamespaces())
   envs <- c(.GlobalEnv, lapply(attached[-1], .getNamespace))
   attached[vapply(envs, function(env) exists(f, env, inherits = FALSE), logical(1))]
+}
+
+#' Make a function
+#'
+#' @param func the function name
+#' @param args the function arguments
+#' @param code the function body
+#' @param return a list of names of objects to return from the function
+#' @param envir the environment in which to define the function
+#'
+#' @return creates a function
+#' @keywords internal
+#'
+make_func <- function(func, args, code, return = c(), envir = .GlobalEnv) {
+  if (length(return)) {
+    for (r in 1:length(return)) {
+      var <-  return[r]
+      return[r] <- paste0('  "', var, '" = ', var)
+    }
+  }
+
+  if (is.list(args) && !is.null(names(args))) {
+    # args is a named list, use names for args
+    args <- names(args)
+  }
+
+  p <- paste(
+    func, " <- function(",
+    paste(args, collapse = ", "),
+    ") {\n  ",
+    paste(code, collapse = "\n"),
+    "\n\n  list(\n    ",
+    paste(return, collapse = ",\n    "),
+    "\n  )\n}"
+  )
+
+  eval(parse(text = p), envir = envir)
+}
+
+
+#' Load Params
+#'
+#' Load .data\[id\] and .data\[id\]$col references from the data
+#'
+#' @param params a list of parameter names and values
+#' @param study the study object to get the data from
+#'
+#' @return params list
+#' @keywords internal
+#'
+load_params <- function(params, study) {
+  # replace any params equal to ".data[id]" with the data frame
+  pattern <- "^\\.data\\[(.+)\\]$"
+  replace_data <- grep(pattern, params)
+  if (length(replace_data)) {
+    for (j in replace_data) {
+      id <- params[[j]] %>%
+        regexpr(pattern, .) %>%
+        regmatches(params[[j]], .) %>%
+        gsub(".data[", "", ., fixed = TRUE) %>%
+        gsub("]", "", ., fixed = TRUE)
+      idx <- get_idx(study, id, "data")
+      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+      params[[j]] <- study$data[[idx]]$data
+    }
+  }
+
+  # replace any params equal to ".data[id]$col" with the column vector
+  pattern <- "^\\.data\\[(.+)\\]\\$"
+  replace_data_cols <- grep(pattern, params)
+  if (length(replace_data_cols)) {
+    for (j in replace_data_cols) {
+      id <- params[[j]] %>%
+        regexpr(pattern, .) %>%
+        regmatches(params[[j]], .) %>%
+        gsub(".data[", "", ., fixed = TRUE) %>%
+        gsub("]$", "", ., fixed = TRUE)
+      idx <- get_idx(study, id, "data")
+      if (length(study$data) < idx) stop("dataset ", idx, " does not exist")
+
+      col <- gsub(pattern, "", params[j])
+      params[[j]] <- study$data[[idx]]$data[[col]]
+    }
+  }
+
+  params
 }

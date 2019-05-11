@@ -14,8 +14,9 @@ test_that("custom from code", {
     "it worked"
   }
 
-  s <- study() %>%
-    add_analysis("ccode")
+  s <- study() %>% add_analysis("ccode")
+
+  rm(ccode, envir = .GlobalEnv)
 
   op <- output_custom_code(s)
 

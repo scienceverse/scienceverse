@@ -53,3 +53,19 @@ test_that("custom", {
   expect_true(exists("mean_abs_diff"))
   expect_true(is.function(mean_abs_diff))
 })
+
+# add from file
+test_that("add from file", {
+  s <- study() %>%
+    add_hypothesis(id = "H1") %>%
+    add_analysis("../custom_code_test.R",
+                 params = list(a = 1, b = 2),
+                 return = "answer",
+                 id = "A1") %>%
+    add_criterion("answer", "=", 3, "H1", "A1") %>%
+    study_analyse()
+
+  expect_equal(s$analyses[[1]]$results, list(answer = 3))
+  expect_equal(s$hypotheses[[1]]$criteria[[1]]$conclusion, TRUE)
+  expect_equal(s$hypotheses[[1]]$conclusion, TRUE)
+})

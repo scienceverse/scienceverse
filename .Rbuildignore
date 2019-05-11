@@ -8,3 +8,4 @@
 ^iris.json$
 ^postreg.html$
 ^app$
+^tests/custom_code_test.R$

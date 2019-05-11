@@ -4,7 +4,8 @@
 \alias{add_analysis}
 \title{Add Analysis}
 \usage{
-add_analysis(study, func = "list", params = list(), id = NULL)
+add_analysis(study, func = "list", params = list(), return = c(),
+  id = NULL)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
@@ -12,6 +13,8 @@ add_analysis(study, func = "list", params = list(), id = NULL)
 \item{func}{The name of the function to run}
 
 \item{params}{A list of parameters for the function arguments}
+
+\item{return}{A list of object names to return from the prep code}
 
 \item{id}{The id for this analysis (index or character) if NULL, this creates a new analysis, if an analysis with this id already exists, it will overwrite it}
 }
