@@ -115,7 +115,7 @@
       <h1>Registration Demo</h1>
                         <h4 class="author">Lisa DeBruine &amp; Daniel Lakens</h4>
             
-            <h4 class="date">2019-04-30</h4>
+            <h4 class="date">2019-05-11</h4>
       
       <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/vignettes/demo.Rmd'><code>vignettes/demo.Rmd</code></a></small>
       <div class="hidden name"><code>demo.Rmd</code></div>
@@ -252,7 +252,7 @@ mystudy &lt;-<span class="st"> </span><span class="kw">add_criterion</span>(
 <p>We will run <code>cor.test(x = .data[1]$incongruent, y = .data[1]$congruent, alternative = two.sided, paired = TRUE, var.equal = FALSE, conf.level = 0.95)</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add data</span>
 n_sub &lt;-<span class="st"> </span><span class="dv">50</span>
-dat &lt;-<span class="st"> </span>faux<span class="op">::</span><span class="kw">rnorm_multi</span>(n_sub, <span class="dv">2</span>, .<span class="dv">5</span>, <span class="kw">c</span>(<span class="dv">500</span>, <span class="dv">750</span>), <span class="dv">250</span>,
+dat &lt;-<span class="st"> </span>faux<span class="op">::</span><span class="kw">rnorm_multi</span>(n_sub, <span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">500</span>, <span class="dv">750</span>), <span class="dv">250</span>, .<span class="dv">5</span>, 
                          <span class="kw">c</span>(<span class="st">&quot;congruent&quot;</span>, <span class="st">&quot;incongruent&quot;</span>))
 dat<span class="op">$</span>sub_id =<span class="st"> </span><span class="dv">1</span><span class="op">:</span>n_sub
 mystudy &lt;-<span class="st"> </span><span class="kw">add_data</span>(mystudy, dat)
@@ -273,7 +273,7 @@ mystudy &lt;-<span class="st"> </span><span class="kw">study_analyse</span>(myst
 The result was p.value = 0<br />
 </li>
 <li>Criterion 2 was estimate &gt; 0 in analysis H1_ttest.<br />
-The result was estimate = 192.278</li>
+The result was estimate = 225.522</li>
 </ul>
 <p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
 </div>
@@ -282,10 +282,10 @@ The result was estimate = 192.278</li>
 <p>Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.</p>
 <ul>
 <li>Criterion 1 was p.value &lt; 0.05 in analysis H2_cor.<br />
-The result was p.value = 0.001<br />
+The result was p.value = 0<br />
 </li>
 <li>Criterion 2 was estimate &gt; 0 in analysis H2_cor.<br />
-The result was estimate = 0.451</li>
+The result was estimate = 0.641</li>
 </ul>
 <p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
 </div>

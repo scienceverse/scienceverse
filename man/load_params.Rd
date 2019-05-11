@@ -15,5 +15,5 @@ load_params(params, study)
 params list
 }
 \description{
-Load .data\link{id} and .data\link{id}$col references from the data
+Load .data[id] and .data[id]$col references from the data
 }

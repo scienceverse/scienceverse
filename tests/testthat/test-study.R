@@ -7,6 +7,7 @@ test_that("default study", {
   expect_equal(s$hypotheses, list())
   expect_equal(s$methods, list())
   expect_equal(s$data, list())
+  expect_equal(s$prep, list())
   expect_equal(s$analyses, list())
   expect_s3_class(s, "list")
   expect_s3_class(s, "reg_study")
@@ -31,7 +32,7 @@ test_that("study from json", {
     add_analysis("mean_abs_diff", list(
       x = ".data[1]$Petal.Width",
       y = ".data[1]$Petal.Length"
-    ), mean_abs_diff)
+    ))
 
   # remove function to force load from code
   study_save(s, "test.json")
@@ -41,15 +42,9 @@ test_that("study from json", {
 })
 
 test_that("study from json - error", {
-  s <- study() %>%
+  expect_error(s <- study() %>%
     add_analysis("not_there", list(
       x = ".data[1]$Petal.Width",
       y = ".data[1]$Petal.Length"
-    ))
-
-  # remove function to force load from code
-  study_save(s, "test.json")
-  expect_error(study("test.json"), "The function not_there in analysis 1 is not defined")
-
-  file.remove("test.json")
+    )), "The function not_there is not defined")
 })

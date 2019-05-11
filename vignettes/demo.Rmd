@@ -127,7 +127,7 @@ mystudy %>%
 ```{r}
 # add data
 n_sub <- 50
-dat <- faux::rnorm_multi(n_sub, 2, .5, c(500, 750), 250,
+dat <- faux::rnorm_multi(n_sub, 2, c(500, 750), 250, .5, 
                          c("congruent", "incongruent"))
 dat$sub_id = 1:n_sub
 mystudy <- add_data(mystudy, dat)

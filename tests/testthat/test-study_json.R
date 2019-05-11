@@ -8,6 +8,7 @@ test_that("defaults", {
     "hypotheses": [],
     "methods": [],
     "data": [],
+    "prep": [],
     "analyses": []
 }
 '
@@ -24,6 +25,7 @@ test_that("extra study args", {
     "hypotheses": [],
     "methods": [],
     "data": [],
+    "prep": [],
     "analyses": []
 }
 '

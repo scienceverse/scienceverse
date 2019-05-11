@@ -174,7 +174,7 @@ add_criterion <- function(study,
 #' @param study A study list object with class reg_study
 #' @param code Code to define the custom prep function or a reference to the file with the code
 #' @param params A list of parameters for the function arguments
-#' @return A list of object names to return from the prep code
+#' @param return A list of object names to return from the prep code
 #' @return A study object with class reg_study
 #'
 #' @export
@@ -236,7 +236,6 @@ make_func <- function(func, params, code, return = c()) {
 #' @param study A study list object with class reg_study
 #' @param func The name of the function to run
 #' @param params A list of parameters for the function arguments
-#' @param code Code to define custom functions
 #' @param id The id for this analysis (index or character) if NULL, this creates a new analysis, if an analysis with this id already exists, it will overwrite it
 #' @return A study object with class reg_study
 #'
@@ -245,8 +244,18 @@ make_func <- function(func, params, code, return = c()) {
 add_analysis <- function(study,
                          func = "list",
                          params = list(),
-                         code = NULL,
                          id = NULL) {
+  # TODO: handle pckg::func version of func
+  if (!methods::existsFunction(func)) {
+    stop("The function ", func, " is not defined")
+  }
+
+  code <- NULL
+  func_env <- getEnvName(func)
+  if ("R_GlobalEnv" %in% func_env) {
+    code <- methods::getFunction(func, where = .GlobalEnv)
+  }
+
   analysis <- list(
     id = id,
     func = func,
@@ -366,7 +375,7 @@ data_prep <- function(study) {
 
 #' Load Params
 #'
-#' Load .data[id] and .data[id]$col references from the data
+#' Load .data\[id\] and .data\[id\]$col references from the data
 #'
 #' @param params a list of parameter names and values
 #' @param study the study object to get the data from
@@ -602,7 +611,7 @@ study_report <- function(study, template = "prereg",
 #'
 #' custom <- function() { 1:10 }
 #' s <- study() %>%
-#'   add_analysis("custom", code = custom) %>%
+#'   add_analysis("custom") %>%
 #'   output_custom_code()
 output_custom_code <- function(study, analysis_id = 1) {
   analysis <- study$analyses[[analysis_id]]

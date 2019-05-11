@@ -23,7 +23,8 @@ Imports:
     jsonlite,
     faux (>= 0.0.0.9007),
     rmarkdown,
-    rio
+    rio,
+    methods
 Suggests: 
     testthat,
     knitr

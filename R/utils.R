@@ -103,3 +103,17 @@ round_char <- function(x, digits = 0, ...) {
 }
 
 
+#' Get Package Name
+#'
+#' @param f the function to search (as a character string)
+#'
+#' @return a list of packages the function is in
+#' @keywords internal
+
+getEnvName <- function(f) {
+  # from https://stackoverflow.com/questions/6429180/how-do-you-you-determine-the-namespace-of-a-function
+  # https://stackoverflow.com/users/1863950/artem-klevtsov
+  attached <- c(environmentName(.GlobalEnv), loadedNamespaces())
+  envs <- c(.GlobalEnv, lapply(attached[-1], .getNamespace))
+  attached[vapply(envs, function(env) exists(f, env, inherits = FALSE), logical(1))]
+}

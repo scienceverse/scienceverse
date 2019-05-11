@@ -24,7 +24,7 @@ test_that("set values", {
 
 # custom ----
 test_that("custom", {
-  mean_abs_diff <- function(x, y) {
+  mean_abs_diff <<- function(x, y) {
     (x - y) %>%
       abs() %>%
       mean() %>%
@@ -37,7 +37,7 @@ test_that("custom", {
     add_analysis("mean_abs_diff", list(
       x = ".data[1]$Petal.Width",
       y = ".data[1]$Petal.Length"
-    ), mean_abs_diff)
+    ))
 
   expect_equal(s$analyses[[1]]$code, mean_abs_diff)
   expect_equal(s$analyses[[1]]$func, "mean_abs_diff")
@@ -46,7 +46,7 @@ test_that("custom", {
   expect_equal(s$analyses[[1]]$params$y, ".data[1]$Petal.Length")
 
   study_save(s, "demotext.json")
-  rm(mean_abs_diff)
+  rm(mean_abs_diff, envir = .GlobalEnv)
   study <- study("demotext.json")
   file.remove("demotext.json")
 

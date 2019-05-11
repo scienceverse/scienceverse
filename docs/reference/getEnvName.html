@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Study Object to JSON string — study_json • reg</title>
+<title>Get Package Name — getEnvName • reg</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Study Object to JSON string — study_json" />
+<meta property="og:title" content="Get Package Name — getEnvName" />
 
-<meta property="og:description" content="Convert a study object to a JSON string" />
+<meta property="og:description" content="Get Package Name" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,35 +111,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Study Object to JSON string</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/study.R'><code>R/study.R</code></a></small>
-    <div class="hidden name"><code>study_json.Rd</code></div>
+    <h1>Get Package Name</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>getEnvName.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert a study object to a JSON string</p>
+    <p>Get Package Name</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>study_json</span>(<span class='no'>study</span>, <span class='kw'>data_values</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>getEnvName</span>(<span class='no'>f</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>study</th>
-      <td><p>A study list object with class reg_study</p></td>
-    </tr>
-    <tr>
-      <th>data_values</th>
-      <td><p>Whether to include data values in the JSON file (defaults to TRUE)</p></td>
+      <th>f</th>
+      <td><p>the function to search (as a character string)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A prettified JSON string</p>
+    <p>a list of packages the function is in</p>
     
 
   </div>

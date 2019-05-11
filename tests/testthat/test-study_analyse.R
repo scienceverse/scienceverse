@@ -2,46 +2,10 @@ context("test-study_analyse")
 
 # errors ----
 test_that("errors", {
-  s <- study() %>%
-    add_hypothesis() %>%
-    add_analysis("wrong_test", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    )) %>%
-    add_criterion(
-      result = "p.value",
-      operator = "<",
-      comparator = 0.05) %>%
-    add_data(iris)
-
-    if (exists("wrong_test")) rm(wrong_test)
-    expect_error(study_analyse(s), "The function wrong_test in analysis 1 is not defined")
-
-    wrong_test <- "string"
-    expect_error(study_analyse(s), "The function wrong_test in analysis 1 is not defined")
+  expect_error(study() %>% add_analysis("wrong_test", list()),
+               "The function wrong_test is not defined")
 })
 
-test_that("wrong_test", {
-  wrong_test <- function(x, z) {
-    sum(x) %>%
-      set_names("sum") %>%
-      as.list()
-  }
-
-  s <- study() %>%
-    add_hypothesis() %>%
-    add_analysis("wrong_test", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    ), wrong_test) %>%
-    add_criterion(
-      result = "p.value",
-      operator = "<",
-      comparator = 0.05) %>%
-    add_data(iris)
-
-  #expect_error(study_analyse(s), "Some arguments in analysis 1 are not in function wrong_test: z")
-})
 
 # defaults ----
 test_that("defaults", {
@@ -113,7 +77,7 @@ test_that("custom", {
     add_analysis("mean_abs_diff", list(
       x = ".data[1]$Petal.Width",
       y = ".data[1]$Petal.Length"
-    ), mean_abs_diff) %>%
+    )) %>%
     add_criterion(result = "mean_abs_diff", operator = ">", comparator = 1)
 
   # remove function to force load from code

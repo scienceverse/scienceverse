@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Study Object to JSON string — study_json • reg</title>
+<title>Output custom code — output_custom_code • reg</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Study Object to JSON string — study_json" />
+<meta property="og:title" content="Output custom code — output_custom_code" />
 
-<meta property="og:description" content="Convert a study object to a JSON string" />
+<meta property="og:description" content="Output custom code specified in an analysis component" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,18 +111,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Study Object to JSON string</h1>
+    <h1>Output custom code</h1>
     <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/study.R'><code>R/study.R</code></a></small>
-    <div class="hidden name"><code>study_json.Rd</code></div>
+    <div class="hidden name"><code>output_custom_code.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert a study object to a JSON string</p>
+    <p>Output custom code specified in an analysis component</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>study_json</span>(<span class='no'>study</span>, <span class='kw'>data_values</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>output_custom_code</span>(<span class='no'>study</span>, <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,16 +132,22 @@
       <td><p>A study list object with class reg_study</p></td>
     </tr>
     <tr>
-      <th>data_values</th>
-      <td><p>Whether to include data values in the JSON file (defaults to TRUE)</p></td>
+      <th>analysis_id</th>
+      <td><p>The id or index for the analysis code to output (defaults to index 1)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A prettified JSON string</p>
+    <p>string of the function definition</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() { <span class='fl'>1</span>:<span class='fl'>10</span> }
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"custom"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>output_custom_code</span>()</div><div class='output co'>#&gt; <span class='error'>Error in add_analysis(., "custom"): The function custom is not defined</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -149,7 +155,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

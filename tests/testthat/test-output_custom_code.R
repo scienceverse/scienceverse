@@ -10,12 +10,12 @@ test_that("null", {
 })
 
 test_that("custom from code", {
-  ccode <- function() {
+  ccode <<- function() {
     "it worked"
   }
 
   s <- study() %>%
-    add_analysis("ccode", code = ccode)
+    add_analysis("ccode")
 
   op <- output_custom_code(s)
 

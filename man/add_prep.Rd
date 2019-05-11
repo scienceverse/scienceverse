@@ -13,10 +13,10 @@ add_prep(study, code, params = list(data = ".data[1]"),
 \item{code}{Code to define the custom prep function or a reference to the file with the code}
 
 \item{params}{A list of parameters for the function arguments}
+
+\item{return}{A list of object names to return from the prep code}
 }
 \value{
-A list of object names to return from the prep code
-
 A study object with class reg_study
 }
 \description{
