@@ -83,7 +83,7 @@ Another goal of `reg` is to remove ambiguity in how hypotheses are specified. Th
 It means we need to have an analysis script for our data. It also means it is typically recommended to simulate data that mirrors the data you will collect. You can then run your analysis code on the simulated data, and see if you can perform the tests you want to run on the real data. In this example we plan to perform an equivalence test. We have written an analysis script, named `eq_test_r.R` that takes in a dataframe, and performs an equivalence test. The script is:
 
 ```{r}
-source("eq_test_r.R")
+source("command_files/eq_test_r.R")
 eq_test_r
 ```
 
@@ -101,7 +101,6 @@ apathy_depression_study <- add_analysis(apathy_depression_study, func = "eq_test
                                           high_eqbound_r = 0.3,
                                           low_eqbound_r = -0.3
                                         ),
-                                        code = eq_test_r,
                                         id = "main_analysis")
 
 ```
@@ -139,7 +138,7 @@ rm(eq_test_r)
 And then read them back in:
 
 ```{r}
-apathy_depression_study <- study("apathy_depression.json")
+apathy_depression_study <- study("pre_data_apathy_depression.json")
 str(apathy_depression_study)
 ```
 
@@ -182,40 +181,42 @@ The function we have preregistered to run is named (`myTOSTr`), but also contain
 output_custom_code(apathy_depression_study$analyses[[1]]) %>% cat()
 ```
 
-
 ## Post Registration
 
 After the preregistration we collect the data. Our data has 5 columns for the apathy items (a1 to a5) and 5 columns for the depression data (d1 to d5). 
 
-Now that we have 'collected' (in this case simulated) the data we can use the `reg` package to evaluate the preregistered results. The `reg` package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria. 
-
-Often, the raw data needs to be prepared for analysis. For example, outliers might need to be removed, scales need to be summed, and other calculatons are performed. In general, it is recommended to never change the raw data files. Instead, you read in the raw data files, and save an anaysis data file where all calculations are performed, outliers are removed, etc. 
+Now that we have 'collected' (in this case simulated) the data we can use the `reg` package to evaluate the preregistered results. The `reg` package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria. We will first load the data, which we assume is stored in a folder named 'original_data'. We give the data an ID so we can reference it later (in case there are multiple hypotheses, based on different raw data files).
 
 ```{r}
-
+apathy_depression_study <- add_data(apathy_depression_study, "original_data/apathy_depression_raw.csv", id = "apathy_depression_raw")
 ```
 
+Often, the raw data needs to be prepared for analysis. For example, outliers might need to be removed, scales need to be summed, and other calculations are performed. In general, it is recommended to never change the raw data files. Instead, you read in the raw data files, and save an analysis data file where all calculations are performed, outliers are removed, etc. So we run the data preparation code from a dedicated R script that pre-processes the raw data on the code. We assume this data processing code is stored in a folder named 'command_files"). We specify the raw data this pre-processing code should be run on, and the name of the data when the pre-processing is done (in this case, `processed_data`, which matched the dataframe as outputted by our data_prep.R script).
+
+```{r}
+apathy_depression_study <- add_prep(apathy_depression_study, code = "command_files/data_prep.R",
+              params = list("raw_data" = ".data[apathy_depression_raw]"),
+              return = c("processed_data"))
+
+```
 
 We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01. 
 
-We now read in both the json file (which contains our predictions) and the data. `pipeline` allows us to ask for a summary, not just of the hypotheses and analyses (which we submitted in our preregistration) but also for the results. Because the json file contains the analyses we plan to run, we can evaluate the pre-registered hypotheses. The summary returns a conclusion, based on the planned analysis and the collected data. 
+Because the JSON file contains the data, as well as all analyses we plan to run, we can evaluate the pre-registered hypotheses automatically. The summary returns a conclusion, based on the planned analysis and the collected data. 
+
+We first run the data preparation on the raw data (this is a seperate step, for cases in which the data preparation takes a long time, so it only needs to be performed once).
 
 ```{r, results='asis'}
-#Our analysis require the TOSTER package
-
-# add data from filename
-apathy_depression_study <- add_data(apathy_depression_study,
-                                    'apathy_depression.csv')
-
-# run analysis
-apathy_depression_study <- study_analyze(apathy_depression_study)
-
-# inspect results of analysis
-apathy_depression_study$analyses[[1]]$results %>% str()
-
+apathy_depression_study <- data_prep(apathy_depression_study)
 ```
 
-Because the observed *p*-value in the equivalence test is smaller than 0.01, the conclusion is that the hypothesis is supported. This evaluation is performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. 
+Then we run the analyses on the analysis data.
+
+```{r, results='asis'}
+apathy_depression_study <- study_analyze(apathy_depression_study)
+```
+
+The evaluation of our analysis can performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. We can generate a report that can be submitted with the manuscript that summarizes whether each pre-registered hypothesis was supported:
 
 ```{r}
 study_report(apathy_depression_study, 
@@ -223,35 +224,8 @@ study_report(apathy_depression_study,
              filename = "postreg_apathy_depression_study.html")
 ```
 
+Finally, when we are all done, we same the JSON file. This is an archival copy that contains everything we need to reproduce the reported results - it contains the raw data, the data preparation, the analyses, and the results. Pretty cool, right? ;)
 
-## Creating the pregistration file
-
-Using the `prereg_pipeline` function we can generate a .html file that contains the hypotheses and planned analyses. This file can be uploaded to for example the Open Science Framework, together with the .json file, where it will provide formally specified predictions for each hypothesis.  
-
-```{r,  eval = F}
-#generate a html file from the json
-#currently assumes you are in working dir, and all files are there
-#works if working directory is set to vignette folder. 
-
+```{r}
+study_save(apathy_depression_study, "post_study.json")
 ```
-
-## Creating the evaluation and archival file
-
-Using the `postreg_pipeline` function we can generate a .html file that contains the hypotheses, planned analyses, and evaluation. This file can be sent to reviewers and the editor, together with a link the preregistration. Reviewers can see, in human readable format, which hypotheses were supported based on the predictions made before the data were collected, and which were not. 
-
-A feature we are planning to build in is to add both the planned analysis as the final analysis to the json file, and compare the two analysis scripts in the evaluation file. This will allow reviewers to easily see where changes are made in the planned analyses, and will allow researchers to explain any deviations from the original plan. 
-
-The `postreg_pipeline` function also creates an archive json file. 
-
-```{r, eval = F, results='asis'}
-
-
-```
-
-This archive file contains a copy of the data. For example, we can request the raw data of participant 1, response on question a1, directly from the json file:
-
-```{r, results='asis'}
-
-```
-
-The goal is to create a `reproduce_pipeline` function that will allow anyone to reproduce the analyses from the original data based only on the archive json file. Another goal is to create standardized report template files based on the standaridzed json file. Another goal is to make it easy for researchers to search through the archive files. If measures have standardized names (e.g., 'age', 'PANAS_Q1') and analyses and their outputs have standardized names (e.g., 'ind_t_test_welch', p_value_ind_t_test_welch') then researchers could search through a database of archive json files for information they need.
