@@ -4,8 +4,8 @@
 \alias{add_analysis}
 \title{Add Analysis}
 \usage{
-add_analysis(study, func = "list", params = list(), return = c(),
-  id = NULL)
+add_analysis(study, func = "list", params = list(),
+  return = ".Last.value", id = NULL)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}

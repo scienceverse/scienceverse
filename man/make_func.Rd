@@ -4,7 +4,7 @@
 \alias{make_func}
 \title{Make a function}
 \usage{
-make_func(func, args, code, return = c(), envir = .GlobalEnv)
+make_func(func, args, code, return = ".Last.value", envir = .GlobalEnv)
 }
 \arguments{
 \item{func}{the function name}

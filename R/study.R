@@ -219,11 +219,12 @@ add_prep <- function(study, code,
 add_analysis <- function(study,
                          func = "list",
                          params = list(),
-                         return = c(),
+                         return = ".Last.value",
                          id = NULL) {
 
   idx <- get_idx(study, id, "analyses")
 
+  # grep(".*\\.R$", func, ignore.case = TRUE) %>% length()
   if (file.exists(func)) {
     # make function from .R file
     code <- readLines(func)
@@ -235,9 +236,14 @@ add_analysis <- function(study,
   # handle pckg::func version of func
   func_parts <- strsplit(func, "::", TRUE)
   pckg <- ""
-  if (length(func_parts) == 2) {
-    func <- func_parts[2]
-    pckg <- func_parts[1]
+  if (length(func_parts[[1]]) == 2) {
+    func <- func_parts[[1]][2]
+    pckg <- func_parts[[1]][1]
+
+    # check package is loaded
+    if (!isNamespaceLoaded(pckg)) {
+      library(pckg, character.only = TRUE)
+    }
   }
 
   if (!methods::existsFunction(func)) {
@@ -407,10 +413,21 @@ study_analyse <- function(study) {
       load_params(study)
 
     # check the function exists
-    if (!exists(func)) {
-      stop("The function ", func, " in analysis ", i, " is not defined")
-    } else if (parse(text=func) %>% eval() %>% is.function() == FALSE) {
-      stop("The function ", func, " in analysis ", i, " is not defined")
+    # handle pckg::func version of func
+    func_parts <- strsplit(func, "::", TRUE)
+    pckg <- ""
+    if (length(func_parts[[1]]) == 2) {
+      func <- func_parts[[1]][2]
+      pckg <- func_parts[[1]][1]
+
+      # check package is loaded
+      if (!isNamespaceLoaded(pckg)) {
+        library(pckg, character.only = TRUE)
+      }
+    }
+
+    if (!methods::existsFunction(func)) {
+      stop("The function ", func, " is not defined")
     }
 
     # check arguments are OK

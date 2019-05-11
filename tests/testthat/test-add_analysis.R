@@ -54,6 +54,24 @@ test_that("custom", {
   expect_true(is.function(mean_abs_diff))
 })
 
+# add from package
+test_that("add from package", {
+  s <- study() %>%
+    add_analysis("stats::sd", list(x = 1:10)) %>%
+    add_hypothesis() %>%
+    add_criterion(1, ">", 0)
+
+  expect_equal(s$analyses[[1]]$func, "stats::sd")
+
+  s <- study_analyse(s)
+
+  expect_equal(s$hypotheses[[1]]$criteria[[1]]$conclusion, TRUE)
+  expect_equal(s$analyses[[1]]$results[[1]], sd(1:10))
+
+  s <- study() %>% add_analysis("lme4::lmer")
+  expect_equal(s$analyses[[1]]$func, "lme4::lmer")
+})
+
 # add from file
 test_that("add from file", {
   s <- study() %>%

@@ -129,7 +129,7 @@ get_env_name <- function(f) {
 #' @return creates a function
 #' @keywords internal
 #'
-make_func <- function(func, args, code, return = c(), envir = .GlobalEnv) {
+make_func <- function(func, args, code, return = ".Last.value", envir = .GlobalEnv) {
   if (length(return)) {
     for (r in 1:length(return)) {
       var <-  return[r]
@@ -148,7 +148,7 @@ make_func <- function(func, args, code, return = c(), envir = .GlobalEnv) {
     ") {\n  ",
     paste(code, collapse = "\n"),
     "\n\n  list(\n    ",
-    paste(return, collapse = ",\n    "),
+    paste(return, collapse = ",\n"),
     "\n  )\n}"
   )
 
