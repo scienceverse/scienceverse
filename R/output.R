@@ -155,7 +155,7 @@ output_analyses <- function(study) {
   cat("## Analyses\n\n")
 
   for (i in 1:length(study$analyses)) {
-    cat("###", study$analyses[[i]]$name, "\n\n")
+    cat("### Analysis ", i, ": ", study$analyses[[i]]$id, "\n\n")
 
     func <- study$analyses[[i]]$func
     params <- study$analyses[[1]]$params

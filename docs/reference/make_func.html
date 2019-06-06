@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Output analyses — output_analyses • scienceverse</title>
+<title>Make a function — make_func • scienceverse</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Output analyses — output_analyses" />
+<meta property="og:title" content="Make a function — make_func" />
 
-<meta property="og:description" content="Output analysis plan specified in the json file" />
+<meta property="og:description" content="Make a function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,31 +111,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Output analyses</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/output.R'><code>R/output.R</code></a></small>
-    <div class="hidden name"><code>output_analyses.Rd</code></div>
+    <h1>Make a function</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>make_func.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Output analysis plan specified in the json file</p>
+    <p>Make a function</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>output_analyses</span>(<span class='no'>study</span>)</pre>
+    <pre class="usage"><span class='fu'>make_func</span>(<span class='no'>func</span>, <span class='no'>args</span>, <span class='no'>code</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>".Last.value"</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>study</th>
-      <td><p>A study list object with class reg_study</p></td>
+      <th>func</th>
+      <td><p>the function name</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p>the function arguments</p></td>
+    </tr>
+    <tr>
+      <th>code</th>
+      <td><p>the function body</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>a list of names of objects to return from the function</p></td>
+    </tr>
+    <tr>
+      <th>envir</th>
+      <td><p>the environment in which to define the function</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The study object</p>
+    <p>creates a function</p>
     
 
   </div>

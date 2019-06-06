@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Output analyses — output_analyses • scienceverse</title>
+<title>Get Package — get_env_name • scienceverse</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Output analyses — output_analyses" />
+<meta property="og:title" content="Get Package — get_env_name" />
 
-<meta property="og:description" content="Output analysis plan specified in the json file" />
+<meta property="og:description" content="Get Package" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,31 +111,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Output analyses</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/output.R'><code>R/output.R</code></a></small>
-    <div class="hidden name"><code>output_analyses.Rd</code></div>
+    <h1>Get Package</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/reg/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>get_env_name.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Output analysis plan specified in the json file</p>
+    <p>Get Package</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>output_analyses</span>(<span class='no'>study</span>)</pre>
+    <pre class="usage"><span class='fu'>get_env_name</span>(<span class='no'>f</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>study</th>
-      <td><p>A study list object with class reg_study</p></td>
+      <th>f</th>
+      <td><p>the function to search (as a character string)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The study object</p>
+    <p>a list of packages/environments the function is in</p>
     
 
   </div>

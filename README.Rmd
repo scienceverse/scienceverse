@@ -3,24 +3,24 @@ output: github_document
 always_allow_html: yes
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
 # scienceverse <img src="man/figures/README-logo.png" align="right" alt="" width="120" />
+<!-- rmarkdown v1 -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
 <!-- badges: end -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 The goal of scienceverse is to generate and process machine-readable study descriptions to facilitate archiving, registration, checking, and meta-analysis.
 
@@ -77,16 +77,15 @@ study_save(iris_study, "iris.json")
 study_report(iris_study, "postreg", "postreg.html")
 ```
 
-```{r hypo, results='asis'}
-# output sections of the report
+```{r op-hypo, results='asis'}
 output_hypotheses(iris_study) 
 ```
 
-```{r analyses, results='asis'}
+```{r op-analyses, results='asis'}
 output_analyses(iris_study) 
 ```
 
-```{r results, results='asis'}
+```{r op-results, results='asis'}
 output_results(iris_study)
 ```
 
