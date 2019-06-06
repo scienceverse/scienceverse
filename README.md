@@ -1,24 +1,37 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-reg
-===
 
-The goal of reg is to generate and process machine-readable study descriptions.
+# scienceverse <img src="man/figures/README-logo.png" align="right" alt="" width="120" />
 
-Installation
-------------
+<!-- badges: start -->
 
-You can install reg from [GitHub](https://github.com/scienceverse/reg) with:
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build
+status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
+[![Coverage
+status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
+[![Travis build
+status](https://travis-ci.org/scienceverse/scienceverse.svg?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
+<!-- badges: end -->
+
+The goal of scienceverse is to generate and process machine-readable
+study descriptions to facilitate archiving, registration, checking, and
+meta-analysis.
+
+## Installation
+
+You can install scienceverse from
+[GitHub](https://github.com/scienceverse/scienceverse) with:
 
 ``` r
-devtools::install_github("scienceverse/reg")
+devtools::install_github("scienceverse/scienceverse")
 ```
 
-Example
--------
+## Example
 
 ``` r
-library(reg)
+library(scienceverse)
 ```
 
 ``` r
@@ -66,14 +79,13 @@ study_report(iris_study, "postreg", "postreg.html")
 output_hypotheses(iris_study) 
 ```
 
-Hypotheses
-----------
+## Hypotheses
 
 ### Hypothesis 1
 
 Petal length and width will be significantly correlated
 
--   Criterion 1 is confirmed if analysis yields p.value &lt; 0.05
+  - Criterion 1 is confirmed if analysis yields p.value \< 0.05
 
 If all criteria are met, this hypothesis is supported.
 
@@ -81,11 +93,31 @@ If all criteria are met, this hypothesis is supported.
 output_analyses(iris_study) 
 ```
 
+## Analyses
+
+### 
+
+We will run `cor.test(x = .data[1]$Petal.Length, y =
+.data[1]$Petal.Width, alternative = two.sided, method = pearson,
+conf.level = 0.95)`
+
 ``` r
 output_results(iris_study)
 ```
 
-Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.
+## Results
+
+### Hypothesis 1
+
+Petal length and width will be significantly correlated
+
+  - Criterion 1 was p.value \< 0.05 in analysis 1.  
+    The result was p.value = 0
+
+**Conclusion**: All criteria were met, this hypothesis was supported.
+
+Now that you’ve saved the study framework as a JSON file, you can also
+load it in using the `study()` function.
 
 ``` r
 reloaded_iris_study <- study("iris.json")
@@ -93,7 +125,8 @@ reloaded_iris_study <- study("iris.json")
 
 ### Create by Piping
 
-You can also pipe together the steps to create a study object, save it, and generate a report.
+You can also pipe together the steps to create a study object, save it,
+and generate a report.
 
 ``` r
 iris_study <- study("Iris Petals") %>%

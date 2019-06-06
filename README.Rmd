@@ -1,5 +1,6 @@
 ---
 output: github_document
+always_allow_html: yes
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -13,21 +14,27 @@ knitr::opts_chunk$set(
 )
 ```
 
-# reg
+# scienceverse <img src="man/figures/README-logo.png" align="right" alt="" width="120" />
 
-The goal of reg is to generate and process machine-readable study descriptions.
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
+[![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
+<!-- badges: end -->
+
+The goal of scienceverse is to generate and process machine-readable study descriptions to facilitate archiving, registration, checking, and meta-analysis.
 
 ## Installation
 
-You can install reg from [GitHub](https://github.com/scienceverse/reg) with:
+You can install scienceverse from [GitHub](https://github.com/scienceverse/scienceverse) with:
 
 ``` r
-devtools::install_github("scienceverse/reg")
+devtools::install_github("scienceverse/scienceverse")
 ```
 ## Example
 
 ```{r}
-library(reg)
+library(scienceverse)
 ```
 
 ```{r}

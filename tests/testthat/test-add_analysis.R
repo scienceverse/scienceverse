@@ -74,6 +74,8 @@ test_that("add from package", {
 
 # add from file
 test_that("add from file", {
+  testthat::skip("only works in testthat")
+
   s <- study() %>%
     add_hypothesis(id = "H1") %>%
     add_analysis("../custom_code_test.R",

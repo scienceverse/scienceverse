@@ -1,4 +1,4 @@
 library(testthat)
-library(reg)
+library(scienceverse)
 
-test_check("reg")
+test_check("scienceverse")

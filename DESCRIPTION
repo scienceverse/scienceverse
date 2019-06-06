@@ -1,4 +1,4 @@
-Package: reg
+Package: scienceverse
 Title: Machine-Readable Study Descriptions
 Version: 0.0.0.9000
 Authors@R: c(
@@ -21,13 +21,15 @@ RoxygenNote: 6.1.1
 Imports: 
     magrittr,
     jsonlite,
-    faux (>= 0.0.0.9007),
+    faux (>= 0.0.0.9013),
     rmarkdown,
     rio,
-    methods
+    methods,
+    rlang (>= 0.1.2)
 Suggests: 
     testthat,
-    knitr
+    knitr,
+    roxygen2
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
 VignetteBuilder: knitr
