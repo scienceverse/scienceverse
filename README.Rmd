@@ -11,6 +11,7 @@ always_allow_html: yes
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/scienceverse/scienceverse/branch/master/graph/badge.svg)](https://codecov.io/gh/scienceverse/scienceverse?branch=master)
 <!-- badges: end -->
 
 ```{r setup, include = FALSE}

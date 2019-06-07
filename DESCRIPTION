@@ -1,6 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
 Version: 0.0.0.9000
+Date: 2019-06-07
 Authors@R: c(
   person(given = "Lisa",
            family = "DeBruine",
@@ -24,12 +25,12 @@ Imports:
     faux (>= 0.0.0.9013),
     rmarkdown,
     rio,
-    methods,
-    rlang (>= 0.1.2)
+    methods
 Suggests: 
     testthat,
     knitr,
-    roxygen2
+    roxygen2,
+    covr
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
 VignetteBuilder: knitr

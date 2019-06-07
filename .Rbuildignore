@@ -2,6 +2,7 @@
 ^docs$
 ^_pkgdown\.yml$
 ^README\.Rmd$
+^README\.md$
 ^README\.html$
 ^LICENSE\.md$
 ^reg\.Rproj$
@@ -11,3 +12,4 @@
 ^app$
 ^tests/custom_code_test.R$
 ^\.travis\.yml$
+^codecov\.yml$
