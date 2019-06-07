@@ -2,6 +2,7 @@
 ^docs$
 ^_pkgdown\.yml$
 ^README\.Rmd$
+^README\.html$
 ^LICENSE\.md$
 ^reg\.Rproj$
 ^\.Rproj\.user$
