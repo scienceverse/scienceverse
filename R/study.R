@@ -528,6 +528,7 @@ study_save <- function(study,
 #' @return A study object with class reg_study
 #' @examples
 #'
+#' \dontrun{
 #' mystudy <- study("Iris Study") %>%
 #'   add_hypothesis("Petal length and width will be significantly correlated") %>%
 #'   add_analysis("cor.test", list(
@@ -538,6 +539,7 @@ study_save <- function(study,
 #'   add_data(iris) %>%
 #'   study_analyse() %>%
 #'   study_report(template = "postreg")
+#' }
 #'
 #' @export
 #'
