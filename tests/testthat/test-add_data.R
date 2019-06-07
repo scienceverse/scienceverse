@@ -6,7 +6,7 @@ test_that("warnings", {
     "The file not_a_real_file.csv does not exist."
   )
 
-  filename <- system.file("rmarkdown/postreg.Rmd", package = "reg")
+  filename <- system.file("rmarkdown/postreg.Rmd", package = "scienceverse")
   expect_warning(
     study() %>% add_data(filename),
     "The Rmd format is not supported.\nPlease add data in one of the following formats: csv, xls, xlsx, txt, tsv, sav"
@@ -30,7 +30,7 @@ test_that("defaults", {
 })
 
 test_that("add data from file", {
-  filename <- system.file("extdata/iris.csv", package = "reg")
+  filename <- system.file("extdata/iris.csv", package = "scienceverse")
   s <- study() %>% add_data(filename)
   dat <- rio::import(filename)
 
@@ -48,7 +48,7 @@ test_that("add data from file", {
 })
 
 test_that("add data from codebook", {
-  filename <- system.file("extdata/iat-codebook.json", package = "reg")
+  filename <- system.file("extdata/iat-codebook.json", package = "scienceverse")
   s <- study() %>% add_data(filename)
   j <- c(list(id = NULL), jsonlite::read_json(filename))
   class(j) <- c("reg_study_data", "list")
