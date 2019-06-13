@@ -1,0 +1,74 @@
+---
+title: "Scienceverse Notes"
+date: "2019-06-13"
+---
+
+## Problem
+
+* Research components are increasingly being shared but are not easily findable, accessible, interoperable, and reusable ([FAIR](https://www.go-fair.org/fair-principles/)).
+* Scientists lack a framework that helps them to concisely describe every component of their research in a machine-readable format.
+
+## Solution
+
+* Infrastructure (Make it possible): 
+    A grammar of science that allows users to generate rich, standardized metadata describing hypotheses, experiments, materials, data, code, and any other components of their research that other scholars might want to find, access, and re-use.
+* User interface (Make it easy): 
+  - Tools to guide users through describing their studies
+  - R package [scienceverse](https://scienceverse.github.io/scienceverse/)
+  - Shiny app
+  - Database for archiving and searching studies in this format
+* Communities (make it normative):
+  - Integrate with OSF
+  - Adoption by journals (for RRs)
+  - Adoption by consortia
+* Incentives (make it rewarding)
+* Policy (make it required)
+
+## Outputs
+
+* Grammar: formal JSON definitions of component structure 
+* Tutorials: vignettes and examples for several types of research
+* Tools: R package for creating JSON archive files, shiny app
+* Database: Stores archive files to facilitate search and discovery
+
+## Key Metrics
+
+* How many people access the grammar definitions
+* How many people download the R package
+* How many projects are processed through the shiny app
+* How many projects use the framework on the OSF, ect.
+* How many projects uploaded to the database
+* How many users search the database
+* Adoption by OSF, other archives
+* Adoption by journals, consortia
+
+## User Profiles
+
+* Researchers/students archiving others' research
+* Researchers documenting own research (including consortia like PSA)
+* Researchers creating registered reports and pre-registrations
+* Editors and reviewers evaluating registered reports
+* Researchers creating meta-analyses
+* Researchers looking for secondary data
+* App developers (integrate with other tools/languages)
+
+## User Channels
+
+* Website to link all resources (definitions, tutorials, R package, shiny app, database) 
+* Twitter/social media
+* SIPS workshop/hackathon
+* Custom scienceverse hackathons to learn by coding own or others' existing research
+* Adoption by consortium projects (e.g., PSA, ManyBabies)
+
+## Potential Contributors/Aligned Projects
+
+* [PsychDS](https://github.com/psych-ds/psych-DS)
+* [Codebook](https://rubenarslan.github.io/codebook/)
+* [OSF](https://osf.io/)/[Center for Open Science](https://cos.io/)
+* [Psych Sci Accelerator](https://psysciacc.org/)
+* [The Turing Way](https://the-turing-way.netlify.com/)
+* [Go-FAIR](https://www.go-fair.org/)
+* [Project TIER](https://www.projecttier.org/)
+
+
+
