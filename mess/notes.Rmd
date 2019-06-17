@@ -69,6 +69,8 @@ date: "2019-06-13"
 * [The Turing Way](https://the-turing-way.netlify.com/)
 * [Go-FAIR](https://www.go-fair.org/)
 * [Project TIER](https://www.projecttier.org/)
+* [DataCite](https://schema.datacite.org/)
+* [Scholix](http://www.scholix.org/)
 
 
 
