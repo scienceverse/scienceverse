@@ -68,8 +68,8 @@ study <- function(name = "Demo Study", ...) {
   } else {
     study <- c(
       list(name = name),
-      list(...),
       list(
+        info = list(...),
         hypotheses = list(),
         methods = list(),
         data = list(),
@@ -104,6 +104,9 @@ add_hypothesis <- function(study,
                            description = "Describe your hypothesis",
                            evaluation = "&",
                            id = NULL) {
+  idx <- get_idx(study, id, "hypotheses")
+  id <- ifelse(is.null(id), idx , id)
+
   hypothesis <- list(
     id = id,
     description = description,
@@ -112,8 +115,6 @@ add_hypothesis <- function(study,
   )
 
   class(hypothesis) <- c("reg_study_hypothesis", "list")
-
-  idx <- get_idx(study, id, "hypotheses")
 
   study$hypotheses[[idx]] <- hypothesis
 
@@ -223,12 +224,12 @@ add_analysis <- function(study,
                          id = NULL) {
 
   idx <- get_idx(study, id, "analyses")
+  id <- ifelse(is.null(id), idx , id)
 
   # grep(".*\\.R$", func, ignore.case = TRUE) %>% length()
   if (file.exists(func)) {
     # make function from .R file
     code <- readLines(func)
-    aid <- ifelse(is.null(id), idx , id)
     func <- paste0("analysis_", id, "_func")
     make_func(func, params, code, return)
   }
@@ -455,7 +456,8 @@ study_analyse <- function(study) {
     criteria <- vector()
     for (j in 1:criteria_n) {
       criterion <- h$criteria[[j]]
-      analysis <- grep(criterion$analysis, study$analyses, fixed = TRUE)
+      analysis_ids <- sapply(study$analyses, function(x) {x$id})
+      analysis <- match(criterion$analysis_id, analysis_ids)
 
       value <- study$analyses[[analysis]]$results[[criterion$result]]
       if (criterion$operator == "<") {

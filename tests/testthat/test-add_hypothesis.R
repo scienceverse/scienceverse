@@ -5,7 +5,7 @@ test_that("defaults", {
     add_hypothesis()
 
   expect_equal(length(s$hypotheses), 1)
-  expect_null(s$hypotheses[[1]]$id)
+  expect_equal(s$hypotheses[[1]]$id, 1)
   expect_equal(s$hypotheses[[1]]$description, "Describe your hypothesis")
   expect_equal(s$hypotheses[[1]]$criteria, list())
   expect_equal(s$hypotheses[[1]]$evaluation, "&")

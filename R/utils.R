@@ -97,6 +97,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
 #' @return The character vector or the rounded version if numeric.
 #'
 round_char <- function(x, digits = 0, ...) {
+  if (length(x) == 0) return("NA")
   num_x <- suppressWarnings(as.numeric(x))
   if (is.na(num_x)) return(x)
   round(num_x, digits, ...)

@@ -5,6 +5,7 @@ test_that("defaults", {
 
   comp <- '{
     "name": "Demo Study",
+    "info": [],
     "hypotheses": [],
     "methods": [],
     "data": [],
@@ -21,7 +22,9 @@ test_that("extra study args", {
   j <- study("Name", description = "My study") %>% study_json()
   comp <- '{
     "name": "Name",
-    "description": "My study",
+    "info": {
+        "description": "My study"
+    },
     "hypotheses": [],
     "methods": [],
     "data": [],

@@ -5,7 +5,7 @@ test_that("defaults", {
     add_analysis()
 
   expect_equal(length(s$analyses), 1)
-  expect_null(s$analyses[[1]]$id)
+  expect_equal(s$analyses[[1]]$id, 1)
   expect_equal(s$analyses[[1]]$func, "list")
   expect_equal(s$analyses[[1]]$params, list())
   expect_null(s$analyses[[1]]$code)

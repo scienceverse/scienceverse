@@ -102,7 +102,8 @@ output_results <- function(study, digits = 3) {
     criteria <- study$hypotheses[[i]]$criteria
 
     for (j in 1:length(criteria)) {
-      analysis <- grep(criteria[[j]]$analysis, study$analyses, fixed = TRUE)
+      analysis_ids <- sapply(study$analyses, function(x) {x$id})
+      analysis <- match(criteria[[j]]$analysis_id, analysis_ids)
       result <- study$analyses[[analysis]]$results[[criteria[[j]]$result]]
 
       cat("* Criterion ", j, " was ",
@@ -168,8 +169,12 @@ output_analyses <- function(study) {
     }
 
     cat("We will run `",
-        func, "(", paste0(x, collapse = ", "), ")`\n\n\n",
+        func, "(", paste0(x, collapse = ", "), ")`\n\n",
         sep = "")
+
+    output_custom_code(study, i) %>%
+      paste("<code>", ., "</code>\n\n") %>%
+      cat()
   }
 
   invisible(study)

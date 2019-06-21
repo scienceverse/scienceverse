@@ -21,6 +21,7 @@ Generate a study report
 }
 \examples{
 
+\dontrun{
 mystudy <- study("Iris Study") \%>\%
   add_hypothesis("Petal length and width will be significantly correlated") \%>\%
   add_analysis("cor.test", list(
@@ -31,5 +32,6 @@ mystudy <- study("Iris Study") \%>\%
   add_data(iris) \%>\%
   study_analyse() \%>\%
   study_report(template = "postreg")
+}
 
 }
