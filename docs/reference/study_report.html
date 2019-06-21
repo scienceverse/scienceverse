@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -86,7 +86,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/demo.html">Registration Demo</a>
+      <a href="../articles/demo.html">Quick Registration Demo</a>
+    </li>
+    <li>
+      <a href="../articles/registration.html">Using scienceverse for Registered Reports</a>
     </li>
   </ul>
 </li>
@@ -148,6 +151,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='no'>mystudy</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>(<span class='st'>"Iris Study"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"Petal length and width will be significantly correlated"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"cor.test"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
@@ -157,7 +161,8 @@
   <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_report</span>(<span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"postreg"</span>)</div><div class='output co'>#&gt; <span class='message'>Saving to/Users/lisad/rproj/scienceverse/scienceverse/docs/reference/study.html</span></div><div class='input'>
+  <span class='fu'>study_report</span>(<span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"postreg"</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

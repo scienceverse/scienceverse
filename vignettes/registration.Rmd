@@ -4,7 +4,7 @@ author: "Daniel Lakens & Lisa DeBruine"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Using scienceverse for Registered Reports}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -155,7 +155,7 @@ You can add more than one criterion to a hypothesis by calling the `add_criterio
 
 This `study` list of lists can be stored as an archive file. This saves the information in plain text JSON format.
 
-```{r, eval = FALSE}
+```{r}
 # save the framework to a JSON file
 study_save(ap_dep_study, "pre_data_apathy_depression.json")
 ```
@@ -172,7 +172,6 @@ And then read them back in:
 
 ```{r}
 ap_dep_study <- study("pre_data_apathy_depression.json")
-str(ap_dep_study)
 ```
 
 ## Pre-registration

@@ -1,8 +1,9 @@
 {
     "name": "Iris Petals",
+    "info": [],
     "hypotheses": [
         {
-            "id": {},
+            "id": 1,
             "description": "Petal length and width will be positively and significantly correlated",
             "criteria": [
                 {
@@ -228,7 +229,7 @@
     "prep": [],
     "analyses": [
         {
-            "id": {},
+            "id": 1,
             "func": "cor.test",
             "params": {
                 "x": ".data[1]$Petal.Length",

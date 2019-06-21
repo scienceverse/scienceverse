@@ -1,10 +1,10 @@
 ---
-title: "Registration Demo"
+title: "Quick Registration Demo"
 author: "Lisa DeBruine & Daniel Lakens"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Registration Demo}
+  %\VignetteIndexEntry{Quick Registration Demo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

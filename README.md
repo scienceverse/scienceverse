@@ -11,6 +11,7 @@ always_allow_html: yes
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/scienceverse/scienceverse/branch/master/graph/badge.svg)](https://codecov.io/gh/scienceverse/scienceverse?branch=master)
 <!-- badges: end -->
 
 
@@ -75,7 +76,6 @@ study_report(iris_study, "postreg", "postreg.html")
 
 
 ```r
-# output sections of the report
 output_hypotheses(iris_study) 
 ```
 
@@ -96,9 +96,11 @@ output_analyses(iris_study)
 
 ## Analyses
 
-### 
+### Analysis  1 :  
 
 We will run `cor.test(x = .data[1]$Petal.Length, y = .data[1]$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)`
+
+<code> cor.test </code>
 
 
 ```r
@@ -112,9 +114,13 @@ output_results(iris_study)
 Petal length and width will be significantly correlated
 
 * Criterion 1 was p.value < 0.05 in analysis 1.  
-    The result was p.value = 0  
+    The result was p.value = NA  
 
-**Conclusion**: All criteria were met, this hypothesis was supported.
+**Conclusion**: 
+
+```
+#> Error in if (conclusion) {: missing value where TRUE/FALSE needed
+```
 
 
 Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.

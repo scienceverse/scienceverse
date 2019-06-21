@@ -1,6 +1,6 @@
 library(tidyverse)
 
-#raw_data <- read_csv("mess/dress/original_data/apathy_depression_raw.csv")
+#raw_data <- read_csv("apathy_depression_raw.csv")
 
 processed_data <- raw_data %>%
   gather(key, val, a1:d5) %>%

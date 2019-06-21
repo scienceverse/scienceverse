@@ -12,9 +12,9 @@
 
 <meta name="author" content="Daniel Lakens &amp; Lisa DeBruine" />
 
-<meta name="date" content="2019-05-11" />
+<meta name="date" content="2019-06-21" />
 
-<title>Using reg for Registered Reports</title>
+<title>Using scienceverse for Registered Reports</title>
 
 
 
@@ -37,7 +37,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -301,16 +301,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<h1 class="title toc-ignore">Using reg for Registered Reports</h1>
+<h1 class="title toc-ignore">Using scienceverse for Registered Reports</h1>
 <h4 class="author">Daniel Lakens &amp; Lisa DeBruine</h4>
-<h4 class="date">2019-05-11</h4>
+<h4 class="date">2019-06-21</h4>
 
 
 
-<p>The goal of <code>reg</code> is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:</p>
+<p>The goal of scienceverse is to generate and process machine-readable study descriptions. Studies are described as JSON files on the levels of the hypothesis, methods, data, and analysis. These machine readable description can be used in several ways, such as:</p>
 <ol style="list-style-type: decimal">
-<li>Generate a pre-registration file that specifies how each hypothesis is analyzed.</li>
-<li>Generate a post-registration file that evaluates, based on the datafile, whether running preregistered analyses on the data support the predictions.</li>
+<li>Generate a pre-registration file that specifies how each hypothesis will be analyzed and evaluated.</li>
+<li>Generate a post-registration file that evaluates, based on the data, whether running preregistered analyses support the predictions.</li>
 <li>Search archival JSON files for variables, measures, and data.</li>
 <li>Automated reporting of statistical tests.</li>
 <li>Reproduce the reported results by running the analysis code on the data.</li>
@@ -318,187 +318,251 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>In this working vignette we demonstrate points 1 and 2 above.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>You can install the released version of <code>reg</code> from <a href="https://github.com/scienceverse/reg">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;scienceverse/reg&quot;</span>)</a></code></pre></div>
+<p>You can install the released version of <code>scienceverse</code> from <a href="https://github.com/scienceverse/scienceverse">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;scienceverse/scienceverse&quot;</span>)</a></code></pre></div>
 </div>
 <div id="a-study-to-distinguish-apathy-from-depression" class="section level2">
 <h2>A Study to Distinguish Apathy from Depression</h2>
 <p>We plan to perform a study that tests whether apathy is distinct from depression. Apathy is defined as diminished motivation, while depression should involve emotional distress. Where earlier theoretical work has suggested apathy is part of depression, our theoretical model suggests the two should be distinct. We measure peoples apathy score using the Apathy Scale, and depression using the Depression Scale. Although we do not assume the correlation between the two measurements is exactly zero, we predict the two measurements will show a correlation that is smaller than 0.3. If so, we will take this finding as support for our prediction that apathy and depression are distinct enough, such that apathy should not be considered a part of depression.</p>
-<p>To set up the json file, it makes sense to first think about what our data will look like, and then what our statistical hypothesis is. We will collect data from two scales. We know these scales have 5 items each, we will analyze the average score for each of the two scales. We will name these columns ‘apathy’ and ‘depression’, and calculate them from the mean of the five apathy items (a1 to a5 in our dataframe) and the five depression items (d1 to d5 in our dataframe).</p>
+<p>To set up the study, it makes sense to first think about what our data will look like, and then what our statistical hypothesis is. We will collect data from two scales. We know these scales have 5 items each, we will analyze the average score for each of the two scales. We will name these columns ‘apathy’ and ‘depression’, and calculate them from the mean of the five apathy items (a1 to a5 in our dataframe) and the five depression items (d1 to d5 in our dataframe).</p>
 <p>Our statistical hypothesis is that we will interpret the data as support for our prediction when we can statistically reject effects larger than <em>r</em> = 0.3. We can do this by performing an equivalence test, and checking whether the observed correlation is statistically smaller than 0.3.</p>
-<p>We can enter all information we need to specify our hypothesis in a json file below.</p>
-<div id="setting-up-the-json-file" class="section level3">
-<h3>Setting up the JSON file</h3>
-<p>We set up our study by giving it a name using the <code>study</code> function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">study</span>(<span class="st">&quot;Distinguishing Apathy from Depression&quot;</span>)</a></code></pre></div>
+<p>We can enter all information we need to specify our hypothesis below.</p>
+<div id="setting-up-the-study" class="section level3">
+<h3>Setting up the study</h3>
+<p>We set up our study by giving it a name using the <code>study</code> function. We can also add any custom information after the name, such as authors or an abstract.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">study</span>(<span class="st">&quot;Distinguishing Apathy from Depression&quot;</span>,</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">                      <span class="dt">author =</span> <span class="kw">c</span>(<span class="st">&quot;Daniel Lakens&quot;</span>, <span class="st">&quot;Lisa DeBruine&quot;</span>))</a></code></pre></div>
 <p>The object we created is basically a list of lists, which we will populate with information:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">str</span>(apathy_depression_study)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt; List of 6</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;  $ name      : chr &quot;Distinguishing Apathy from Depression&quot;</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;  $ hypotheses: list()</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;  $ methods   : list()</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  $ data      : list()</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  $ prep      : list()</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  $ analyses  : list()</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:2] &quot;reg_study&quot; &quot;list&quot;</span></a></code></pre></div>
-<p>First, in the section “hypotheses” section we need to describe our hypothesis as “The correlation between the apathy and depression scale is smaller than 0.3” One goal of <code>reg</code> is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and <code>reg</code> can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not. We also add an ID to the hypothesis so we can link it to the corresponding analyses later on - naming them H1, H2, H3a etc is typically enough.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">add_hypothesis</span>(apathy_depression_study, </a>
-<a class="sourceLine" id="cb4-2" title="2">                                          <span class="st">&quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span>, </a>
-<a class="sourceLine" id="cb4-3" title="3">                                          <span class="dt">id =</span> <span class="st">&quot;H1&quot;</span>)</a></code></pre></div>
-<p>Another goal of <code>reg</code> is to remove ambiguity in how hypotheses are specified. The best way to preregister a hypothesis is to write the analysis script before the data is collected. <code>Reg</code> takes this analysis script, and combines it with user defined evaluation criteria. These make it clear when a hypothesis is confirmed in the preregistration, but can also generate an automatic evaluation of the hypotheses.</p>
-<p>It means we need to have an analysis script for our data. It also means it is typically recommended to simulate data that mirrors the data you will collect. You can then run your analysis code on the simulated data, and see if you can perform the tests you want to run on the real data. In this example we plan to perform an equivalence test. We have written an analysis script, named <code>eq_test_r.R</code> that takes in a dataframe, and performs an equivalence test. The script is:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">source</span>(<span class="st">&quot;command_files/eq_test_r.R&quot;</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2">eq_test_r</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; function (data, col1 = &quot;&quot;, col2 = &quot;&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, </span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;     low_eqbound_r = low_eqbound_r) </span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; {</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt;     x &lt;- data[[col1]]</span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt;     y &lt;- data[[col2]]</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt;     r &lt;- cor(x, y)</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt;     n &lt;- length(x)</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt;     test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, </span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;         low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, </span></a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;         verbose = FALSE)</span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;     invisible(test_res)</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; }</span></a></code></pre></div>
-<p>The test we will run on the data requires certain parameters that specify the input, such as data (which dataframe will be used), which columns in the dataframe are used, what is the alpha level, etc. The function also gives output (<code>test_res</code>) which we can use to evaluate the test results (e.g., the <em>p</em>-value for the equivalence test).</p>
-<p>Below we specify the study we want to add an analysis to (<code>apathy_depression_study</code>), and we give it a name <code>id = &quot;main_analyis&quot;</code>. We specify the function that should be run (<code>&quot;eq_test_r&quot;</code>) and repeat the name to save the code itself in our JSON file <code>code = eq_test_r</code>. Then we specify <em>all</em> the parameters that our function needs to run. These are basically the values you need to specify for any R function to run without throwing an eror for a missing argument. We also add an analysis ID - you might have many different analyses you will run on a data file, and distinguishing them based on what they do (e.g., manipulation_check, main_analysis) might be useful.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">add_analysis</span>(apathy_depression_study, <span class="dt">func =</span> <span class="st">&quot;eq_test_r&quot;</span>,</a>
-<a class="sourceLine" id="cb6-2" title="2">                                        <span class="dt">params =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb6-3" title="3">                                          <span class="dt">data =</span> <span class="st">&quot;.data[processed_data]&quot;</span>,</a>
-<a class="sourceLine" id="cb6-4" title="4">                                          <span class="dt">col1 =</span> <span class="st">&quot;apathy&quot;</span>,</a>
-<a class="sourceLine" id="cb6-5" title="5">                                          <span class="dt">col2 =</span> <span class="st">&quot;depression&quot;</span>,</a>
-<a class="sourceLine" id="cb6-6" title="6">                                          <span class="dt">alpha =</span> <span class="fl">0.05</span>,</a>
-<a class="sourceLine" id="cb6-7" title="7">                                          <span class="dt">high_eqbound_r =</span> <span class="fl">0.3</span>,</a>
-<a class="sourceLine" id="cb6-8" title="8">                                          <span class="dt">low_eqbound_r =</span> <span class="fl">-0.3</span></a>
-<a class="sourceLine" id="cb6-9" title="9">                                        ),</a>
-<a class="sourceLine" id="cb6-10" title="10">                                        <span class="dt">id =</span> <span class="st">&quot;main_analysis&quot;</span>)</a></code></pre></div>
-<p>Now that we have specified our analysis, we can also foresee the parameters we will have that we will use to evaluate the results. We can use any parameter in the list of results from <code>test_res</code> to evaluate the result. In this case we know we will perform an equivalence test. To specify the statistical conditions that need to be met, we look at the TOSTr function. The output value from the TOSTr function we need for our hypothesis test is called TOST_p2, which is the p-value against the upper bound. So when we set the upper equivalence bound to 0.3, and we check if the TOST_p2 is smaller than our alpha level, we know if our prediction is supported.</p>
-<p>We plan to collect a large sample size of 460 people, and should have very high power for the equivalence test, and to balance our error rates, we set the alpha level to 0.01. Because we will compare our p-value to the alpha level, our comparator is the alpha level of 0.01, and our hypothesis is supported when the p-value is smaller than 0.01, and therefore we specify the direction as <code>&lt;</code>. Note that this example uses Hypothesis Testing, but you can also make other predictions, such as a mean that is larger than some value, or any other prediction based on parameters from the analyses you perform.</p>
-<p>We know exactly how we will evaluate our results, and when our hypothesis will be considered confirmed, names when the TOST_p2 p-value is smaller than our alpha level of 0.01. We add this criterion to our study file. We link this criterion to the hypothesis and analysis that it relates to (<code>H1</code> and <code>main_analysis</code>).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">add_criterion</span>(apathy_depression_study, </a>
-<a class="sourceLine" id="cb7-2" title="2">                            <span class="dt">result =</span> <span class="st">&quot;TOST_p2&quot;</span>, </a>
-<a class="sourceLine" id="cb7-3" title="3">                            <span class="dt">operator =</span> <span class="st">&quot;&lt;&quot;</span>, </a>
-<a class="sourceLine" id="cb7-4" title="4">                            <span class="dt">comparator =</span> <span class="fl">0.01</span>,</a>
-<a class="sourceLine" id="cb7-5" title="5">                            <span class="dt">hypothesis_id =</span> <span class="st">&quot;H1&quot;</span>,</a>
-<a class="sourceLine" id="cb7-6" title="6">                            <span class="dt">analysis_id =</span> <span class="st">&quot;main_analysis&quot;</span>)</a></code></pre></div>
-<p>This <code>study</code> list of lists can be stored as a JSON file.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># save the framework to a JSON file</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">study_save</span>(apathy_depression_study, <span class="st">&quot;pre_data_apathy_depression.json&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">str</span>(ap_dep_study)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; List of 7</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;  $ name      : chr &quot;Distinguishing Apathy from Depression&quot;</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  $ info      :List of 1</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   ..$ author: chr [1:2] &quot;Daniel Lakens&quot; &quot;Lisa DeBruine&quot;</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  $ hypotheses: list()</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  $ methods   : list()</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  $ data      : list()</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  $ prep      : list()</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  $ analyses  : list()</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:2] &quot;reg_study&quot; &quot;list&quot;</span></a></code></pre></div>
+<p>One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and scienceverse can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not.</p>
+</div>
+<div id="add-the-hypotheses" class="section level3">
+<h3>Add the hypotheses</h3>
+<p>First, we need to add each hypothesis using the <code>add_hypothesis()</code> function. We can describe our hypothesis as “The correlation between the apathy and depression scale is smaller than 0.3.” We also add an ID to the hypothesis so we can link it to the corresponding analyses later on - naming them H1, H2, H3a etc is typically enough.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">add_hypothesis</span>(</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  ap_dep_study, </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="st">&quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span>, </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">id =</span> <span class="st">&quot;H1&quot;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
+</div>
+<div id="add-data-prep" class="section level3">
+<h3>Add data prep</h3>
+<p>Often, the raw data needs to be prepared for analysis. For example, outliers might need to be removed, scales need to be summed, and other calculations are performed. In general, it is recommended to never change the raw data files. Instead, you read in the raw data files, and save an analysis data file where all calculations are performed, outliers are removed, etc. So we run the data preparation code from a dedicated R script that pre-processes the raw data on the code.</p>
+<p>You can provide code to do this using the <code>add_prep()</code> function. You can write your code in a separate .R file and read it into the function by setting the <code>code</code> argument to the file path. You can provide it with any attached data files by setting them in the list of <code>params</code>. In this example, the script expects there to be a data frame named <code>raw_data</code> and this will be loaded from the attached data with the ID <code>apathy_depression_raw</code>. You can specify an attached data frame as “.data[data_id]” (attaching data will be covered below). The <code>return</code> argument is a list of object names to return from the script. Our example creates a cleaned data fame called <code>processed_data</code>, which we will use in our analysis code below.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">add_prep</span>(</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  ap_dep_study, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="dt">code =</span> <span class="st">&quot;command_files/data_prep.R&quot;</span>,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">params =</span> <span class="kw">list</span>(<span class="st">&quot;raw_data&quot;</span> =<span class="st"> &quot;.data[apathy_depression_raw]&quot;</span>),</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="dt">return =</span> <span class="kw">c</span>(<span class="st">&quot;processed_data&quot;</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">)</a></code></pre></div>
+</div>
+<div id="add-the-analyses" class="section level3">
+<h3>Add the analyses</h3>
+<p>Another goal of scienceverse is to remove ambiguity in how hypotheses are specified. The best way to preregister a hypothesis is to write the analysis script before the data is collected. Scienceverse takes this analysis script and combines it with user-defined evaluation criteria. These make it clear when a hypothesis is confirmed in the preregistration, and can also generate an automatic evaluation of the hypotheses.</p>
+<p>It means we need to have an analysis script for our data. It also means it is typically recommended to simulate data with the same structure as the data you will collect. You can then run your analysis code on the simulated data, and see if you can perform the tests you want to run on the real data. In this example we plan to perform an equivalence test. We have written a function, named <code>eq_test_r.R</code> that takes in a dataframe and performs an equivalence test. The script is:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;command_files/eq_test_r.R&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">eq_test_r</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; function (data, col1 = &quot;&quot;, col2 = &quot;&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, </span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;     low_eqbound_r = low_eqbound_r) </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; {</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;     x &lt;- data[[col1]]</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;     y &lt;- data[[col2]]</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;     r &lt;- cor(x, y)</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;     n &lt;- length(x)</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;     test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;         low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, </span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;         verbose = FALSE)</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;     invisible(test_res)</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; }</span></a></code></pre></div>
+<p>The test we will run on the data requires certain parameters that specify the input, such as data (which dataframe will be used), which columns in the dataframe are used, what is the alpha level, etc. The function also gives output (<code>test_res</code>) which we can use to evaluate the test results (e.g., the <em>p</em>-value for the equivalence test). For now, the output must be a named list.</p>
+<p>Below we specify the study we want to add an analysis to (<code>ap_dep_study</code>), and specify the function that should be run (<code>&quot;eq_test_r&quot;</code>). Then we specify <em>all</em> the parameters that our function needs to run. These are basically the values you need to specify for any R function to run without throwing an error for a missing argument. We also add an analysis ID - you might have many different analyses you will run on a data file, and distinguishing them based on what they do (e.g., manipulation_check, main_analysis) might be useful.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">add_analysis</span>(</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  ap_dep_study,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="dt">func =</span> <span class="st">&quot;eq_test_r&quot;</span>,</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="dt">params =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">data =</span> <span class="st">&quot;.data[processed_data]&quot;</span>,</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">col1 =</span> <span class="st">&quot;apathy&quot;</span>,</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="dt">col2 =</span> <span class="st">&quot;depression&quot;</span>,</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="dt">alpha =</span> <span class="fl">0.05</span>,</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="dt">high_eqbound_r =</span> <span class="fl">0.3</span>,</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    <span class="dt">low_eqbound_r =</span> <span class="fl">-0.3</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">  ),</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">  <span class="dt">id =</span> <span class="st">&quot;main_analysis&quot;</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">)</a></code></pre></div>
+</div>
+<div id="add-criteria-for-each-hypothesis" class="section level3">
+<h3>Add criteria for each hypothesis</h3>
+<p>Now that we have specified our analysis, we need to be explicit about the values that we will use to evaluate the hypotheses. We can use any values in the list of results from <code>test_res</code> to evaluate the result. In this case, we will perform an equivalence test. To specify the statistical conditions that need to be met, we look at the <code>TOSTr()</code> function. The output value we need for our hypothesis test is called <code>TOST_p2</code>, which is the p-value against the upper bound. So when we set the upper equivalence bound to 0.3, our prediction is supported if <code>TOST_p2</code> is smaller than our alpha level.</p>
+<p>We plan to collect a large sample size of 460 people, and should have very high power for the equivalence test, and to balance our error rates, we set the alpha level to 0.01. Because we will compare our p-value to the alpha level, our <code>comparator</code> is 0.01, and our hypothesis is supported when the p-value is smaller than 0.01, and therefore we specify the <code>operator</code> as <code>&lt;</code>. Note that this example uses Hypothesis Testing, but you can also make other predictions, such as a mean that is larger than some value, or any other prediction based on parameters from the analyses you perform.</p>
+<p>To evaluate our hypotheses, we add criteria to our study using the <code>add_criterion()</code> function. Our hypothesis <code>H1</code> will be considered confirmed when the result of the <code>main_analysis</code> has <code>TOST_p2</code> smaller than our alpha level of 0.01. We link this criterion to the hypothesis and analysis that it relates to using their IDs (<code>H1</code> and <code>main_analysis</code>).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">add_criterion</span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  ap_dep_study, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">result =</span> <span class="st">&quot;TOST_p2&quot;</span>, </a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="dt">operator =</span> <span class="st">&quot;&lt;&quot;</span>, </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">comparator =</span> <span class="fl">0.01</span>,</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="dt">hypothesis_id =</span> <span class="st">&quot;H1&quot;</span>,</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">analysis_id =</span> <span class="st">&quot;main_analysis&quot;</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">)</a></code></pre></div>
+<p>You can add more than one criterion to a hypothesis by calling the <code>add_criterion()</code> function more than once. By default, hypotheses are evaluated as true if all of their criteria are true. However, you can set up a hypothesis to evaluate to true if at least one criterion is true by adding the argument <code>evaluation = &quot;|&quot;</code> when you set up the hypothesis using <code>add_hypothesis()</code>.</p>
+</div>
+<div id="save-the-study-archive-file" class="section level3">
+<h3>Save the study archive file</h3>
+<p>This <code>study</code> list of lists can be stored as an archive file. This saves the information in plain text JSON format.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># save the framework to a JSON file</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">study_save</span>(ap_dep_study, <span class="st">&quot;pre_data_apathy_depression.json&quot;</span>)</a></code></pre></div>
 <p>We can read back the JSON file into an R list and take a look at the structure. We first remove the files from R:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># remove study and function to load from JSON</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw">rm</span>(apathy_depression_study)</a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw">rm</span>(eq_test_r)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># remove study and function to load from JSON</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">rm</span>(ap_dep_study)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">rm</span>(eq_test_r)</a></code></pre></div>
 <p>And then read them back in:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">study</span>(<span class="st">&quot;pre_data_apathy_depression.json&quot;</span>)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; Loaded custom function: eq_test_r</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="kw">str</span>(apathy_depression_study)</a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; List of 6</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt;  $ name      : chr &quot;Distinguishing Apathy from Depression&quot;</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt;  $ hypotheses:List of 1</span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt;   ..$ :List of 4</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt;   .. ..$ id         : chr &quot;H1&quot;</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt;   .. ..$ description: chr &quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt;   .. ..$ criteria   :List of 1</span></a>
-<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt;   .. .. ..$ :List of 5</span></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt;   .. .. .. ..$ hypothesis_id: chr &quot;H1&quot;</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt;   .. .. .. ..$ analysis_id  : chr &quot;main_analysis&quot;</span></a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt;   .. .. .. ..$ result       : chr &quot;TOST_p2&quot;</span></a>
-<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt;   .. .. .. ..$ operator     : chr &quot;&lt;&quot;</span></a>
-<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt;   .. .. .. ..$ comparator   : num 0.01</span></a>
-<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt;   .. ..$ evaluation : chr &quot;&amp;&quot;</span></a>
-<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt;  $ methods   : list()</span></a>
-<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt;  $ data      : list()</span></a>
-<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt;  $ prep      : list()</span></a>
-<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt;  $ analyses  :List of 1</span></a>
-<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt;   ..$ :List of 4</span></a>
-<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt;   .. ..$ id    : chr &quot;main_analysis&quot;</span></a>
-<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt;   .. ..$ func  : chr &quot;eq_test_r&quot;</span></a>
-<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt;   .. ..$ params:List of 6</span></a>
-<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt;   .. .. ..$ data          : chr &quot;.data[processed_data]&quot;</span></a>
-<a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt;   .. .. ..$ col1          : chr &quot;apathy&quot;</span></a>
-<a class="sourceLine" id="cb10-28" title="28"><span class="co">#&gt;   .. .. ..$ col2          : chr &quot;depression&quot;</span></a>
-<a class="sourceLine" id="cb10-29" title="29"><span class="co">#&gt;   .. .. ..$ alpha         : num 0.05</span></a>
-<a class="sourceLine" id="cb10-30" title="30"><span class="co">#&gt;   .. .. ..$ high_eqbound_r: num 0.3</span></a>
-<a class="sourceLine" id="cb10-31" title="31"><span class="co">#&gt;   .. .. ..$ low_eqbound_r : num -0.3</span></a>
-<a class="sourceLine" id="cb10-32" title="32"><span class="co">#&gt;   .. ..$ code  :List of 12</span></a>
-<a class="sourceLine" id="cb10-33" title="33"><span class="co">#&gt;   .. .. ..$ : chr &quot;function (data, col1 = \&quot;\&quot;, col2 = \&quot;\&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, &quot;</span></a>
-<a class="sourceLine" id="cb10-34" title="34"><span class="co">#&gt;   .. .. ..$ : chr &quot;    low_eqbound_r = low_eqbound_r) &quot;</span></a>
-<a class="sourceLine" id="cb10-35" title="35"><span class="co">#&gt;   .. .. ..$ : chr &quot;{&quot;</span></a>
-<a class="sourceLine" id="cb10-36" title="36"><span class="co">#&gt;   .. .. ..$ : chr &quot;    x &lt;- data[[col1]]&quot;</span></a>
-<a class="sourceLine" id="cb10-37" title="37"><span class="co">#&gt;   .. .. ..$ : chr &quot;    y &lt;- data[[col2]]&quot;</span></a>
-<a class="sourceLine" id="cb10-38" title="38"><span class="co">#&gt;   .. .. ..$ : chr &quot;    r &lt;- cor(x, y)&quot;</span></a>
-<a class="sourceLine" id="cb10-39" title="39"><span class="co">#&gt;   .. .. ..$ : chr &quot;    n &lt;- length(x)&quot;</span></a>
-<a class="sourceLine" id="cb10-40" title="40"><span class="co">#&gt;   .. .. ..$ : chr &quot;    test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, &quot;</span></a>
-<a class="sourceLine" id="cb10-41" title="41"><span class="co">#&gt;   .. .. ..$ : chr &quot;        low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, &quot;</span></a>
-<a class="sourceLine" id="cb10-42" title="42"><span class="co">#&gt;   .. .. ..$ : chr &quot;        verbose = FALSE)&quot;</span></a>
-<a class="sourceLine" id="cb10-43" title="43"><span class="co">#&gt;   .. .. ..$ : chr &quot;    invisible(test_res)&quot;</span></a>
-<a class="sourceLine" id="cb10-44" title="44"><span class="co">#&gt;   .. .. ..$ : chr &quot;}&quot;</span></a>
-<a class="sourceLine" id="cb10-45" title="45"><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:2] &quot;reg_study&quot; &quot;list&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">study</span>(<span class="st">&quot;pre_data_apathy_depression.json&quot;</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Loaded custom function: eq_test_r</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; Loaded data prep function</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">str</span>(ap_dep_study)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; List of 7</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt;  $ name      : chr &quot;Distinguishing Apathy from Depression&quot;</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt;  $ info      :List of 1</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt;   ..$ author:List of 2</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt;   .. ..$ : chr &quot;Daniel Lakens&quot;</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt;   .. ..$ : chr &quot;Lisa DeBruine&quot;</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt;  $ hypotheses:List of 1</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt;   ..$ :List of 4</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt;   .. ..$ id         : chr &quot;H1&quot;</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt;   .. ..$ description: chr &quot;The correlation between the apathy and depression scale is smaller than 0.3&quot;</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt;   .. ..$ criteria   :List of 1</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt;   .. .. ..$ :List of 5</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&gt;   .. .. .. ..$ hypothesis_id: chr &quot;H1&quot;</span></a>
+<a class="sourceLine" id="cb11-18" data-line-number="18"><span class="co">#&gt;   .. .. .. ..$ analysis_id  : chr &quot;main_analysis&quot;</span></a>
+<a class="sourceLine" id="cb11-19" data-line-number="19"><span class="co">#&gt;   .. .. .. ..$ result       : chr &quot;TOST_p2&quot;</span></a>
+<a class="sourceLine" id="cb11-20" data-line-number="20"><span class="co">#&gt;   .. .. .. ..$ operator     : chr &quot;&lt;&quot;</span></a>
+<a class="sourceLine" id="cb11-21" data-line-number="21"><span class="co">#&gt;   .. .. .. ..$ comparator   : num 0.01</span></a>
+<a class="sourceLine" id="cb11-22" data-line-number="22"><span class="co">#&gt;   .. ..$ evaluation : chr &quot;&amp;&quot;</span></a>
+<a class="sourceLine" id="cb11-23" data-line-number="23"><span class="co">#&gt;  $ methods   : list()</span></a>
+<a class="sourceLine" id="cb11-24" data-line-number="24"><span class="co">#&gt;  $ data      : list()</span></a>
+<a class="sourceLine" id="cb11-25" data-line-number="25"><span class="co">#&gt;  $ prep      :List of 3</span></a>
+<a class="sourceLine" id="cb11-26" data-line-number="26"><span class="co">#&gt;   ..$ params:List of 1</span></a>
+<a class="sourceLine" id="cb11-27" data-line-number="27"><span class="co">#&gt;   .. ..$ raw_data: chr &quot;.data[apathy_depression_raw]&quot;</span></a>
+<a class="sourceLine" id="cb11-28" data-line-number="28"><span class="co">#&gt;   ..$ code  :List of 11</span></a>
+<a class="sourceLine" id="cb11-29" data-line-number="29"><span class="co">#&gt;   .. ..$ : chr &quot;library(tidyverse)&quot;</span></a>
+<a class="sourceLine" id="cb11-30" data-line-number="30"><span class="co">#&gt;   .. ..$ : chr &quot;&quot;</span></a>
+<a class="sourceLine" id="cb11-31" data-line-number="31"><span class="co">#&gt;   .. ..$ : chr &quot;#raw_data &lt;- read_csv(\&quot;apathy_depression_raw.csv\&quot;)&quot;</span></a>
+<a class="sourceLine" id="cb11-32" data-line-number="32"><span class="co">#&gt;   .. ..$ : chr &quot;&quot;</span></a>
+<a class="sourceLine" id="cb11-33" data-line-number="33"><span class="co">#&gt;   .. ..$ : chr &quot;processed_data &lt;- raw_data %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-34" data-line-number="34"><span class="co">#&gt;   .. ..$ : chr &quot;  gather(key, val, a1:d5) %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-35" data-line-number="35"><span class="co">#&gt;   .. ..$ : chr &quot;  separate(key, \&quot;q\&quot;, 1, extra = \&quot;drop\&quot;) %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-36" data-line-number="36"><span class="co">#&gt;   .. ..$ : chr &quot;  group_by(sub_id, q) %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-37" data-line-number="37"><span class="co">#&gt;   .. ..$ : chr &quot;  summarise(val = mean(val)) %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-38" data-line-number="38"><span class="co">#&gt;   .. ..$ : chr &quot;  spread(q, val) %&gt;%&quot;</span></a>
+<a class="sourceLine" id="cb11-39" data-line-number="39"><span class="co">#&gt;   .. ..$ : chr &quot;  rename(apathy = a, depression = d)&quot;</span></a>
+<a class="sourceLine" id="cb11-40" data-line-number="40"><span class="co">#&gt;   ..$ return: chr &quot;processed_data&quot;</span></a>
+<a class="sourceLine" id="cb11-41" data-line-number="41"><span class="co">#&gt;  $ analyses  :List of 1</span></a>
+<a class="sourceLine" id="cb11-42" data-line-number="42"><span class="co">#&gt;   ..$ :List of 4</span></a>
+<a class="sourceLine" id="cb11-43" data-line-number="43"><span class="co">#&gt;   .. ..$ id    : chr &quot;main_analysis&quot;</span></a>
+<a class="sourceLine" id="cb11-44" data-line-number="44"><span class="co">#&gt;   .. ..$ func  : chr &quot;eq_test_r&quot;</span></a>
+<a class="sourceLine" id="cb11-45" data-line-number="45"><span class="co">#&gt;   .. ..$ params:List of 6</span></a>
+<a class="sourceLine" id="cb11-46" data-line-number="46"><span class="co">#&gt;   .. .. ..$ data          : chr &quot;.data[processed_data]&quot;</span></a>
+<a class="sourceLine" id="cb11-47" data-line-number="47"><span class="co">#&gt;   .. .. ..$ col1          : chr &quot;apathy&quot;</span></a>
+<a class="sourceLine" id="cb11-48" data-line-number="48"><span class="co">#&gt;   .. .. ..$ col2          : chr &quot;depression&quot;</span></a>
+<a class="sourceLine" id="cb11-49" data-line-number="49"><span class="co">#&gt;   .. .. ..$ alpha         : num 0.05</span></a>
+<a class="sourceLine" id="cb11-50" data-line-number="50"><span class="co">#&gt;   .. .. ..$ high_eqbound_r: num 0.3</span></a>
+<a class="sourceLine" id="cb11-51" data-line-number="51"><span class="co">#&gt;   .. .. ..$ low_eqbound_r : num -0.3</span></a>
+<a class="sourceLine" id="cb11-52" data-line-number="52"><span class="co">#&gt;   .. ..$ code  :List of 12</span></a>
+<a class="sourceLine" id="cb11-53" data-line-number="53"><span class="co">#&gt;   .. .. ..$ : chr &quot;function (data, col1 = \&quot;\&quot;, col2 = \&quot;\&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, &quot;</span></a>
+<a class="sourceLine" id="cb11-54" data-line-number="54"><span class="co">#&gt;   .. .. ..$ : chr &quot;    low_eqbound_r = low_eqbound_r) &quot;</span></a>
+<a class="sourceLine" id="cb11-55" data-line-number="55"><span class="co">#&gt;   .. .. ..$ : chr &quot;{&quot;</span></a>
+<a class="sourceLine" id="cb11-56" data-line-number="56"><span class="co">#&gt;   .. .. ..$ : chr &quot;    x &lt;- data[[col1]]&quot;</span></a>
+<a class="sourceLine" id="cb11-57" data-line-number="57"><span class="co">#&gt;   .. .. ..$ : chr &quot;    y &lt;- data[[col2]]&quot;</span></a>
+<a class="sourceLine" id="cb11-58" data-line-number="58"><span class="co">#&gt;   .. .. ..$ : chr &quot;    r &lt;- cor(x, y)&quot;</span></a>
+<a class="sourceLine" id="cb11-59" data-line-number="59"><span class="co">#&gt;   .. .. ..$ : chr &quot;    n &lt;- length(x)&quot;</span></a>
+<a class="sourceLine" id="cb11-60" data-line-number="60"><span class="co">#&gt;   .. .. ..$ : chr &quot;    test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, &quot;</span></a>
+<a class="sourceLine" id="cb11-61" data-line-number="61"><span class="co">#&gt;   .. .. ..$ : chr &quot;        low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, &quot;</span></a>
+<a class="sourceLine" id="cb11-62" data-line-number="62"><span class="co">#&gt;   .. .. ..$ : chr &quot;        verbose = FALSE)&quot;</span></a>
+<a class="sourceLine" id="cb11-63" data-line-number="63"><span class="co">#&gt;   .. .. ..$ : chr &quot;    invisible(test_res)&quot;</span></a>
+<a class="sourceLine" id="cb11-64" data-line-number="64"><span class="co">#&gt;   .. .. ..$ : chr &quot;}&quot;</span></a>
+<a class="sourceLine" id="cb11-65" data-line-number="65"><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:2] &quot;reg_study&quot; &quot;list&quot;</span></a></code></pre></div>
 </div>
 </div>
-<div id="preregistering-your-hypothesis-and-analysis-plan." class="section level2">
-<h2>Preregistering your hypothesis and analysis plan.</h2>
+<div id="pre-registration" class="section level2">
+<h2>Pre-registration</h2>
 <p>Because we specified our test and evaluation criteria for our prediction in detail in the JSON file, we can automatically extract this information, and summarize it in a human-readable format that can be used to preregister our statistical prediction with enough detail so that there is no ambiguity in our prediction, or what would support our prediction.</p>
-<p>We can do this by creating a summary of the JSON file that contains the sections that are relevant for the preregistration. In this case, it means running <code>study_report</code> command, asking for the ‘prereg’ template. This will write an html file names <code>prereg_apathy_depression_study.html</code>.</p>
-<hr />
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">study_report</span>(apathy_depression_study, </a>
-<a class="sourceLine" id="cb11-2" title="2">             <span class="dt">template =</span> <span class="st">&quot;prereg&quot;</span>, </a>
-<a class="sourceLine" id="cb11-3" title="3">             <span class="dt">filename =</span> <span class="st">&quot;prereg_apathy_depression_study.html&quot;</span>)</a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt; Saving toC:/Users/Daniel/surfdrive/R/reg/mess/demo/prereg_apathy_depression_study.html</span></a></code></pre></div>
+<p>We can do this by creating a summary of the JSON file that contains the sections that are relevant for the preregistration. In this case, it means running <code>study_report</code> command, asking for the ‘prereg’ template. This will write an html file named <code>prereg_ap_dep_study.html</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">study_report</span>(ap_dep_study, </a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">             <span class="dt">template =</span> <span class="st">&quot;prereg&quot;</span>, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">             <span class="dt">filename =</span> <span class="st">&quot;prereg_ap_dep_study.html&quot;</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; Saving to/Users/lisad/rproj/scienceverse/scienceverse/mess/demo/prereg_ap_dep_study.html</span></a></code></pre></div>
 <p>This writes an .html file to the working directory, that should look like:</p>
-</div>
-<div id="registration-of-statistical-hypotheses" class="section level1">
-<h1>Registration of Statistical Hypotheses</h1>
-<div id="mei-2019" class="section level3">
-<h3>11 mei, 2019</h3>
-</div>
-<div id="distinguishing-apathy-from-depression-preregistration" class="section level2">
-<h2>Distinguishing Apathy from Depression Preregistration</h2>
-</div>
-<div id="hypotheses" class="section level2">
-<h2>Hypotheses</h2>
-<div id="hypothesis-1" class="section level3">
-<h3>Hypothesis 1</h3>
+<hr />
+<h1>
+Registration of Statistical Hypotheses
+</h1>
+<h3>
+21 June, 2019
+</h3>
+<h2>
+Distinguishing Apathy from Depression Preregistration
+</h2>
+<h2>
+Hypotheses
+</h2>
+<h3>
+Hypothesis 1
+</h3>
 <p>The correlation between the apathy and depression scale is smaller than 0.3</p>
 <pre><code>Criterion 1 is confirmed if analysis yields TOST_p2 &lt; 0.01</code></pre>
 <p>If all criteria are met, this hypothesis is supported.</p>
-</div>
-</div>
-<div id="analyses" class="section level2">
-<h2>Analyses</h2>
+<h2>
+Analyses
+</h2>
 <p>We will run <code>eq_test_r(data = .data[1], col1 = apathy, col2 = depression, alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)</code></p>
+<hr />
 </div>
 <div id="post-registration" class="section level2">
-<h2>Post Registration</h2>
+<h2>Post-registration</h2>
 <p>After the preregistration we collect the data. Our data has 5 columns for the apathy items (a1 to a5) and 5 columns for the depression data (d1 to d5).</p>
-<p>Now that we have ‘collected’ (in this case simulated) the data we can use the <code>reg</code> package to evaluate the preregistered results. The <code>reg</code> package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria. We will first load the data, which we assume is stored in a folder named ‘original_data’. We give the data an ID so we can reference it later (in case there are multiple hypotheses, based on different raw data files).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">add_data</span>(apathy_depression_study, <span class="st">&quot;original_data/apathy_depression_raw.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;apathy_depression_raw&quot;</span>)</a></code></pre></div>
-<p>Often, the raw data needs to be prepared for analysis. For example, outliers might need to be removed, scales need to be summed, and other calculations are performed. In general, it is recommended to never change the raw data files. Instead, you read in the raw data files, and save an analysis data file where all calculations are performed, outliers are removed, etc. So we run the data preparation code from a dedicated R script that pre-processes the raw data on the code. We assume this data processing code is stored in a folder named ’command_files&quot;). We specify the raw data this pre-processing code should be run on, and the name of the data when the pre-processing is done (in this case, <code>processed_data</code>, which matched the dataframe as outputted by our data_prep.R script).</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">add_prep</span>(apathy_depression_study, <span class="dt">code =</span> <span class="st">&quot;command_files/data_prep.R&quot;</span>,</a>
-<a class="sourceLine" id="cb14-2" title="2">              <span class="dt">params =</span> <span class="kw">list</span>(<span class="st">&quot;raw_data&quot;</span> =<span class="st"> &quot;.data[apathy_depression_raw]&quot;</span>),</a>
-<a class="sourceLine" id="cb14-3" title="3">              <span class="dt">return =</span> <span class="kw">c</span>(<span class="st">&quot;processed_data&quot;</span>))</a></code></pre></div>
-<p>We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01.</p>
-<p>Because the JSON file contains the data, as well as all analyses we plan to run, we can evaluate the pre-registered hypotheses automatically. The summary returns a conclusion, based on the planned analysis and the collected data.</p>
+<div id="attach-the-data" class="section level3">
+<h3>Attach the data</h3>
+<p>Now that we have ‘collected’ (in this case simulated) the data we can use the scienceverse package to evaluate the preregistered results. The scienceverse package does this by taking the data, running the preregistered analysis script, and comparing the results to the preregistered evaluation criteria. We will first load the data, which we assume is stored in a folder named ‘original_data’. We give the data an ID so we can reference it later (in case there are multiple hypotheses, based on different raw data files).</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">add_data</span>(</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">  ap_dep_study, </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="st">&quot;original_data/apathy_depression_raw.csv&quot;</span>, </a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">  <span class="dt">id =</span> <span class="st">&quot;apathy_depression_raw&quot;</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">)</a></code></pre></div>
+</div>
+<div id="data-prep" class="section level3">
+<h3>Data prep</h3>
 <p>We first run the data preparation on the raw data (this is a seperate step, for cases in which the data preparation takes a long time, so it only needs to be performed once).</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">data_prep</span>(apathy_depression_study)</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="co">#&gt; -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="co">#&gt; v ggplot2 3.1.1       v purrr   0.3.2  </span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="co">#&gt; v tibble  2.1.1       v dplyr   0.8.0.1</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co">#&gt; v tidyr   0.8.3       v stringr 1.4.0  </span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; v readr   1.3.1       v forcats 0.4.0</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt; -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
-<p>Then we run the analyses on the analysis data.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">apathy_depression_study &lt;-<span class="st"> </span><span class="kw">study_analyze</span>(apathy_depression_study)</a></code></pre></div>
-<p>The evaluation of our analysis can performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. We can generate a report that can be submitted with the manuscript that summarizes whether each pre-registered hypothesis was supported:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">study_report</span>(apathy_depression_study, </a>
-<a class="sourceLine" id="cb17-2" title="2">             <span class="dt">template =</span> <span class="st">&quot;postreg&quot;</span>, </a>
-<a class="sourceLine" id="cb17-3" title="3">             <span class="dt">filename =</span> <span class="st">&quot;postreg_apathy_depression_study.html&quot;</span>)</a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="co">#&gt; Saving toC:/Users/Daniel/surfdrive/R/reg/mess/demo/postreg_apathy_depression_study.html</span></a></code></pre></div>
-<p>Finally, when we are all done, we same the JSON file. This is an archival copy that contains everything we need to reproduce the reported results - it contains the raw data, the data preparation, the analyses, and the results. Pretty cool, right? ;)</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">study_save</span>(apathy_depression_study, <span class="st">&quot;post_study.json&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">data_prep</span>(ap_dep_study)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; ✔ ggplot2 3.1.1     ✔ purrr   0.3.2</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; ✔ tibble  2.1.3     ✔ dplyr   0.8.1</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; ✔ tidyr   0.8.3     ✔ stringr 1.4.0</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; ✔ readr   1.3.1     ✔ forcats 0.4.0</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; ── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
+<p>This will create a new data entry in <code>ap_dep_study</code> called <code>processed_data</code> (the name we specified in the <code>data_prep()</code> function).</p>
+</div>
+<div id="run-the-analysis" class="section level3">
+<h3>Run the analysis</h3>
+<p>We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01. Now that our data are attached and prepped, we can evaluate the pre-registered hypotheses automatically. The summary returns a conclusion, based on the planned analysis and the collected data.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw">study_analyze</span>(ap_dep_study)</a></code></pre></div>
+<p>The evaluation of our analysis is performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. We can generate a report that can be submitted with the manuscript that summarizes whether each pre-registered hypothesis was supported:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">study_report</span>(ap_dep_study, </a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">             <span class="dt">template =</span> <span class="st">&quot;postreg&quot;</span>, </a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">             <span class="dt">filename =</span> <span class="st">&quot;postreg_ap_dep_study.html&quot;</span>)</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; Saving to/Users/lisad/rproj/scienceverse/scienceverse/mess/demo/postreg_ap_dep_study.html</span></a></code></pre></div>
+<p>Finally, when we are all done, we save the archive file. This contains everything we need to reproduce the reported results: the raw data, the data preparation, the analyses, and the results. Pretty cool, right? ;)</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">study_save</span>(ap_dep_study, <span class="st">&quot;post_study.json&quot;</span>)</a></code></pre></div>
 </div>
 </div>
 
