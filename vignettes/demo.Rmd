@@ -1,10 +1,10 @@
 ---
-title: "Quick Registration Demo"
+title: "Quick Demo"
 author: "Lisa DeBruine & Daniel Lakens"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick Registration Demo}
+  %\VignetteIndexEntry{Quick Demo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,31 +14,43 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-library(scienceverse)
+library(faux)
 ```
 
-### Functional Setup
+Here is a quick example of setting up a simple study. 
+
+## Set up an empty study object
 
 ```{r}
-# set up empty study object
-mystudy <- study("IAT Demo")
+library(scienceverse)
 
-# add hypothesis 1
+mystudy <- study("IAT Demo")
+```
+
+
+## Add hypothesis 1
+
+```{r}
 mystudy <- add_hypothesis(
   study = mystudy,
   description = "Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.",
-  evaluation = "&",
+  evaluation = "&", # all criteria must be true to accept
   id = "H1"
 )
+```
 
-# add analysis 1
+
+## Add analysis 1
+
+Reference data you will attach later as ".data[id]" (here, we will use the id "iat").
+
+```{r}
 mystudy <- add_analysis(
   study = mystudy,
   func = "t.test",
   params = list(
-    x = ".data[1]$incongruent",
-    y = ".data[1]$congruent",
+    x = ".data[iat]$incongruent",
+    y = ".data[iat]$congruent",
     alternative = "two.sided",
     paired = TRUE,
     var.equal = FALSE,
@@ -46,7 +58,14 @@ mystudy <- add_analysis(
   ),
   id = "H1_ttest"
 )
+```
 
+
+## Add criteria to H1
+
+Criteria results reference named list items returned from the analysis (e.g., the `t.test` in `H1_ttest` returns a list including `p.value` and `estimate`).
+
+```{r}
 # add criterion 1 to hypothesis 1
 mystudy <- add_criterion(
   study = mystudy,
@@ -66,29 +85,40 @@ mystudy <- add_criterion(
   hypothesis_id = "H1",
   analysis_id = "H1_ttest"
 )
+```
 
-# add hypothesis 2
+
+## Add hypothesis 2
+
+```{r}
 mystudy <- add_hypothesis(
   study = mystudy,
   description = "Reaction times for congruent and incongruent trials will be signifiantly and positively correlated.",
   evaluation = "&",
   id = "H2"
 )
+```
 
-# add analysis 2
+## Add analysis 2
+
+```{r}
 mystudy <- add_analysis(
   study = mystudy,
   func = "cor.test",
   params = list(
-    x = ".data[1]$congruent",
-    y = ".data[1]$incongruent",
+    x = ".data[iat]$congruent",
+    y = ".data[iat]$incongruent",
     alternative = "two.sided",
     method = "pearson",
     conf.level = 0.95
   ),
   id = "H2_cor"
 )
+```
 
+## Add criteria to H2
+
+```{r}
 # add criterion 2 to hypothesis 2
 mystudy <- add_criterion(
   study = mystudy,
@@ -108,12 +138,18 @@ mystudy <- add_criterion(
   hypothesis_id = "H2",
   analysis_id = "H2_cor"
 )
+```
 
+## Save the pre-registration archive file
+
+```{r}
 study_save(mystudy, "iat.json")
 ```
 
+## Generate the pre-registration report
+
 ```{r, eval = FALSE}
-# generate pre-registration report
+
 study_report(mystudy, template="prereg", filename = "prereg")
 ```
 
@@ -124,20 +160,41 @@ mystudy %>%
   output_analyses()
 ```
 
-```{r}
-# add data
-n_sub <- 50
-dat <- faux::rnorm_multi(n_sub, 2, c(500, 750), 250, .5, 
-                         c("congruent", "incongruent"))
-dat$sub_id = 1:n_sub
-mystudy <- add_data(mystudy, dat)
+## Load the study info from the archive file
 
-# run analyses
+```{r}
+mystudy <- study("iat.json")
+```
+
+
+## Add data
+
+Simulate some data using `faux::sim_design()` ([learn more about faux](https://debruine.github.io/faux/)).
+```{r}
+# simulate some data
+dat <- faux::sim_design(
+  within = list(condition = c("congruent", "incongruent")),
+  n = 50, 
+  mu = c(500, 750), 
+  sd = 250, 
+  r = .5
+)
+```
+
+Add the data to the study object. Make sure the id matches the data id from the analysis parameters.
+```{r}
+mystudy <- add_data(mystudy, dat, id = "iat")
+```
+
+## Run analyses
+```{r}
 mystudy <- study_analyse(mystudy)
 ```
 
+
+## Generate the post-registration report
 ```{r, eval = FALSE}
-# generate post-registration report
+
 study_report(mystudy, template="postreg", filename = "postreg")
 ```
 
@@ -148,7 +205,7 @@ mystudy %>%
 ```
 
 
-### Object-oriented setup
+## Piped setup
 
 ```{r}
 
