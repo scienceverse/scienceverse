@@ -9,9 +9,8 @@ always_allow_html: yes
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
-[![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/scienceverse/scienceverse?branch=master)
-[![Codecov test coverage](https://codecov.io/gh/scienceverse/scienceverse/branch/master/graph/badge.svg)](https://codecov.io/gh/scienceverse/scienceverse?branch=master)
+<!--[![Travis build status](https://travis-ci.org/scienceverse/scienceverse?branch=master)](https://travis-ci.org/scienceverse/scienceverse)
+[![Codecov test coverage](https://codecov.io/gh/scienceverse/scienceverse/branch/master/graph/badge.svg)](https://codecov.io/gh/scienceverse/scienceverse?branch=master)-->
 <!-- badges: end -->
 
 ```{r setup, include = FALSE}
@@ -27,9 +26,9 @@ The increasingly digital workflow in science has made it possible to share almos
 
 The goal of scienceverse is to generate and process machine-readable study descriptions to facilitate archiving studies, pre-registering studies, finding variables and measures used in other research, meta-analyses of studies, and finding and re-using datasets in other ways.
 
-# A Grammar of Science
+## A Grammar of Science
 
-A grammar is a formal system of rules that allow users to generate lawful statements. The goal of a grammar of science is to allow users to generate rich, standardized metadata describing experiments, materials, data, code, and any other research components that scholars want to share. Such standardization would facilitate reproducibility, cumulative science (e.g., meta-analysis) and reuse (e.g., finding datasets with specific measures). While many projects focus on making data FAIR, Scienceverse aims to make every aspect of research findable, accessible, interoperable and reusable.
+A grammar is a formal system of rules that allow users to generate lawful statements. The goal of a grammar of science is to allow users to generate rich, standardized metadata describing experiments, materials, data, code, and any other research components that scholars want to share. Such standardization would facilitate reproducibility, cumulative science (e.g., meta-analysis) and reuse (e.g., finding datasets with specific measures). While many projects focus on making data [FAIR](https://www.go-fair.org/fair-principles/), Scienceverse aims to make every aspect of research findable, accessible, interoperable and reusable.
 
 Developing a Grammar of Science, combined with a shared lexicon (e.g., standardized ways to reference manipulations, measures, and variables) aims to facilitate open research practices for researchers and journals. It is intended to mitigate several well-known problems that follow from the lack of organization of research output. 
 
@@ -44,93 +43,9 @@ You can install scienceverse from [GitHub](https://github.com/scienceverse/scien
 ``` r
 devtools::install_github("scienceverse/scienceverse")
 ```
-## Example
 
-```{r}
-library(scienceverse)
-```
+[Using scienceverse for Registered Reports](https://scienceverse.github.io/scienceverse/articles/registration.html)
 
-```{r}
-# create a new study object
-iris_study <- study("Iris Petals")
-
-# add a hypothesis
-iris_study <- add_hypothesis(iris_study, description = "Petal length and width will be significantly correlated")
-
-# add an analysis
-iris_study <- add_analysis(
-  iris_study, func = "cor.test", 
-  params = list(
-    x = ".data[1]$Petal.Length",
-    y = ".data[1]$Petal.Width",
-    alternative = "two.sided",
-    method = "pearson",
-    conf.level = 0.95
-  )
-)
-
-# add a criterion for the last added hypothesis
-iris_study <- add_criterion(iris_study, 
-                            result = "p.value", 
-                            operator = "<", 
-                            comparator = 0.05)
-
-# add data
-iris_study <- add_data(iris_study, data = iris)
-
-# run the analyses on the data
-iris_study <- study_analyse(iris_study)
-
-# save the framework to a JSON file
-study_save(iris_study, "iris.json")
-```
-
-```{r, eval = FALSE}
-# generate a post-registration report
-study_report(iris_study, "postreg", "postreg.html")
-```
-
-```{r op-hypo, results='asis'}
-output_hypotheses(iris_study) 
-```
-
-```{r op-analyses, results='asis'}
-output_analyses(iris_study) 
-```
-
-```{r op-results, results='asis'}
-output_results(iris_study)
-```
-
-
-Now that you've saved the study framework as a JSON file, you can also load it in using the `study()` function.
-
-```{r, eval = FALSE}
-reloaded_iris_study <- study("iris.json")
-```
-
-
-
-### Create by Piping
-
-You can also pipe together the steps to create a study object, save it, and generate a report.
-
-```{r, result = 'asis'}
-iris_study <- study("Iris Petals") %>%
-  add_hypothesis("Petal length and width will be positively and significantly correlated") %>%
-  add_analysis("cor.test", list(
-    x = ".data[1]$Petal.Length",
-    y = ".data[1]$Petal.Width",
-    alternative = "two.sided",
-    method = "pearson",
-    conf.level = 0.95
-  )) %>%
-  add_criterion("p.value", "<", 0.05) %>%
-  add_criterion("estimate", ">", 0) %>%
-  add_data(iris) %>%
-  study_analyse() %>%
-  study_save("iris.json")
-```
-
+[Quick Demo](https://scienceverse.github.io/scienceverse/articles/demo.html)
 
 

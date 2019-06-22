@@ -91,112 +91,23 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-<p>The goal of scienceverse is to generate and process machine-readable study descriptions to facilitate archiving, registration, checking, and meta-analysis.</p>
+<p>The increasingly digital workflow in science has made it possible to share almost all aspects of the research cycle, from pre-registered analysis plans and study materials to the data and analysis code that produce the reported results. Although the growing availability of research output is a positive development, most of this digital information is in a format that makes it difficult to find, access, and reuse. A major barrier is the lack of a framework to concisely describe every component of research in a machine-readable format: A grammar of science.</p>
+<p>The goal of scienceverse is to generate and process machine-readable study descriptions to facilitate archiving studies, pre-registering studies, finding variables and measures used in other research, meta-analyses of studies, and finding and re-using datasets in other ways.</p>
+<div id="a-grammar-of-science" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-grammar-of-science" class="anchor"></a>A Grammar of Science</h2>
+<p>A grammar is a formal system of rules that allow users to generate lawful statements. The goal of a grammar of science is to allow users to generate rich, standardized metadata describing experiments, materials, data, code, and any other research components that scholars want to share. Such standardization would facilitate reproducibility, cumulative science (e.g., meta-analysis) and reuse (e.g., finding datasets with specific measures). While many projects focus on making data <a href="https://www.go-fair.org/fair-principles/">FAIR</a>, Scienceverse aims to make every aspect of research findable, accessible, interoperable and reusable.</p>
+<p>Developing a Grammar of Science, combined with a shared lexicon (e.g., standardized ways to reference manipulations, measures, and variables) aims to facilitate open research practices for researchers and journals. It is intended to mitigate several well-known problems that follow from the lack of organization of research output.</p>
+<p>First, it has been shown that even when data and code are shared, computational reproducibility is low (Hardwicke et al., 2018, Obels et al., 2019). Scienceverse improves computational reproducibility by providing a framework that explicitly links hypotheses, materials, data, and code. Scienceverse archive files can store any aspect of research in a systematic way, allowing, for example, automatic evaluation of results against machine-readable specifications of statistical hypotheses. Automated reproducibility allows journals to compare pre-registered hypotheses with the conclusions in the final manuscript. Scienceverse helps researchers to specify which analyses would confirm or falsify predictions in a structured and unambiguous manner. Journals can automatically check these predictions for the final submission, which will prevent problems with undeclared deviations from the protocol – a known problem in pre-registered studies.</p>
+<p>Second, Scienceverse aims to make shared outputs easier to find and re-use. Good meta-data are essential to find research output, but there have been few attempts in health psychology, or social sciences in general, to summarize the structure of those aspects of the empirical endeavour that need to be findable. Scienceverse aims to create a well-structured grammar that provides a complete description of these components of the research cycle, including hypotheses, materials, methods, study design, measured variables, codebooks, analyses, and conclusions. Referenced against discipline-specific lexicons, this allows researchers to retrieve any information from archive files. For example, researchers can search for studies that use similar manipulations and retrieve relevant information about the effects these manipulations produce. This information can be used when choosing manipulations for future studies, to design well-powered experiments, or to easily perform meta-analyses. Given specific inclusion criteria, Scienceverse makes it possible to automatically update meta-analyses and share these with the scientific community.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install scienceverse from <a href="https://github.com/scienceverse/scienceverse">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"scienceverse/scienceverse"</span>)</a></code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(scienceverse)</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># create a new study object</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/study.html">study</a></span>(<span class="st">"Iris Petals"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># add a hypothesis</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_hypothesis.html">add_hypothesis</a></span>(iris_study, <span class="dt">description =</span> <span class="st">"Petal length and width will be significantly correlated"</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># add an analysis</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_analysis.html">add_analysis</a></span>(</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  iris_study, <span class="dt">func =</span> <span class="st">"cor.test"</span>, </a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="dt">params =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="dt">x =</span> <span class="st">".data[1]$Petal.Length"</span>,</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="dt">y =</span> <span class="st">".data[1]$Petal.Width"</span>,</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="dt">alternative =</span> <span class="st">"two.sided"</span>,</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">    <span class="dt">method =</span> <span class="st">"pearson"</span>,</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="dt">conf.level =</span> <span class="fl">0.95</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">  )</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">)</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co"># add a criterion for the last added hypothesis</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_criterion.html">add_criterion</a></span>(iris_study, </a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">                            <span class="dt">result =</span> <span class="st">"p.value"</span>, </a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">                            <span class="dt">operator =</span> <span class="st">"&lt;"</span>, </a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">                            <span class="dt">comparator =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co"># add data</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_data.html">add_data</a></span>(iris_study, <span class="dt">data =</span> iris)</a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co"># run the analyses on the data</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/study_analyse.html">study_analyse</a></span>(iris_study)</a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co"># save the framework to a JSON file</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="kw"><a href="reference/study_save.html">study_save</a></span>(iris_study, <span class="st">"iris.json"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># generate a post-registration report</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/study_report.html">study_report</a></span>(iris_study, <span class="st">"postreg"</span>, <span class="st">"postreg.html"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/output_hypotheses.html">output_hypotheses</a></span>(iris_study) </a></code></pre></div>
-</div>
-<div id="hypotheses" class="section level2">
-<h2 class="hasAnchor">
-<a href="#hypotheses" class="anchor"></a>Hypotheses</h2>
-<div id="hypothesis-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#hypothesis-1" class="anchor"></a>Hypothesis 1</h3>
-<p>Petal length and width will be significantly correlated</p>
-<ul>
-<li>Criterion 1 is confirmed if analysis yields p.value &lt; 0.05</li>
-</ul>
-<p>If all criteria are met, this hypothesis is supported.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/output_analyses.html">output_analyses</a></span>(iris_study) </a></code></pre></div>
-</div>
-</div>
-<div id="analyses" class="section level2">
-<h2 class="hasAnchor">
-<a href="#analyses" class="anchor"></a>Analyses</h2>
-<div id="analysis-1-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#analysis-1-1" class="anchor"></a>Analysis 1 : 1</h3>
-<p>We will run <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor.test">cor.test(x = .data[1]$Petal.Length, y = .data[1]$Petal.Width, alternative = two.sided, method = pearson, conf.level = 0.95)</a></code></p>
-<p><code> cor.test </code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/output_results.html">output_results</a></span>(iris_study)</a></code></pre></div>
-</div>
-</div>
-<div id="results" class="section level2">
-<h2 class="hasAnchor">
-<a href="#results" class="anchor"></a>Results</h2>
-<div id="hypothesis-1-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#hypothesis-1-1" class="anchor"></a>Hypothesis 1</h3>
-<p>Petal length and width will be significantly correlated</p>
-<ul>
-<li>Criterion 1 was p.value &lt; 0.05 in analysis 1.<br>
-The result was p.value = 0</li>
-</ul>
-<p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
-<p>Now that you’ve saved the study framework as a JSON file, you can also load it in using the <code><a href="reference/study.html">study()</a></code> function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">reloaded_iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/study.html">study</a></span>(<span class="st">"iris.json"</span>)</a></code></pre></div>
-</div>
-<div id="create-by-piping" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create-by-piping" class="anchor"></a>Create by Piping</h3>
-<p>You can also pipe together the steps to create a study object, save it, and generate a report.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">iris_study &lt;-<span class="st"> </span><span class="kw"><a href="reference/study.html">study</a></span>(<span class="st">"Iris Petals"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/add_hypothesis.html">add_hypothesis</a></span>(<span class="st">"Petal length and width will be positively and significantly correlated"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/add_analysis.html">add_analysis</a></span>(<span class="st">"cor.test"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="dt">x =</span> <span class="st">".data[1]$Petal.Length"</span>,</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="dt">y =</span> <span class="st">".data[1]$Petal.Width"</span>,</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="dt">alternative =</span> <span class="st">"two.sided"</span>,</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">    <span class="dt">method =</span> <span class="st">"pearson"</span>,</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">    <span class="dt">conf.level =</span> <span class="fl">0.95</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">  )) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="reference/add_criterion.html">add_criterion</a></span>(<span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="reference/add_criterion.html">add_criterion</a></span>(<span class="st">"estimate"</span>, <span class="st">"&gt;"</span>, <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="reference/add_data.html">add_data</a></span>(iris) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/study_analyse.html">study_analyse</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="reference/study_save.html">study_save</a></span>(<span class="st">"iris.json"</span>)</a></code></pre></div>
-</div>
+<p><a href="https://scienceverse.github.io/scienceverse/articles/registration.html">Using scienceverse for Registered Reports</a></p>
+<p><a href="https://scienceverse.github.io/scienceverse/articles/demo.html">Quick Demo</a></p>
 </div>
 </div>
   </div>
@@ -230,9 +141,6 @@ The result was p.value = 0</li>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://travis-ci.org/scienceverse/scienceverse"><img src="https://travis-ci.org/scienceverse/scienceverse?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://codecov.io/github/scienceverse/scienceverse?branch=master"><img src="https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
-<li><a href="https://codecov.io/gh/scienceverse/scienceverse?branch=master"><img src="https://codecov.io/gh/scienceverse/scienceverse/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
