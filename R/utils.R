@@ -204,3 +204,8 @@ load_params <- function(params, study) {
 
   params
 }
+
+
+print.reg_study <- function(x, ...) {
+  utils::str(x)
+}

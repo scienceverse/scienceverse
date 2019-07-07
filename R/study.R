@@ -473,6 +473,12 @@ study_analyse <- function(study) {
       }
       criteria[j] <- conclusion
       study$hypotheses[[i]]$criteria[[j]]$conclusion <- conclusion
+
+      message("Hypothesis ", i, ", Criterion ", j, ": ",
+              criterion$result, " = ", value, " (",
+              criterion$result, " ", criterion$operator,
+              " ", criterion$comparator, " is ",
+              conclusion, ")")
     }
 
     # evaluate hypothesis
@@ -554,7 +560,7 @@ study_report <- function(study, template = "prereg",
   if (substr(filename, 1, 1) != "/") {
     filename <- paste0(getwd(), "/", filename)
   }
-  message("Saving to", filename)
+  message("Saving to ", filename)
 
   if (template == "prereg") {
     template <- system.file("rmarkdown", "prereg.Rmd", package = "reg")

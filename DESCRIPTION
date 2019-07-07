@@ -30,7 +30,8 @@ Suggests:
     testthat,
     knitr,
     roxygen2,
-    covr
+    covr,
+    TOSTER
 URL: https://github.com/scienceverse/reg
 BugReports: https://github.com/scienceverse/reg/issues
 VignetteBuilder: knitr
