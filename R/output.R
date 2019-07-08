@@ -173,7 +173,7 @@ output_analyses <- function(study) {
         sep = "")
 
     output_custom_code(study, i) %>%
-      paste("<code>", ., "</code>\n\n") %>%
+      paste("<code><pre>", ., "</pre></code>\n\n") %>%
       cat()
   }
 

@@ -411,6 +411,7 @@ study_analyse <- function(study) {
   for (i in 1:analysis_n) {
     func <- study$analyses[[i]]$func
     params <- study$analyses[[i]]$params %>%
+      as.list() %>%
       load_params(study)
 
     # check the function exists
