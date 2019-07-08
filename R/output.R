@@ -159,7 +159,7 @@ output_analyses <- function(study) {
     cat("### Analysis ", i, ": ", study$analyses[[i]]$id, "\n\n")
 
     func <- study$analyses[[i]]$func
-    params <- study$analyses[[1]]$params
+    params <- study$analyses[[i]]$params
 
     keys <- names(params)
     vals <- unlist(params) %>% unname()
