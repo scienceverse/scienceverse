@@ -374,7 +374,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Registration of Statistical Hypotheses</h1>
-<h4 class="date">22 June, 2019</h4>
+<h4 class="date">09 July, 2019</h4>
 
 </div>
 
@@ -398,7 +398,20 @@ $(document).ready(function () {
 <div id="analysis-1-main_analysis" class="section level3">
 <h3>Analysis 1 : main_analysis</h3>
 <p>We will run <code>eq_test_r(data = .data[processed_data], col1 = apathy, col2 = depression, alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)</code></p>
-<p><code> eq_test_r &lt;- function (data, col1 = &quot;“, col2 =”&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, low_eqbound_r = low_eqbound_r) { x &lt;- data[[col1]] y &lt;- data[[col2]] r &lt;- cor(x, y) n &lt;- length(x) test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, verbose = FALSE) invisible(test_res) } </code></p>
+<code>
+<pre> eq_test_r &lt;- function (data, col1 = &quot;&quot;, col2 = &quot;&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, 
+    low_eqbound_r = low_eqbound_r) 
+{
+    x &lt;- data[[col1]]
+    y &lt;- data[[col2]]
+    r &lt;- cor(x, y)
+    n &lt;- length(x)
+    test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, 
+        low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, 
+        verbose = FALSE)
+    invisible(test_res)
+} </pre>
+<p></code></p>
 </div>
 </div>
 

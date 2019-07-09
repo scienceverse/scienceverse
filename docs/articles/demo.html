@@ -63,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/reg">
+  <a href="https://github.com/scienceverse/scienceverse">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -83,9 +83,9 @@
       <h1>Quick Demo</h1>
                         <h4 class="author">Lisa DeBruine &amp; Daniel Lakens</h4>
             
-            <h4 class="date">2019-06-22</h4>
+            <h4 class="date">2019-07-09</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/reg/blob/master/vignettes/demo.Rmd"><code>vignettes/demo.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/demo.Rmd"><code>vignettes/demo.Rmd</code></a></small>
       <div class="hidden name"><code>demo.Rmd</code></div>
 
     </div>
@@ -97,8 +97,14 @@
 <h2 class="hasAnchor">
 <a href="#set-up-an-empty-study-object" class="anchor"></a>Set up an empty study object</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(scienceverse)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">mystudy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study.html">study</a></span>(<span class="st">"IAT Demo"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; ************</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; http://scienceverse.github.io/</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; ************</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">mystudy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study.html">study</a></span>(<span class="st">"IAT Demo"</span>)</a></code></pre></div>
 </div>
 <div id="add-hypothesis-1" class="section level2">
 <h2 class="hasAnchor">
@@ -245,13 +251,17 @@
 <h3 class="hasAnchor">
 <a href="#analysis-1-h1_ttest" class="anchor"></a>Analysis 1 : H1_ttest</h3>
 <p>We will run <code><a href="https://www.rdocumentation.org/packages/stats/topics/t.test">t.test(x = .data[iat]$incongruent, y = .data[iat]$congruent, alternative = two.sided, paired = TRUE, var.equal = FALSE, conf.level = 0.95)</a></code></p>
-<p><code> t.test </code></p>
+<code>
+<pre> t.test </pre>
+<p></p></code>
 </div>
 <div id="analysis-2-h2_cor" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis-2-h2_cor" class="anchor"></a>Analysis 2 : H2_cor</h3>
-<p>We will run <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor.test">cor.test(x = .data[iat]$incongruent, y = .data[iat]$congruent, alternative = two.sided, paired = TRUE, var.equal = FALSE, conf.level = 0.95)</a></code></p>
-<p><code> cor.test </code></p>
+<p>We will run <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor.test">cor.test(x = .data[iat]$congruent, y = .data[iat]$incongruent, alternative = two.sided, method = pearson, conf.level = 0.95)</a></code></p>
+<code>
+<pre> cor.test </pre>
+<p></p></code>
 </div>
 </div>
 <div id="load-the-study-info-from-the-archive-file" class="section level2">
@@ -278,7 +288,11 @@
 <div id="run-analyses" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-analyses" class="anchor"></a>Run analyses</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">mystudy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>(mystudy)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">mystudy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>(mystudy)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Hypothesis 1, Criterion 1: p.value = 2.07387231667966e-10 (p.value &lt; 0.05 is TRUE)</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; Hypothesis 1, Criterion 2: estimate = 262.610534912282 (estimate &gt; 0 is TRUE)</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; Hypothesis 2, Criterion 1: p.value = 0.0038429580070633 (p.value &lt; 0.05 is TRUE)</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; Hypothesis 2, Criterion 2: estimate = 0.401609882698672 (estimate &gt; 0 is TRUE)</span></a></code></pre></div>
 </div>
 <div id="generate-the-post-registration-report" class="section level2">
 <h2 class="hasAnchor">
@@ -298,7 +312,7 @@
 The result was p.value = 0<br>
 </li>
 <li>Criterion 2 was estimate &gt; 0 in analysis H1_ttest.<br>
-The result was estimate = 288.981</li>
+The result was estimate = 262.611</li>
 </ul>
 <p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
 </div>
@@ -308,10 +322,10 @@ The result was estimate = 288.981</li>
 <p>Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.</p>
 <ul>
 <li>Criterion 1 was p.value &lt; 0.05 in analysis H2_cor.<br>
-The result was p.value = 0<br>
+The result was p.value = 0.004<br>
 </li>
 <li>Criterion 2 was estimate &gt; 0 in analysis H2_cor.<br>
-The result was estimate = 0.589</li>
+The result was estimate = 0.402</li>
 </ul>
 <p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
 </div>
@@ -380,7 +394,11 @@ The result was estimate = 0.589</li>
 <a class="sourceLine" id="cb15-59" data-line-number="59">    <span class="dt">analysis_id =</span> <span class="st">"H2_cor"</span></a>
 <a class="sourceLine" id="cb15-60" data-line-number="60">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-61" data-line-number="61"><span class="st">  </span><span class="kw"><a href="../reference/add_data.html">add_data</a></span>(dat) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-62" data-line-number="62"><span class="st">  </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb15-62" data-line-number="62"><span class="st">  </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>()</a>
+<a class="sourceLine" id="cb15-63" data-line-number="63"><span class="co">#&gt; Hypothesis 1, Criterion 1: p.value = 2.07387231667966e-10 (p.value &lt; 0.05 is TRUE)</span></a>
+<a class="sourceLine" id="cb15-64" data-line-number="64"><span class="co">#&gt; Hypothesis 1, Criterion 2: estimate = 262.610534912282 (estimate &gt; 0 is TRUE)</span></a>
+<a class="sourceLine" id="cb15-65" data-line-number="65"><span class="co">#&gt; Hypothesis 2, Criterion 1: p.value = 0.0038429580070633 (p.value &lt; 0.05 is TRUE)</span></a>
+<a class="sourceLine" id="cb15-66" data-line-number="66"><span class="co">#&gt; Hypothesis 2, Criterion 2: estimate = 0.401609882698672 (estimate &gt; 0 is TRUE)</span></a></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">mystudy <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(<span class="dt">template=</span><span class="st">"prereg"</span>, <span class="dt">filename =</span> <span class="st">"pre"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(<span class="dt">template=</span><span class="st">"postreg"</span>, <span class="dt">filename =</span> <span class="st">"post"</span>)</a></code></pre></div>

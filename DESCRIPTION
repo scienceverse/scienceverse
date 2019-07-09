@@ -32,8 +32,8 @@ Suggests:
     roxygen2,
     covr,
     TOSTER
-URL: https://github.com/scienceverse/reg
-BugReports: https://github.com/scienceverse/reg/issues
+URL: https://github.com/scienceverse/scienceverse
+BugReports: https://github.com/scienceverse/scienceverse/issues
 VignetteBuilder: knitr
 Remotes: 
     debruine/faux

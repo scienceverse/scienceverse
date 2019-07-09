@@ -442,7 +442,7 @@ study_analyse <- function(study) {
 
     # save results, convert to list, and make class list
     # (jsonlite doesn't deal well with non-list classes like htest , etc)
-    study$analyses[[i]]$results <- do.call(func,params) %>%
+    study$analyses[[i]]$results <- do.call(func, params) %>%
       as.list()
     class(study$analyses[[i]]$results) <- "list"
   }

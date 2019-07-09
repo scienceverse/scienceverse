@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Report — study_report • scienceverse</title>
+<title>Set/get global scienceverse options — scienceverse_options • scienceverse</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Generate a Report — study_report" />
+<meta property="og:title" content="Set/get global scienceverse options — scienceverse_options" />
 
-<meta property="og:description" content="Generate a study report" />
+<meta property="og:description" content="Global options are used to set default values." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,56 +114,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/study.R'><code>R/study.R</code></a></small>
-    <div class="hidden name"><code>study_report.Rd</code></div>
+    <h1>Set/get global scienceverse options</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/scienceverse_options.R'><code>R/scienceverse_options.R</code></a></small>
+    <div class="hidden name"><code>scienceverse_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate a study report</p>
+    <p>Global options are used to set default values.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>study_report</span>(<span class='no'>study</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"prereg"</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"study.html"</span>)</pre>
+    <pre class="usage"><span class='fu'>scienceverse_options</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>study</th>
-      <td><p>A study list object with class reg_study</p></td>
-    </tr>
-    <tr>
-      <th>template</th>
-      <td><p>The type of report c("prereg", "postreg") or a path to a custom template</p></td>
-    </tr>
-    <tr>
-      <th>filename</th>
-      <td><p>The file path to save to</p></td>
+      <th>...</th>
+      <td><p>One of four: (1) nothing, then returns all options as a list; (2) a name of an option element, then returns its value; (3) a name-value pair which sets the corresponding option to the new value (and returns nothing), (4) a list with option-value pairs which sets all the corresponding arguments.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A study object with class reg_study</p>
+    <p>a list of options, values of an option, or nothing</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>mystudy</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>(<span class='st'>"Iris Study"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"Petal length and width will be significantly correlated"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"cor.test"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
-    <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>".data[1]$Petal.Length"</span>,
-    <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>".data[1]$Petal.Width"</span>
-  )) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_report</span>(<span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"postreg"</span>)
-<span class='co'># }</span><div class='input'>
-</div></pre>
+<span class='fu'>scienceverse_options</span>() <span class='co'># see all options</span></div><div class='output co'>#&gt; named list()</div><div class='input'>
+<span class='fu'>scienceverse_options</span>(<span class='st'>"quiet"</span>) <span class='co'># see value of scienceverse.quiet</span></div><div class='output co'>#&gt; NULL</div><span class='co'># NOT RUN {</span>
+<span class='fu'>scienceverse_options</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

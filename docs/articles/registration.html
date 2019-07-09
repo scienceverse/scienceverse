@@ -63,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/reg">
+  <a href="https://github.com/scienceverse/scienceverse">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -83,9 +83,9 @@
       <h1>Using scienceverse for Registered Reports</h1>
                         <h4 class="author">Daniel Lakens &amp; Lisa DeBruine</h4>
             
-            <h4 class="date">2019-06-22</h4>
+            <h4 class="date">2019-07-09</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/reg/blob/master/vignettes/registration.Rmd"><code>vignettes/registration.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/registration.Rmd"><code>vignettes/registration.Rmd</code></a></small>
       <div class="hidden name"><code>registration.Rmd</code></div>
 
     </div>
@@ -231,7 +231,7 @@
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(ap_dep_study, </a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">             <span class="dt">template =</span> <span class="st">"prereg"</span>, </a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">             <span class="dt">filename =</span> <span class="st">"prereg_ap_dep_study.html"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; Saving to/Users/lisad/rproj/scienceverse/scienceverse/vignettes/prereg_ap_dep_study.html</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/prereg_ap_dep_study.html</span></a></code></pre></div>
 <p>This writes an .html file to the working directory, that should look like:</p>
 <hr>
 <h1>
@@ -283,12 +283,13 @@ Analyses
 <h3 class="hasAnchor">
 <a href="#run-the-analysis" class="anchor"></a>Run the analysis</h3>
 <p>We preregistered that we would consider the results supported when the p-value for the test against the upper equivalence bound (a correlation of r = 0.3) would be smaller than the alpha level of 0.01. Now that our data are attached and prepped, we can evaluate the pre-registered hypotheses automatically. The summary returns a conclusion, based on the planned analysis and the collected data.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyze</a></span>(ap_dep_study)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ap_dep_study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyze</a></span>(ap_dep_study)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; Hypothesis 1, Criterion 1: TOST_p2 = 0.0000000000304017638636897 (TOST_p2 &lt; 0.01 is TRUE)</span></a></code></pre></div>
 <p>The evaluation of our analysis is performed automatically. It demonstrates how machine readable hypotheses are an easy way to check whether the predictions that were made in a preregistration are formally supported. We can generate a report that can be submitted with the manuscript that summarizes whether each pre-registered hypothesis was supported:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(ap_dep_study, </a>
 <a class="sourceLine" id="cb17-2" data-line-number="2">             <span class="dt">template =</span> <span class="st">"postreg"</span>, </a>
 <a class="sourceLine" id="cb17-3" data-line-number="3">             <span class="dt">filename =</span> <span class="st">"postreg_ap_dep_study.html"</span>)</a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; Saving to/Users/lisad/rproj/scienceverse/scienceverse/vignettes/postreg_ap_dep_study.html</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/postreg_ap_dep_study.html</span></a></code></pre></div>
 <p>Finally, when we are all done, we save the archive file. This contains everything we need to reproduce the reported results: the raw data, the data preparation, the analyses, and the results. Pretty cool, right? ;)</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(ap_dep_study, <span class="st">"post_study.json"</span>)</a></code></pre></div>
 </div>
