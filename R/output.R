@@ -56,7 +56,7 @@ output_hypotheses <- function(study) {
 
     for (j in 1:length(criteria)) {
       cat("* Criterion", j, "is confirmed if analysis",
-          criteria[[j]]$test, "yields",
+          criteria[[j]]$analysis_id, "yields",
           criteria[[j]]$result,
           criteria[[j]]$operator,
           criteria[[j]]$comparator,
@@ -110,7 +110,7 @@ output_results <- function(study, digits = 3) {
           criteria[[j]]$result, " ",
           criteria[[j]]$operator, " ",
           criteria[[j]]$comparator,
-          " in analysis ", criteria[[j]]$analysis, ".  \n    The result was ",
+          " in analysis ", criteria[[j]]$analysis_id, ".  \n    The result was ",
           criteria[[j]]$result, " = ", round_char(result, digits),
           "  \n",
           sep = ""
