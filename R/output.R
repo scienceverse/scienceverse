@@ -97,7 +97,7 @@ output_results <- function(study, digits = 3) {
   cat("## Results\n\n")
   for (i in 1:length(study$hypotheses)) {
 
-    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[1]]$desc, "\n\n", sep = "")
+    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[i]]$desc, "\n\n", sep = "")
 
     criteria <- study$hypotheses[[i]]$criteria
 
