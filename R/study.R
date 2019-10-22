@@ -564,9 +564,9 @@ study_report <- function(study, template = "prereg",
   message("Saving to ", filename)
 
   if (template == "prereg") {
-    template <- system.file("rmarkdown", "prereg.Rmd", package = "reg")
+    template <- system.file("rmarkdown", "prereg.Rmd", package = "scienceverse")
   } else if (template == "postreg") {
-    template <- system.file("rmarkdown", "postreg.Rmd", package = "reg")
+    template <- system.file("rmarkdown", "postreg.Rmd", package = "scienceverse")
   }
   options(knitr.duplicate.label = 'allow')
   rmarkdown::render(template,
