@@ -1,0 +1,36 @@
+{
+    "name": "Distinguishing Apathy from Depression",
+    "info": {
+        "author": [
+            "Daniel Lakens",
+            "Lisa DeBruine"
+        ]
+    },
+    "hypotheses": [
+        {
+            "id": "H1",
+            "description": "The correlation between the apathy and depression scale is smaller than 0.3",
+            "criteria": [
+                {
+                    "hypothesis_id": "H1",
+                    "analysis_id": "main_analysis",
+                    "result": "TOST_p2",
+                    "operator": "<",
+                    "comparator": 0.01
+                }
+            ],
+            "evaluation": "&"
+        }
+    ],
+    "methods": [],
+    "data": [],
+    "prep": {
+        "params": {
+            "raw_data": ".data[apathy_depression_raw]"
+        },
+        "code": "command_files/data_prep.R",
+        "return": "processed_data"
+    },
+    "analyses": []
+}
+

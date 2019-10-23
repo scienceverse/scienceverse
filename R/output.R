@@ -50,7 +50,9 @@ output_hypotheses <- function(study) {
 
   for (i in 1:length(study$hypotheses)) {
 
-    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[i]]$desc, "\n\n", sep = "")
+    cat("### Hypothesis ", i,
+        ": ", study$hypotheses[[i]]$id, "\n\n",
+        study$hypotheses[[i]]$description, "\n\n", sep = "")
 
     criteria <- study$hypotheses[[i]]$criteria
 

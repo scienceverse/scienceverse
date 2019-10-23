@@ -17,7 +17,11 @@ cat("### ", study$name, "Preregistration", sep = " ")
 info_names <- names(study$info)
 
 for (name in info_names) {
-  cat("#### ", name, "\n\n", study$info[[name]], "\n\n\n")
+  val <- study$info[[name]]
+  if (length(val) > 1) {
+    val <- paste("*", paste(val, collapse = "\n* "))
+  }
+  cat("#### ", name, "\n\n", val, "\n\n\n", sep = "")
 }
 ```
 
