@@ -159,10 +159,10 @@ make_func <- function(func, args, code, return = ".Last.value", envir = .GlobalE
 
 #' Load Params
 #'
-#' Load .data\[id\] and .data\[id\]$col references from the data
+#' Load .data\[id\], .data\[id\]$col, and .object\[id\] references from the data
 #'
 #' @param params a list of parameter names and values
-#' @param study the study object to get the data from
+#' @param study the study object to get the data and objects from
 #'
 #' @return params list
 #' @keywords internal
@@ -199,6 +199,22 @@ load_params <- function(params, study) {
 
       col <- gsub(pattern, "", params[j])
       params[[j]] <- study$data[[idx]]$data[[col]]
+    }
+  }
+
+  # replace any params equal to ".object[id]" with the object
+  pattern <- "^\\.object\\[(.+)\\]$"
+  replace_object <- grep(pattern, params)
+  if (length(replace_object)) {
+    for (j in replace_object) {
+      id <- params[[j]] %>%
+        regexpr(pattern, .) %>%
+        regmatches(params[[j]], .) %>%
+        gsub(".object[", "", ., fixed = TRUE) %>%
+        gsub("]", "", ., fixed = TRUE)
+      idx <- get_idx(study, id, "object")
+      if (length(study$objects) < idx) stop("object ", idx, " does not exist")
+      params[[j]] <- study$objects[[idx]]$object
     }
   }
 

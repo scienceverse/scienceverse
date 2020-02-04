@@ -73,6 +73,7 @@ study <- function(name = "Demo Study", ...) {
         hypotheses = list(),
         methods = list(),
         data = list(),
+        objects = list(),
         prep = list(),
         analyses = list()
       )
@@ -203,7 +204,6 @@ add_prep <- function(study, code,
   invisible(study)
 }
 
-
 #' Add Analysis
 #'
 #' Add an analysis to a study object
@@ -277,8 +277,6 @@ add_analysis <- function(study,
   invisible(study)
 }
 
-
-
 #' Add Data
 #'
 #' Add a dataset to a study object
@@ -349,6 +347,73 @@ add_data <- function(study, data = NULL, id = NULL) {
   idx <- get_idx(study, id, "data")
 
   study$data[[idx]] <- d
+
+  invisible(study)
+}
+
+#' Add Object
+#'
+#' Add an object to a study object
+#'
+#' @param study A study list object with class reg_study
+#' @param object The object as a list or path to a .rds file
+#' @param id The id for this object (index or character) if NULL, this creates a new object, if an analysis with this id already exists, it will overwrite it
+#' @return A study object with class reg_study_object
+#' @examples
+#'
+#' # load libraries
+#' library(tidyverse)
+#' library(afex)
+#'
+#' # create a dataframe
+#' df <- as_tibble(iris) %>%
+#'   mutate(Subject = seq.int(nrow(.)))
+#'
+#' # create an ANOVA model comparing petal length between flower species
+#' anova_object <- aov_ez(id = "Subject",
+#'                        dv = "Petal.Length",
+#'                        data = df,
+#'                        between = "Species",
+#'                        type = "III")
+#'
+#' # add the ANOVA model to the study
+#' mystudy <- study() %>%
+#'   add_object(anova_object$aov)
+#'
+#' @export
+#'
+add_object <- function(study, object = NULL, id = NULL) {
+  o <- list(id = id)
+
+  if (is.character(object)) {
+    if (!file.exists(object)) {
+      warning("The file ", object, " does not exist.")
+      return(invisible(study))
+    }
+
+    accepted_ext <- c("rds")
+
+    filename <- object
+    ext <- strsplit(basename(filename), split="\\.")[[1]][-1]
+    if (ext == "rds") {
+      object <- readRDS(filename)
+      o <- c(o, object)
+    } else {
+      warning("The ", ext, " format is not supported.\nPlease add data in one of the following formats: ", paste(accepted_ext, collapse = ", "))
+    }
+  }
+
+  o <- list(
+    id = id,
+    "@type" = "Object",
+    object = object
+  )
+
+  class(o) <- c("reg_study_object", "list")
+
+  idx <- get_idx(study, id, "object")
+
+  study$objects[[idx]] <- o
 
   invisible(study)
 }
