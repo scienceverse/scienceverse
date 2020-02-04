@@ -396,8 +396,8 @@ add_object <- function(study, object = NULL, id = NULL) {
     filename <- object
     ext <- strsplit(basename(filename), split="\\.")[[1]][-1]
     if (ext == "rds") {
-      rds <- readRDS(filename)
-      o <- c(o, rds)
+      object <- readRDS(filename)
+      o <- c(o, object)
     } else {
       warning("The ", ext, " format is not supported.\nPlease add data in one of the following formats: ", paste(accepted_ext, collapse = ", "))
     }
@@ -406,7 +406,7 @@ add_object <- function(study, object = NULL, id = NULL) {
   o <- list(
     id = id,
     "@type" = "Object",
-    object = rds
+    object = object
   )
 
   class(o) <- c("reg_study_object", "list")
