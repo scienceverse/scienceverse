@@ -1,91 +1,60 @@
-context("test-add_analysis")
-
 test_that("defaults", {
   s <- study() %>%
-    add_analysis()
-
+    add_analysis(NULL, t.test(rnorm(100)))
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
-  expect_equal(s$analyses[[1]]$func, "list")
-  expect_equal(s$analyses[[1]]$params, list())
-  expect_null(s$analyses[[1]]$code)
+  expect_equal(s$analyses[[1]]$func, "analysis_1_func")
+  expect_equal(s$analyses[[1]]$code, function() {
+    t.test(rnorm(100))
+  })
 })
 
-test_that("set values", {
-  params <- list(data = ".data")
-  s <- study() %>%
-    add_analysis("t.test", params, id= "A1")
+# custom function ----
+test_that("custom function", {
+  myfunc <- function() {
+    {
+      a <- 1
+      b <- 2
+    }
 
-  expect_equal(s$analyses[[1]]$id, "A1")
-  expect_equal(s$analyses[[1]]$func, "t.test")
-  expect_equal(s$analyses[[1]]$params, params)
-  expect_null(s$analyses[[1]]$code)
-})
-
-# custom ----
-test_that("custom", {
-  mean_abs_diff <<- function(x, y) {
-    (x - y) %>%
-      abs() %>%
-      mean() %>%
-      magrittr::set_names("mean_abs_diff") %>%
-      as.list()
+    list(
+      "a" = a,
+      "b" = b
+    )
   }
 
-  s <- study() %>%
-    add_hypothesis() %>%
-    add_analysis("mean_abs_diff", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    ))
+  s2 <- study() %>%
+    add_analysis(NULL, t.test(rnorm(100))) %>%
+    add_analysis("a2", {
+    a <- 1
+    b <- 2
+  }, c("a", "b"))
+  expect_equal(length(s2$analyses), 2)
+  expect_equal(s2$analyses[[2]]$id, "a2")
+  expect_equal(s2$analyses[[2]]$func, "analysis_a2_func")
+  expect_equal(s2$analyses[[2]]$code, myfunc)
 
-  expect_equal(s$analyses[[1]]$code, mean_abs_diff)
-  expect_equal(s$analyses[[1]]$func, "mean_abs_diff")
-  expect_equal(s$analyses[[1]]$params %>% names(), c("x", "y"))
-  expect_equal(s$analyses[[1]]$params$x, ".data[1]$Petal.Width")
-  expect_equal(s$analyses[[1]]$params$y, ".data[1]$Petal.Length")
-
-  study_save(s, "demotext.json")
-  rm(mean_abs_diff, envir = .GlobalEnv)
-  study <- study("demotext.json")
-  file.remove("demotext.json")
-
-  expect_true(exists("mean_abs_diff"))
-  expect_true(is.function(mean_abs_diff))
+  expect_message(s3 <- add_analysis(s2, "a3 with spaces", a <- 1), "id \"a3 with spaces\" changed to \"a3_with_spaces\"")
+  expect_equal(s3$analyses[[3]]$id, "a3_with_spaces")
 })
 
-# add from package
-test_that("add from package", {
+# function with undefined data ----
+test_that("undefined data", {
   s <- study() %>%
-    add_analysis("stats::sd", list(x = 1:10)) %>%
-    add_hypothesis() %>%
-    add_criterion(1, ">", 0)
+    add_analysis("A1", {
+      t.test(dat$a, dat$b)
+    })
 
-  expect_equal(s$analyses[[1]]$func, "stats::sd")
-
-  s <- study_analyse(s)
-
-  expect_equal(s$hypotheses[[1]]$criteria[[1]]$conclusion, TRUE)
-  expect_equal(s$analyses[[1]]$results[[1]], sd(1:10))
-
-  s <- study() %>% add_analysis("lme4::lmer")
-  expect_equal(s$analyses[[1]]$func, "lme4::lmer")
+  func <- function() {{ t.test(dat$a, dat$b) }}
+  expect_equal(s$analyses[[1]]$code, func)
 })
 
-# add from file
+# add from file ----
 test_that("add from file", {
   testthat::skip("only works in testthat")
 
   s <- study() %>%
-    add_hypothesis(id = "H1") %>%
-    add_analysis("../custom_code_test.R",
-                 params = list(a = 1, b = 2),
-                 return = "answer",
-                 id = "A1") %>%
-    add_criterion("answer", "=", 3, "H1", "A1") %>%
-    study_analyse()
+    add_analysis(NULL, "custom_code_test.R")
 
-  expect_equal(s$analyses[[1]]$results, list(answer = 3))
-  expect_equal(s$hypotheses[[1]]$criteria[[1]]$conclusion, TRUE)
-  expect_equal(s$hypotheses[[1]]$conclusion, TRUE)
+  s$analyses[[1]]$code
 })

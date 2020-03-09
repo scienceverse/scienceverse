@@ -1,280 +1,219 @@
 ---
 title: "Quick Demo"
-author: "Lisa DeBruine & Daniel Lakens"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick Demo}
+  %\VignetteIndexEntry{Machine Readable Hypothesis Tests}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(faux)
 ```
 
-Here is a quick example of setting up a simple study. 
-
-## Set up an empty study object
-
-```{r}
+```{r setup}
 library(scienceverse)
-
-mystudy <- study("IAT Demo")
 ```
 
+One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and scienceverse can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not.
 
-## Add hypothesis 1
+### study
+
+Set up the study with a name and any additional info you want to add.
 
 ```{r}
-mystudy <- add_hypothesis(
-  study = mystudy,
-  description = "Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.",
-  evaluation = "&", # all criteria must be true to accept
-  id = "H1"
+study <- study(name = "Kinship and Prosocial Behaviour",
+               abstract = "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.")
+```
+
+This is what is created. You won't usually need to look at it, but it's just a nested list that we can then save in JSON format later.
+
+```{r, echo=FALSE}
+study_json(study) %>% cat()
+```
+
+### add_author
+
+Add each author in the following format. Use the function `credit_roles()` to see a list of the roles and their descriptions. Use `credit_roles("name")` or `credit_roles("abbr")` to just see their names or abbreviations. You can also add any further info, like an orcid or email address.
+
+```{r}
+study <- add_author(study, 
+                    orcid = "0000-0002-7523-5539",
+                    surname = "DeBruine",
+                    given = "Lisa M.",
+                    roles = c("con", "dat", "sof", "dra", "edi"),
+                    email = "lisa.debruine@glasgow.ac.uk") %>%
+         add_author(orcid = "0000-0002-7523-5539",
+                    surname = "Lakens",
+                    given = "Daniël",
+                    roles = c("con", "ana", "dra", "edi"))
+```
+
+```{r, echo=FALSE}
+study_json(list(authors = study$authors)) %>% cat()
+```
+
+### add_hypothesis
+
+Now add a hypothesis with a verbal description. You can add more than one hypothesis, but this demo study only has one.
+
+```{r}
+study <- add_hypothesis(study, id = "self_pref",
+                        description = "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.")
+```
+
+```{r, echo=FALSE}
+study_json(list(hypotheses = study$hypotheses)) %>% cat()
+```
+
+### add_analysis
+
+Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an `id` for reference in the criteria later. The `code` can be R code (wrap it in {} if you need more than one line) or the file path for a .R file. You can also add other information about your analysis, such as the software it's running on. 
+
+```{r}
+study <- add_analysis(study,
+                      id = "trust_analysis",
+                      code = t.test(kin$trust_self, 
+                                    kin$trust_other, 
+                                    paired = TRUE, 
+                                    conf.level = 0.975), 
+                      software = R.version.string) %>%
+         add_analysis(id = "recip_analysis",
+                      code = t.test(
+                        kin$recip_self,
+                        kin$recip_other,
+                        paired = TRUE,
+                        conf.level = 0.975
+                      ), 
+                      software = R.version.string)
+```
+
+```{r, echo=FALSE}
+study_json(list(analyses = study$analyses)) %>% cat()
+```
+
+### add_criterion
+
+Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique `id` so you can reference it next in the evaluation. Then, specify the `analysis_id` where you'll look for the result. For example, the analysis `trust_analysis` returns a list from the function `t.test`, which includes a value for `conf.int`. To see if the first number in this vector is larger than 0, set `result` to "conf.int[1]", `operator` to ">" , and `comparator` to $0$. The options for `operator` are ">", "<", "=", and "!=".
+
+```{r}
+study <- study %>%
+  add_criterion(id = "trust_lowbound",
+                analysis_id = "trust_analysis",
+                result = "conf.int[1]",
+                operator = ">",
+                comparator = 0) %>%
+  add_criterion(id = "trust_highbound",
+                analysis_id = "trust_analysis",
+                result = "conf.int[2]",
+                operator = ">",
+                comparator = 0.2) %>%
+  add_criterion(id = "recip_lowbound",
+                analysis_id = "recip_analysis",
+                result = "conf.int[1]",
+                operator = ">",
+                comparator = 0) %>%
+  add_criterion(id = "recip_highbound",
+                analysis_id = "recip_analysis",
+                result = "conf.int[2]",
+                operator = ">",
+                comparator = 0.2)
+  
+```
+
+```{r, echo=FALSE}
+study_json(list(criteria = study$hypotheses[[1]]$criteria)) %>% cat()
+```
+
+### add_eval
+
+Add evaluation criteria for corroboration and falsification. Include a verbal `description` and a logical `evaluation` that references the criterion `id`s above.
+
+```{r}
+study <- add_eval(study, "corroboration",
+                  description = "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.",
+                  evaluation = "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)") %>%
+         add_eval("falsification",
+                  description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
+                  evaluation = "!trust_highbound & !recip_highbound")
+```
+
+```{r, echo=FALSE}
+study_json(list(corroboration = study$hypotheses[[1]]$corroboration,
+                falsification = study$hypotheses[[1]]$falsification)) %>% cat()
+```
+
+### study_save
+
+At this point, you can save your study to a JSON-formatted file.
+
+```{r}
+study_save(study, "files/prereg.json")
+```
+
+You can view the [JSON-formatted study description](files/prereg.json) here.
+
+### study_report prereg
+
+You can also export a human-readable pre-registration using the built-in "prereg" template.
+
+```{r}
+study_report(study, "prereg", "files/prereg.html")
+```
+
+View the [prereg](files/prereg.html) report here.
+
+
+### add_data
+
+The `id` you give the data can be used in the analysis code to refer to this dataset. The `data` argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column descriptions with the argument `coldesc`. 
+
+```{r}
+
+data <- data.frame(
+  trust_self  = c(1,2,2,1,1,1,1,1,2,0,2,0,1,2,2,3,2,2,1,1,2,0,0,1),
+  trust_other = c(1,2,2,0,1,0,0,0,1,0,1,0,1,1,1,0,1,2,2,0,0,0,2,1),
+  recip_self  = c(0,1,3,2,1,1,1,3,3,2,3,1,1,2,3,3,3,1,1,1,3,0,3,1),
+  recip_other = c(1,1,2,2,3,2,1,3,3,1,3,0,1,3,3,3,3,0,3,0,1,0,3,2)
 )
-```
 
-
-## Add analysis 1
-
-Reference data you will attach later as ".data[id]" (here, we will use the id "iat").
-
-```{r}
-mystudy <- add_analysis(
-  study = mystudy,
-  func = "t.test",
-  params = list(
-    x = ".data[iat]$incongruent",
-    y = ".data[iat]$congruent",
-    alternative = "two.sided",
-    paired = TRUE,
-    var.equal = FALSE,
-    conf.level = 0.95
-  ),
-  id = "H1_ttest"
-)
-```
-
-
-## Add criteria to H1
-
-Criteria results reference named list items returned from the analysis (e.g., the `t.test` in `H1_ttest` returns a list including `p.value` and `estimate`).
-
-```{r}
-# add criterion 1 to hypothesis 1
-mystudy <- add_criterion(
-  study = mystudy,
-  result = "p.value",
-  operator = "<",
-  comparator = .05,
-  hypothesis_id = "H1",
-  analysis_id = "H1_ttest"
+desc <- c(
+  trust_self  = "Number of trusting moves towards self-morphs",
+  trust_other = "Number of trusting moves towards self-morphs",
+  recip_self  = "Number of reciprocating moves towards other-morphs",
+  recip_other = "Number of reciprocating moves towards other-morphs"
 )
 
-# add criterion 2 to hypothesis 1
-mystudy <- add_criterion(
-  study = mystudy,
-  result = "estimate",
-  operator = ">",
-  comparator = 0,
-  hypothesis_id = "H1",
-  analysis_id = "H1_ttest"
-)
+study <- add_data(study, id = "kin", data = data, coldesc = desc)
+
 ```
 
+```{r, echo=FALSE}
+study_json(list(data = study$data)) %>% cat()
+```
 
-## Add hypothesis 2
+### study_analyse
 
 ```{r}
-mystudy <- add_hypothesis(
-  study = mystudy,
-  description = "Reaction times for congruent and incongruent trials will be signifiantly and positively correlated.",
-  evaluation = "&",
-  id = "H2"
-)
+study <- study_analyse(study)
 ```
 
-## Add analysis 2
+
+### study_report postreg
+
+At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.
 
 ```{r}
-mystudy <- add_analysis(
-  study = mystudy,
-  func = "cor.test",
-  params = list(
-    x = ".data[iat]$congruent",
-    y = ".data[iat]$incongruent",
-    alternative = "two.sided",
-    method = "pearson",
-    conf.level = 0.95
-  ),
-  id = "H2_cor"
-)
+study_save(study, "files/postreg.json")
+study_report(study, "postreg", "files/postreg.html")
 ```
 
-## Add criteria to H2
+View the [postreg](files/postreg.html) report here.
 
-```{r}
-# add criterion 2 to hypothesis 2
-mystudy <- add_criterion(
-  study = mystudy,
-  result = "p.value",
-  operator = "<",
-  comparator = 0.05,
-  hypothesis_id = "H2",
-  analysis_id = "H2_cor"
-)
+### Full JSON format
 
-# add criterion 2 to hypothesis 2
-mystudy <- add_criterion(
-  study = mystudy,
-  result = "estimate",
-  operator = ">",
-  comparator = 0,
-  hypothesis_id = "H2",
-  analysis_id = "H2_cor"
-)
-```
-
-## Save the pre-registration archive file
-
-```{r}
-study_save(mystudy, "iat.json")
-```
-
-## Generate the pre-registration report
-
-```{r, eval = FALSE}
-
-study_report(mystudy, template="prereg", filename = "prereg")
-```
-
-```{r, results='asis', echo = FALSE}
-# output section of the report
-mystudy %>%
-  output_hypotheses() %>%
-  output_analyses()
-```
-
-## Load the study info from the archive file
-
-```{r}
-mystudy <- study("iat.json")
-```
-
-
-## Add data
-
-Simulate some data using `faux::sim_design()` ([learn more about faux](https://debruine.github.io/faux/)).
-```{r}
-# simulate some data
-dat <- faux::sim_design(
-  within = list(condition = c("congruent", "incongruent")),
-  n = 50, 
-  mu = c(500, 750), 
-  sd = 250, 
-  r = .5
-)
-```
-
-Add the data to the study object. Make sure the id matches the data id from the analysis parameters.
-```{r}
-mystudy <- add_data(mystudy, dat, id = "iat")
-```
-
-## Run analyses
-```{r}
-mystudy <- study_analyse(mystudy)
-```
-
-
-## Generate the post-registration report
-```{r, eval = FALSE}
-
-study_report(mystudy, template="postreg", filename = "postreg")
-```
-
-```{r, results='asis', echo = FALSE}
-# output section of the report
-mystudy %>%
-  output_results()
-```
-
-
-## Piped setup
-
-```{r}
-
-mystudy <- study("IAT Demo")  %>%
-  add_hypothesis(
-    description = "Mean RT will be significantly slower in the incongruent condition compared to the congruent condition.",
-    evaluation = "&", id = "H1") %>%
-  add_analysis(
-    func = "t.test",
-    params = list(
-      x = ".data[1]$incongruent",
-      y = ".data[1]$congruent",
-      alternative = "two.sided",
-      paired = TRUE,
-      var.equal = FALSE,
-      conf.level = 0.95
-    ),
-    id = "H1_ttest"
-  ) %>%
-  add_criterion(
-    result = "p.value",
-    operator = "<",
-    comparator = .05,
-    hypothesis_id = "H1",
-    analysis_id = "H1_ttest"
-  ) %>%
-  add_criterion(
-    result = "estimate",
-    operator = ">",
-    comparator = 0,
-    hypothesis_id = "H1",
-    analysis_id = "H1_ttest"
-  ) %>%
-  add_hypothesis(
-    description = "Reaction times for congruent and incongruent trials will be signifiantly and positively correlated.",
-    evaluation = "&", id = "H2"
-  ) %>%
-  add_analysis(
-    func = "cor.test",
-    params = list(
-      x = ".data[1]$congruent",
-      y = ".data[1]$incongruent",
-      alternative = "two.sided",
-      method = "pearson",
-      conf.level = 0.95
-    ),
-    id = "H2_cor"
-  ) %>%
-  add_criterion(
-    result = "p.value",
-    operator = "<",
-    comparator = 0.05,
-    hypothesis_id = "H2",
-    analysis_id = "H2_cor"
-  ) %>%
-  add_criterion(
-    result = "estimate",
-    operator = ">",
-    comparator = 0,
-    hypothesis_id = "H2",
-    analysis_id = "H2_cor"
-  ) %>%
-  add_data(dat) %>%
-  study_analyse()
-```
-
-```{r, eval = FALSE}
-mystudy %>%
-  study_report(template="prereg", filename = "pre") %>%
-  study_report(template="postreg", filename = "post")
-```
+You can view the [JSON-formatted study description](files/postreg.json) here.
 

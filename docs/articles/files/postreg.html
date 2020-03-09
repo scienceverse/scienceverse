@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -268,7 +268,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -330,6 +329,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -341,18 +341,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -374,56 +362,79 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Evaluation of Statistical Hypotheses</h1>
-<h4 class="date">09 July, 2019</h4>
+<h4 class="date">09 March, 2020</h4>
 
 </div>
 
 
-<div id="distinguishing-apathy-from-depression-preregistration" class="section level3">
-<h3>Distinguishing Apathy from Depression Preregistration</h3>
-</div>
-<div id="hypotheses" class="section level2">
-<h2>Hypotheses</h2>
-<div id="hypothesis-1" class="section level3">
-<h3>Hypothesis 1</h3>
-<p>The correlation between the apathy and depression scale is smaller than 0.3</p>
+<div id="kinship-and-prosocial-behaviour-postregistration" class="section level3">
+<h3>Kinship and Prosocial Behaviour Postregistration</h3>
 <ul>
-<li>Criterion 1 is confirmed if analysis yields TOST_p2 &lt; 0.01</li>
+<li><a href="http://orcid.org/0000-0002-7523-5539">DeBruine, Lisa M.</a>
+<ul>
+<li>roles: Conceptualization, Data curation, Software, Writing - original draft, Writing - review &amp; editing</li>
+<li>email: <a href="mailto:lisa.debruine@glasgow.ac.uk" class="email">lisa.debruine@glasgow.ac.uk</a></li>
+</ul></li>
+<li><a href="http://orcid.org/0000-0002-7523-5539">Lakens, Daniël</a>
+<ul>
+<li>roles: Conceptualization, Formal analysis, Writing - original draft, Writing - review &amp; editing</li>
+</ul></li>
 </ul>
-<p>If all criteria are met, this hypothesis is supported.</p>
-</div>
-</div>
-<div id="analyses" class="section level2">
-<h2>Analyses</h2>
-<div id="analysis-1-main_analysis" class="section level3">
-<h3>Analysis 1 : main_analysis</h3>
-<p>We will run <code>eq_test_r(data = .data[processed_data], col1 = apathy, col2 = depression, alpha = 0.05, high_eqbound_r = 0.3, low_eqbound_r = -0.3)</code></p>
-<code>
-<pre> eq_test_r &lt;- function (data, col1 = &quot;&quot;, col2 = &quot;&quot;, alpha = alpha, high_eqbound_r = high_eqbound_r, 
-    low_eqbound_r = low_eqbound_r) 
-{
-    x &lt;- data[[col1]]
-    y &lt;- data[[col2]]
-    r &lt;- cor(x, y)
-    n &lt;- length(x)
-    test_res &lt;- TOSTER::TOSTr(n = n, r = r, high_eqbound_r = high_eqbound_r, 
-        low_eqbound_r = low_eqbound_r, alpha = alpha, plot = FALSE, 
-        verbose = FALSE)
-    invisible(test_res)
-} </pre>
-<p></code></p>
+<div id="abstract" class="section level4">
+<h4>Abstract</h4>
+<p>A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.</p>
 </div>
 </div>
 <div id="results" class="section level2">
 <h2>Results</h2>
-<div id="hypothesis-1-1" class="section level3">
-<h3>Hypothesis 1</h3>
-<p>The correlation between the apathy and depression scale is smaller than 0.3</p>
+<div id="hypothesis-1-self_pref" class="section level3">
+<h3>Hypothesis 1: self_pref</h3>
+<p>Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</p>
 <ul>
-<li>Criterion 1 was TOST_p2 &lt; 0.01 in analysis main_analysis.<br />
-The result was TOST_p2 = 0</li>
+<li><code>trust_lowbound</code> is confirmed if analysis <a href="#trust_analysis">trust_analysis</a> yields <code>conf.int[1]&gt;0</code><br />
+The result was conf.int[1] = 0.021 (<span style="color:red">TRUE</span>)<br />
+</li>
+<li><code>trust_highbound</code> is confirmed if analysis <a href="#trust_analysis">trust_analysis</a> yields <code>conf.int[2]&gt;0.2</code><br />
+The result was conf.int[2] = 0.979 (<span style="color:red">TRUE</span>)<br />
+</li>
+<li><code>recip_lowbound</code> is confirmed if analysis <a href="#recip_analysis">recip_analysis</a> yields <code>conf.int[1]&gt;0</code><br />
+The result was conf.int[1] = -0.509 (<span style="color:red">FALSE</span>)<br />
+</li>
+<li><code>recip_highbound</code> is confirmed if analysis <a href="#recip_analysis">recip_analysis</a> yields <code>conf.int[2]&gt;0.2</code><br />
+The result was conf.int[2] = 0.426 (<span style="color:red">TRUE</span>)</li>
 </ul>
-<p><strong>Conclusion</strong>: All criteria were met, this hypothesis was supported.</p>
+<div id="corroboration" class="section level4">
+<h4>Corroboration</h4>
+<p>The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.</p>
+<pre><code> (trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound) </code></pre>
+</div>
+<div id="falsification" class="section level4">
+<h4>Falsification</h4>
+<p>The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.</p>
+<pre><code> !trust_highbound &amp; !recip_highbound </code></pre>
+<p><span style="color: red"><strong>All criteria were met for corroboration.</strong></p>
+</div>
+</div>
+</div>
+<div id="analyses" class="section level2">
+<h2>Analyses</h2>
+<div id="trust_analysis" class="section level3">
+<h3>Analysis 1: trust_analysis</h3>
+<code>
+<pre> analysis_trust_analysis_func &lt;- function () 
+{
+    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)
+} </pre>
+<p></code></p>
+</div>
+<div id="recip_analysis" class="section level3">
+<h3>Analysis 2: recip_analysis</h3>
+<code>
+<pre> analysis_recip_analysis_func &lt;- function () 
+{
+    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)
+} </pre>
+<p></code></p>
 </div>
 </div>
 
@@ -444,6 +455,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

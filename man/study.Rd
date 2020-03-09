@@ -19,6 +19,7 @@ Create or load a study object
 }
 \examples{
 
-mystudy <- study("Iris Petals")
+s <- study("Demo Study")
+study_json(s)
 
 }

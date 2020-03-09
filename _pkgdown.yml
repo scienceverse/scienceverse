@@ -1,5 +1,40 @@
 pandoc: 1.19.2.1
-pkgdown: 1.3.0
+pkgdown: 1.4.1
 pkgdown_sha: ~
+template:
+  params:
+    bootswatch: spacelab
+    ganalytics: UA-160147578-1
+reference:
+  - title: "Study Setup"
+    desc: "Setting up a study object"
+    contents:
+      - study
+      - add_author
+      - add_hypothesis
+      - add_analysis
+      - add_criterion
+      - add_eval
+      - add_data
+  - title: "Study Functions"
+    desc: "Running analyses, generating reports, and saving data"
+    contents:
+      - study_analyse
+      - study_save
+      - study_report
+      - study_json
+  - title: "Other Functions"
+    contents:
+      - author
+      - author_jats
+      - credit_roles
+      - codebook
+      - output_custom_code
+      - output_hypotheses
+      - output_analyses
+      - output_results
+      - scienceverse_options
 articles:
-  demo: demo.html
+  - title: "Articles"
+    contents:
+      - demo

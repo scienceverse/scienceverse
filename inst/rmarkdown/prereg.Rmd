@@ -14,6 +14,26 @@ cat("### ", study$name, "Preregistration", sep = " ")
 ```
 
 ```{r results = 'asis'}
+for (author in study$authors) {
+  name <- paste(author$name, collapse = ", ")
+  if (author$orcid != "") {
+    cat("* [", name, "](http://orcid.org/", author$orcid, ")\n", sep = "")
+  } else {
+    cat("* ", name, "\n", sep = "")
+  }
+  cat("    - roles: ", paste(author$roles, collapse = ", "), "\n")
+  
+  # any other attributes
+  author$name <- NULL
+  author$orcid <- NULL
+  author$roles <- NULL
+  for (attr in names(author)) {
+    cat("    - ", attr, ": ", author[[attr]], "\n", sep = "")
+  }
+}
+```
+
+```{r results = 'asis'}
 info_names <- names(study$info)
 
 for (name in info_names) {
@@ -21,7 +41,7 @@ for (name in info_names) {
   if (length(val) > 1) {
     val <- paste("*", paste(val, collapse = "\n* "))
   }
-  cat("#### ", name, "\n\n", val, "\n\n\n", sep = "")
+  cat("#### ", stringr::str_to_title(name), "\n\n", val, "\n\n\n", sep = "")
 }
 ```
 

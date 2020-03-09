@@ -54,29 +54,31 @@ output_hypotheses <- function(study) {
         ": ", study$hypotheses[[i]]$id, "\n\n",
         study$hypotheses[[i]]$description, "\n\n", sep = "")
 
+    cat("#### Criteria\n\n")
     criteria <- study$hypotheses[[i]]$criteria
 
     for (j in 1:length(criteria)) {
-      cat("* Criterion", j, "is confirmed if analysis",
-          criteria[[j]]$analysis_id, "yields",
+      cat("* `", criteria[[j]]$id, "` is confirmed if analysis `",
+          criteria[[j]]$analysis_id, "` yields `",
           criteria[[j]]$result,
           criteria[[j]]$operator,
           criteria[[j]]$comparator,
-          "  \n"
+          "`  \n",
+          sep = ""
       )
     }
 
     cat("\n")
 
     # explain evaluation
-    eval <- study$hypotheses[[i]]$evaluation
-    if (eval %in% c("&", "and")) {
-      cat("If all criteria are met, this hypothesis is supported.")
-    } else if (eval %in% c("|", "or")) {
-      cat("If any criteria are met, this hypothesis is supported.")
-    } else {
-      cat(eval)
-    }
+    cat("#### Evaluation\n\n")
+    cat("##### Corroboration\n\n")
+    cat(study$hypotheses[[i]]$corroboration$description, "\n\n")
+    cat("```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
+    cat("##### Falsification\n\n")
+    cat(study$hypotheses[[i]]$falsification$description, "\n\n")
+    cat("```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
+    cat("All other patterns of results are inconclusive.")
 
     cat("\n\n\n")
   }
@@ -98,44 +100,57 @@ output_hypotheses <- function(study) {
 output_results <- function(study, digits = 3) {
   cat("## Results\n\n")
   for (i in 1:length(study$hypotheses)) {
+    h <- study$hypotheses[[i]]
 
-    cat("### Hypothesis ", i, "\n\n", study$hypotheses[[i]]$desc, "\n\n", sep = "")
+    cat("### Hypothesis ", i, ": ", h$id, "\n\n", h$desc, "\n\n", sep = "")
 
-    criteria <- study$hypotheses[[i]]$criteria
+    criteria <- h$criteria
+    analysis_ids <- sapply(study$analyses, function(x) {x$id})
 
     for (j in 1:length(criteria)) {
-      analysis_ids <- sapply(study$analyses, function(x) {x$id})
-      analysis <- match(criteria[[j]]$analysis_id, analysis_ids)
-      result <- study$analyses[[analysis]]$results[[criteria[[j]]$result]]
+      criterion <- h$criteria[[j]]
+      analysis <- match(criterion$analysis_id, analysis_ids)
 
-      cat("* Criterion ", j, " was ",
-          criteria[[j]]$result, " ",
-          criteria[[j]]$operator, " ",
+      # get value, handle indices in result
+      splitres <- stringr::str_split(criterion$result, "(\\[|\\])")
+      res <- splitres[[1]][1]
+      idx <- as.integer(splitres[[1]][2])
+      idx <- ifelse(isTRUE(idx > 0), idx, 1)
+      value <- study$analyses[[analysis]]$results[[res]][idx]
+
+      cat("* `", criteria[[j]]$id, "` is confirmed if analysis [",
+          criteria[[j]]$analysis_id, "](#", criteria[[j]]$analysis_id,
+          ") yields `",
+          criteria[[j]]$result,
+          criteria[[j]]$operator,
           criteria[[j]]$comparator,
-          " in analysis ", criteria[[j]]$analysis_id, ".  \n    The result was ",
-          criteria[[j]]$result, " = ", round_char(result, digits),
-          "  \n",
+          "`    \nThe result was ",
+          criterion$result, " = ", round_char(value, digits),
+          " (<span style=\"color:red\">", criterion$conclusion,
+          "</span>)  \n",
           sep = ""
       )
     }
+    cat("\n\n")
 
-    cat("\n**Conclusion**: ")
-    eval <- study$hypotheses[[i]]$evaluation
+    # explain evaluation
+    cat("#### Corroboration\n\n")
+    cat(study$hypotheses[[i]]$corroboration$description, "\n\n")
+    cat("```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
+    cat("#### Falsification\n\n")
+    cat(study$hypotheses[[i]]$falsification$description, "\n\n")
+    cat("```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
+
+    # conclusion
     conclusion <- study$hypotheses[[i]]$conclusion
-    if (eval %in% c("&", "and")) {
-      if (conclusion) {
-        cat("All criteria were met, this hypothesis was supported.")
-      } else {
-        cat("All criteria were not met, this hypothesis was not supported.")
-      }
-    } else if (eval %in% c("|", "or")) {
-      if (conclusion) {
-        cat("At least one criterion was met, this hypothesis was supported.")
-      } else {
-        cat("No criteria were met, this hypothesis was not supported.")
-      }
+    cat("<span style=\"color: red\">")
+    if (conclusion == "corroborate") {
+      cat("**All criteria were met for corroboration.**")
+    } else if (conclusion == "falsify") {
+      cat("**All criteria were met for falsification.**")
     } else {
-      cat("The evaluation criteria could not be automatically evaluated.")
+      cat("**Neither the corroboration nor falsification criteria were met.**")
+      cat("</span>")
     }
 
     cat("\n\n")
@@ -158,21 +173,8 @@ output_analyses <- function(study) {
   cat("## Analyses\n\n")
 
   for (i in 1:length(study$analyses)) {
-    cat("### Analysis ", i, ": ", study$analyses[[i]]$id, "\n\n")
-
-    func <- study$analyses[[i]]$func
-    params <- study$analyses[[i]]$params
-
-    keys <- names(params)
-    vals <- unlist(params) %>% unname()
-    x <- c()
-    for (j in 1:length(keys)) {
-      x[j] <- paste0(keys[j], " = ", vals[j])
-    }
-
-    cat("We will run `",
-        func, "(", paste0(x, collapse = ", "), ")`\n\n",
-        sep = "")
+    cat("### Analysis ", i, ": ", study$analyses[[i]]$id,
+        " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
 
     output_custom_code(study, i) %>%
       paste("<code><pre>", ., "</pre></code>\n\n") %>%

@@ -4,16 +4,14 @@
 \alias{make_func}
 \title{Make a function}
 \usage{
-make_func(func, args, code, return = ".Last.value", envir = .GlobalEnv)
+make_func(func, code, return = "", envir = .GlobalEnv)
 }
 \arguments{
 \item{func}{the function name}
 
-\item{args}{the function arguments}
-
 \item{code}{the function body}
 
-\item{return}{a list of names of objects to return from the function}
+\item{return}{a list of names of objects to return from the function (if blank, defaults to last value from the code, which should be a named list)}
 
 \item{envir}{the environment in which to define the function}
 }

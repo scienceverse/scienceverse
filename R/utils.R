@@ -39,7 +39,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
             ifelse(is.null(id), "NULL", id))
 
     if (section == "hypotheses") study <- add_hypothesis(study, id=id)
-    if (section == "analyses") study <- add_analysis(study, id=id)
+    if (section == "analyses") study <- add_analysis(study, id=id, code = "")
     if (section == "data") study <- add_data(study, id=id)
   }
   n <- length(study[[section]])
@@ -56,7 +56,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
               n+1)
 
       if (section == "hypotheses") study <- add_hypothesis(study, id=id)
-      if (section == "analyses") study <- add_analysis(study, id=id)
+      if (section == "analyses") study <- add_analysis(study, id=id, code = "")
       if (section == "data") study <- add_data(study, id=id)
 
       idx <- length(study[[section]])
@@ -73,11 +73,11 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
     }
     if (!item_exists) {
       warning("No ", section, " item with index = ", id,
-              " exists. Creating a default item with at index = ",
+              " exists. Creating a default item at index = ",
               n+1)
 
       if (section == "hypotheses") study <- add_hypothesis(study, id=id)
-      if (section == "analyses") study <- add_analysis(study, id=id)
+      if (section == "analyses") study <- add_analysis(study, id=id, code = "")
       if (section == "data") study <- add_data(study, id=id)
 
       idx <- length(study[[section]])
@@ -85,6 +85,21 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
   }
 
   list(id = id, idx = idx)
+}
+
+#' Fix IDs
+#'
+#' @param id the id to fix
+#'
+#' @return a fixed ID character string (only a-z, A-Z, 0-9, and _)
+fix_id <- function(id) {
+  new_id <- gsub("[^a-zA-Z0-9_]+", "_", id)
+
+  if (new_id != id) {
+    message("id \"", id, "\" changed to \"", new_id,"\"")
+  }
+
+  new_id
 }
 
 #' Character-safe rounding
@@ -122,35 +137,37 @@ get_env_name <- function(f) {
 #' Make a function
 #'
 #' @param func the function name
-#' @param args the function arguments
 #' @param code the function body
-#' @param return a list of names of objects to return from the function
+#' @param return a list of names of objects to return from the function (if blank, defaults to last value from the code, which should be a named list)
 #' @param envir the environment in which to define the function
 #'
 #' @return creates a function
 #' @keywords internal
 #'
-make_func <- function(func, args, code, return = ".Last.value", envir = .GlobalEnv) {
-  if (length(return)) {
-    for (r in 1:length(return)) {
-      var <-  return[r]
-      return[r] <- paste0('  "', var, '" = ', var)
+make_func <- function(func, code, return = "", envir = .GlobalEnv) {
+  if (length(return) > 1) {
+    if (is.null(names(return))) {
+      names(return) <- return
     }
+    for (r in 1:length(return)) {
+      key <- names(return)[r]
+      var <-  return[r]
+      return[r] <- paste0('  "', key, '" = ', var)
+    }
+    return = paste0(
+      "  list(\n    ",
+      paste(return, collapse = ",\n    "),
+      "\n  )"
+    )
   }
 
-  if (is.list(args) && !is.null(names(args))) {
-    # args is a named list, use names for args
-    args <- names(args)
-  }
-
-  p <- paste(
-    func, " <- function(",
-    paste(args, collapse = ", "),
-    ") {\n  ",
-    paste(code, collapse = "\n"),
-    "\n\n  list(\n    ",
-    paste(return, collapse = ",\n"),
-    "\n  )\n}"
+  p <- paste0(
+    fix_id(func),
+    " <- function() {\n  ",
+    paste(code, collapse = "\n  "),
+    "\n\n",
+    return,
+    "\n}"
   )
 
   eval(parse(text = p), envir = envir)

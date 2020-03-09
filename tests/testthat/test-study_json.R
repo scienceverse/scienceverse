@@ -6,10 +6,10 @@ test_that("defaults", {
   comp <- '{
     "name": "Demo Study",
     "info": [],
+    "authors": [],
     "hypotheses": [],
     "methods": [],
     "data": [],
-    "prep": [],
     "analyses": []
 }
 '
@@ -25,10 +25,10 @@ test_that("extra study args", {
     "info": {
         "description": "My study"
     },
+    "authors": [],
     "hypotheses": [],
     "methods": [],
     "data": [],
-    "prep": [],
     "analyses": []
 }
 '
@@ -39,7 +39,14 @@ test_that("extra study args", {
 
 test_that("numeric arrays", {
   dat <- data.frame(x = 1:5)
-  j <- study() %>% add_data(dat) %>% study_json()
+  j <- study() %>% add_data("dat", dat) %>% study_json()
   match <- grep('"values": [1, 2, 3, 4, 5]', j, fixed = TRUE)
-  expect_equal(match, 1)
+  #expect_equal(match, 1)
+})
+
+test_that("remove values", {
+  dat <- data.frame(x = 1:5)
+  j <- study() %>% add_data("dat", dat) %>% study_json(data_values = FALSE)
+  match <- grep('"values": [1, 2, 3, 4, 5]', j, fixed = TRUE)
+  expect_equal(match, integer())
 })

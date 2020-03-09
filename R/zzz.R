@@ -1,4 +1,4 @@
-## set default options for faux_options:
+## set default options for scienceverse_options:
 .onLoad <- function(libname, pkgname) {
   op <- options()
   op.scienceverse <- list(

@@ -1,26 +1,29 @@
 context("test-study_analyse")
 
-# errors ----
-test_that("errors", {
-  expect_error(study() %>% add_analysis("wrong_test", list()),
-               "The function wrong_test is not defined")
+# messages ----
+test_that("message", {
+  expect_message(study() %>% study_analyse(),
+               "No analyses have been specified")
+
+  expect_message(study() %>% add_hypothesis() %>% add_analysis() %>% study_analyse(),
+                  "Hypothesis 1 has no criteria")
 })
 
 
-# defaults ----
-test_that("defaults", {
+# simple function ----
+test_that("simple function", {
   s <- study() %>%
     add_hypothesis() %>%
-    add_analysis("cor.test", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    )) %>%
-    add_criterion(
-      result = "p.value",
-      operator = "<",
-      comparator = 0.05) %>%
-    add_data(iris) %>%
-    study_analyse()
+    add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
+    add_criterion("sig", "p.value", "<", 0.05) %>%
+    add_criterion("pos", "estimate", ">", 0) %>%
+    add_eval("corroboration", "Petal width is significantly and positively correlated to length", "sig & pos") %>%
+    add_eval("falsification", "Petal width is significantly and negatively correlated to length", "sig & !pos") %>%
+    add_data("dat", iris)
+
+  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion sig: p.value < 0.05 is TRUE (p.value = 0)", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion pos: estimate > 0 is TRUE (estimate = 0.96)", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis 1, Evaluation: corroborate", fixed = TRUE, all = FALSE)
 
   calc_res <- s$analyses[[1]]$results
   true_res <- cor.test(iris$Petal.Width, iris$Petal.Length)
@@ -34,63 +37,7 @@ test_that("defaults", {
   for (name in names) {
     expect_equal(calc_res[[name]], true_res[[name]])
   }
+
+  expect_equal(s$hypotheses[[1]]$conclusion, "corroborate")
 })
 
-# alias ----
-test_that("alias", {
-  s <- study() %>%
-    add_hypothesis() %>%
-    add_analysis("cor.test", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    )) %>%
-    add_criterion(result = "p.value", operator = "<", comparator = 0.05) %>%
-    add_data(iris) %>%
-    study_analyze()
-
-  calc_res <- s$analyses[[1]]$results
-  true_res <- cor.test(iris$Petal.Width, iris$Petal.Length)
-
-  expect_named(calc_res, names(true_res), ignore.order = TRUE)
-
-  # data.name is specified differently, so won't match
-  names <- names(true_res)
-  names <- names[names != "data.name"]
-
-  for (name in names) {
-    expect_equal(calc_res[[name]], true_res[[name]])
-  }
-})
-
-# custom ----
-test_that("custom", {
-  mean_abs_diff <- function(x, y) {
-    (x - y) %>%
-      abs() %>%
-      mean() %>%
-      magrittr::set_names("mean_abs_diff") %>%
-      as.list()
-  }
-
-  s <- study() %>%
-    add_hypothesis() %>%
-    add_analysis("mean_abs_diff", list(
-      x = ".data[1]$Petal.Width",
-      y = ".data[1]$Petal.Length"
-    )) %>%
-    add_criterion(result = "mean_abs_diff", operator = ">", comparator = 1)
-
-  # remove function to force load from code
-  study_save(s, "demotext.json")
-  rm(mean_abs_diff)
-  s2 <- study("demotext.json") %>%
-    add_data(iris) %>%
-    study_analyse()
-  file.remove("demotext.json")
-
-  calc_res <- s2$analyses[[1]]$results
-  comp_res <- (iris$Petal.Width - iris$Petal.Length) %>%
-    abs() %>% mean()
-
-  expect_equal(calc_res$mean_abs_diff, comp_res)
-})

@@ -3,7 +3,7 @@ output: github_document
 always_allow_html: yes
 ---
 
-# scienceverse <img src="man/figures/README-logo.png" align="right" alt="" width="120" />
+# scienceverse <img src="man/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -44,8 +44,12 @@ You can install scienceverse from [GitHub](https://github.com/scienceverse/scien
 devtools::install_github("scienceverse/scienceverse")
 ```
 
+<!--
 [Using scienceverse for Registered Reports](https://scienceverse.github.io/scienceverse/articles/registration.html)
+-->
 
-[Quick Demo](https://scienceverse.github.io/scienceverse/articles/demo.html)
+* [Quick Demo](https://scienceverse.github.io/scienceverse/articles/demo.html)
+* [Pre-registration Report](https://scienceverse.github.io/scienceverse/articles/files/prereg.html)
+* [Post-registration Report](https://scienceverse.github.io/scienceverse/articles/files/postreg.html)
 
 

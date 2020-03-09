@@ -7,8 +7,7 @@
 ^LICENSE\.md$
 ^reg\.Rproj$
 ^\.Rproj\.user$
-^iris.json$
-^postreg.html$
+^pkgdown$
 ^app$
 ^tests/custom_code_test.R$
 ^\.travis\.yml$

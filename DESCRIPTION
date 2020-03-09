@@ -1,7 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9002
-Date: 2019-10-23
+Version: 0.0.0.9003
+Date: 2020-03-09
 Authors@R: c(
   person(given = "Lisa",
            family = "DeBruine",
@@ -18,15 +18,16 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Imports: 
     magrittr,
     jsonlite,
-    faux (>= 0.0.0.9013),
+    stringr,
     rmarkdown,
     rio,
     methods
 Suggests: 
+    faux (>= 0.0.0.9013),
     testthat (>= 2.1.0),
     knitr,
     roxygen2,
