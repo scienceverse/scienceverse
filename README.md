@@ -37,7 +37,8 @@ devtools::install_github("scienceverse/scienceverse")
 -->
 
 * [Quick Demo](https://scienceverse.github.io/scienceverse/articles/demo.html)
-* [Pre-registration Report](https://scienceverse.github.io/scienceverse/articles/files/prereg.html)
-* [Post-registration Report](https://scienceverse.github.io/scienceverse/articles/files/postreg.html)
+* [Example Pre-registration Report](https://scienceverse.github.io/scienceverse/articles/files/prereg.html)
+* [Example Post-registration Report](https://scienceverse.github.io/scienceverse/articles/files/postreg.html)
+* [Preprint](https://psyarxiv.com/5xcda/) : Lakens, D., & DeBruine, L. M. (2020, January 27). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <https://doi.org/10.31234/osf.io/5xcda>
 
 
