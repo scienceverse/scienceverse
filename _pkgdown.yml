@@ -16,6 +16,7 @@ reference:
       - add_criterion
       - add_eval
       - add_data
+      - add_sim_data
   - title: "Study Functions"
     desc: "Running analyses, generating reports, and saving data"
     contents:

@@ -25,9 +25,9 @@ Imports:
     stringr,
     rmarkdown,
     rio,
+    faux (>= 0.0.0.9017),
     methods
 Suggests: 
-    faux (>= 0.0.0.9013),
     testthat (>= 2.1.0),
     knitr,
     roxygen2,
