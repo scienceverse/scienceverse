@@ -29,12 +29,6 @@ study <- study(name = "Kinship and Prosocial Behaviour",
                abstract = "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.")
 ```
 
-This is what is created. You won't usually need to look at it, but it's just a nested list that we can then save in JSON format later.
-
-```{r, echo=FALSE}
-study_json(study) %>% cat()
-```
-
 ### add_author
 
 Add each author in the following format. Use the function `credit_roles()` to see a list of the roles and their descriptions. Use `credit_roles("name")` or `credit_roles("abbr")` to just see their names or abbreviations. You can also add any further info, like an orcid or email address.
@@ -52,10 +46,6 @@ study <- add_author(study,
                     roles = c("con", "ana", "dra", "edi"))
 ```
 
-```{r, echo=FALSE}
-study_json(list(authors = study$authors)) %>% cat()
-```
-
 ### add_hypothesis
 
 Now add a hypothesis with a verbal description. You can add more than one hypothesis, but this demo study only has one.
@@ -63,10 +53,6 @@ Now add a hypothesis with a verbal description. You can add more than one hypoth
 ```{r}
 study <- add_hypothesis(study, id = "self_pref",
                         description = "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.")
-```
-
-```{r, echo=FALSE}
-study_json(list(hypotheses = study$hypotheses)) %>% cat()
 ```
 
 ### add_analysis
@@ -89,10 +75,6 @@ study <- add_analysis(study,
                         conf.level = 0.975
                       ), 
                       software = R.version.string)
-```
-
-```{r, echo=FALSE}
-study_json(list(analyses = study$analyses)) %>% cat()
 ```
 
 ### add_criterion
@@ -124,10 +106,6 @@ study <- study %>%
   
 ```
 
-```{r, echo=FALSE}
-study_json(list(criteria = study$hypotheses[[1]]$criteria)) %>% cat()
-```
-
 ### add_eval
 
 Add evaluation criteria for corroboration and falsification. Include a verbal `description` and a logical `evaluation` that references the criterion `id`s above.
@@ -139,11 +117,6 @@ study <- add_eval(study, "corroboration",
          add_eval("falsification",
                   description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
                   evaluation = "!trust_highbound & !recip_highbound")
-```
-
-```{r, echo=FALSE}
-study_json(list(corroboration = study$hypotheses[[1]]$corroboration,
-                falsification = study$hypotheses[[1]]$falsification)) %>% cat()
 ```
 
 ### study_save
@@ -165,7 +138,6 @@ study_report(study, "prereg", "files/prereg.html")
 ```
 
 View the [prereg](files/prereg.html) report here.
-
 
 ### add_data
 
@@ -191,11 +163,9 @@ study <- add_data(study, id = "kin", data = data, coldesc = desc)
 
 ```
 
-```{r, echo=FALSE}
-study_json(list(data = study$data)) %>% cat()
-```
-
 ### study_analyse
+
+When you run `study_analyse`, the data are loaded as their `id` names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.
 
 ```{r}
 study <- study_analyse(study)

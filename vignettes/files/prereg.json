@@ -14,8 +14,8 @@
                 "Conceptualization",
                 "Data curation",
                 "Software",
-                "Writing - original draft",
-                "Writing - review & editing"
+                "Writing – original draft",
+                "Writing – review & editing"
             ],
             "email": "lisa.debruine@glasgow.ac.uk"
         },
@@ -28,8 +28,8 @@
             "roles": [
                 "Conceptualization",
                 "Formal analysis",
-                "Writing - original draft",
-                "Writing - review & editing"
+                "Writing – original draft",
+                "Writing – review & editing"
             ]
         }
     ],
@@ -79,6 +79,7 @@
     ],
     "methods": [],
     "data": [],
+    "prep": [],
     "analyses": [
         {
             "id": "trust_analysis",
