@@ -118,6 +118,8 @@ output_results <- function(study, digits = 3) {
       idx <- ifelse(isTRUE(idx > 0), idx, 1)
       value <- study$analyses[[analysis]]$results[[res]][idx]
 
+      conc_color <- ifelse(criterion$conclusion, "green", "red")
+
       cat("* `", criteria[[j]]$id, "` is confirmed if analysis [",
           criteria[[j]]$analysis_id, "](#", criteria[[j]]$analysis_id,
           ") yields `",
@@ -126,29 +128,35 @@ output_results <- function(study, digits = 3) {
           criteria[[j]]$comparator,
           "`    \nThe result was ",
           criterion$result, " = ", round_char(value, digits),
-          " (<span style=\"color:red\">", criterion$conclusion,
-          "</span>)  \n",
+          " (<span style=\"color:", conc_color, "\">",
+          criterion$conclusion, "</span>)  \n",
           sep = ""
       )
     }
     cat("\n\n")
 
     # explain evaluation
-    cat("#### Corroboration\n\n")
-    cat(study$hypotheses[[i]]$corroboration$description, "\n\n")
-    cat("```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
-    cat("#### Falsification\n\n")
-    cat(study$hypotheses[[i]]$falsification$description, "\n\n")
-    cat("```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
+    cc <- h$corroboration
+    ff <- h$falsification
+    conc_color <- ifelse(cc$result, "green", "red")
+    cat("#### Corroboration (<span style=\"color:", conc_color, "\">", cc$result, "</span>)\n\n")
+    cat(cc$description, "\n\n")
+    cat("```\n", cc$evaluation, "\n```\n\n")
+
+    conc_color <- ifelse(ff$result, "green", "red")
+    cat("#### Falsification (<span style=\"color:", conc_color, "\">", ff$result, "</span>)\n\n")
+    cat(ff$description, "\n\n")
+    cat("```\n", ff$evaluation, "\n```\n\n")
 
     # conclusion
-    conclusion <- study$hypotheses[[i]]$conclusion
-    cat("<span style=\"color: red\">")
-    if (conclusion == "corroborate") {
+    if (h$conclusion == "corroborate") {
+      cat("<span style=\"color: green\">")
       cat("**All criteria were met for corroboration.**")
-    } else if (conclusion == "falsify") {
+    } else if (h$conclusion == "falsify") {
+      cat("<span style=\"color: red\">")
       cat("**All criteria were met for falsification.**")
     } else {
+      cat("<span style=\"color: blue\">")
       cat("**Neither the corroboration nor falsification criteria were met.**")
       cat("</span>")
     }

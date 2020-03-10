@@ -135,6 +135,9 @@ study_analyse <- function(study) {
         })
       }
 
+      study$hypotheses[[i]]$corroboration[["result"]] <- corrob
+      study$hypotheses[[i]]$falsification[["result"]] <- falsify
+
       if (corrob & !falsify) {
         study$hypotheses[[i]]$conclusion = "corroborate"
       } else if (!corrob & falsify) {

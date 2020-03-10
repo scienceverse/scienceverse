@@ -72,6 +72,8 @@ test_that("simple function", {
     expect_equal(calc_res[[name]], true_res[[name]])
   }
 
+  expect_equal(s$hypotheses[[1]]$corroboration$result, TRUE)
+  expect_equal(s$hypotheses[[1]]$falsification$result, FALSE)
   expect_equal(s$hypotheses[[1]]$conclusion, "corroborate")
 })
 
