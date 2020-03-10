@@ -98,23 +98,42 @@ study_analyse <- function(study) {
       replacement <- as.character(criteria)
       names(replacement) <- names(criteria)
 
-      corrob <- h$corroboration$evaluation %>%
-        gsub("\\s+", "", .) %>%
-        strsplit("(?<=[\\W+])", perl = TRUE) %>%
-        magrittr::extract2(1) %>%
-        stringr::str_replace_all(replacement) %>%
-        paste(collapse = "") %>%
-        parse(text = .) %>%
-        eval(envir = .GlobalEnv)
-
-      falsify <- h$falsification$evaluation %>%
-        gsub("\\s+", "", .) %>%
-        strsplit("(?<=[\\W+])", perl = TRUE) %>%
-        magrittr::extract2(1) %>%
-        stringr::str_replace_all(replacement) %>%
-        paste(collapse = "") %>%
-        parse(text = .) %>%
-        eval(envir = .GlobalEnv)
+      if (is.null(h$corroboration$evaluation)) {
+        warning("Hypothesis ", h$id, " has no evaluation criteria for corroboration")
+        corrob <- FALSE
+      } else {
+        tryCatch({
+          corrob <- h$corroboration$evaluation %>%
+            gsub("\\s+", "", .) %>%
+            strsplit("(?<=[\\W+])", perl = TRUE) %>%
+            magrittr::extract2(1) %>%
+            stringr::str_replace_all(replacement) %>%
+            paste(collapse = "") %>%
+            parse(text = .) %>%
+            eval(envir = .GlobalEnv)
+        }, error = function(e) {
+          warning("Hypothesis ", h$id, " has an error in the evaluation criteria for corroboration: ", h$corroboration$evaluation)
+          corrob <<- FALSE
+        })
+      }
+      if (is.null(h$falsification$evaluation)) {
+        warning("Hypothesis ", h$id, " has no evaluation criteria for falsification")
+        falsify <- FALSE
+      } else {
+        tryCatch({
+          falsify <- h$falsification$evaluation %>%
+            gsub("\\s+", "", .) %>%
+            strsplit("(?<=[\\W+])", perl = TRUE) %>%
+            magrittr::extract2(1) %>%
+            stringr::str_replace_all(replacement) %>%
+            paste(collapse = "") %>%
+            parse(text = .) %>%
+            eval(envir = .GlobalEnv)
+        }, error = function(e) {
+          warning("Hypothesis ", h$id, " has an error in the evaluation criteria for falsification: ", h$falsification$evaluation)
+          falsify <<- FALSE
+        })
+      }
 
       if (corrob & !falsify) {
         study$hypotheses[[i]]$conclusion = "corroborate"

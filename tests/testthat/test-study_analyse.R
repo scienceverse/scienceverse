@@ -9,6 +9,40 @@ test_that("message", {
                   "Hypothesis 1 has no criteria")
 })
 
+# warnings ---
+test_that("warnings", {
+  expect_warning(
+    study() %>% add_hypothesis() %>% add_analysis() %>%
+      add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
+    "Hypothesis 1 has no evaluation criteria for corroboration",
+    fixed = TRUE, all = FALSE
+  )
+
+  expect_warning(
+    study() %>% add_hypothesis() %>% add_analysis() %>%
+      add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
+    "Hypothesis 1 has no evaluation criteria for falsification",
+    fixed = TRUE, all = FALSE
+  )
+
+  expect_warning(
+    study() %>% add_hypothesis() %>% add_analysis() %>%
+      add_criterion("C1", "p.value", "<", 0.05) %>%
+      add_eval("corroboration", "", "(oops)") %>% study_analyse(),
+    "Criteria oops have not been defined yet.",
+    fixed = TRUE, all = FALSE
+  )
+
+  expect_warning(
+    study() %>% add_hypothesis() %>% add_analysis() %>%
+      add_criterion("C1", "p.value", "<", 0.05) %>%
+      add_eval("corroboration", "", "(oops)") %>% study_analyse(),
+    "Hypothesis 1 has an error in the evaluation criteria for corroboration: (oops)",
+    fixed = TRUE, all = FALSE
+  )
+})
+
+
 
 # simple function ----
 test_that("simple function", {
