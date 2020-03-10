@@ -1,6 +1,6 @@
 #' Convert scivrs_author list to CRediT JATS format
 #'
-#' @param author list with class scivrs_author
+#' @param author list with class scivrs_author or list with class reg_study and at least one entry for authors
 #'
 #' @return string in JATS format (see https://jats4r.org/credit-taxonomy)
 #' @export
@@ -13,17 +13,40 @@
 #' )
 #' author_jats(ld)
 author_jats <- function(author) {
-  contrib_author <- '<contrib contrib-type="author">
-  <name>
+  if ("reg_study" %in% class(author)) {
+    aa <- author$authors
+  } else if ("scivrs_author" %in% class(author)) {
+    aa <- list(author)
+  }
+
+  for (i in 1:length(aa)) {
+    contrib_author <- '<contrib>%s
+  <string-name>
     <surname>%s</surname>
     <given-names>%s</given-names>
-  </name>
+  </string-name>
   %s
 </contrib>'
 
-  contrib_role <- '<role vocab="CRediT" vocab-identifier=" http://credit.casrai.org/">%s</role>'
+    orcid <- check_orcid(aa[[i]]$orcid)
+    if (orcid != FALSE) {
+        orcid <- paste0('\n  <contrib-id authenticated="true" contrib-id-type="orcid">https://orcid.org/', orcid, '</contrib-id>')
+    } else {
+      orcid <- ''
+    }
 
-  sprintf(contrib_role, author$roles) %>%
-    paste(collapse = "\n  ") %>%
-    sprintf(contrib_author, author$name[["surname"]], author$name[["given"]], .)
+    contrib_role <- '<role content-type="https://dictionary.casrai.org/Contributor_Roles/%s" >%s</role>'
+    underscore_roles <- gsub("\\W+", "_", aa[[i]]$roles)
+
+    aa[i] <- sprintf(contrib_role, underscore_roles, aa[[i]]$roles) %>%
+      paste(collapse = "\n  ") %>%
+      sprintf(contrib_author,
+              orcid,
+              aa[[i]]$name[["surname"]],
+              aa[[i]]$name[["given"]], .)
+  }
+
+  paste0("<contrib-group>\n", paste(aa, collapse = "\n"), "\n</contrib-group>")
 }
+
+

@@ -43,8 +43,10 @@ add_eval <- function(study, type, description, evaluation,
 
   criteria_missing <- setdiff(criteria_refs, criteria_ids)
   if (length(criteria_missing) > 0) {
-    warning("Criteria ", paste(criteria_missing, collapse = ", "),
-            " have not been defined yet.")
+    if (scienceverse_options("verbose")) {
+      warning("Criteria ", paste(criteria_missing, collapse = ", "),
+              " have not been defined yet.")
+    }
   }
 
   # add evaluation to hypothesis

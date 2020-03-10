@@ -25,7 +25,9 @@
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)
   if (analysis_n == 0) {
-    message("No analyses have been specified")
+    if (scienceverse_options("verbose")) {
+      message("No analyses have been specified")
+    }
     return(invisible(study))
   }
 
@@ -59,7 +61,9 @@ study_analyse <- function(study) {
     # evaluate each criterion ----
     criteria_n <- length(h$criteria)
     if (criteria_n == 0) {
-      message("Hypothesis ", h$id, " has no criteria")
+      if (scienceverse_options("verbose")) {
+        message("Hypothesis ", h$id, " has no criteria")
+      }
     } else {
       criteria <- vector()
       analysis_ids <- sapply(study$analyses, function(x) {x$id})
@@ -88,10 +92,12 @@ study_analyse <- function(study) {
         criteria[criterion$id] <- conclusion
         study$hypotheses[[i]]$criteria[[j]]$conclusion <- conclusion
 
-        message("Hypothesis ", h$id, ", Criterion ", criterion$id, ": ",
-                criterion$result, " ", criterion$operator,
-                " ", criterion$comparator, " is ", conclusion,
-                " (", criterion$result, " = ", round_char(value, 2), ")")
+        if (scienceverse_options("verbose")) {
+          message("Hypothesis ", h$id, ", Criterion ", criterion$id, ": ",
+                  criterion$result, " ", criterion$operator,
+                  " ", criterion$comparator, " is ", conclusion,
+                  " (", criterion$result, " = ", round_char(value, 2), ")")
+        }
       }
 
       # evaluate hypothesis ----
@@ -103,11 +109,21 @@ study_analyse <- function(study) {
         corrob <- FALSE
       } else {
         tryCatch({
-          corrob <- h$corroboration$evaluation %>%
-            gsub("\\s+", "", .) %>%
-            strsplit("(?<=[\\W+])", perl = TRUE) %>%
-            magrittr::extract2(1) %>%
-            stringr::str_replace_all(replacement) %>%
+          corrob_pieces <- h$corroboration$evaluation %>%
+            gsub("(\\(|\\)|\\||\\!|&)", " \\1 ", .) %>%
+            strsplit("\\s+", perl = TRUE) %>%
+            magrittr::extract2(1)
+          potential_criteria <- grep("^[a-zA-Z0-9_]+$", corrob_pieces)
+          for (pc in potential_criteria) {
+            crit <- corrob_pieces[pc]
+            if (crit %in% names(replacement)) {
+              corrob_pieces[pc] <- replacement[[crit]]
+            } else {
+              stop(crit, " is not a defined criterion")
+            }
+          }
+
+          corrob <- corrob_pieces %>%
             paste(collapse = "") %>%
             parse(text = .) %>%
             eval(envir = .GlobalEnv)
@@ -121,11 +137,21 @@ study_analyse <- function(study) {
         falsify <- FALSE
       } else {
         tryCatch({
-          falsify <- h$falsification$evaluation %>%
-            gsub("\\s+", "", .) %>%
-            strsplit("(?<=[\\W+])", perl = TRUE) %>%
-            magrittr::extract2(1) %>%
-            stringr::str_replace_all(replacement) %>%
+          falsify_pieces <- h$falsification$evaluation %>%
+            gsub("(\\(|\\)|\\||\\!|&)", " \\1 ", .) %>%
+            strsplit("\\s+", perl = TRUE) %>%
+            magrittr::extract2(1)
+          potential_criteria <- grep("^[a-zA-Z0-9_]+$", falsify_pieces)
+          for (pc in potential_criteria) {
+            crit <- falsify_pieces[pc]
+            if (crit %in% names(replacement)) {
+              falsify_pieces[pc] <- replacement[[crit]]
+            } else {
+              stop(crit, " is not a defined criterion")
+            }
+          }
+
+          falsify <- falsify_pieces %>%
             paste(collapse = "") %>%
             parse(text = .) %>%
             eval(envir = .GlobalEnv)
@@ -138,15 +164,20 @@ study_analyse <- function(study) {
       study$hypotheses[[i]]$corroboration[["result"]] <- corrob
       study$hypotheses[[i]]$falsification[["result"]] <- falsify
 
-      if (corrob & !falsify) {
+      if (corrob & !isTRUE(falsify)) {
         study$hypotheses[[i]]$conclusion = "corroborate"
-      } else if (!corrob & falsify) {
+      } else if (!isTRUE(corrob) & falsify) {
         study$hypotheses[[i]]$conclusion = "falsify"
       } else {
         study$hypotheses[[i]]$conclusion = "inconclusive"
       }
 
-      message("Hypothesis ", h$id, ", Evaluation: ", study$hypotheses[[i]]$conclusion)
+      if (scienceverse_options("verbose")) {
+        message("Hypothesis ", h$id, ":\n",
+                "    Corroborate: ", corrob, "\n",
+                "    Falsify: ", falsify, "\n",
+                "    Conclusion: ", study$hypotheses[[i]]$conclusion)
+      }
     }
   }
 

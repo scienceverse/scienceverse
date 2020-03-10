@@ -44,7 +44,7 @@ study <- add_author(study,
                     given = "Lisa M.",
                     roles = c("con", "dat", "sof", "dra", "edi"),
                     email = "lisa.debruine@glasgow.ac.uk") %>%
-         add_author(orcid = "0000-0002-7523-5539",
+         add_author(orcid = "0000-0002-0247-239X",
                     surname = "Lakens",
                     given = "Daniël",
                     roles = c("con", "ana", "dra", "edi"))

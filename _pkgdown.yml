@@ -28,6 +28,7 @@ reference:
     contents:
       - author
       - author_jats
+      - check_orcid
       - credit_roles
       - codebook
       - output_custom_code

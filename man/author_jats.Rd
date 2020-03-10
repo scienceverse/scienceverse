@@ -7,7 +7,7 @@
 author_jats(author)
 }
 \arguments{
-\item{author}{list with class scivrs_author}
+\item{author}{list with class scivrs_author or list with class reg_study and at least one entry for authors}
 }
 \value{
 string in JATS format (see https://jats4r.org/credit-taxonomy)

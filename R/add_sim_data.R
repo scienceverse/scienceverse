@@ -3,7 +3,7 @@
 #' Uses \code{faux::sim_design()} to generate a data table with a specified within and between design.
 #'
 #' @param study A study list object with class reg_study
-#' @param data_id
+#' @param data_id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
@@ -16,8 +16,6 @@
 #' @param id the name of the id column (defaults to id)
 #' @param plot whether to show a plot of the design
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
-#' @param interactive whether to run the function interactively
-#' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #'
 #' @return A study object with class reg_study
@@ -40,7 +38,8 @@ add_sim_data <- function(study, data_id,
                          dv = list(y = "value"),
                          id = list(id = "id"),
                          plot = FALSE,
-                         seed = NULL) {
+                         seed = NULL,
+                         rep = 1) {
   dat <- faux::sim_design(
     within, between, n, mu, sd, r,
     empirical, long, dv, id,

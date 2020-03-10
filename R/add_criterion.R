@@ -9,6 +9,7 @@
 #' @param comparator The value to compare
 #' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
+#'
 #' @return A study object with class reg_study
 #' @examples
 #'

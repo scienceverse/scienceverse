@@ -57,7 +57,16 @@ test_that("simple function", {
 
   expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion sig: p.value < 0.05 is TRUE (p.value = 0)", fixed = TRUE, all = FALSE)
   expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion pos: estimate > 0 is TRUE (estimate = 0.96)", fixed = TRUE, all = FALSE)
-  expect_message(s <- study_analyse(s), "Hypothesis 1, Evaluation: corroborate", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis 1:
+    Corroborate: TRUE
+    Falsify: FALSE
+    Conclusion: corroborate", fixed = TRUE, all = FALSE)
+
+  scienceverse_options(verbose = FALSE)
+
+  expect_silent(study_analyse(s))
+
+  scienceverse_options(verbose = TRUE)
 
   calc_res <- s$analyses[[1]]$results
   true_res <- cor.test(iris$Petal.Width, iris$Petal.Length)
@@ -75,5 +84,23 @@ test_that("simple function", {
   expect_equal(s$hypotheses[[1]]$corroboration$result, TRUE)
   expect_equal(s$hypotheses[[1]]$falsification$result, FALSE)
   expect_equal(s$hypotheses[[1]]$conclusion, "corroborate")
+})
+
+
+# criterion name overlap ----
+test_that("criterion name overlap", {
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("A1", t.test(rnorm(1000))) %>%
+    add_criterion("a", "p.value", ">", 0.001) %>%
+    add_criterion("aa", "estimate", "<", 10) %>%
+    add_criterion("aa2", "estimate", ">", -10) %>%
+    add_eval("corroboration", "", "a | (aa | aa2)") %>%
+    add_eval("falsification", "", "aa2 | (aa & a)") %>%
+    study_analyse()
+
+  expect_equal(s$hypotheses[[1]]$corroboration$result, TRUE)
+  expect_equal(s$hypotheses[[1]]$falsification$result, TRUE)
+  expect_equal(s$hypotheses[[1]]$conclusion, "inconclusive")
 })
 

@@ -3,7 +3,7 @@
 #' Add a dataset to a study object
 #'
 #' @param study A study list object with class reg_study
-#' @param id The id for this dataset (index or character) if an analysis with this id already exists, it will overwrite it
+#' @param id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
 #' @param coldesc Optional named list of column descriptions
 #'

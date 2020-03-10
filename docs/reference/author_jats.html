@@ -114,6 +114,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -151,7 +154,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>author</th>
-      <td><p>list with class scivrs_author</p></td>
+      <td><p>list with class scivrs_author or list with class reg_study and at least one entry for authors</p></td>
     </tr>
     </table>
 
@@ -165,7 +168,7 @@
   <span class='kw'>surname</span> <span class='kw'>=</span> <span class='st'>"DeBruine"</span>, <span class='kw'>given</span> <span class='kw'>=</span> <span class='st'>"Lisa M."</span>,
   <span class='kw'>roles</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"Conceptualization"</span>, <span class='st'>"Methodology"</span>)
 )
-<span class='fu'>author_jats</span>(<span class='no'>ld</span>)</div><div class='output co'>#&gt; [1] "&lt;contrib contrib-type=\"author\"&gt;\n  &lt;name&gt;\n    &lt;surname&gt;DeBruine&lt;/surname&gt;\n    &lt;given-names&gt;Lisa M.&lt;/given-names&gt;\n  &lt;/name&gt;\n  &lt;role vocab=\"CRediT\" vocab-identifier=\" http://credit.casrai.org/\"&gt;Conceptualization&lt;/role&gt;\n  &lt;role vocab=\"CRediT\" vocab-identifier=\" http://credit.casrai.org/\"&gt;Methodology&lt;/role&gt;\n&lt;/contrib&gt;"</div></pre>
+<span class='fu'>author_jats</span>(<span class='no'>ld</span>)</div><div class='output co'>#&gt; [1] "&lt;contrib-group&gt;\n&lt;contrib&gt;\n  &lt;contrib-id authenticated=\"true\" contrib-id-type=\"orcid\"&gt;https://orcid.org/0000-0002-7523-5539&lt;/contrib-id&gt;\n  &lt;string-name&gt;\n    &lt;surname&gt;DeBruine&lt;/surname&gt;\n    &lt;given-names&gt;Lisa M.&lt;/given-names&gt;\n  &lt;/string-name&gt;\n  &lt;role content-type=\"https://dictionary.casrai.org/Contributor_Roles/Conceptualization\" &gt;Conceptualization&lt;/role&gt;\n  &lt;role content-type=\"https://dictionary.casrai.org/Contributor_Roles/Methodology\" &gt;Methodology&lt;/role&gt;\n&lt;/contrib&gt;\n&lt;/contrib-group&gt;"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

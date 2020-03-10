@@ -18,11 +18,14 @@ add_sim_data(
   dv = list(y = "value"),
   id = list(id = "id"),
   plot = FALSE,
-  seed = NULL
+  seed = NULL,
+  rep = 1
 )
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
+
+\item{data_id}{The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it}
 
 \item{within}{a list of the within-subject factors}
 
@@ -47,10 +50,6 @@ add_sim_data(
 \item{plot}{whether to show a plot of the design}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
-
-\item{interactive}{whether to run the function interactively}
-
-\item{design}{a design list including within, between, n, mu, sd, r, dv, id}
 
 \item{rep}{the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep}
 }

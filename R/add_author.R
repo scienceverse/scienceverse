@@ -18,7 +18,8 @@
 #' )
 #' study_json(s)
 #'
-add_author <- function(study, orcid, surname, given = "", roles = c(), ...) {
+add_author <- function(study, orcid, surname, given = "",
+                       roles = c(), ...) {
 
   idx <- get_idx(study, section = "authors")
 
@@ -67,6 +68,7 @@ author <- function(orcid, surname, given = "", roles = c(), ...) {
     chk_roles <- role_names[credit_roles("abbr") %in% chk_roles]
   }
 
+  orcid <- check_orcid(orcid)
   a <- list(
     orcid = orcid,
     name = c(surname = surname, given = given),
@@ -78,3 +80,6 @@ author <- function(orcid, surname, given = "", roles = c(), ...) {
 
   a
 }
+
+
+

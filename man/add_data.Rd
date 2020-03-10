@@ -9,7 +9,7 @@ add_data(study, id, data = NULL, coldesc = NULL)
 \arguments{
 \item{study}{A study list object with class reg_study}
 
-\item{id}{The id for this dataset (index or character) if an analysis with this id already exists, it will overwrite it}
+\item{id}{The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it}
 
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
 
