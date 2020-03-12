@@ -50,11 +50,9 @@ study_power <- function(study, rep = 100) {
     } else {
       # simulate new data ----
       simdata[[d$id]] <- faux::sim_data(d$design, rep = rep)
-      #names(simdata[[d$id]]) <- c("rep", d$id)
     }
   }
 
-  #simdat <- purrr::reduce(simdata, dplyr::left_join)
   dataids <- names(simdata)
 
   results <- list()
@@ -194,12 +192,13 @@ study_power <- function(study, rep = 100) {
     }
 
     # summarise conclusions ----
-    conc <- dplyr::case_when(
-      !(corrob & !falsify) & !(!corrob & falsify) ~ "i",
-      corrob & !falsify ~ "c",
-      !corrob & falsify ~ "f",
-      TRUE ~ "problem"
-    )
+    if (corrob & !falsify) {
+      conc <- "c"
+    } else if (!corrob & falsify) {
+      conc <- "f"
+    } else {
+      conc <- "i"
+    }
 
     study$hypotheses[[i]][["power"]] <- list(
       corroboration = mean(conc == "c"),
