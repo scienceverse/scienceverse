@@ -204,9 +204,9 @@ study_power <- function(study, rep = 100) {
 
     if (scienceverse_options("verbose")) {
       message(sprintf("Hypothesis %s
-      corroboration: %03.1d%%
-      falsification: %03.1d%%
-      inconclusive:  %03.1d%%",
+      corroboration: %03.1f%%
+      falsification: %03.1f%%
+      inconclusive:  %03.1f%%",
                       h$id,
                       round(100*mean(conc == "c"), 1),
                       round(100*mean(conc == "f"), 1),

@@ -58,3 +58,17 @@ test_that("basic", {
   expect_equal(length(p$criteria$C1), 100)
   expect_equal(length(p$criteria$C2), 100)
 })
+
+test_that("null", {
+  study <- study() %>%
+    add_hypothesis("H1") %>%
+    add_analysis("A1", t.test(y~A, data = D1)) %>%
+    add_criterion("C1", "p.value", "<", 0.05) %>%
+    add_eval("corroboration", "", "C1") %>%
+    add_eval("falsification", "", "!C1") %>%
+    add_sim_data("D1", between = 2, n = 20) %>%
+    study_power(100)
+
+  expect_true(study$hypotheses[[1]]$power$corroboration < .15)
+
+})
