@@ -40,12 +40,19 @@ add_sim_data <- function(study, data_id,
                          plot = FALSE,
                          seed = NULL,
                          rep = 1) {
-  dat <- faux::sim_design(
-    within, between, n, mu, sd, r,
-    empirical, long, dv, id,
-    plot, seed)
 
-  study <- add_data(study, data_id, data = dat)
+  design <- faux::check_design(
+    within, between,
+    n, mu, sd, r, dv, id, plot)
+
+  dat <- faux::sim_design(
+    design = design,
+    empirical = empirical,
+    long = long,
+    plot = plot,
+    seed = seed)
+
+  study <- add_data(study, data_id, data = dat, design = design)
 
   invisible(study)
 }

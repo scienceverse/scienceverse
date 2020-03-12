@@ -4,7 +4,7 @@
 \alias{add_data}
 \title{Add Data}
 \usage{
-add_data(study, id, data = NULL, coldesc = NULL)
+add_data(study, id, data = NULL, coldesc = NULL, design = NULL)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
@@ -14,6 +14,8 @@ add_data(study, id, data = NULL, coldesc = NULL)
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
 
 \item{coldesc}{Optional named list of column descriptions}
+
+\item{design}{a faux design specification}
 }
 \value{
 A study object with class reg_study

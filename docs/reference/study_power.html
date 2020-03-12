@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Data — add_data • scienceverse</title>
+<title>Power Analysis through Simulation — study_power • scienceverse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Add Data — add_data" />
-<meta property="og:description" content="Add a dataset to a study object" />
+<meta property="og:title" content="Power Analysis through Simulation — study_power" />
+<meta property="og:description" content="This function is experimental. Check power analyses with an external package before using for important decisions." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -138,16 +138,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add Data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/add_data.R'><code>R/add_data.R</code></a></small>
-    <div class="hidden name"><code>add_data.Rd</code></div>
+    <h1>Power Analysis through Simulation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/study_power.R'><code>R/study_power.R</code></a></small>
+    <div class="hidden name"><code>study_power.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add a dataset to a study object</p>
+    <p>This function is experimental. Check power analyses with an external package before using for important decisions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_data</span>(<span class='no'>study</span>, <span class='no'>id</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coldesc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>study_power</span>(<span class='no'>study</span>, <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,20 +157,8 @@
       <td><p>A study list object with class reg_study</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file</p></td>
-    </tr>
-    <tr>
-      <th>coldesc</th>
-      <td><p>Optional named list of column descriptions</p></td>
-    </tr>
-    <tr>
-      <th>design</th>
-      <td><p>a faux design specification</p></td>
+      <th>rep</th>
+      <td><p>The number of simulations to run</p></td>
     </tr>
     </table>
 
@@ -180,76 +168,20 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>add_data</span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>)
-<span class='fu'><a href='study_json.html'>study_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
-#&gt;     "name": "Demo Study",
-#&gt;     "info": [],
-#&gt;     "authors": [],
-#&gt;     "hypotheses": [],
-#&gt;     "methods": [],
-#&gt;     "data": [
-#&gt;         {
-#&gt;             "id": "dat",
-#&gt;             "@type": "Dataset",
-#&gt;             "schemaVersion": "Psych-DS 0.1.0",
-#&gt;             "variableMeasured": [
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Sepal.Length",
-#&gt;                     "name": "Sepal.Length",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 4.3,
-#&gt;                     "maxValue": 7.9,
-#&gt;                     "meanValue": 5.8433,
-#&gt;                     "sdValue": 0.8281
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Sepal.Width",
-#&gt;                     "name": "Sepal.Width",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 2,
-#&gt;                     "maxValue": 4.4,
-#&gt;                     "meanValue": 3.0573,
-#&gt;                     "sdValue": 0.4359
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Petal.Length",
-#&gt;                     "name": "Petal.Length",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 1,
-#&gt;                     "maxValue": 6.9,
-#&gt;                     "meanValue": 3.758,
-#&gt;                     "sdValue": 1.7653
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Petal.Width",
-#&gt;                     "name": "Petal.Width",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 0.1,
-#&gt;                     "maxValue": 2.5,
-#&gt;                     "meanValue": 1.1993,
-#&gt;                     "sdValue": 0.7622
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Species",
-#&gt;                     "name": "Species",
-#&gt;                     "missingValues": 0,
-#&gt;                     "levels": [
-#&gt;                         "setosa",
-#&gt;                         "versicolor",
-#&gt;                         "virginica"
-#&gt;                     ]
-#&gt;                 }
-#&gt;             ]
-#&gt;         }
-#&gt;     ],
-#&gt;     "analyses": []
-#&gt; }
-#&gt;  </div><div class='input'>
+<span class='no'>study</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>y</span>~<span class='no'>A</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>D1</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"C1"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A2"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>y</span>~<span class='no'>A</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>D2</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"C2"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>, <span class='st'>""</span>, <span class='st'>"C1 &amp; C2"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>, <span class='st'>""</span>, <span class='st'>"!C1 &amp; !C2"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_sim_data.html'>add_sim_data</a></span>(<span class='st'>"D1"</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_sim_data.html'>add_sim_data</a></span>(<span class='st'>"D2"</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'>study_power</span>(<span class='kw'>rep</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; <span class='message'>Hypothesis H1</span>
+#&gt; <span class='message'>      corroboration:  30%</span>
+#&gt; <span class='message'>      falsification:  25%</span>
+#&gt; <span class='message'>      inconclusive:   45%</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
