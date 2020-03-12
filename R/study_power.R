@@ -192,13 +192,8 @@ study_power <- function(study, rep = 100) {
     }
 
     # summarise conclusions ----
-    if (corrob & !falsify) {
-      conc <- "c"
-    } else if (!corrob & falsify) {
-      conc <- "f"
-    } else {
-      conc <- "i"
-    }
+    conc <- ifelse(corrob & !falsify, "c",
+                   ifelse(!corrob & falsify, "f", "i"))
 
     study$hypotheses[[i]][["power"]] <- list(
       corroboration = mean(conc == "c"),
