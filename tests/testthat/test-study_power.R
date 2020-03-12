@@ -70,5 +70,18 @@ test_that("null", {
     study_power(100)
 
   expect_true(study$hypotheses[[1]]$power$corroboration < .15)
+})
 
+test_that("null", {
+  study <- study() %>%
+    add_hypothesis("H1") %>%
+    add_analysis("A1", t.test(y~A, data = D1)) %>%
+    add_criterion("C1", "p.value", "<", 0.05) %>%
+    add_eval("corroboration", "", "C1") %>%
+    add_eval("falsification", "", "!C1")
+
+  for (d in seq(0, 1, 0.1)) {
+     add_sim_data(study, "D1", between = 2, n = 20, mu = c(0, d)) %>%
+      study_power(100)
+  }
 })

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • scienceverse</title>
+<title>Get Power Calculations as List — get_power • scienceverse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Get Power Calculations as List — get_power" />
+<meta property="og:description" content="Get Power Calculations as List" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -73,7 +74,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -135,198 +136,72 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Get Power Calculations as List</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/study_power.R'><code>R/study_power.R</code></a></small>
+    <div class="hidden name"><code>get_power.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Get Power Calculations as List</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>get_power</span>(<span class='no'>study</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-study-setup" class="hasAnchor"><a href="#section-study-setup" class="anchor"></a>Study Setup</h2>
-          <p class="section-desc"><p>Setting up a study object</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="study.html">study()</a></code> </p>
-        </td>
-        <td><p>Study</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_author.html">add_author()</a></code> </p>
-        </td>
-        <td><p>Add an Author</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_hypothesis.html">add_hypothesis()</a></code> </p>
-        </td>
-        <td><p>Add Hypothesis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_analysis.html">add_analysis()</a></code> </p>
-        </td>
-        <td><p>Add Analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_criterion.html">add_criterion()</a></code> </p>
-        </td>
-        <td><p>Add Criterion</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_eval.html">add_eval()</a></code> </p>
-        </td>
-        <td><p>Add Evaluation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_data.html">add_data()</a></code> </p>
-        </td>
-        <td><p>Add Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_sim_data.html">add_sim_data()</a></code> </p>
-        </td>
-        <td><p>Add simulated data</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-study-functions" class="hasAnchor"><a href="#section-study-functions" class="anchor"></a>Study Functions</h2>
-          <p class="section-desc"><p>Running analyses, generating reports, and saving data</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="study_analyse.html">study_analyse()</a></code> <code><a href="study_analyse.html">study_analyze()</a></code> </p>
-        </td>
-        <td><p>Run analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="study_save.html">study_save()</a></code> </p>
-        </td>
-        <td><p>Save study</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="study_report.html">study_report()</a></code> </p>
-        </td>
-        <td><p>Generate a Report</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="study_json.html">study_json()</a></code> </p>
-        </td>
-        <td><p>Study Object to JSON string</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="study_power.html">study_power()</a></code> </p>
-        </td>
-        <td><p>Power Analysis through Simulation</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other Functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="author.html">author()</a></code> </p>
-        </td>
-        <td><p>Author in CRediT Format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="author_jats.html">author_jats()</a></code> </p>
-        </td>
-        <td><p>Convert scivrs_author list to CRediT JATS format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_orcid.html">check_orcid()</a></code> </p>
-        </td>
-        <td><p>Check validity of ORCiD</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="credit_roles.html">credit_roles()</a></code> </p>
-        </td>
-        <td><p>CRediT Roles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="codebook.html">codebook()</a></code> </p>
-        </td>
-        <td><p>Create PsychDS Codebook from Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_power.html">get_power()</a></code> </p>
-        </td>
-        <td><p>Get Power Calculations as List</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="output_custom_code.html">output_custom_code()</a></code> </p>
-        </td>
-        <td><p>Output custom code</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="output_hypotheses.html">output_hypotheses()</a></code> </p>
-        </td>
-        <td><p>Output hypotheses</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="output_analyses.html">output_analyses()</a></code> </p>
-        </td>
-        <td><p>Output analyses</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="output_results.html">output_results()</a></code> </p>
-        </td>
-        <td><p>Output results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scienceverse_options.html">scienceverse_options()</a></code> </p>
-        </td>
-        <td><p>Set/get global scienceverse options</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>study</th>
+      <td><p>A study list object with class reg_study</p></td>
+    </tr>
+    <tr>
+      <th>values</th>
+      <td><p>Whether or not to retun criterion values (default FALSE)</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a list of power (and criteria) values</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>y</span>~<span class='no'>A</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>D1</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"C1"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A2"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>y</span>~<span class='no'>A</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>D2</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"C2"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>, <span class='st'>""</span>, <span class='st'>"C1 &amp; C2"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>, <span class='st'>""</span>, <span class='st'>"!C1 &amp; !C2"</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_sim_data.html'>add_sim_data</a></span>(<span class='st'>"D1"</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_sim_data.html'>add_sim_data</a></span>(<span class='st'>"D2"</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>)) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='study_power.html'>study_power</a></span>(<span class='kw'>rep</span> <span class='kw'>=</span> <span class='fl'>100</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'>get_power</span>()</div><div class='output co'>#&gt; <span class='message'>Hypothesis H1</span>
+#&gt; <span class='message'>      corroboration: 30.0%</span>
+#&gt; <span class='message'>      falsification: 25.0%</span>
+#&gt; <span class='message'>      inconclusive:  45.0%</span></div><div class='output co'>#&gt; $H1
+#&gt; $H1$corroboration
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $H1$falsification
+#&gt; [1] 0.25
+#&gt; 
+#&gt; $H1$inconclusive
+#&gt; [1] 0.45
+#&gt; 
+#&gt; </div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-study-setup">Study Setup</a></li>
-      <li><a href="#section-study-functions">Study Functions</a></li>
-      <li><a href="#section-other-functions">Other Functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
