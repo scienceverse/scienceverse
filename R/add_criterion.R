@@ -18,7 +18,7 @@
 #'   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
 #'   add_criterion("sig", "p.value", "<", 0.05) %>%
 #'   add_criterion("pos", "estimate", ">", 0)
-#' study_json(s)
+#' study_to_json(s)
 #'
 #' @export
 #'

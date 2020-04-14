@@ -145,7 +145,7 @@ server <- function(input, output, session) {
 
   ### output$json_text  ----
   output$json_text <- renderText({
-    myStudy() %>% study_json()
+    myStudy() %>% study_to_json()
   })
 
   ## func.params ----

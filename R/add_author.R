@@ -16,7 +16,7 @@
 #'   surname = "DeBruine", given = "Lisa M.",
 #'   roles = c("Conceptualization", "Methodology")
 #' )
-#' study_json(s)
+#' study_to_json(s)
 #'
 add_author <- function(study, orcid, surname, given = "",
                        roles = c(), ...) {

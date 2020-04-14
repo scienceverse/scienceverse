@@ -20,6 +20,6 @@ Create or load a study object
 \examples{
 
 s <- study("Demo Study")
-study_json(s)
+study_to_json(s)
 
 }

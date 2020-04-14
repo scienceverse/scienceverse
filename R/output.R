@@ -12,7 +12,7 @@
 #'
 #' custom <- function() { 1:10 }
 #' s <- study() %>%
-#'   add_analysis("custom") %>%
+#'   add_analysis("custom", t.test(rnorm(100))) %>%
 #'   output_custom_code()
 output_custom_code <- function(study, analysis_id = 1) {
   analysis <- study$analyses[[analysis_id]]

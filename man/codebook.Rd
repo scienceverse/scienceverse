@@ -4,12 +4,25 @@
 \alias{codebook}
 \title{Create PsychDS Codebook from Data}
 \usage{
-codebook(data, coldesc = NULL, as_json = TRUE)
+codebook(
+  data,
+  name = NULL,
+  vardesc = NULL,
+  ...,
+  schemaVersion = "Psych-DS 0.1.0",
+  as_json = TRUE
+)
 }
 \arguments{
 \item{data}{The data frame to generate a codebook for}
 
-\item{coldesc}{Optional named list of column descriptions}
+\item{name}{The name of this dataset (if NULL, will be the same as \code{data})}
+
+\item{vardesc}{Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode}
+
+\item{...}{Further dataset properties (e.g., description, license, author, citation, funder, url, doi/sameAs, keywords, temporalCoverage, spatialCoverage, datePublished, dateCreated)}
+
+\item{schemaVersion}{defaults to "Psych-DS 0.1.0"}
 
 \item{as_json}{Whether the output should be a list or JSON format}
 }
@@ -21,6 +34,14 @@ Create PsychDS Codebook from Data
 }
 \examples{
 
-codebook(iris)
+vardesc = list(
+  description = c("Length of the sepal",
+                  "Width of the sepal",
+                  "Length of the petal",
+                  "Width of the petal",
+                  "The flower species"),
+  type = c("float", "float", "float", "float", "string")
+)
+codebook(iris, vardesc = vardesc)
 
 }

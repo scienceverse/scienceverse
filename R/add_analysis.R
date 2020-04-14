@@ -14,7 +14,7 @@
 #' s <- study() %>%
 #'   add_hypothesis("H1", "Petal width and length will be positively correlated.") %>%
 #'   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length))
-#' study_json(s)
+#' study_to_json(s)
 #'
 #' @export
 #'
@@ -22,10 +22,19 @@ add_analysis <- function(study, id = NULL, code = "", return = "", ...) {
   idx <- get_idx(study, id, "analyses")
   id <- ifelse(is.null(id), idx , fix_id(id))
 
-  code <- match.call()$code %>% utils::capture.output()
-  if (length(code) == 1 & file.exists(code[1])) {
-    # make function from .R file
-    code <- readLines(code)
+  # process code to see if it is a function or file
+  code_call <- match.call()$code
+  if (is.character(code_call)) {
+    if (file.exists(code_call[1])) {
+      # make function from .R file
+      code <- readLines(code_call)
+    } else {
+      stop("The file ", code_call, " was not found.")
+    }
+  } else if (is.language(code_call)) {
+    code <- utils::capture.output(code_call)
+  } else {
+    stop("The code was neither a function nor a filename.")
   }
 
   func <- paste0("analysis_", id, "_func")

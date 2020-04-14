@@ -3,7 +3,7 @@ context("test-add_criterion")
 test_that("default", {
   s <- study() %>%
     add_hypothesis() %>%
-    add_analysis() %>%
+    add_analysis(NULL, t.test(rnorm(100))) %>%
     add_criterion("id", result = "p.value", operator = "<", comparator = 0.05)
 
   cr <- s$hypotheses[[1]]$criteria[[1]]

@@ -8,23 +8,29 @@
 #'
 #' @examples
 #'
-#' study() %>% study_json()
+#' study() %>% study_to_json()
 #'
 #' @export
 #'
-study_json <- function (study, data_values = TRUE) {
+study_to_json <- function (study, data_values = TRUE) {
   n_data <- length(study$data)
   if (n_data > 0) {
     for (i in 1:n_data) {
       # remove data frame
-      study$data[[i]]$data <- NULL
-
-      n_vars <- length(study$data[[i]]$variableMeasured)
-      if (!data_values && n_vars > 0) {
-        for (j in 1:n_vars) {
-          study$data[[i]]$variableMeasured[[j]]$values <- NULL
-        }
+      if (data_values) {
+        # convert data frame to smaller format
+        df <- study$data[[i]]$data
+        study$data[[i]]$data <- as.list(df)
+      } else {
+        study$data[[i]]$data <- NULL
       }
+
+      # n_vars <- length(study$data[[i]]$variableMeasured)
+      # if (!data_values && n_vars > 0) {
+      #   for (j in 1:n_vars) {
+      #     study$data[[i]]$variableMeasured[[j]]$values <- NULL
+      #   }
+      # }
     }
   }
 

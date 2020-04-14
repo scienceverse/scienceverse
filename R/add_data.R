@@ -5,18 +5,19 @@
 #' @param study A study list object with class reg_study
 #' @param id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
-#' @param coldesc Optional named list of column descriptions
-#' @param design a faux design specification
+#' @param vardesc Optional variable properties (see `codebook`)
+#' @param design A faux design specification
+#' @param ... Further dataset properties (see `codebook`)
 #'
 #' @return A study object with class reg_study
 #' @examples
 #'
 #' s <- study() %>% add_data("dat", iris)
-#' study_json(s)
+#' study_to_json(s)
 #'
 #' @export
 #'
-add_data <- function(study, id, data = NULL, coldesc = NULL, design = NULL) {
+add_data <- function(study, id, data = NULL, vardesc = NULL, design = NULL, ...) {
   id <- fix_id(id)
   d <- list(id = id)
 
@@ -43,8 +44,10 @@ add_data <- function(study, id, data = NULL, coldesc = NULL, design = NULL) {
   vm <- list()
   if (is.data.frame(data)) {
     # create codebook
-    cb <- codebook(data = data, coldesc = coldesc, as_json = FALSE)
-    d <- c(list(id = id), cb)
+    cb <- codebook(data = data, name = id,
+                   vardesc = vardesc, ...,
+                   as_json = FALSE)
+    d$codebook <- cb
     d$data <- data
   }
 

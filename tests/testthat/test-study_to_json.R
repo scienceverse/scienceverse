@@ -1,7 +1,5 @@
-context("test-study_json")
-
 test_that("defaults", {
-  j <- study() %>% study_json()
+  j <- study() %>% study_to_json()
 
   comp <- '{
     "name": "Demo Study",
@@ -19,7 +17,7 @@ test_that("defaults", {
 })
 
 test_that("extra study args", {
-  j <- study("Name", description = "My study") %>% study_json()
+  j <- study("Name", description = "My study") %>% study_to_json()
   comp <- '{
     "name": "Name",
     "info": {
@@ -39,14 +37,14 @@ test_that("extra study args", {
 
 test_that("numeric arrays", {
   dat <- data.frame(x = 1:5)
-  j <- study() %>% add_data("dat", dat) %>% study_json()
-  match <- grep('"values": [1, 2, 3, 4, 5]', j, fixed = TRUE)
-  #expect_equal(match, 1)
+  j <- study() %>% add_data("dat", dat) %>% study_to_json()
+  match <- grep('"x": [1, 2, 3, 4, 5]', j, fixed = TRUE)
+  expect_equal(match, 1)
 })
 
 test_that("remove values", {
   dat <- data.frame(x = 1:5)
-  j <- study() %>% add_data("dat", dat) %>% study_json(data_values = FALSE)
-  match <- grep('"values": [1, 2, 3, 4, 5]', j, fixed = TRUE)
+  j <- study() %>% add_data("dat", dat) %>% study_to_json(data_values = FALSE)
+  match <- grep('"x": [1, 2, 3, 4, 5]', j, fixed = TRUE)
   expect_equal(match, integer())
 })

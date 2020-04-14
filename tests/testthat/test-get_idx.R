@@ -21,8 +21,8 @@ test_that("set", {
   s <- study() %>%
     add_hypothesis(id="A") %>%
     add_hypothesis(id="B") %>%
-    add_analysis(id="C") %>%
-    add_analysis(id="D") %>%
+    add_analysis(id="C", t.test(rnorm(100))) %>%
+    add_analysis(id="D", t.test(rnorm(100))) %>%
     add_data(id="E") %>%
     add_data(id="F")
 

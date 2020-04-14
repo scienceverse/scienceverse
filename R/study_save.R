@@ -18,7 +18,7 @@ study_save <- function(study,
     filename <- paste0(filename, ".json")
   }
 
-  study_json(study, data_values) %>%
+  study_to_json(study, data_values) %>%
     writeLines(filename)
 
   invisible(study)

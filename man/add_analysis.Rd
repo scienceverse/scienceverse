@@ -28,6 +28,6 @@ Add an analysis to a study object
 s <- study() \%>\%
   add_hypothesis("H1", "Petal width and length will be positively correlated.") \%>\%
   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length))
-study_json(s)
+study_to_json(s)
 
 }

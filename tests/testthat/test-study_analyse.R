@@ -5,28 +5,33 @@ test_that("message", {
   expect_message(study() %>% study_analyse(),
                "No analyses have been specified")
 
-  expect_message(study() %>% add_hypothesis() %>% add_analysis() %>% study_analyse(),
+  expect_message(study() %>% add_hypothesis() %>%
+                   add_analysis(NULL, t.test(rnorm(100))) %>%
+                   study_analyse(),
                   "Hypothesis 1 has no criteria")
 })
 
 # warnings ---
 test_that("warnings", {
   expect_warning(
-    study() %>% add_hypothesis() %>% add_analysis() %>%
+    study() %>% add_hypothesis() %>%
+      add_analysis(NULL, t.test(rnorm(100))) %>%
       add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
     "Hypothesis 1 has no evaluation criteria for corroboration",
     fixed = TRUE, all = FALSE
   )
 
   expect_warning(
-    study() %>% add_hypothesis() %>% add_analysis() %>%
+    study() %>% add_hypothesis() %>%
+      add_analysis(NULL, t.test(rnorm(100))) %>%
       add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
     "Hypothesis 1 has no evaluation criteria for falsification",
     fixed = TRUE, all = FALSE
   )
 
   expect_warning(
-    study() %>% add_hypothesis() %>% add_analysis() %>%
+    study() %>% add_hypothesis() %>%
+      add_analysis(NULL, t.test(rnorm(100))) %>%
       add_criterion("C1", "p.value", "<", 0.05) %>%
       add_eval("corroboration", "", "(oops)") %>% study_analyse(),
     "Criteria oops have not been defined yet.",
@@ -34,7 +39,8 @@ test_that("warnings", {
   )
 
   expect_warning(
-    study() %>% add_hypothesis() %>% add_analysis() %>%
+    study() %>% add_hypothesis() %>%
+      add_analysis(NULL, t.test(rnorm(100))) %>%
       add_criterion("C1", "p.value", "<", 0.05) %>%
       add_eval("corroboration", "", "(oops)") %>% study_analyse(),
     "Hypothesis 1 has an error in the evaluation criteria for corroboration: (oops)",
@@ -55,8 +61,8 @@ test_that("simple function", {
     add_eval("falsification", "Petal width is significantly and negatively correlated to length", "sig & !pos") %>%
     add_data("dat", iris)
 
-  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion sig: p.value < 0.05 is TRUE (p.value = 0)", fixed = TRUE, all = FALSE)
-  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion pos: estimate > 0 is TRUE (estimate = 0.96)", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion sig:\n    p.value < 0.05 is TRUE\n    p.value = 0", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion pos:\n    estimate > 0 is TRUE\n    estimate = 0.96", fixed = TRUE, all = FALSE)
   expect_message(s <- study_analyse(s), "Hypothesis 1:
     Corroborate: TRUE
     Falsify: FALSE

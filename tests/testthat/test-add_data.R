@@ -17,21 +17,22 @@ test_that("defaults", {
   s <- study() %>% add_data("dat", iris)
 
   expect_equal(s$data[[1]]$id, "dat")
-  expect_equal(s$data[[1]]$schemaVersion, "Psych-DS 0.1.0")
-  expect_equal(s$data[[1]][["@type"]], "Dataset")
-  expect_equal(length(s$data[[1]]$variableMeasured), 5)
+
+  cb <- s$data[[1]]$codebook
+
+  expect_equal(cb$schemaVersion, "Psych-DS 0.1.0")
+  expect_equal(cb[["@type"]], "Dataset")
+  expect_equal(length(cb$variableMeasured), 5)
   expect_equal(s$data[[1]]$data, iris)
   for (i in 1:5) {
-    vm <- s$data[[1]]$variableMeasured[[i]]
-    expect_equal(vm$type, "PropertyValue")
-    expect_equal(vm$unitText, names(iris)[i])
+    vm <- cb$variableMeasured[[i]]
+    expect_equal(vm$`@type`, "PropertyValue")
+    expect_equal(vm$description, names(iris)[i])
     expect_equal(vm$name, names(iris)[i])
-    expect_equal(vm$missingValues, 0)
     if (is.numeric(iris[,i])) {
-      expect_equal(vm$minValue, min(iris[,i]))
-      expect_equal(vm$maxValue, max(iris[,i]))
-      expect_equal(vm$meanValue, mean(iris[,i]))
-      expect_equal(vm$sdValue, sd(iris[,i]))
+      expect_equal(vm$type, "float")
+    } else if (is.factor(iris[,i])) {
+      expect_equal(vm$type, "factor")
     }
   }
 })
@@ -41,14 +42,14 @@ test_that("add data from file", {
   s <- study() %>% add_data("myiris", filename)
   dat <- rio::import(filename)
 
-  expect_equal(s$data[[1]]$schemaVersion, "Psych-DS 0.1.0")
-  expect_equal(s$data[[1]][["@type"]], "Dataset")
-  expect_equal(length(s$data[[1]]$variableMeasured), 5)
+  expect_equal(s$data[[1]]$codebook$schemaVersion, "Psych-DS 0.1.0")
+  expect_equal(s$data[[1]]$codebook[["@type"]], "Dataset")
+  expect_equal(length(s$data[[1]]$codebook$variableMeasured), 5)
   expect_equal(s$data[[1]]$data, dat)
   for (i in 1:5) {
-    vm <- s$data[[1]]$variableMeasured[[i]]
-    expect_equal(vm$type, "PropertyValue")
-    expect_equal(vm$unitText, names(dat)[i])
+    vm <- s$data[[1]]$codebook$variableMeasured[[i]]
+    expect_equal(vm$`@type`, "PropertyValue")
+    expect_equal(vm$description, names(dat)[i])
     expect_equal(vm$name, names(dat)[i])
   }
 })

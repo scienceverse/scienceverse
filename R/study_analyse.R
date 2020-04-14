@@ -20,7 +20,7 @@
 #'            "sig & !pos") %>%
 #'   add_data("dat", iris) %>%
 #'   study_analyse()
-#' study_json(s)
+#' study_to_json(s)
 #'
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)
@@ -93,10 +93,10 @@ study_analyse <- function(study) {
         study$hypotheses[[i]]$criteria[[j]]$conclusion <- conclusion
 
         if (scienceverse_options("verbose")) {
-          message("Hypothesis ", h$id, ", Criterion ", criterion$id, ": ",
+          message("Hypothesis ", h$id, ", Criterion ", criterion$id, ":\n    ",
                   criterion$result, " ", criterion$operator,
                   " ", criterion$comparator, " is ", conclusion,
-                  " (", criterion$result, " = ", round_char(value, 2), ")")
+                  "\n    ", criterion$result, " = ", round_char(value, 2))
         }
       }
 

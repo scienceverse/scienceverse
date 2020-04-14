@@ -31,6 +31,6 @@ s <- study() \%>\% add_author(
   surname = "DeBruine", given = "Lisa M.",
   roles = c("Conceptualization", "Methodology")
 )
-study_json(s)
+study_to_json(s)
 
 }

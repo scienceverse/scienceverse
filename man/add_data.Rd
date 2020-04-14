@@ -4,7 +4,7 @@
 \alias{add_data}
 \title{Add Data}
 \usage{
-add_data(study, id, data = NULL, coldesc = NULL, design = NULL)
+add_data(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
@@ -13,9 +13,11 @@ add_data(study, id, data = NULL, coldesc = NULL, design = NULL)
 
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
 
-\item{coldesc}{Optional named list of column descriptions}
+\item{vardesc}{Optional variable properties (see \code{codebook})}
 
-\item{design}{a faux design specification}
+\item{design}{A faux design specification}
+
+\item{...}{Further dataset properties (see \code{codebook})}
 }
 \value{
 A study object with class reg_study
@@ -26,6 +28,6 @@ Add a dataset to a study object
 \examples{
 
 s <- study() \%>\% add_data("dat", iris)
-study_json(s)
+study_to_json(s)
 
 }

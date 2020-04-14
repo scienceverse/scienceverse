@@ -36,6 +36,6 @@ s <- study() \%>\%
   add_eval("falsification",
            "Petal width is significantly and negatively correlated to length",
            "sig & !pos")
-study_json(s)
+study_to_json(s)
 
 }

@@ -21,6 +21,6 @@ Output custom code specified in an analysis component
 
 custom <- function() { 1:10 }
 s <- study() \%>\%
-  add_analysis("custom") \%>\%
+  add_analysis("custom", t.test(rnorm(100))) \%>\%
   output_custom_code()
 }

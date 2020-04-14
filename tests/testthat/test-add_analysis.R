@@ -1,3 +1,16 @@
+test_that("errors", {
+  s <- study()
+
+  expect_error(add_analysis(s, NULL, "not_a_file.R"),
+               "The file not_a_file.R was not found.",
+               fixed = TRUE)
+
+  expect_error(add_analysis(s, NULL, 1),
+               "The code was neither a function nor a filename.",
+               fixed = TRUE)
+})
+
+
 test_that("defaults", {
   s <- study() %>%
     add_analysis(NULL, t.test(rnorm(100)))
@@ -51,10 +64,12 @@ test_that("undefined data", {
 
 # add from file ----
 test_that("add from file", {
-  testthat::skip("only works in testthat")
-
+  #testthat::skip("only works in testthat")
   s <- study() %>%
-    add_analysis(NULL, "custom_code_test.R")
+    add_analysis(NULL, "input-data/custom_code.R")
 
-  s$analyses[[1]]$code
+  func <- function() { answer <- a + b }
+
+  expect_equal(s$analyses[[1]]$code, func)
 })
+

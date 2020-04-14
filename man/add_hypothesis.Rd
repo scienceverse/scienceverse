@@ -23,6 +23,6 @@ Add a hypothesis to a study object
 
 s <- study() \%>\%
   add_hypothesis("H1", "Petal width and length will be positively correlated.")
-study_json(s)
+study_to_json(s)
 
 }

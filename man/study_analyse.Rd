@@ -33,6 +33,6 @@ s <- study() \%>\%
            "sig & !pos") \%>\%
   add_data("dat", iris) \%>\%
   study_analyse()
-study_json(s)
+study_to_json(s)
 
 }
