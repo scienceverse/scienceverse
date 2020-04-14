@@ -20,7 +20,7 @@
             "email": "lisa.debruine@glasgow.ac.uk"
         },
         {
-            "orcid": "0000-0002-7523-5539",
+            "orcid": "0000-0002-0247-239X",
             "name": [
                 "Lakens",
                 "Daniël"
@@ -40,28 +40,28 @@
             "criteria": [
                 {
                     "id": "trust_lowbound",
-                    "analysis_id": "trust_analysis",
+                    "analysis_id": "trust",
                     "result": "conf.int[1]",
                     "operator": ">",
                     "comparator": 0
                 },
                 {
                     "id": "trust_highbound",
-                    "analysis_id": "trust_analysis",
+                    "analysis_id": "trust",
                     "result": "conf.int[2]",
                     "operator": ">",
                     "comparator": 0.2
                 },
                 {
                     "id": "recip_lowbound",
-                    "analysis_id": "recip_analysis",
+                    "analysis_id": "recip",
                     "result": "conf.int[1]",
                     "operator": ">",
                     "comparator": 0
                 },
                 {
                     "id": "recip_highbound",
-                    "analysis_id": "recip_analysis",
+                    "analysis_id": "recip",
                     "result": "conf.int[2]",
                     "operator": ">",
                     "comparator": 0.2
@@ -81,8 +81,8 @@
     "data": [],
     "analyses": [
         {
-            "id": "trust_analysis",
-            "func": "analysis_trust_analysis_func",
+            "id": "trust",
+            "func": "analysis_trust_func",
             "code": [
                 "function () ",
                 "{",
@@ -92,8 +92,8 @@
             "software": "R version 3.6.2 (2019-12-12)"
         },
         {
-            "id": "recip_analysis",
-            "func": "analysis_recip_analysis_func",
+            "id": "recip",
+            "func": "analysis_recip_func",
             "code": [
                 "function () ",
                 "{",

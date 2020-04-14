@@ -20,7 +20,7 @@
             "email": "lisa.debruine@glasgow.ac.uk"
         },
         {
-            "orcid": "0000-0002-7523-5539",
+            "orcid": "0000-0002-0247-239X",
             "name": [
                 "Lakens",
                 "Daniël"
@@ -40,7 +40,7 @@
             "criteria": [
                 {
                     "id": "trust_lowbound",
-                    "analysis_id": "trust_analysis",
+                    "analysis_id": "trust",
                     "result": "conf.int[1]",
                     "operator": ">",
                     "comparator": 0,
@@ -48,7 +48,7 @@
                 },
                 {
                     "id": "trust_highbound",
-                    "analysis_id": "trust_analysis",
+                    "analysis_id": "trust",
                     "result": "conf.int[2]",
                     "operator": ">",
                     "comparator": 0.2,
@@ -56,7 +56,7 @@
                 },
                 {
                     "id": "recip_lowbound",
-                    "analysis_id": "recip_analysis",
+                    "analysis_id": "recip",
                     "result": "conf.int[1]",
                     "operator": ">",
                     "comparator": 0,
@@ -64,7 +64,7 @@
                 },
                 {
                     "id": "recip_highbound",
-                    "analysis_id": "recip_analysis",
+                    "analysis_id": "recip",
                     "result": "conf.int[2]",
                     "operator": ">",
                     "comparator": 0.2,
@@ -73,11 +73,13 @@
             ],
             "corroboration": {
                 "description": "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.",
-                "evaluation": "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)"
+                "evaluation": "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)",
+                "result": true
             },
             "falsification": {
                 "description": "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
-                "evaluation": "!trust_highbound & !recip_highbound"
+                "evaluation": "!trust_highbound & !recip_highbound",
+                "result": false
             },
             "conclusion": "corroborate"
         }
@@ -86,56 +88,50 @@
     "data": [
         {
             "id": "kin",
-            "@type": "Dataset",
-            "schemaVersion": "Psych-DS 0.1.0",
-            "variableMeasured": [
-                {
-                    "type": "PropertyValue",
-                    "unitText": "trust_self",
-                    "name": "Number of trusting moves towards self-morphs",
-                    "missingValues": 0,
-                    "minValue": 0,
-                    "maxValue": 3,
-                    "meanValue": 1.2917,
-                    "sdValue": 0.8065
-                },
-                {
-                    "type": "PropertyValue",
-                    "unitText": "trust_other",
-                    "name": "Number of trusting moves towards self-morphs",
-                    "missingValues": 0,
-                    "minValue": 0,
-                    "maxValue": 2,
-                    "meanValue": 0.7917,
-                    "sdValue": 0.779
-                },
-                {
-                    "type": "PropertyValue",
-                    "unitText": "recip_self",
-                    "name": "Number of reciprocating moves towards other-morphs",
-                    "missingValues": 0,
-                    "minValue": 0,
-                    "maxValue": 3,
-                    "meanValue": 1.7917,
-                    "sdValue": 1.0624
-                },
-                {
-                    "type": "PropertyValue",
-                    "unitText": "recip_other",
-                    "name": "Number of reciprocating moves towards other-morphs",
-                    "missingValues": 0,
-                    "minValue": 0,
-                    "maxValue": 3,
-                    "meanValue": 1.8333,
-                    "sdValue": 1.1672
-                }
-            ]
+            "codebook": {
+                "@context": "https://schema.org/",
+                "@type": "Dataset",
+                "name": "kin",
+                "schemaVersion": "Psych-DS 0.1.0",
+                "variableMeasured": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trust_self",
+                        "description": "Number of trusting moves towards self-morphs",
+                        "type": "float"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trust_other",
+                        "description": "Number of trusting moves towards self-morphs",
+                        "type": "float"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "recip_self",
+                        "description": "Number of reciprocating moves towards other-morphs",
+                        "type": "float"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "recip_other",
+                        "description": "Number of reciprocating moves towards other-morphs",
+                        "type": "float"
+                    }
+                ]
+            },
+            "data": {
+                "trust_self": [1, 2, 2, 1, 1, 1, 1, 1, 2, 0, 2, 0, 1, 2, 2, 3, 2, 2, 1, 1, 2, 0, 0, 1],
+                "trust_other": [1, 2, 2, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 2, 2, 0, 0, 0, 2, 1],
+                "recip_self": [0, 1, 3, 2, 1, 1, 1, 3, 3, 2, 3, 1, 1, 2, 3, 3, 3, 1, 1, 1, 3, 0, 3, 1],
+                "recip_other": [1, 1, 2, 2, 3, 2, 1, 3, 3, 1, 3, 0, 1, 3, 3, 3, 3, 0, 3, 0, 1, 0, 3, 2]
+            }
         }
     ],
     "analyses": [
         {
-            "id": "trust_analysis",
-            "func": "analysis_trust_analysis_func",
+            "id": "trust",
+            "func": "analysis_trust_func",
             "code": [
                 "function () ",
                 "{",
@@ -157,8 +153,8 @@
             }
         },
         {
-            "id": "recip_analysis",
-            "func": "analysis_recip_analysis_func",
+            "id": "recip",
+            "func": "analysis_recip_func",
             "code": [
                 "function () ",
                 "{",
