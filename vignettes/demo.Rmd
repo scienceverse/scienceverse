@@ -161,7 +161,8 @@ vardesc <- list(
     trust_other = "Number of trusting moves towards self-morphs",
     recip_self  = "Number of reciprocating moves towards other-morphs",
     recip_other = "Number of reciprocating moves towards other-morphs"
-  )
+  ),
+  type = rep("int", 4) # all variables are integer types
 )
 
 study <- add_data(study, id = "kin", data = data, vardesc = vardesc)
