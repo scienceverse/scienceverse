@@ -362,7 +362,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Evaluation of Statistical Hypotheses</h1>
-<h4 class="date">10 March, 2020</h4>
+<h4 class="date">14 April, 2020</h4>
 
 </div>
 
@@ -391,16 +391,16 @@ summary {
 <h3>Hypothesis 1: self_pref</h3>
 <p>Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</p>
 <ul>
-<li><code>trust_lowbound</code> is confirmed if analysis <a href="#trust_analysis">trust_analysis</a> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>trust_lowbound</code> is confirmed if analysis <a href="#trust">trust</a> yields <code>conf.int[1]&gt;0</code><br />
 The result was conf.int[1] = 0.021 (<span style="color:green">TRUE</span>)<br />
 </li>
-<li><code>trust_highbound</code> is confirmed if analysis <a href="#trust_analysis">trust_analysis</a> yields <code>conf.int[2]&gt;0.2</code><br />
+<li><code>trust_highbound</code> is confirmed if analysis <a href="#trust">trust</a> yields <code>conf.int[2]&gt;0.2</code><br />
 The result was conf.int[2] = 0.979 (<span style="color:green">TRUE</span>)<br />
 </li>
-<li><code>recip_lowbound</code> is confirmed if analysis <a href="#recip_analysis">recip_analysis</a> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>recip_lowbound</code> is confirmed if analysis <a href="#recip">recip</a> yields <code>conf.int[1]&gt;0</code><br />
 The result was conf.int[1] = -0.509 (<span style="color:red">FALSE</span>)<br />
 </li>
-<li><code>recip_highbound</code> is confirmed if analysis <a href="#recip_analysis">recip_analysis</a> yields <code>conf.int[2]&gt;0.2</code><br />
+<li><code>recip_highbound</code> is confirmed if analysis <a href="#recip">recip</a> yields <code>conf.int[2]&gt;0.2</code><br />
 The result was conf.int[2] = 0.426 (<span style="color:green">TRUE</span>)</li>
 </ul>
 <div id="corroboration-true" class="section level4">
@@ -418,19 +418,19 @@ The result was conf.int[2] = 0.426 (<span style="color:green">TRUE</span>)</li>
 </div>
 <div id="analyses" class="section level2">
 <h2>Analyses</h2>
-<div id="trust_analysis" class="section level3">
-<h3>Analysis 1: trust_analysis</h3>
+<div id="trust" class="section level3">
+<h3>Analysis 1: trust</h3>
 <code>
-<pre> analysis_trust_analysis_func &lt;- function () 
+<pre> analysis_trust_func &lt;- function () 
 {
     t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)
 } </pre>
 <p></code></p>
 </div>
-<div id="recip_analysis" class="section level3">
-<h3>Analysis 2: recip_analysis</h3>
+<div id="recip" class="section level3">
+<h3>Analysis 2: recip</h3>
 <code>
-<pre> analysis_recip_analysis_func &lt;- function () 
+<pre> analysis_recip_func &lt;- function () 
 {
     t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)
 } </pre>

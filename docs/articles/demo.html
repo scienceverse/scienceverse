@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -147,22 +147,21 @@
 <div id="add_analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add_analysis" class="anchor"></a>add_analysis</h3>
-<p>Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an <code>id</code> for reference in the criteria later. The <code>code</code> can be R code (wrap it in {} if you need more than one line) or the file path for a .R file. You can also add other information about your analysis, such as the software it’s running on.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_analysis.html">add_analysis</a></span>(study,</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">                      <span class="dt">id =</span> <span class="st">"trust_analysis"</span>,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">                      <span class="dt">code =</span> <span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(kin<span class="op">$</span>trust_self, </a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">                                    kin<span class="op">$</span>trust_other, </a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">                                    <span class="dt">paired =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">                                    <span class="dt">conf.level =</span> <span class="fl">0.975</span>), </a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">                      <span class="dt">software =</span> R.version.string) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">         </span><span class="kw"><a href="../reference/add_analysis.html">add_analysis</a></span>(<span class="dt">id =</span> <span class="st">"recip_analysis"</span>,</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">                      <span class="dt">code =</span> <span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">                        kin<span class="op">$</span>recip_self,</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">                        kin<span class="op">$</span>recip_other,</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">                        <span class="dt">paired =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">                        <span class="dt">conf.level =</span> <span class="fl">0.975</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">                      ), </a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">                      <span class="dt">software =</span> R.version.string)</a></code></pre></div>
+<p>Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an <code>id</code> for reference in the criteria later. The <code>code</code> can be R code (wrap it in {} if you need more than one function) or the file path for a .R file. You can also add other information about your analysis, such as the software it’s running on.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># add by writing the code directly into this function</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_analysis.html">add_analysis</a></span>(study,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                      <span class="dt">id =</span> <span class="st">"trust"</span>,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                      <span class="dt">code =</span> <span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(kin<span class="op">$</span>trust_self, </a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">                                    kin<span class="op">$</span>trust_other, </a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">                                    <span class="dt">paired =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">                                    <span class="dt">conf.level =</span> <span class="fl">0.975</span>), </a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">                      <span class="dt">software =</span> R.version.string)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># add by referencing an external .R file</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_analysis.html">add_analysis</a></span>(study,</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">                      <span class="dt">id =</span> <span class="st">"recip"</span>,</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">                      <span class="dt">code =</span> <span class="st">"files/recip_analysis.R"</span>, </a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">                      <span class="dt">software =</span> R.version.string)</a></code></pre></div>
 </div>
 <div id="add_criterion" class="section level3">
 <h3 class="hasAnchor">
@@ -170,22 +169,22 @@
 <p>Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique <code>id</code> so you can reference it next in the evaluation. Then, specify the <code>analysis_id</code> where you’ll look for the result. For example, the analysis <code>trust_analysis</code> returns a list from the function <code>t.test</code>, which includes a value for <code>conf.int</code>. To see if the first number in this vector is larger than 0, set <code>result</code> to “conf.int[1]”, <code>operator</code> to “&gt;” , and <code>comparator</code> to <span class="math inline">\(0\)</span>. The options for <code>operator</code> are “&gt;”, “&lt;”, “=”, and “!=”.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">study &lt;-<span class="st"> </span>study <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="dt">id =</span> <span class="st">"trust_lowbound"</span>,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">                <span class="dt">analysis_id =</span> <span class="st">"trust_analysis"</span>,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                <span class="dt">analysis_id =</span> <span class="st">"trust"</span>,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">                <span class="dt">result =</span> <span class="st">"conf.int[1]"</span>,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">                <span class="dt">operator =</span> <span class="st">"&gt;"</span>,</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">                <span class="dt">comparator =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="dt">id =</span> <span class="st">"trust_highbound"</span>,</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">                <span class="dt">analysis_id =</span> <span class="st">"trust_analysis"</span>,</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">                <span class="dt">analysis_id =</span> <span class="st">"trust"</span>,</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">                <span class="dt">result =</span> <span class="st">"conf.int[2]"</span>,</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10">                <span class="dt">operator =</span> <span class="st">"&gt;"</span>,</a>
 <a class="sourceLine" id="cb6-11" data-line-number="11">                <span class="dt">comparator =</span> <span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="dt">id =</span> <span class="st">"recip_lowbound"</span>,</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">                <span class="dt">analysis_id =</span> <span class="st">"recip_analysis"</span>,</a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">                <span class="dt">analysis_id =</span> <span class="st">"recip"</span>,</a>
 <a class="sourceLine" id="cb6-14" data-line-number="14">                <span class="dt">result =</span> <span class="st">"conf.int[1]"</span>,</a>
 <a class="sourceLine" id="cb6-15" data-line-number="15">                <span class="dt">operator =</span> <span class="st">"&gt;"</span>,</a>
 <a class="sourceLine" id="cb6-16" data-line-number="16">                <span class="dt">comparator =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="dt">id =</span> <span class="st">"recip_highbound"</span>,</a>
-<a class="sourceLine" id="cb6-18" data-line-number="18">                <span class="dt">analysis_id =</span> <span class="st">"recip_analysis"</span>,</a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">                <span class="dt">analysis_id =</span> <span class="st">"recip"</span>,</a>
 <a class="sourceLine" id="cb6-19" data-line-number="19">                <span class="dt">result =</span> <span class="st">"conf.int[2]"</span>,</a>
 <a class="sourceLine" id="cb6-20" data-line-number="20">                <span class="dt">operator =</span> <span class="st">"&gt;"</span>,</a>
 <a class="sourceLine" id="cb6-21" data-line-number="21">                <span class="dt">comparator =</span> <span class="fl">0.2</span>)</a>
@@ -220,7 +219,7 @@
 <div id="add_data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add_data" class="anchor"></a>add_data</h3>
-<p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column descriptions with the argument <code>coldesc</code>.</p>
+<p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument <code>vardesc</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">trust_self  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</a>
@@ -229,28 +228,38 @@
 <a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="dt">recip_other =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">desc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="dt">trust_self  =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">  <span class="dt">trust_other =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12">  <span class="dt">recip_self  =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">  <span class="dt">recip_other =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14">)</a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_data.html">add_data</a></span>(study, <span class="dt">id =</span> <span class="st">"kin"</span>, <span class="dt">data =</span> data, <span class="dt">coldesc =</span> desc)</a></code></pre></div>
+<a class="sourceLine" id="cb10-9" data-line-number="9">vardesc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="dt">description =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">    <span class="dt">trust_self  =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">    <span class="dt">trust_other =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">    <span class="dt">recip_self  =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">    <span class="dt">recip_other =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">  )</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">)</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_data.html">add_data</a></span>(study, <span class="dt">id =</span> <span class="st">"kin"</span>, <span class="dt">data =</span> data, <span class="dt">vardesc =</span> vardesc)</a></code></pre></div>
 </div>
 <div id="study_analyse" class="section level3">
 <h3 class="hasAnchor">
 <a href="#study_analyse" class="anchor"></a>study_analyse</h3>
 <p>When you run <code>study_analyse</code>, the data are loaded as their <code>id</code> names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>(study)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_lowbound: conf.int[1] &gt; 0 is TRUE (conf.int[1] = 0.02)</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_highbound: conf.int[2] &gt; 0.2 is TRUE (conf.int[2] = 0.98)</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_lowbound: conf.int[1] &gt; 0 is FALSE (conf.int[1] = -0.51)</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_highbound: conf.int[2] &gt; 0.2 is TRUE (conf.int[2] = 0.43)</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; Hypothesis self_pref:</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt;     Corroborate: TRUE</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt;     Falsify: FALSE</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt;     Conclusion: corroborate</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_lowbound:</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;     conf.int[1] &gt; 0 is TRUE</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;     conf.int[1] = 0.02</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_highbound:</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt;     conf.int[2] = 0.98</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_lowbound:</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt;     conf.int[1] &gt; 0 is FALSE</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt;     conf.int[1] = -0.51</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_highbound:</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt;     conf.int[2] = 0.43</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt; Hypothesis self_pref:</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt;     Corroborate: TRUE</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt;     Falsify: FALSE</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&gt;     Conclusion: corroborate</span></a></code></pre></div>
 </div>
 <div id="study_report-postreg" class="section level3">
 <h3 class="hasAnchor">

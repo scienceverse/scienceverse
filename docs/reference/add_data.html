@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Add a dataset to a study object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_data</span>(<span class='no'>study</span>, <span class='no'>id</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coldesc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>add_data</span>(<span class='no'>study</span>, <span class='no'>id</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,12 +165,16 @@
       <td><p>The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file</p></td>
     </tr>
     <tr>
-      <th>coldesc</th>
-      <td><p>Optional named list of column descriptions</p></td>
+      <th>vardesc</th>
+      <td><p>Optional variable properties (see <code>codebook</code>)</p></td>
     </tr>
     <tr>
       <th>design</th>
-      <td><p>a faux design specification</p></td>
+      <td><p>A faux design specification</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further dataset properties (see <code>codebook</code>)</p></td>
     </tr>
     </table>
 
@@ -181,7 +185,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>add_data</span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>)
-<span class='fu'><a href='study_json.html'>study_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
+<span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
 #&gt;     "name": "Demo Study",
 #&gt;     "info": [],
 #&gt;     "authors": [],
@@ -190,61 +194,208 @@
 #&gt;     "data": [
 #&gt;         {
 #&gt;             "id": "dat",
-#&gt;             "@type": "Dataset",
-#&gt;             "schemaVersion": "Psych-DS 0.1.0",
-#&gt;             "variableMeasured": [
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Sepal.Length",
-#&gt;                     "name": "Sepal.Length",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 4.3,
-#&gt;                     "maxValue": 7.9,
-#&gt;                     "meanValue": 5.8433,
-#&gt;                     "sdValue": 0.8281
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Sepal.Width",
-#&gt;                     "name": "Sepal.Width",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 2,
-#&gt;                     "maxValue": 4.4,
-#&gt;                     "meanValue": 3.0573,
-#&gt;                     "sdValue": 0.4359
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Petal.Length",
-#&gt;                     "name": "Petal.Length",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 1,
-#&gt;                     "maxValue": 6.9,
-#&gt;                     "meanValue": 3.758,
-#&gt;                     "sdValue": 1.7653
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Petal.Width",
-#&gt;                     "name": "Petal.Width",
-#&gt;                     "missingValues": 0,
-#&gt;                     "minValue": 0.1,
-#&gt;                     "maxValue": 2.5,
-#&gt;                     "meanValue": 1.1993,
-#&gt;                     "sdValue": 0.7622
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "type": "PropertyValue",
-#&gt;                     "unitText": "Species",
-#&gt;                     "name": "Species",
-#&gt;                     "missingValues": 0,
-#&gt;                     "levels": [
-#&gt;                         "setosa",
-#&gt;                         "versicolor",
-#&gt;                         "virginica"
-#&gt;                     ]
-#&gt;                 }
-#&gt;             ]
+#&gt;             "codebook": {
+#&gt;                 "@context": "https://schema.org/",
+#&gt;                 "@type": "Dataset",
+#&gt;                 "name": "dat",
+#&gt;                 "schemaVersion": "Psych-DS 0.1.0",
+#&gt;                 "variableMeasured": [
+#&gt;                     {
+#&gt;                         "@type": "PropertyValue",
+#&gt;                         "name": "Sepal.Length",
+#&gt;                         "description": "Sepal.Length",
+#&gt;                         "type": "float"
+#&gt;                     },
+#&gt;                     {
+#&gt;                         "@type": "PropertyValue",
+#&gt;                         "name": "Sepal.Width",
+#&gt;                         "description": "Sepal.Width",
+#&gt;                         "type": "float"
+#&gt;                     },
+#&gt;                     {
+#&gt;                         "@type": "PropertyValue",
+#&gt;                         "name": "Petal.Length",
+#&gt;                         "description": "Petal.Length",
+#&gt;                         "type": "float"
+#&gt;                     },
+#&gt;                     {
+#&gt;                         "@type": "PropertyValue",
+#&gt;                         "name": "Petal.Width",
+#&gt;                         "description": "Petal.Width",
+#&gt;                         "type": "float"
+#&gt;                     },
+#&gt;                     {
+#&gt;                         "@type": "PropertyValue",
+#&gt;                         "name": "Species",
+#&gt;                         "description": "Species",
+#&gt;                         "type": "factor",
+#&gt;                         "levels": [
+#&gt;                             "setosa",
+#&gt;                             "versicolor",
+#&gt;                             "virginica"
+#&gt;                         ],
+#&gt;                         "ordered": false
+#&gt;                     }
+#&gt;                 ]
+#&gt;             },
+#&gt;             "data": {
+#&gt;                 "Sepal.Length": [5.1, 4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, 5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, 5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, 6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, 5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9],
+#&gt;                 "Sepal.Width": [3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, 3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, 2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, 2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, 3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, 3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, 3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3, 2.5, 3, 3.4, 3],
+#&gt;                 "Petal.Length": [1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, 1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, 1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, 1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, 4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, 4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, 4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, 4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, 5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, 4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, 5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, 5.1],
+#&gt;                 "Petal.Width": [0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, 1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8],
+#&gt;                 "Species": [
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "setosa",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "versicolor",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica",
+#&gt;                     "virginica"
+#&gt;                 ]
+#&gt;             }
 #&gt;         }
 #&gt;     ],
 #&gt;     "analyses": []
