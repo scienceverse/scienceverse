@@ -69,6 +69,9 @@
 <li>
       <a href="../articles/demo.html">Quick Demo</a>
     </li>
+    <li>
+      <a href="../articles/sim.html">Simulating Data for Power</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -115,16 +118,16 @@
 <p>One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and scienceverse can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not.</p>
 <p>The demo below follows the example from:</p>
 <p>Lakens, D., &amp; DeBruine, L. M. (2020, January 27). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <a href="https://doi.org/10.31234/osf.io/5xcda" class="uri">https://doi.org/10.31234/osf.io/5xcda</a></p>
-<div id="study" class="section level3">
+<div id="set-up-the-study" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study" class="anchor"></a>study</h3>
+<a href="#set-up-the-study" class="anchor"></a>Set up the study</h3>
 <p>Set up the study with a name and any additional info you want to add.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study.html">study</a></span>(<span class="dt">name =</span> <span class="st">"Kinship and Prosocial Behaviour"</span>,</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">               <span class="dt">abstract =</span> <span class="st">"A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."</span>)</a></code></pre></div>
 </div>
-<div id="add_author" class="section level3">
+<div id="authors" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_author" class="anchor"></a>add_author</h3>
+<a href="#authors" class="anchor"></a>Authors</h3>
 <p>Add each author in the following format. Use the function <code><a href="../reference/credit_roles.html">credit_roles()</a></code> to see a list of the roles and their descriptions. Use <code><a href="../reference/credit_roles.html">credit_roles("name")</a></code> or <code><a href="../reference/credit_roles.html">credit_roles("abbr")</a></code> to just see their names or abbreviations. You can also add any further info, like an orcid or email address.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_author.html">add_author</a></span>(study, </a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">                    <span class="dt">orcid =</span> <span class="st">"0000-0002-7523-5539"</span>,</a>
@@ -137,16 +140,16 @@
 <a class="sourceLine" id="cb3-9" data-line-number="9">                    <span class="dt">given =</span> <span class="st">"Daniël"</span>,</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">                    <span class="dt">roles =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"con"</span>, <span class="st">"ana"</span>, <span class="st">"dra"</span>, <span class="st">"edi"</span>))</a></code></pre></div>
 </div>
-<div id="add_hypothesis" class="section level3">
+<div id="hypotheses" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_hypothesis" class="anchor"></a>add_hypothesis</h3>
+<a href="#hypotheses" class="anchor"></a>Hypotheses</h3>
 <p>Now add a hypothesis with a verbal description. You can add more than one hypothesis, but this demo study only has one.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span>(study, <span class="dt">id =</span> <span class="st">"self_pref"</span>,</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">                        <span class="dt">description =</span> <span class="st">"Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs."</span>)</a></code></pre></div>
 </div>
-<div id="add_analysis" class="section level3">
+<div id="analyses" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_analysis" class="anchor"></a>add_analysis</h3>
+<a href="#analyses" class="anchor"></a>Analyses</h3>
 <p>Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an <code>id</code> for reference in the criteria later. The <code>code</code> can be R code (wrap it in {} if you need more than one function) or the file path for a .R file. You can also add other information about your analysis, such as the software it’s running on.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># add by writing the code directly into this function</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_analysis.html">add_analysis</a></span>(study,</a>
@@ -163,9 +166,9 @@
 <a class="sourceLine" id="cb5-13" data-line-number="13">                      <span class="dt">code =</span> <span class="st">"files/recip_analysis.R"</span>, </a>
 <a class="sourceLine" id="cb5-14" data-line-number="14">                      <span class="dt">software =</span> R.version.string)</a></code></pre></div>
 </div>
-<div id="add_criterion" class="section level3">
+<div id="criteria" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_criterion" class="anchor"></a>add_criterion</h3>
+<a href="#criteria" class="anchor"></a>Criteria</h3>
 <p>Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique <code>id</code> so you can reference it next in the evaluation. Then, specify the <code>analysis_id</code> where you’ll look for the result. For example, the analysis <code>trust_analysis</code> returns a list from the function <code>t.test</code>, which includes a value for <code>conf.int</code>. To see if the first number in this vector is larger than 0, set <code>result</code> to “conf.int[1]”, <code>operator</code> to “&gt;” , and <code>comparator</code> to <span class="math inline">\(0\)</span>. The options for <code>operator</code> are “&gt;”, “&lt;”, “=”, and “!=”.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">study &lt;-<span class="st"> </span>study <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="dt">id =</span> <span class="st">"trust_lowbound"</span>,</a>
@@ -190,9 +193,9 @@
 <a class="sourceLine" id="cb6-21" data-line-number="21">                <span class="dt">comparator =</span> <span class="fl">0.2</span>)</a>
 <a class="sourceLine" id="cb6-22" data-line-number="22">  </a></code></pre></div>
 </div>
-<div id="add_eval" class="section level3">
+<div id="evaluation" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_eval" class="anchor"></a>add_eval</h3>
+<a href="#evaluation" class="anchor"></a>Evaluation</h3>
 <p>Add evaluation criteria for corroboration and falsification. Include a verbal <code>description</code> and a logical <code>evaluation</code> that references the criterion <code>id</code>s above.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_eval.html">add_eval</a></span>(study, <span class="st">"corroboration"</span>,</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">                  <span class="dt">description =</span> <span class="st">"The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves."</span>,</a>
@@ -201,25 +204,27 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">                  <span class="dt">description =</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span>,</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">                  <span class="dt">evaluation =</span> <span class="st">"!trust_highbound &amp; !recip_highbound"</span>)</a></code></pre></div>
 </div>
-<div id="study_save-json" class="section level3">
+<div id="save-in-machine-readable-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_save-json" class="anchor"></a>study_save json</h3>
+<a href="#save-in-machine-readable-format" class="anchor"></a>Save in machine-readable format</h3>
 <p>At this point, you can save your study to a JSON-formatted file.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.json"</span>, <span class="st">"json"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/prereg.json</span></a></code></pre></div>
-<p>You can view the <a href="files/prereg.json">JSON-formatted study description</a> here.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># make a directory for saving files</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.exists</a></span>(<span class="st">"files"</span>)) <span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="st">"files"</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.json"</span>, <span class="st">"json"</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/prereg.json</span></a></code></pre></div>
+<p>You can view the <a href="files/prereg.json">JSON-formatted study description</a> through: <code><a href="https://rdrr.io/r/utils/file.edit.html">file.edit('files/prereg.json')</a></code>.</p>
 </div>
-<div id="study_save-prereg" class="section level3">
+<div id="save-in-human-readable-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_save-prereg" class="anchor"></a>study_save prereg</h3>
+<a href="#save-in-human-readable-format" class="anchor"></a>Save in human-readable format</h3>
 <p>You can also export a human-readable pre-registration using the built-in “prereg” template.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.html"</span>, <span class="st">"prereg"</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/prereg.html</span></a></code></pre></div>
-<p>View the <a href="files/prereg.html">prereg</a> report here.</p>
+<p>View the <a href="files/prereg.html">prereg</a> report.</p>
 </div>
-<div id="add_data" class="section level3">
+<div id="data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add_data" class="anchor"></a>add_data</h3>
+<a href="#data" class="anchor"></a>Data</h3>
 <p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument <code>vardesc</code> and other dataset parameters as additional arguments.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">kin_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
@@ -247,43 +252,64 @@
 <a class="sourceLine" id="cb10-24" data-line-number="24">                  <span class="dt">data =</span> kin_data, </a>
 <a class="sourceLine" id="cb10-25" data-line-number="25">                  <span class="dt">vardesc =</span> desc, </a>
 <a class="sourceLine" id="cb10-26" data-line-number="26">                  <span class="dt">url =</span> <span class="st">"https://osf.io/ewfhs/"</span>)</a></code></pre></div>
+<p>If you don’t have existing data, you can simulate data with factorial designs with the <code>add_sim_data</code> function, which uses the same syntax as <code>sim_design</code> from <a href="https://debruine.github.io/faux/">faux</a>. Give the simulated data the same <code>data_id</code> as referenced in the analyses to test your analysis code.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># this function currently only simulates data with a normal distribution</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_sim_data.html">add_sim_data</a></span>(study, </a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">                      <span class="dt">data_id =</span> <span class="st">"kin"</span>,</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">                      <span class="dt">within =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">                        <span class="dt">game =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"trust"</span>, <span class="st">"recip"</span>),</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">                        <span class="dt">opponent =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"self"</span>, <span class="st">"other"</span>)</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">                      ),</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">                      <span class="dt">n =</span> <span class="dv">24</span>,</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">                      <span class="dt">mu =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">trust_self =</span> <span class="fl">1.3</span>, </a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">                             <span class="dt">trust_other =</span> <span class="fl">0.8</span>,</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">                             <span class="dt">recip_self =</span> <span class="fl">1.8</span>,</a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">                             <span class="dt">recip_other =</span> <span class="fl">1.8</span>),</a>
+<a class="sourceLine" id="cb11-13" data-line-number="13">                      <span class="dt">sd =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.8</span>, <span class="fl">0.8</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span>),</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">                      <span class="dt">r =</span> <span class="fl">.5</span>)</a></code></pre></div>
 </div>
-<div id="study_analyse" class="section level3">
+<div id="run-the-analysis" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_analyse" class="anchor"></a>study_analyse</h3>
-<p>When you run <code>study_analyse</code>, the data are loaded as their <code>id</code> names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyse</a></span>(study)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_lowbound:</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;     conf.int[1] &gt; 0 is TRUE</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;     conf.int[1] = 0.02</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_highbound:</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt;     conf.int[2] = 0.98</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_lowbound:</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt;     conf.int[1] &gt; 0 is FALSE</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt;     conf.int[1] = -0.51</span></a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_highbound:</span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt;     conf.int[2] = 0.43</span></a>
-<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt; Hypothesis self_pref:</span></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt;     Corroborate: TRUE</span></a>
-<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt;     Falsify: FALSE</span></a>
-<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&gt;     Conclusion: corroborate</span></a></code></pre></div>
+<a href="#run-the-analysis" class="anchor"></a>Run the analysis</h3>
+<p>When you run <code>study_analyze</code> (or <code>stdy_analyse</code>), the data are loaded as their <code>id</code> names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study_analyse.html">study_analyze</a></span>(study)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_lowbound:</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;     conf.int[1] &gt; 0 is TRUE</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;     conf.int[1] = 0.02</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; Hypothesis self_pref, Criterion trust_highbound:</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;     conf.int[2] = 0.98</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_lowbound:</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;     conf.int[1] &gt; 0 is FALSE</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;     conf.int[1] = -0.51</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; Hypothesis self_pref, Criterion recip_highbound:</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;     conf.int[2] = 0.43</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; Hypothesis self_pref:</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt;     Corroborate: TRUE</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt;     Falsify: FALSE</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt;     Conclusion: corroborate</span></a></code></pre></div>
 </div>
-<div id="study_report-postreg" class="section level3">
+<div id="save" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_report-postreg" class="anchor"></a>study_report postreg</h3>
+<a href="#save" class="anchor"></a>Save</h3>
 <p>At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.json"</span>, <span class="st">"json"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.json</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.html"</span>, <span class="st">"postreg"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.html</span></a></code></pre></div>
-<p>View the <a href="files/postreg.html">postreg</a> report here.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.json"</span>, <span class="st">"json"</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.json</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.html"</span>, <span class="st">"postreg"</span>)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.html</span></a></code></pre></div>
+<p>View the <a href="files/postreg.html">postreg</a> report.</p>
+<p>You can view the <a href="files/postreg.json">JSON-formatted study description</a> through: <code><a href="https://rdrr.io/r/utils/file.edit.html">file.edit('files/postreg.json')</a></code>.</p>
 </div>
-<div id="full-json-format" class="section level3">
+<div id="reload" class="section level3">
 <h3 class="hasAnchor">
-<a href="#full-json-format" class="anchor"></a>Full JSON format</h3>
-<p>You can view the <a href="files/postreg.json">JSON-formatted study description</a> here.</p>
+<a href="#reload" class="anchor"></a>Reload</h3>
+<p>You can load a study directly from the JSON file with the <code>study</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">study2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/study.html">study</a></span>(<span class="st">"files/postreg.json"</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; Loaded custom function: analysis_trust_func</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; Loaded custom function: analysis_recip_func</span></a></code></pre></div>
+<p>Use the function <code>get_data</code> to extract data from the study object.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">kindata &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_data.html">get_data</a></span>(study2, <span class="st">"kin"</span>)</a></code></pre></div>
 </div>
   </div>
 

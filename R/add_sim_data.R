@@ -50,7 +50,8 @@ add_sim_data <- function(study, data_id,
     empirical = empirical,
     long = long,
     plot = plot,
-    seed = seed)
+    seed = seed,
+    rep = rep)
 
   study <- add_data(study, data_id, data = dat, design = design)
 

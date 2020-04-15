@@ -1,0 +1,148 @@
+---
+title: "Simulating Data for Power"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simulating Data for Power}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+set.seed(8675309)
+```
+
+```{r setup}
+library(scienceverse)
+library(faux)
+```
+
+First, I use the `sim_design()` function from faux to visualise the design for my proposed study. I'm simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.
+
+```{r}
+simdat <- sim_design(
+  between = list(pet = c("dog", "cat")),
+  within = list(emotion = c("happy", "smug")),
+  n = 30, # in each between-subject cell
+  mu = c(10, 5, 9, 6),
+  sd = 2
+)
+```
+
+I can then use this simulated data to plan my analyses.
+
+I'll use a one-sided, two-sample t-test against a mu of 0 to test if my hypothesis that dog owners are happier than cat owners is corroborated
+
+```{r}
+dog_happy <- simdat$happy[simdat$pet == "dog"]
+cat_happy <- simdat$happy[simdat$pet == "cat"]
+t.test(dog_happy, cat_happy, mu = 0, 
+       alternative = "greater")
+```
+
+I'll use a one-sided, two-sample t-test against a mu of 0.2 (my smallest effect size of interest; SESOI) to assess falsification of my hypothesis.
+
+```{r}
+dog_happy <- simdat$happy[simdat$pet == "dog"]
+cat_happy <- simdat$happy[simdat$pet == "cat"]
+t.test(dog_happy, cat_happy, mu = 0.2, 
+       alternative = "less")
+```
+
+I'll use a one-sided, two-sample t-test against a mu of 0 to test if my hypothesis that cat owners are smugger than dog owners is corroborated.
+
+```{r}
+dog_smug <- simdat$smug[simdat$pet == "dog"]
+cat_smug <- simdat$smug[simdat$pet == "cat"]
+t.test(cat_smug, dog_smug, mu = 0, 
+       alternative = "greater")
+```
+
+I'll use a one-sided, two-sample t-test against a mu of 0.2 (my smallest effect size of interest; SESOI) to assess falsification of my hypothesis.
+
+```{r}
+dog_smug <- simdat$smug[simdat$pet == "dog"]
+cat_smug <- simdat$smug[simdat$pet == "cat"]
+t.test(cat_smug, dog_smug, mu = 0.2, 
+       alternative = "less")
+```
+
+
+```{r}
+study <- study("Simple Simulation Demo")  %>%
+  add_hypothesis("Happy", "Dog owners will be happier than cat owners.") %>%
+  add_analysis("A1", {
+    dog_happy <- pet_data$happy[pet_data$pet == "dog"]
+    cat_happy <- pet_data$happy[pet_data$pet == "cat"]
+    t.test(dog_happy, cat_happy, mu = 0, alternative = "greater")
+  }) %>%
+  add_criterion("happy_c", "p.value", "<", 0.05) %>%
+  add_analysis("A2", {
+    dog_happy <- pet_data$happy[pet_data$pet == "dog"]
+    cat_happy <- pet_data$happy[pet_data$pet == "cat"]
+    t.test(dog_happy, cat_happy, mu = 0.2, alternative = "less")
+  }) %>%
+  add_criterion("happy_f", "p.value", "<", 0.05) %>%
+  add_eval("corroboration", "The hypothesis will be corroborated if dog owners are significantly happier than cat owners.", "happy_c") %>%
+  add_eval("falsification", "The hypothesis will be falsified if dog owners are significantly less than 0.2 units happier than cat owners.", "happy_f")
+```
+
+Add a second hypothesis, with all associated analyses, criteria, and evaluation rules.
+
+```{r}
+study <- study %>%
+  add_hypothesis("Smug", "Cat owners will be smugger than dog owners.") %>%
+  add_analysis("A3", {
+    dog_smug <- pet_data$smug[pet_data$pet == "dog"]
+    cat_smug <- pet_data$smug[pet_data$pet == "cat"]
+    t.test(cat_smug, dog_smug, mu = 0, alternative = "greater")
+  }) %>%
+  add_criterion("smug_c", "p.value", "<", 0.05) %>%
+  add_analysis("A4", {
+    dog_smug <- pet_data$smug[pet_data$pet == "dog"]
+    cat_smug <- pet_data$smug[pet_data$pet == "cat"]
+    t.test(cat_smug, dog_smug, mu = 0.2, alternative = "less")
+  }) %>%
+  add_criterion("smug_f", "p.value", "<", 0.05) %>%
+  add_eval("corroboration", "The hypothesis will be corroborated if cat owners are significantly smugger than dog owners.", "smug_c") %>%
+  add_eval("falsification", "The hypothesis will be falsified if cat owners are significantly less than 0.2 units smugger than dog owners.", "smug_f")
+```
+
+Now we can simulate a dataset. Make sure to give it the same `data_id` that you used to reference it in the analysis.
+
+```{r}
+simstudy <- add_sim_data(
+  study,
+  data_id = "pet_data",
+  between = list(pet = c("dog", "cat")),
+  within = list(emotion = c("happy", "smug")),
+  n = 30, # in each between-subject cell
+  mu = c(10, 5, 9, 6),
+  sd = 2
+) %>%
+  study_analyse()
+```
+
+You can also increase the number of replications in the simulation to calculate the power of your study. This is especially helpful for studies with complex analyses or evaluation criteria.
+
+```{r}
+simstudy <- add_sim_data(
+  study,
+  data_id = "pet_data",
+  between = list(pet = c("dog", "cat")),
+  within = list(emotion = c("happy", "smug")),
+  n = 30, # in each between-subject cell
+  mu = c(10, 5, 9, 6),
+  sd = 2,
+  rep = 1000
+)
+```
+
+Use the `study_power` function to run the analyses on each simulated dataset and return the percent of datasets that lead to each possible conclusion for each hypothesis.
+
+```{r}
+simstudy <- study_power(simstudy)
+```

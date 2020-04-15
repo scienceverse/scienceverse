@@ -22,7 +22,6 @@ reference:
     contents:
       - study_analyse
       - study_save
-      - study_report
       - study_json
       - study_power
   - title: "Other Functions"
@@ -42,3 +41,4 @@ articles:
   - title: "Articles"
     contents:
       - demo
+      - sim
