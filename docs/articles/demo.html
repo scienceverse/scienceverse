@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -201,44 +201,52 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">                  <span class="dt">description =</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span>,</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">                  <span class="dt">evaluation =</span> <span class="st">"!trust_highbound &amp; !recip_highbound"</span>)</a></code></pre></div>
 </div>
-<div id="study_save" class="section level3">
+<div id="study_save-json" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_save" class="anchor"></a>study_save</h3>
+<a href="#study_save-json" class="anchor"></a>study_save json</h3>
 <p>At this point, you can save your study to a JSON-formatted file.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.json"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.json"</span>, <span class="st">"json"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/prereg.json</span></a></code></pre></div>
 <p>You can view the <a href="files/prereg.json">JSON-formatted study description</a> here.</p>
 </div>
-<div id="study_report-prereg" class="section level3">
+<div id="study_save-prereg" class="section level3">
 <h3 class="hasAnchor">
-<a href="#study_report-prereg" class="anchor"></a>study_report prereg</h3>
+<a href="#study_save-prereg" class="anchor"></a>study_save prereg</h3>
 <p>You can also export a human-readable pre-registration using the built-in “prereg” template.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(study, <span class="st">"prereg"</span>, <span class="st">"files/prereg.html"</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/prereg.html"</span>, <span class="st">"prereg"</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/prereg.html</span></a></code></pre></div>
 <p>View the <a href="files/prereg.html">prereg</a> report here.</p>
 </div>
 <div id="add_data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add_data" class="anchor"></a>add_data</h3>
-<p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument <code>vardesc</code>.</p>
+<p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument <code>vardesc</code> and other dataset parameters as additional arguments.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">trust_self  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="dt">trust_other =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">recip_self  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="dt">recip_other =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">)</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">vardesc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="dt">description =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">    <span class="dt">trust_self  =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12">    <span class="dt">trust_other =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">    <span class="dt">recip_self  =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14">    <span class="dt">recip_other =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15">  ),</a>
-<a class="sourceLine" id="cb10-16" data-line-number="16">  <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"int"</span>, <span class="dv">4</span>) <span class="co"># all variables are integer types</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17">)</a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_data.html">add_data</a></span>(study, <span class="dt">id =</span> <span class="st">"kin"</span>, <span class="dt">data =</span> data, <span class="dt">vardesc =</span> vardesc)</a></code></pre></div>
+<a class="sourceLine" id="cb10-2" data-line-number="2">kin_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">trust_self  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">                  <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">trust_other =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">                  <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="dt">recip_self  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">                  <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  <span class="dt">recip_other =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">                  <span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">)</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">desc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">  <span class="dt">description =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">    <span class="dt">trust_self  =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">    <span class="dt">trust_other =</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">    <span class="dt">recip_self  =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">    <span class="dt">recip_other =</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">  ),</a>
+<a class="sourceLine" id="cb10-20" data-line-number="20">  <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"int"</span>, <span class="dv">4</span>) <span class="co"># all variables are integer types</span></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21">)</a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23">study &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_data.html">add_data</a></span>(study, <span class="dt">id =</span> <span class="st">"kin"</span>, </a>
+<a class="sourceLine" id="cb10-24" data-line-number="24">                  <span class="dt">data =</span> kin_data, </a>
+<a class="sourceLine" id="cb10-25" data-line-number="25">                  <span class="dt">vardesc =</span> desc, </a>
+<a class="sourceLine" id="cb10-26" data-line-number="26">                  <span class="dt">url =</span> <span class="st">"https://osf.io/ewfhs/"</span>)</a></code></pre></div>
 </div>
 <div id="study_analyse" class="section level3">
 <h3 class="hasAnchor">
@@ -266,9 +274,10 @@
 <h3 class="hasAnchor">
 <a href="#study_report-postreg" class="anchor"></a>study_report postreg</h3>
 <p>At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.json"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="../reference/study_report.html">study_report</a></span>(study, <span class="st">"postreg"</span>, <span class="st">"files/postreg.html"</span>)</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.html</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.json"</span>, <span class="st">"json"</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.json</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/study_save.html">study_save</a></span>(study, <span class="st">"files/postreg.html"</span>, <span class="st">"postreg"</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/files/postreg.html</span></a></code></pre></div>
 <p>View the <a href="files/postreg.html">postreg</a> report here.</p>
 </div>
 <div id="full-json-format" class="section level3">

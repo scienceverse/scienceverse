@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -147,7 +147,12 @@
     <p>Save the study framework to a JSON file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>study_save</span>(<span class='no'>study</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"study.json"</span>, <span class='kw'>data_values</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>study_save</span>(
+  <span class='no'>study</span>,
+  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"study"</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"json"</span>, <span class='st'>"prereg"</span>, <span class='st'>"postreg"</span>),
+  <span class='kw'>data_values</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +166,10 @@
       <td><p>The name to save the file</p></td>
     </tr>
     <tr>
+      <th>format</th>
+      <td><p>Save as a machine-readable "json" file, a human-readable "prereg" document (no results) or a "postreg" document (includes results)</p></td>
+    </tr>
+    <tr>
       <th>data_values</th>
       <td><p>Whether to include data values in the JSON file (defaults to TRUE)</p></td>
     </tr>
@@ -170,12 +179,31 @@
 
     <p>A study object with class reg_study</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>, <span class='st'>"Petal width and length will be positively correlated."</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>dat</span>$<span class='no'>Petal.Width</span>, <span class='no'>dat</span>$<span class='no'>Petal.Length</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"sig"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"pos"</span>, <span class='st'>"estimate"</span>, <span class='st'>"&gt;"</span>, <span class='fl'>0</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>,
+           <span class='st'>"Petal width is significantly and positively correlated to length"</span>,
+           <span class='st'>"sig &amp; pos"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>,
+           <span class='st'>"Petal width is significantly and negatively correlated to length"</span>,
+           <span class='st'>"sig &amp; !pos"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='study_report.html'>study_report</a></span>(<span class='kw'>template</span> <span class='kw'>=</span> <span class='st'>"postreg"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
