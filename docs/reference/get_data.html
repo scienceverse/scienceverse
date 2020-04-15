@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set/get global scienceverse options — scienceverse_options • scienceverse</title>
+<title>Get data from study — get_data • scienceverse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Set/get global scienceverse options — scienceverse_options" />
-<meta property="og:description" content="Global options are used to set default values." />
+<meta property="og:title" content="Get data from study — get_data" />
+<meta property="og:description" content="Get data from study" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -141,38 +141,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set/get global scienceverse options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/scienceverse_options.R'><code>R/scienceverse_options.R</code></a></small>
-    <div class="hidden name"><code>scienceverse_options.Rd</code></div>
+    <h1>Get data from study</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/get_data.R'><code>R/get_data.R</code></a></small>
+    <div class="hidden name"><code>get_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Global options are used to set default values.</p>
+    <p>Get data from study</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scienceverse_options</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_data</span>(<span class='no'>study</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>One of four: (1) nothing, then returns all options as a list; (2) a name of an option element, then returns its value; (3) a name-value pair which sets the corresponding option to the new value (and returns nothing), (4) a list with option-value pairs which sets all the corresponding arguments.</p></td>
+      <th>study</th>
+      <td><p>A study list object with class reg_study</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>The id for the dataset (index or character)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of options, values of an option, or nothing</p>
+    <p>A data frame</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>scienceverse_options</span>() <span class='co'># see all options</span></div><div class='output co'>#&gt; $verbose
-#&gt; [1] TRUE
-#&gt; </div><div class='input'>
-<span class='fu'>scienceverse_options</span>(<span class='st'>"quiet"</span>) <span class='co'># see value of scienceverse.quiet</span></div><div class='output co'>#&gt; NULL</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>scienceverse_options</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>), <span class='st'>"test"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: the condition has length &gt; 1 and only the first element will be used</span></div><div class='output co'>#&gt; <span class='message'>id "1:10" changed to "1_10"</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The file test does not exist.</span></div><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_data</span>(<span class='no'>s</span>, <span class='st'>"test"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in study$data[[idx]]: subscript out of bounds</span></div><div class='input'><span class='no'>dev</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'dev' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
