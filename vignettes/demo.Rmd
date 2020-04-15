@@ -122,40 +122,44 @@ study <- add_eval(study, "corroboration",
                   evaluation = "!trust_highbound & !recip_highbound")
 ```
 
-### study_save
+### study_save json
 
 At this point, you can save your study to a JSON-formatted file.
 
 ```{r}
-study_save(study, "files/prereg.json")
+study_save(study, "files/prereg.json", "json")
 ```
 
 You can view the [JSON-formatted study description](files/prereg.json) here.
 
-### study_report prereg
+### study_save prereg
 
 You can also export a human-readable pre-registration using the built-in "prereg" template.
 
 ```{r}
-study_report(study, "prereg", "files/prereg.html")
+study_save(study, "files/prereg.html", "prereg")
 ```
 
 View the [prereg](files/prereg.html) report here.
 
 ### add_data
 
-The `id` you give the data can be used in the analysis code to refer to this dataset. The `data` argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument `vardesc`. 
+The `id` you give the data can be used in the analysis code to refer to this dataset. The `data` argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument `vardesc` and other dataset parameters as additional arguments.
 
 ```{r}
 
-data <- data.frame(
-  trust_self  = c(1,2,2,1,1,1,1,1,2,0,2,0,1,2,2,3,2,2,1,1,2,0,0,1),
-  trust_other = c(1,2,2,0,1,0,0,0,1,0,1,0,1,1,1,0,1,2,2,0,0,0,2,1),
-  recip_self  = c(0,1,3,2,1,1,1,3,3,2,3,1,1,2,3,3,3,1,1,1,3,0,3,1),
-  recip_other = c(1,1,2,2,3,2,1,3,3,1,3,0,1,3,3,3,3,0,3,0,1,0,3,2)
+kin_data <- data.frame(
+  trust_self  = c(1,2,2,1,1,1,1,1,2,0,2,0,
+                  1,2,2,3,2,2,1,1,2,0,0,1),
+  trust_other = c(1,2,2,0,1,0,0,0,1,0,1,0,
+                  1,1,1,0,1,2,2,0,0,0,2,1),
+  recip_self  = c(0,1,3,2,1,1,1,3,3,2,3,1,
+                  1,2,3,3,3,1,1,1,3,0,3,1),
+  recip_other = c(1,1,2,2,3,2,1,3,3,1,3,0,
+                  1,3,3,3,3,0,3,0,1,0,3,2)
 )
 
-vardesc <- list(
+desc <- list(
   description = list(
     trust_self  = "Number of trusting moves towards self-morphs",
     trust_other = "Number of trusting moves towards self-morphs",
@@ -165,7 +169,10 @@ vardesc <- list(
   type = rep("int", 4) # all variables are integer types
 )
 
-study <- add_data(study, id = "kin", data = data, vardesc = vardesc)
+study <- add_data(study, id = "kin", 
+                  data = kin_data, 
+                  vardesc = desc, 
+                  url = "https://osf.io/ewfhs/")
 
 ```
 
@@ -183,8 +190,8 @@ study <- study_analyse(study)
 At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.
 
 ```{r}
-study_save(study, "files/postreg.json")
-study_report(study, "postreg", "files/postreg.html")
+study_save(study, "files/postreg.json", "json")
+study_save(study, "files/postreg.html", "postreg")
 ```
 
 View the [postreg](files/postreg.html) report here.

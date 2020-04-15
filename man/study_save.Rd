@@ -4,12 +4,19 @@
 \alias{study_save}
 \title{Save study}
 \usage{
-study_save(study, filename = "study.json", data_values = TRUE)
+study_save(
+  study,
+  filename = "study",
+  format = c("json", "prereg", "postreg"),
+  data_values = TRUE
+)
 }
 \arguments{
 \item{study}{A study list object with class reg_study}
 
 \item{filename}{The name to save the file}
+
+\item{format}{Save as a machine-readable "json" file, a human-readable "prereg" document (no results) or a "postreg" document (includes results)}
 
 \item{data_values}{Whether to include data values in the JSON file (defaults to TRUE)}
 }
@@ -18,4 +25,24 @@ A study object with class reg_study
 }
 \description{
 Save the study framework to a JSON file
+}
+\examples{
+
+\dontrun{
+study() \%>\%
+  add_hypothesis("H1", "Petal width and length will be positively correlated.") \%>\%
+  add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) \%>\%
+  add_criterion("sig", "p.value", "<", 0.05) \%>\%
+  add_criterion("pos", "estimate", ">", 0) \%>\%
+  add_eval("corroboration",
+           "Petal width is significantly and positively correlated to length",
+           "sig & pos") \%>\%
+  add_eval("falsification",
+           "Petal width is significantly and negatively correlated to length",
+           "sig & !pos") \%>\%
+  add_data("dat", iris) \%>\%
+  study_analyse() \%>\%
+  study_report(template = "postreg")
+}
+
 }

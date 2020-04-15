@@ -93,6 +93,7 @@
                 "@type": "Dataset",
                 "name": "kin",
                 "schemaVersion": "Psych-DS 0.1.0",
+                "url": "https://osf.io/ewfhs/",
                 "variableMeasured": [
                     {
                         "@type": "PropertyValue",
