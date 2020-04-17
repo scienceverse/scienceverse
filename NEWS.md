@@ -1,12 +1,14 @@
 # scienceverse 0.0.0.9007 (2020-03-17)
 
 * Streamlined how code is stored in the JSON file
+* added `get_result` function
 
 # scienceverse 0.0.0.9006 (2020-03-14)
 
 * More breaking changes to update the format for the preprint
 * Loading study objects from JSON works now
 * `study_report` deprecated and function merged to `study_save`
+* added `get_data` function
 
 # scienceverse 0.0.0.9004 (2020-03-12)
 

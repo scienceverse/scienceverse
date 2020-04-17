@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -171,7 +171,8 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>), <span class='st'>"test"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: the condition has length &gt; 1 and only the first element will be used</span></div><div class='output co'>#&gt; <span class='message'>id "1:10" changed to "1_10"</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The file test does not exist.</span></div><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_data</span>(<span class='no'>s</span>, <span class='st'>"test"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in study$data[[idx]]: subscript out of bounds</span></div><div class='input'><span class='no'>dev</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'dev' not found</span></div></pre>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"test"</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>))
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>get_data</span>(<span class='no'>s</span>, <span class='st'>"test"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
