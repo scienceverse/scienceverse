@@ -31,7 +31,9 @@ reference:
       - check_orcid
       - credit_roles
       - codebook
+      - get_data
       - get_power
+      - get_result
       - output_custom_code
       - output_hypotheses
       - output_analyses

@@ -18,6 +18,7 @@ set.seed(8675309)
 ```{r setup}
 library(scienceverse)
 library(faux)
+library(ggplot2)
 ```
 
 First, I use the `sim_design()` function from faux to visualise the design for my proposed study. I'm simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.
@@ -146,3 +147,28 @@ Use the `study_power` function to run the analyses on each simulated dataset and
 ```{r}
 simstudy <- study_power(simstudy)
 ```
+
+Use the `get_power` function to get the results in a list format. Set `values` to `TRUE` to get the individual values for the criteria.
+
+```{r}
+power <- get_power(simstudy, values = TRUE)
+
+happy_c <- power$Happy$criteria$happy_c
+smug_c <- power$Smug$criteria$smug_c
+```
+
+
+```{r, echo = FALSE, out.width="100%", fig.width = 7, fig.height = 5}
+data.frame(
+  happy = happy_c,
+  smug = smug_c
+) %>%
+  tidyr::gather(emotion, value, happy:smug) %>%
+  ggplot(aes(value, color = emotion)) +
+  geom_histogram(fill = "white", binwidth = 0.05, 
+                 boundary = 0, show.legend = FALSE) +
+  facet_wrap(~emotion) +
+  xlab("P-values for dog- versus cat-owner happiness")
+  
+```
+
