@@ -18,10 +18,10 @@ study_from_json <- function(filename) {
   if (n_analyses > 0) {
     for (i in 1:n_analyses) {
       code <- study$analyses[[i]]$code
-      func <- study$analyses[[i]]$func
+      func <- paste0("analysis_", study$analyses[[i]]$id, "_func")
       if (!is.null(code) && length(code)) {
         # handle custom code from string
-        c <- paste(func, "<-", paste(code, collapse = "\n"))
+        c <- paste(func, "<- function() {\n", paste(code, collapse = "\n"), "\n}")
         eval(parse(text = c), envir = .GlobalEnv)
         message("Loaded custom function: ", func)
       }
@@ -30,6 +30,11 @@ study_from_json <- function(filename) {
         stop("The function ", func, " in analysis ", i, " is not defined")
       } else if (parse(text=func) %>% eval() %>% is.function() == FALSE) {
         stop("The function ", func, " in analysis ", i, " is not a function")
+      } else {
+        # load the function as code
+        func_env <- get_env_name(func)
+        code <- methods::getFunction(func, where = .GlobalEnv)
+        study$analyses[[i]]$code <- code
       }
     }
   }

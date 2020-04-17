@@ -24,14 +24,11 @@ output_custom_code <- function(study, analysis_id = 1) {
       as.list()
   }
 
-  if (is.list(analysis$code)) {
-    paste(
-      analysis$func, "<-",
-      paste(analysis$code, collapse= "\n")
-    )
-  } else if (is.null(analysis$code)) {
-    analysis$func
-  }
+  func <- paste0("analysis_", analysis$id, "_func")
+  paste(
+    func, "<-",
+    paste(analysis$code, collapse= "\n")
+  )
 }
 
 

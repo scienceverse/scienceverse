@@ -38,7 +38,7 @@ study_analyse <- function(study) {
 
   # run analyses ----
   for (i in 1:analysis_n) {
-    func <- study$analyses[[i]]$func
+    func <- paste0("analysis_", study$analyses[[i]]$id, "_func")
 
     # check the analysis function exists
     if (!methods::existsFunction(func)) {

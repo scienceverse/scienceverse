@@ -16,7 +16,6 @@ test_that("defaults", {
     add_analysis(NULL, t.test(rnorm(100)))
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
-  expect_equal(s$analyses[[1]]$func, "analysis_1_func")
   expect_equal(s$analyses[[1]]$code, function() {
     t.test(rnorm(100))
   })
@@ -44,7 +43,6 @@ test_that("custom function", {
   }, c("a", "b"))
   expect_equal(length(s2$analyses), 2)
   expect_equal(s2$analyses[[2]]$id, "a2")
-  expect_equal(s2$analyses[[2]]$func, "analysis_a2_func")
   expect_equal(s2$analyses[[2]]$code, myfunc)
 
   expect_message(s3 <- add_analysis(s2, "a3 with spaces", a <- 1), "id \"a3 with spaces\" changed to \"a3_with_spaces\"")

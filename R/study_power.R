@@ -64,7 +64,8 @@ study_power <- function(study, rep = 100) {
 
     # run analyses ----
     for (a in study$analyses) {
-      res <- do.call(a$func, list()) %>% as.list()
+      func <- paste0("analysis_", a$id, "_func")
+      res <- do.call(func, list()) %>% as.list()
       class(res) <- "list"
       results[[a$id]][[i]] <- res
     }

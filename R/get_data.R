@@ -10,7 +10,7 @@
 #'
 #' s <- study() %>% add_data("test", data.frame(x = 1:10))
 #' dat <- get_data(s, "test")
-#'dev
+#'
 get_data <- function(study, id = 1) {
   # check the data ID exists
   idx <- get_idx(study, id, "data")

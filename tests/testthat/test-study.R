@@ -33,10 +33,7 @@ test_that("study from json", {
   file.remove("test.json")
 
   expect_equal(s$analyses[[1]]$id, s2$analyses[[1]]$id)
-  expect_equal(s$analyses[[1]]$func, s2$analyses[[1]]$func)
-
-  s2code <- s2$analyses[[1]]$code %>% unlist() %>% trimws() %>%paste(collapse = " ")
-  expect_equal(s2code, "function () { { (data1$Petal.Width - data1$Petal.Length) %>% abs() %>% mean() %>% magrittr::set_names(\"mean_abs_diff\") %>% as.list() } }")
+  expect_equal(s$analyses[[1]]$code, s2$analyses[[1]]$code)
 })
 
 test_that("data from json", {

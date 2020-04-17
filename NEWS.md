@@ -1,3 +1,13 @@
+# scienceverse 0.0.0.9007 (2020-03-17)
+
+* Streamlined how code is stored in the JSON file
+
+# scienceverse 0.0.0.9006 (2020-03-14)
+
+* More breaking changes to update the format for the preprint
+* Loading study objects from JSON works now
+* `study_report` deprecated and function merged to `study_save`
+
 # scienceverse 0.0.0.9004 (2020-03-12)
 
 * Added the `study_power` function. This function is experimental. Check power analyses with an external package before using for important decisions. 

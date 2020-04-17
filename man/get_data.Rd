@@ -19,7 +19,7 @@ Get data from study
 }
 \examples{
 
-s <- study() \%>\% add_data(data.frame(x = 1:10), "test")
+s <- study() \%>\% add_data("test", data.frame(x = 1:10))
 dat <- get_data(s, "test")
-dev
+
 }

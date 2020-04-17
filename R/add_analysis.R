@@ -50,7 +50,6 @@ add_analysis <- function(study, id = NULL, code = "", return = "", ...) {
 
   analysis <- list(
     id = id,
-    func = func,
     code = code
   )
   analysis <- c(analysis, list(...))

@@ -34,6 +34,19 @@ study_to_json <- function (study, data_values = TRUE) {
     }
   }
 
+  n_analyses <- length(study$analyses)
+  if (n_analyses > 0) {
+    for (i in 1:n_analyses) {
+      code <- study$analyses[[i]]$code %>%
+        jsonlite::toJSON() %>%
+        jsonlite::fromJSON()
+
+      mincode <- code[3:(length(code)-1)]
+
+      study$analyses[[i]]$code <- mincode
+    }
+  }
+
   study %>%
     jsonlite::toJSON(auto_unbox = TRUE) %>%
     jsonlite::prettify(4) %>%
