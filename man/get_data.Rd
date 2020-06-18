@@ -7,7 +7,7 @@
 get_data(study, id = 1)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{The id for the dataset (index or character)}
 }

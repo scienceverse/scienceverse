@@ -1,6 +1,6 @@
 #' Convert scivrs_author list to CRediT JATS format
 #'
-#' @param author list with class scivrs_author or list with class reg_study and at least one entry for authors
+#' @param author list with class scivrs_author or list with class scivrs_study and at least one entry for authors
 #'
 #' @return string in JATS format (see https://jats4r.org/credit-taxonomy)
 #' @export
@@ -13,7 +13,7 @@
 #' )
 #' author_jats(ld)
 author_jats <- function(author) {
-  if ("reg_study" %in% class(author)) {
+  if ("scivrs_study" %in% class(author)) {
     aa <- author$authors
   } else if ("scivrs_author" %in% class(author)) {
     aa <- list(author)

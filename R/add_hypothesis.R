@@ -2,10 +2,10 @@
 #'
 #' Add a hypothesis to a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for this hypothesis (index or character) if a hypothesis with this id already exists, it will overwrite it
 #' @param description The text description of the hypothesis
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study() %>%
@@ -27,7 +27,7 @@ add_hypothesis <- function(study, id = NULL,
     falsification = list()
   )
 
-  class(hypothesis) <- c("reg_study_hypothesis", "list")
+  class(hypothesis) <- c("scivrs_hypothesis", "list")
 
   study$hypotheses[[idx]] <- hypothesis
 

@@ -133,6 +133,8 @@ codebook <- function(data, name = NULL, vardesc = NULL, ...,
     schema <- schema %>%
       jsonlite::toJSON(auto_unbox = TRUE) %>%
       jsonlite::prettify(4)
+  } else {
+    class(schema) <- c("scivrs_codebook", "list")
   }
 
   return(schema)

@@ -2,10 +2,10 @@
 #'
 #' This function is experimental. Check power analyses with an external package before using for important decisions.
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param rep The number of simulations to run
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @export
 #'
 #' @examples
@@ -220,7 +220,7 @@ study_power <- function(study, rep = 100) {
 
 #' Get Power Calculations as List
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param values Whether or not to retun criterion values (default FALSE)
 #'
 #' @return a list of power (and criteria) values

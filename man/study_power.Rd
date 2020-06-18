@@ -7,12 +7,12 @@
 study_power(study, rep = 100)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{rep}{The number of simulations to run}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 This function is experimental. Check power analyses with an external package before using for important decisions.

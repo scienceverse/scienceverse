@@ -7,7 +7,7 @@
 get_result(study, result = NULL, analysis_id = 1)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{result}{The name of the result value to retrieve (omit to return all results)}
 

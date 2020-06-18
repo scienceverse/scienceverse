@@ -10,10 +10,10 @@ study_analyse(study)
 study_analyze(study)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Run the analyses on the data

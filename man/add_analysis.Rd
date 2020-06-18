@@ -7,7 +7,7 @@
 add_analysis(study, id = NULL, code = "", return = "", ...)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{The id for this analysis (index or character) if an analysis with this id already exists, it will overwrite it}
 
@@ -18,7 +18,7 @@ add_analysis(study, id = NULL, code = "", return = "", ...)
 \item{...}{further arguments to add}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add an analysis to a study object

@@ -58,7 +58,7 @@ test_that("add data from codebook", {
   filename <- system.file("extdata/iat-codebook.json", package = "scienceverse")
   s <- study() %>% add_data("iat", filename)
   j <- c(list(id = "iat"), jsonlite::read_json(filename))
-  class(j) <- c("reg_study_data", "list")
+  class(j) <- c("scivrs_data", "list")
 
   expect_equal(s$data[[1]], j)
 })

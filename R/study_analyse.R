@@ -2,8 +2,8 @@
 #'
 #' Run the analyses on the data
 #'
-#' @param study A study list object with class reg_study
-#' @return A study object with class reg_study
+#' @param study A study list object with class scivrs_study
+#' @return A study object with class scivrs_study
 #' @export
 #' @examples
 #'

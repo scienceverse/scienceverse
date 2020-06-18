@@ -7,7 +7,7 @@
 output_custom_code(study, analysis_id = 1)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{analysis_id}{The id or index for the analysis code to output (defaults to index 1)}
 }

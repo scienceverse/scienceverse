@@ -18,7 +18,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Imports: 
     magrittr,
     jsonlite,
@@ -32,6 +32,8 @@ Suggests:
     knitr,
     roxygen2,
     covr,
+    tidyr,
+    ggplot2,
     TOSTER
 URL: https://github.com/scienceverse/scienceverse
 BugReports: https://github.com/scienceverse/scienceverse/issues

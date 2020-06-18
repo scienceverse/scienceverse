@@ -7,7 +7,7 @@
 add_data(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it}
 
@@ -20,7 +20,7 @@ add_data(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
 \item{...}{Further dataset properties (see \code{codebook})}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add a dataset to a study object

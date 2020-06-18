@@ -18,6 +18,7 @@ set.seed(8675309)
 ```{r setup}
 library(scienceverse)
 library(faux)
+library(tidyr)
 library(ggplot2)
 ```
 

@@ -7,14 +7,14 @@
 add_hypothesis(study, id = NULL, description = "Describe your hypothesis")
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{The id for this hypothesis (index or character) if a hypothesis with this id already exists, it will overwrite it}
 
 \item{description}{The text description of the hypothesis}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add a hypothesis to a study object

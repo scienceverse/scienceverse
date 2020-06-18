@@ -2,7 +2,7 @@
 #'
 #' Get the index from id for an item in the hypotheses, analyses, or data sections of a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for the section (index or character) if NULL, assigns to the last item in the list
 #' @param section The section to search, c("hypotheses", "analyses", "data")
 #' @return A numeric index
@@ -26,7 +26,7 @@ get_idx <- function(study, id = NULL, section = "hypotheses") {
 #'
 #' Get the index and id from an item in the hypotheses, analyses, or data sections of a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for the section (index or character) if NULL, assigns to the last item in the list
 #' @param section The section to search, c("hypotheses", "analyses", "data")
 #' @return A list of id and idx
@@ -223,6 +223,24 @@ load_params <- function(params, study) {
 }
 
 
-print.reg_study <- function(x, ...) {
+#' Print Study Object
+#'
+#' @param x The scivrs_study list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.scivrs_study <- function(x, ...) {
+  utils::str(x)
+}
+
+#' Print Codebook Object
+#'
+#' @param x The scivrs_codebook list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.scivrs_codebook <- function(x, ...) {
   utils::str(x)
 }

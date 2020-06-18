@@ -7,14 +7,14 @@
 study_report(study, template = "prereg", filename = "study.html")
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{template}{The type of report c("prereg", "postreg") or a path to a custom template}
 
 \item{filename}{The file path to save to}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Generate a study report (deprecated, use study_save)

@@ -2,7 +2,7 @@
 #'
 #' Output custom code specified in an analysis component
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param analysis_id The id or index for the analysis code to output (defaults to index 1)
 #'
 #' @return string of the function definition
@@ -37,7 +37,7 @@ output_custom_code <- function(study, analysis_id = 1) {
 #'
 #' Output hypotheses specified in the json file
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @return The study object
 #'
 #' @export
@@ -88,7 +88,7 @@ output_hypotheses <- function(study) {
 #'
 #' Output results specified in the json file
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param digits integer indicating the number of decimal places.
 #' @return The study object
 #'
@@ -169,7 +169,7 @@ output_results <- function(study, digits = 3) {
 #'
 #' Output analysis plan specified in the json file
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @return The study object
 #'
 #' @export

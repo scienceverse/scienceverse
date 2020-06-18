@@ -7,7 +7,7 @@
 study_to_json(study, data_values = TRUE)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{data_values}{Whether to include data values in the JSON file (defaults to TRUE)}
 }

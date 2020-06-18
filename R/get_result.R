@@ -1,6 +1,6 @@
 #' Get Result Value
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param result The name of the result value to retrieve (omit to return all results)
 #' @param analysis_id The id for the relevant analysis (index or character) defaults to the first analysis in the list
 #'

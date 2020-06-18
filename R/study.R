@@ -4,7 +4,7 @@
 #'
 #' @param name The name of the study or a file path to a json file
 #' @param ... further arguments to add
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study("Demo Study")
@@ -36,7 +36,7 @@ study <- function(name = "Demo Study", ...) {
       )
     )
 
-    class(study) <- c("reg_study", "list")
+    class(study) <- c("scivrs_study", "list")
   }
 
   invisible(study)

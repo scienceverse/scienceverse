@@ -1,6 +1,6 @@
 #' Get data from study
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for the dataset (index or character)
 #'
 #' @return A data frame

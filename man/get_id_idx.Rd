@@ -7,7 +7,7 @@
 get_id_idx(study, id = NULL, section = "hypotheses")
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{The id for the section (index or character) if NULL, assigns to the last item in the list}
 

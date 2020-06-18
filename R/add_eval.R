@@ -2,12 +2,12 @@
 #'
 #' Add evalution criterion to a hypothesis in a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param type "corroboration" or "falsification"
 #' @param description A verbal description of the conditions for corroborating the hypothesis
 #' @param evaluation A logical representation of these conditions using the criteria IDs, parentheses, &, | and ! (e.g., "(c1 & c2) | (c3 & !c4)")
 #' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study() %>%

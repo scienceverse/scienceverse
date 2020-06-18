@@ -7,7 +7,7 @@
 add_eval(study, type, description, evaluation, hypothesis_id = NULL)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{type}{"corroboration" or "falsification"}
 
@@ -18,7 +18,7 @@ add_eval(study, type, description, evaluation, hypothesis_id = NULL)
 \item{hypothesis_id}{The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add evalution criterion to a hypothesis in a study object

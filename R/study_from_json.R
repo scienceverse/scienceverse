@@ -2,7 +2,7 @@
 #'
 #' @param filename The name of the scienceverse-formatted json file
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @export
 #'
 study_from_json <- function(filename) {
@@ -49,6 +49,7 @@ study_from_json <- function(filename) {
         coltypes <- NULL
 
         if (!is.null(study$data[[i]]$codebook)) {
+          class(study$data[[i]]$codebook) <- c("scivrs_codebook", "list")
           vm <- study$data[[i]]$codebook$variableMeasured
           lvls <- sapply(vm, function(x) { x$levels })
           names(lvls) <- sapply(vm, function(x) { x$name })
@@ -89,7 +90,7 @@ study_from_json <- function(filename) {
     }
   }
 
-  class(study) <- c("reg_study", "list")
+  class(study) <- c("scivrs_study", "list")
 
   invisible(study)
 }

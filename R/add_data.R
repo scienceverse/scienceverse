@@ -2,14 +2,14 @@
 #'
 #' Add a dataset to a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
 #' @param vardesc Optional variable properties (see `codebook`)
 #' @param design A faux design specification
 #' @param ... Further dataset properties (see `codebook`)
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study() %>% add_data("dat", iris)
@@ -53,7 +53,7 @@ add_data <- function(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
 
   if (!is.null(design)) d$design <- design
 
-  class(d) <- c("reg_study_data", "list")
+  class(d) <- c("scivrs_data", "list")
 
   idx <- get_idx(study, id, "data")
 

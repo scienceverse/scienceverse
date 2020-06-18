@@ -2,11 +2,11 @@
 #'
 #' Save the study framework to a JSON file
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param filename The name to save the file
 #' @param format Save as a machine-readable "json" file, a human-readable "prereg" document (no results) or a "postreg" document (includes results)
 #' @param data_values Whether to include data values in the JSON file (defaults to TRUE)
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #'
 #' @export
 #'

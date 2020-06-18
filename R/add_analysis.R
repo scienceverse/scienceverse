@@ -2,13 +2,13 @@
 #'
 #' Add an analysis to a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id The id for this analysis (index or character) if an analysis with this id already exists, it will overwrite it
 #' @param code The code to run or a file name containing the code
 #' @param return A list of object names to return from the code
 #' @param ... further arguments to add
 
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study() %>%
@@ -54,7 +54,7 @@ add_analysis <- function(study, id = NULL, code = "", return = "", ...) {
   )
   analysis <- c(analysis, list(...))
 
-  class(analysis) <- c("reg_study_analysis", "list")
+  class(analysis) <- c("scivrs_analysis", "list")
 
   study$analyses[[idx]] <- analysis
 

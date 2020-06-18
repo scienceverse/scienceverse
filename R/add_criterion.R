@@ -2,7 +2,7 @@
 #'
 #' Add a criterion to a hypothesis in a study object
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param id A unique name to refere to the criterion with in the evaluation
 #' @param result The name of the item in the analysis results list to compare
 #' @param operator The operator for comparison c("<", "=", ">", "!=")
@@ -10,7 +10,7 @@
 #' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @examples
 #'
 #' s <- study() %>%
@@ -38,7 +38,7 @@ add_criterion <- function(study, id, result, operator, comparator,
     comparator = comparator
   )
 
-  class(criterion) <- c("reg_study_hypothesis_criterion", "list")
+  class(criterion) <- c("scivrs_hypothesis_criterion", "list")
 
   # add criterion to hypothesis
   crit_idx <- length(study$hypotheses[[hypothesis$idx]]$criteria) + 1

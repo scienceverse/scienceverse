@@ -12,7 +12,7 @@ study_save(
 )
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{filename}{The name to save the file}
 
@@ -21,7 +21,7 @@ study_save(
 \item{data_values}{Whether to include data values in the JSON file (defaults to TRUE)}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Save the study framework to a JSON file

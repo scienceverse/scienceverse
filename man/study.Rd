@@ -12,7 +12,7 @@ study(name = "Demo Study", ...)
 \item{...}{further arguments to add}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Create or load a study object

@@ -15,7 +15,7 @@ add_criterion(
 )
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{id}{A unique name to refere to the criterion with in the evaluation}
 
@@ -30,7 +30,7 @@ add_criterion(
 \item{analysis_id}{The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add a criterion to a hypothesis in a study object

@@ -7,7 +7,7 @@
 output_hypotheses(study)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 }
 \value{
 The study object

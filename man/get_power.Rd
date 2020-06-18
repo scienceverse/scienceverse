@@ -7,7 +7,7 @@
 get_power(study, values = FALSE)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{values}{Whether or not to retun criterion values (default FALSE)}
 }

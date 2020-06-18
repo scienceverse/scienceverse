@@ -2,7 +2,7 @@
 #'
 #' Convert a study object to a JSON string
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param data_values Whether to include data values in the JSON file (defaults to TRUE)
 #' @return A prettified JSON string
 #'

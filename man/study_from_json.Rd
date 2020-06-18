@@ -10,7 +10,7 @@ study_from_json(filename)
 \item{filename}{The name of the scienceverse-formatted json file}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Get study from json file

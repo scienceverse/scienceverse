@@ -2,7 +2,7 @@
 #'
 #' Uses \code{faux::sim_design()} to generate a data table with a specified within and between design.
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param data_id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
@@ -18,7 +18,7 @@
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #'
 #' @examples
 #'

@@ -7,7 +7,7 @@
 output_results(study, digits = 3)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{digits}{integer indicating the number of decimal places.}
 }

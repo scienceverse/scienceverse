@@ -8,7 +8,7 @@ test_that("default study", {
   expect_equal(s$data, list())
   expect_equal(s$analyses, list())
   expect_s3_class(s, "list")
-  expect_s3_class(s, "reg_study")
+  expect_s3_class(s, "scivrs_study")
 })
 
 test_that("study with name", {

@@ -1,13 +1,13 @@
 #' Add an Author
 #'
-#' @param study A study list object with class reg_study
+#' @param study A study list object with class scivrs_study
 #' @param orcid the author's unique ORCiD (see https://orcid.org/)
 #' @param surname a character string with the author's last name(s)
 #' @param given a character string with the author's given name(s)
 #' @param roles a vector of roles from the CRediT taxonomy (see https://casrai.org/credit/); use credit_roles() to view the full list
 #' @param ... further info to add to author object
 #'
-#' @return A study object with class reg_study
+#' @return A study object with class scivrs_study
 #' @export
 #'
 #' @examples

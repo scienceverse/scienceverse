@@ -23,7 +23,7 @@ add_sim_data(
 )
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{data_id}{The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it}
 
@@ -54,7 +54,7 @@ add_sim_data(
 \item{rep}{the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Uses \code{faux::sim_design()} to generate a data table with a specified within and between design.

@@ -7,7 +7,7 @@
 add_author(study, orcid, surname, given = "", roles = c(), ...)
 }
 \arguments{
-\item{study}{A study list object with class reg_study}
+\item{study}{A study list object with class scivrs_study}
 
 \item{orcid}{the author's unique ORCiD (see https://orcid.org/)}
 
@@ -20,7 +20,7 @@ add_author(study, orcid, surname, given = "", roles = c(), ...)
 \item{...}{further info to add to author object}
 }
 \value{
-A study object with class reg_study
+A study object with class scivrs_study
 }
 \description{
 Add an Author
