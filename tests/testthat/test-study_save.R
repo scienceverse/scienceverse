@@ -61,4 +61,8 @@ test_that("data", {
   expect_equal(unlist(d$Sepal.Length), iris$Sepal.Length)
 })
 
-
+test_that("verbose", {
+  scienceverse_options(verbose = FALSE)
+  expect_silent(study() %>% study_save())
+  scienceverse_options(verbose = TRUE)
+})
