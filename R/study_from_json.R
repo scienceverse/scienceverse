@@ -71,7 +71,7 @@ study_from_json <- function(filename) {
             } else if (type == "float") {
               df[col] <- as.double(df[[col]])
             } else if (type == "string") {
-              df[col] <- as.double(df[[col]])
+              df[col] <- as.character(df[[col]])
             } else if (type == "factor") {
               df[col] <- as.factor(df[[col]])
             } else if (type == "bool") {
