@@ -3,7 +3,7 @@
 #' Add a criterion to a hypothesis in a study object
 #'
 #' @param study A study list object with class scivrs_study
-#' @param id A unique name to refere to the criterion with in the evaluation
+#' @param id A unique name to refer to the criterion with in the evaluation
 #' @param result The name of the item in the analysis results list to compare
 #' @param operator The operator for comparison c("<", "=", ">", "!=")
 #' @param comparator The value to compare
@@ -18,7 +18,6 @@
 #'   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
 #'   add_criterion("sig", "p.value", "<", 0.05) %>%
 #'   add_criterion("pos", "estimate", ">", 0)
-#' study_to_json(s)
 #'
 #' @export
 #'

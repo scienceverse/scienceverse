@@ -64,5 +64,6 @@ test_that("data", {
 test_that("verbose", {
   scienceverse_options(verbose = FALSE)
   expect_silent(study() %>% study_save())
+  if (file.exists("study.json")) unlink("study.json") # clean up
   scienceverse_options(verbose = TRUE)
 })
