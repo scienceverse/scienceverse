@@ -17,7 +17,7 @@ add_criterion(
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
-\item{id}{A unique name to refere to the criterion with in the evaluation}
+\item{id}{A unique name to refer to the criterion with in the evaluation}
 
 \item{result}{The name of the item in the analysis results list to compare}
 
@@ -42,6 +42,5 @@ s <- study() \%>\%
   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) \%>\%
   add_criterion("sig", "p.value", "<", 0.05) \%>\%
   add_criterion("pos", "estimate", ">", 0)
-study_to_json(s)
 
 }

@@ -4,12 +4,14 @@
 \alias{get_codebook}
 \title{Get Codebook}
 \usage{
-get_codebook(study, data_id = 1)
+get_codebook(study, data_id = 1, as_json = FALSE)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{data_id}{The id for the dataset (index or character)}
+
+\item{as_json}{Return output in JSON format}
 }
 \value{
 a list with class scivrs_codebook

@@ -2,6 +2,7 @@
 #'
 #' @param study A study list object with class scivrs_study
 #' @param data_id The id for the dataset (index or character)
+#' @param as_json Return output in JSON format
 #'
 #' @return a list with class scivrs_codebook
 #' @export
@@ -10,7 +11,7 @@
 #' s <- study() %>% add_data("test", data.frame(x = 1:10))
 #' cb <- get_codebook(s, "test")
 #'
-get_codebook <- function(study, data_id = 1) {
+get_codebook <- function(study, data_id = 1, as_json = FALSE) {
   # check the data ID exists
   idx <- get_idx(study, data_id, "data")
   if (idx > length(study$data)) stop("The study does not have dataset ", data_id)
@@ -27,6 +28,12 @@ get_codebook <- function(study, data_id = 1) {
     cb <- codebook(d$data, name = d$id, as_json = FALSE)
   } else {
     cb <- d$codebook
+  }
+
+  if (as_json) {
+    cb <- cb %>%
+      jsonlite::toJSON(auto_unbox = TRUE) %>%
+      jsonlite::prettify(4)
   }
 
   return(cb)

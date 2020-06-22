@@ -53,7 +53,20 @@ add_sim_data <- function(study, data_id,
     seed = seed,
     rep = rep)
 
-  study <- add_data(study, data_id, data = dat, design = design)
+  c(between, within)
+
+  if (long) {
+    vardesc <- list(levels = c(between, within))
+    vardesc[["description"]] <- id
+  } else {
+    vardesc <- list(levels = between)
+    vardesc[["description"]] <- c(id, dv)
+  }
+
+
+
+  study <- add_data(study, data_id, data = dat,
+                    vardesc = vardesc, design = design)
 
   invisible(study)
 }

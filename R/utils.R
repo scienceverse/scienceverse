@@ -250,11 +250,28 @@ print.scivrs_codebook <- function(x, ...) {
 
     vars <- list()
     for (v in x$variableMeasured) {
+      desc <- ifelse(v$name == v$description,
+                     "", paste(":", v$description))
+      extras <- ""
+      if (v$type == "factor") {
+        lvls <- ""
+        if (length(v$levels) > 0) {
+          if (all(names(v$levels) == v$levels)) {
+            l <- names(v$levels)
+          } else {
+            l <- paste0(names(v$levels), ": ", v$levels)
+          }
+          lvls <- sprintf("    *%s\n",
+                          paste(l, collapse = "\n    * "))
+        }
+
+        extras <- sprintf("\n  * Levels\n%s  * Ordered: %s",
+                          lvls,
+                          v$ordered)
+      }
       vars[v$name] = sprintf(
-        "* %s (%s)",
-        v$name, v$type,
-        ifelse(v$name == v$description,
-               "", paste(":", v$description))
+        "* %s (%s)%s%s",
+        v$name, v$type, desc, extras
       )
     }
 
