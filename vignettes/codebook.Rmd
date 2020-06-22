@@ -48,10 +48,10 @@ If you just type the codebook object into the console, you'll see the info forma
 cb
 ```
 
-But the codebook is actually a nested list formoatted like this:
+But the codebook is actually a nested list formatted like this:
 
 ```{r}
-unclass(cb) %>%str()
+unclass(cb) %>% str()
 ```
 
 You can also view it in JSON format.
@@ -65,16 +65,40 @@ get_codebook(study, data_id = "pets", as_json = TRUE)
 You can run the codebook function on existing data, but will need to manually input some things. For now, the possible properties you can set are: "description", "privacy", "type", "propertyID", "minValue", "maxValue", "levels", "ordered", "na", "naValues", "alternateName", "unitCode".
 
 ```{r}
+
+
 vardesc <- list(
-  description = list(speed = "Speed in miles per hour",
-                     dist = "Distance in miles"),
+  description = list(
+    mpg = "Miles/(US) gallon",
+    cyl = "Number of cylinders",
+    disp = "Displacement (cu.in.)",
+    hp = "Gross horsepower",
+    drat = "Rear axle ratio",
+    wt = "Weight (1000 lbs)",
+    qsec = "1/4 mile time",
+    vs = "Engine (0 = V-shaped, 1 = straight)",
+    am = "Transmission (0 = automatic, 1 = manual)",
+    gear = "Number of forward gears",
+    carb = "Number of carburetors"
+  ),
   # min and max values can be set manually or from data
   # min and max are often outside the observed range
-  minValue = list(speed = 0, dist = 0),
-  maxValue = list(speed = max(cars$speed),
-                  dist = max(cars$dist))
+  minValue = list(mpg = 0, cyl = min(mtcars$cyl)),
+  maxValue = list(cyl = max(mtcars$cyl)),
+  levels = list(
+    vs = c("0" = "V-shaped", "1" = "straight"),
+    am = c("0" = "automatic", "1" = "manual")
+  ),
+  type = list(
+    cyl = "integer",
+    hp = "integer",
+    vs = "factor",
+    am = "factor",
+    gear = "integer",
+    carb = "integer"
+  )
 )
 
-codebook(cars, "Built-in Cars Dataset", vardesc)
+codebook(mtcars, "Motor Trend Car Road Tests", vardesc)
 ```
 

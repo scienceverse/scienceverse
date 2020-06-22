@@ -129,8 +129,8 @@
 <span class="co">#&gt;     * dog: Dog Owners</span>
 <span class="co">#&gt;   * Ordered: FALSE</span>
 <span class="co">#&gt; * happy (float): Happiness Score</span></pre></body></html></div>
-<p>But the codebook is actually a nested list formoatted like this:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="no">cb</span>) <span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>()
+<p>But the codebook is actually a nested list formatted like this:</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="no">cb</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>()
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ @context        : chr "https://schema.org/"</span>
 <span class="co">#&gt;  $ @type           : chr "Dataset"</span>
@@ -194,38 +194,123 @@
 <h2 class="hasAnchor">
 <a href="#run-codebook-on-existing-data" class="anchor"></a>Run Codebook on Existing Data</h2>
 <p>You can run the codebook function on existing data, but will need to manually input some things. For now, the possible properties you can set are: “description”, “privacy”, “type”, “propertyID”, “minValue”, “maxValue”, “levels”, “ordered”, “na”, “naValues”, “alternateName”, “unitCode”.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">vardesc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-  <span class="kw">description</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">speed</span> <span class="kw">=</span> <span class="st">"Speed in miles per hour"</span>,
-                     <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"Distance in miles"</span>),
+<div class="sourceCode" id="cb7"><html><body><pre class="r">
+
+<span class="no">vardesc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+  <span class="kw">description</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+    <span class="kw">mpg</span> <span class="kw">=</span> <span class="st">"Miles/(US) gallon"</span>,
+    <span class="kw">cyl</span> <span class="kw">=</span> <span class="st">"Number of cylinders"</span>,
+    <span class="kw">disp</span> <span class="kw">=</span> <span class="st">"Displacement (cu.in.)"</span>,
+    <span class="kw">hp</span> <span class="kw">=</span> <span class="st">"Gross horsepower"</span>,
+    <span class="kw">drat</span> <span class="kw">=</span> <span class="st">"Rear axle ratio"</span>,
+    <span class="kw">wt</span> <span class="kw">=</span> <span class="st">"Weight (1000 lbs)"</span>,
+    <span class="kw">qsec</span> <span class="kw">=</span> <span class="st">"1/4 mile time"</span>,
+    <span class="kw">vs</span> <span class="kw">=</span> <span class="st">"Engine (0 = V-shaped, 1 = straight)"</span>,
+    <span class="kw">am</span> <span class="kw">=</span> <span class="st">"Transmission (0 = automatic, 1 = manual)"</span>,
+    <span class="kw">gear</span> <span class="kw">=</span> <span class="st">"Number of forward gears"</span>,
+    <span class="kw">carb</span> <span class="kw">=</span> <span class="st">"Number of carburetors"</span>
+  ),
   <span class="co"># min and max values can be set manually or from data</span>
   <span class="co"># min and max are often outside the observed range</span>
-  <span class="kw">minValue</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">speed</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">dist</span> <span class="kw">=</span> <span class="fl">0</span>),
-  <span class="kw">maxValue</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">speed</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">cars</span>$<span class="no">speed</span>),
-                  <span class="kw">dist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">cars</span>$<span class="no">dist</span>))
+  <span class="kw">minValue</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">mpg</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">cyl</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">mtcars</span>$<span class="no">cyl</span>)),
+  <span class="kw">maxValue</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">cyl</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">mtcars</span>$<span class="no">cyl</span>)),
+  <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+    <span class="kw">vs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span> <span class="kw">=</span> <span class="st">"V-shaped"</span>, <span class="st">"1"</span> <span class="kw">=</span> <span class="st">"straight"</span>),
+    <span class="kw">am</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span> <span class="kw">=</span> <span class="st">"automatic"</span>, <span class="st">"1"</span> <span class="kw">=</span> <span class="st">"manual"</span>)
+  ),
+  <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+    <span class="kw">cyl</span> <span class="kw">=</span> <span class="st">"integer"</span>,
+    <span class="kw">hp</span> <span class="kw">=</span> <span class="st">"integer"</span>,
+    <span class="kw">vs</span> <span class="kw">=</span> <span class="st">"factor"</span>,
+    <span class="kw">am</span> <span class="kw">=</span> <span class="st">"factor"</span>,
+    <span class="kw">gear</span> <span class="kw">=</span> <span class="st">"integer"</span>,
+    <span class="kw">carb</span> <span class="kw">=</span> <span class="st">"integer"</span>
+  )
 )
 
-<span class="fu"><a href="../reference/codebook.html">codebook</a></span>(<span class="no">cars</span>, <span class="st">"Built-in Cars Dataset"</span>, <span class="no">vardesc</span>)
+<span class="fu"><a href="../reference/codebook.html">codebook</a></span>(<span class="no">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="no">vardesc</span>)
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "@context": "https://schema.org/",</span>
 <span class="co">#&gt;     "@type": "Dataset",</span>
-<span class="co">#&gt;     "name": "Built-in Cars Dataset",</span>
+<span class="co">#&gt;     "name": "Motor Trend Car Road Tests",</span>
 <span class="co">#&gt;     "schemaVersion": "Psych-DS 0.1.0",</span>
 <span class="co">#&gt;     "variableMeasured": [</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "speed",</span>
-<span class="co">#&gt;             "description": "Speed in miles per hour",</span>
+<span class="co">#&gt;             "name": "mpg",</span>
+<span class="co">#&gt;             "description": "Miles/(US) gallon",</span>
 <span class="co">#&gt;             "minValue": 0,</span>
-<span class="co">#&gt;             "maxValue": 25,</span>
 <span class="co">#&gt;             "type": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "dist",</span>
-<span class="co">#&gt;             "description": "Distance in miles",</span>
-<span class="co">#&gt;             "minValue": 0,</span>
-<span class="co">#&gt;             "maxValue": 120,</span>
+<span class="co">#&gt;             "name": "cyl",</span>
+<span class="co">#&gt;             "description": "Number of cylinders",</span>
+<span class="co">#&gt;             "minValue": 4,</span>
+<span class="co">#&gt;             "maxValue": 8,</span>
+<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "disp",</span>
+<span class="co">#&gt;             "description": "Displacement (cu.in.)",</span>
 <span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "hp",</span>
+<span class="co">#&gt;             "description": "Gross horsepower",</span>
+<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "drat",</span>
+<span class="co">#&gt;             "description": "Rear axle ratio",</span>
+<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "wt",</span>
+<span class="co">#&gt;             "description": "Weight (1000 lbs)",</span>
+<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "qsec",</span>
+<span class="co">#&gt;             "description": "1/4 mile time",</span>
+<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "vs",</span>
+<span class="co">#&gt;             "description": "Engine (0 = V-shaped, 1 = straight)",</span>
+<span class="co">#&gt;             "levels": [</span>
+<span class="co">#&gt;                 "V-shaped",</span>
+<span class="co">#&gt;                 "straight"</span>
+<span class="co">#&gt;             ],</span>
+<span class="co">#&gt;             "type": "factor"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "am",</span>
+<span class="co">#&gt;             "description": "Transmission (0 = automatic, 1 = manual)",</span>
+<span class="co">#&gt;             "levels": [</span>
+<span class="co">#&gt;                 "automatic",</span>
+<span class="co">#&gt;                 "manual"</span>
+<span class="co">#&gt;             ],</span>
+<span class="co">#&gt;             "type": "factor"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "gear",</span>
+<span class="co">#&gt;             "description": "Number of forward gears",</span>
+<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;         },</span>
+<span class="co">#&gt;         {</span>
+<span class="co">#&gt;             "@type": "PropertyValue",</span>
+<span class="co">#&gt;             "name": "carb",</span>
+<span class="co">#&gt;             "description": "Number of carburetors",</span>
+<span class="co">#&gt;             "type": "integer"</span>
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>
