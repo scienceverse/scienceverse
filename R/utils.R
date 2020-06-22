@@ -242,5 +242,24 @@ print.scivrs_study <- function(x, ...) {
 #' @export
 #'
 print.scivrs_codebook <- function(x, ...) {
-  utils::str(x)
+
+  if ("Psych-DS 0.1.0" == x$schemaVersion &
+      length(x$variableMeasured) > 0) {
+
+    cat("Codebook for", x$name, "(Psych-DS 0.1.0)\n")
+
+    vars <- list()
+    for (v in x$variableMeasured) {
+      vars[v$name] = sprintf(
+        "* %s (%s)",
+        v$name, v$type,
+        ifelse(v$name == v$description,
+               "", paste(":", v$description))
+      )
+    }
+
+    paste(vars, collapse = "\n") %>%cat()
+  } else {
+    utils::str(x)
+  }
 }
