@@ -23,7 +23,7 @@ study_from_json <- function(filename) {
         # handle custom code from string
         c <- paste(func, "<- function() {\n", paste(code, collapse = "\n"), "\n}")
         eval(parse(text = c), envir = .GlobalEnv)
-        message("Loaded custom function: ", func)
+        if (scienceverse_options("verbose")) message("Loaded custom function: ", func)
       }
       # check the function exists
       if (!exists(func)) {
