@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 <span class="co">#&gt; http://scienceverse.github.io/</span>
 <span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span>
 <span class="co">#&gt; ************</span></pre></body></html></div>
-<p>Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default, although you can manually add your own codebook to the JSON file.</p>
+<p>Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default as set up in the function <code><a href="https://rdrr.io/pkg/faux/man/codebook.html">faux::codebook()</a></code>, although you can manually add your own codebook to the JSON file.</p>
 <div id="automatic-codebooks-for-simulated-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automatic-codebooks-for-simulated-data" class="anchor"></a>Automatic Codebooks for Simulated Data</h2>
@@ -116,7 +116,10 @@
                <span class="kw">dv</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">happy</span> <span class="kw">=</span> <span class="st">"Happiness Score"</span>),
                <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"Subject ID"</span>),
                <span class="kw">mu</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">12</span>),
-               <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
+               <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">4</span>)
+<span class="co">#&gt; [32mid set to type string[39m</span>
+<span class="co">#&gt; [32mpet set to type factor[39m</span>
+<span class="co">#&gt; [32mhappy set to type float[39m</span></pre></body></html></div>
 <p>You can retrieve the codebook with the function <code><a href="../reference/get_codebook.html">get_codebook()</a></code>. If you don’t specify the data_id, it defaults to the first data set in the study.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">cb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span>(<span class="no">study</span>, <span class="kw">data_id</span> <span class="kw">=</span> <span class="st">"pets"</span>)</pre></body></html></div>
 <p>If you just type the codebook object into the console, you’ll see the info formatted like this.</p>
@@ -125,12 +128,12 @@
 <span class="co">#&gt; * id (string): Subject ID</span>
 <span class="co">#&gt; * pet (factor)</span>
 <span class="co">#&gt;   * Levels</span>
-<span class="co">#&gt;     *cat: Cat Owners</span>
+<span class="co">#&gt;     * cat: Cat Owners</span>
 <span class="co">#&gt;     * dog: Dog Owners</span>
 <span class="co">#&gt;   * Ordered: FALSE</span>
 <span class="co">#&gt; * happy (float): Happiness Score</span></pre></body></html></div>
 <p>But the codebook is actually a nested list formatted like this:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="no">cb</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>()
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">cb</span>)
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ @context        : chr "https://schema.org/"</span>
 <span class="co">#&gt;  $ @type           : chr "Dataset"</span>
@@ -146,15 +149,17 @@
 <span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
 <span class="co">#&gt;   .. ..$ name       : chr "pet"</span>
 <span class="co">#&gt;   .. ..$ description: chr "pet"</span>
-<span class="co">#&gt;   .. ..$ levels     : Named chr [1:2] "Cat Owners" "Dog Owners"</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "names")= chr [1:2] "cat" "dog"</span>
+<span class="co">#&gt;   .. ..$ levels     :List of 2</span>
+<span class="co">#&gt;   .. .. ..$ cat: chr "Cat Owners"</span>
+<span class="co">#&gt;   .. .. ..$ dog: chr "Dog Owners"</span>
 <span class="co">#&gt;   .. ..$ type       : chr "factor"</span>
 <span class="co">#&gt;   .. ..$ ordered    : logi FALSE</span>
 <span class="co">#&gt;   ..$ :List of 4</span>
 <span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
 <span class="co">#&gt;   .. ..$ name       : chr "happy"</span>
 <span class="co">#&gt;   .. ..$ description: chr "Happiness Score"</span>
-<span class="co">#&gt;   .. ..$ type       : chr "float"</span></pre></body></html></div>
+<span class="co">#&gt;   .. ..$ type       : chr "float"</span>
+<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></pre></body></html></div>
 <p>You can also view it in JSON format.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span>(<span class="no">study</span>, <span class="kw">data_id</span> <span class="kw">=</span> <span class="st">"pets"</span>, <span class="kw">as_json</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="co">#&gt; {</span>
@@ -173,10 +178,10 @@
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "pet",</span>
 <span class="co">#&gt;             "description": "pet",</span>
-<span class="co">#&gt;             "levels": [</span>
-<span class="co">#&gt;                 "Cat Owners",</span>
-<span class="co">#&gt;                 "Dog Owners"</span>
-<span class="co">#&gt;             ],</span>
+<span class="co">#&gt;             "levels": {</span>
+<span class="co">#&gt;                 "cat": "Cat Owners",</span>
+<span class="co">#&gt;                 "dog": "Dog Owners"</span>
+<span class="co">#&gt;             },</span>
 <span class="co">#&gt;             "type": "factor",</span>
 <span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
@@ -228,7 +233,12 @@
   )
 )
 
-<span class="fu"><a href="../reference/codebook.html">codebook</a></span>(<span class="no">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="no">vardesc</span>)
+<span class="kw pkg">faux</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/faux/man/codebook.html">codebook</a></span>(<span class="no">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="no">vardesc</span>)
+<span class="co">#&gt; [32mmpg set to type float[39m</span>
+<span class="co">#&gt; [32mdisp set to type float[39m</span>
+<span class="co">#&gt; [32mdrat set to type float[39m</span>
+<span class="co">#&gt; [32mwt set to type float[39m</span>
+<span class="co">#&gt; [32mqsec set to type float[39m</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "@context": "https://schema.org/",</span>
 <span class="co">#&gt;     "@type": "Dataset",</span>
@@ -248,7 +258,7 @@
 <span class="co">#&gt;             "description": "Number of cylinders",</span>
 <span class="co">#&gt;             "minValue": 4,</span>
 <span class="co">#&gt;             "maxValue": 8,</span>
-<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;             "type": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -260,7 +270,7 @@
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "hp",</span>
 <span class="co">#&gt;             "description": "Gross horsepower",</span>
-<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;             "type": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -288,7 +298,8 @@
 <span class="co">#&gt;                 "V-shaped",</span>
 <span class="co">#&gt;                 "straight"</span>
 <span class="co">#&gt;             ],</span>
-<span class="co">#&gt;             "type": "factor"</span>
+<span class="co">#&gt;             "type": "factor",</span>
+<span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -298,19 +309,20 @@
 <span class="co">#&gt;                 "automatic",</span>
 <span class="co">#&gt;                 "manual"</span>
 <span class="co">#&gt;             ],</span>
-<span class="co">#&gt;             "type": "factor"</span>
+<span class="co">#&gt;             "type": "factor",</span>
+<span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "gear",</span>
 <span class="co">#&gt;             "description": "Number of forward gears",</span>
-<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;             "type": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "carb",</span>
 <span class="co">#&gt;             "description": "Number of carburetors",</span>
-<span class="co">#&gt;             "type": "integer"</span>
+<span class="co">#&gt;             "type": "int"</span>
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>

@@ -94,6 +94,6 @@ test_that("complex study from json", {
   )
 
   cb_json <- s$data[[1]]$codebook
-  cb_data <- codebook(data, "kin", vardesc = vardesc, as_json = FALSE)
+  cb_data <- faux::codebook(data, "kin", vardesc = vardesc, as_json = FALSE)
   expect_equal(cb_json, cb_data)
 })

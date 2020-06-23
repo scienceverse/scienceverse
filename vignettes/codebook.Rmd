@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(scienceverse)
 ```
 
-Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default, although you can manually add your own codebook to the JSON file.
+Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default as set up in the function `faux::codebook()`, although you can manually add your own codebook to the JSON file.
 
 ## Automatic Codebooks for Simulated Data
 
@@ -51,7 +51,7 @@ cb
 But the codebook is actually a nested list formatted like this:
 
 ```{r}
-unclass(cb) %>% str()
+str(cb)
 ```
 
 You can also view it in JSON format.
@@ -99,6 +99,6 @@ vardesc <- list(
   )
 )
 
-codebook(mtcars, "Motor Trend Car Road Tests", vardesc)
+faux::codebook(mtcars, "Motor Trend Car Road Tests", vardesc)
 ```
 

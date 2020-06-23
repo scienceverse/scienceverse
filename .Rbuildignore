@@ -5,7 +5,7 @@
 ^README\.md$
 ^README\.html$
 ^LICENSE\.md$
-^reg\.Rproj$
+^scienceverse\.Rproj$
 ^\.Rproj\.user$
 ^pkgdown$
 ^app$

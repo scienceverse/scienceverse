@@ -4,7 +4,7 @@
 \alias{add_data}
 \title{Add Data}
 \usage{
-add_data(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
+add_data(study, id, data = NULL, vardesc = list(), design = NULL, ...)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
@@ -13,11 +13,11 @@ add_data(study, id, data = NULL, vardesc = NULL, design = NULL, ...)
 
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
 
-\item{vardesc}{Optional variable properties (see \code{codebook})}
+\item{vardesc}{Optional variable properties (see \code{faux::codebook})}
 
 \item{design}{A faux design specification}
 
-\item{...}{Further dataset properties (see \code{codebook})}
+\item{...}{Further dataset properties (see \code{faux::codebook})}
 }
 \value{
 A study object with class scivrs_study

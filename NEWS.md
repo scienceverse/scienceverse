@@ -1,3 +1,7 @@
+# scienceverse 0.0.0.9008 (2020-06-23)
+
+* New codebook vignette and enhanced codebook functions from faux
+
 # scienceverse 0.0.0.9007 (2020-03-17)
 
 * Streamlined how code is stored in the JSON file

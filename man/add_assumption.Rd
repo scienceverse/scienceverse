@@ -8,8 +8,8 @@ add_assumption(
   study,
   id = NULL,
   description = "",
-  hypothesis_id = NULL,
-  result = NULL
+  value = NULL,
+  hypothesis_id = NULL
 )
 }
 \arguments{
@@ -19,9 +19,9 @@ add_assumption(
 
 \item{description}{The text description of the assumption}
 
-\item{hypothesis_id}{A vector of hypothesis IDs that rely on this assumption}
-
 \item{value}{Whether the assumption is TRUE, FALSE or NULL (unknown)}
+
+\item{hypothesis_id}{A vector of hypothesis IDs that rely on this assumption}
 }
 \value{
 A study object with class scivrs_study

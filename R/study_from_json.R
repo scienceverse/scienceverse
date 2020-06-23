@@ -49,7 +49,7 @@ study_from_json <- function(filename) {
         coltypes <- NULL
 
         if (!is.null(study$data[[i]]$codebook)) {
-          class(study$data[[i]]$codebook) <- c("scivrs_codebook", "list")
+          class(study$data[[i]]$codebook) <- c("psychds_codebook", "list")
           vm <- study$data[[i]]$codebook$variableMeasured
           lvls <- sapply(vm, function(x) { x$levels })
           names(lvls) <- sapply(vm, function(x) { x$name })

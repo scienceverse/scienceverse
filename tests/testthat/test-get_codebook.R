@@ -23,6 +23,6 @@ test_that("messages", {
 test_that("default", {
   s <- study() %>% add_data("dat", data.frame(x = 1:10))
   cb <- get_codebook(s)
-  expect_s3_class(cb, "scivrs_codebook")
+  expect_s3_class(cb, "psychds_codebook")
   expect_s3_class(cb, "list")
 })

@@ -14,7 +14,7 @@ get_codebook(study, data_id = 1, as_json = FALSE)
 \item{as_json}{Return output in JSON format}
 }
 \value{
-a list with class scivrs_codebook
+a list with class codebook
 }
 \description{
 Get Codebook

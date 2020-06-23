@@ -30,7 +30,6 @@ reference:
       - author_jats
       - check_orcid
       - credit_roles
-      - codebook
       - get_data
       - get_power
       - get_result

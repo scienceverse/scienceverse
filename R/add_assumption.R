@@ -17,6 +17,6 @@
 #' @export
 #'
 add_assumption <- function(study, id = NULL, description = "",
-                           hypothesis_id = NULL, result = NULL) {
+                           value = NULL, hypothesis_id = NULL) {
     add_hypothesis(study, id, description)
 }

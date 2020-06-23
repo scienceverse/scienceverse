@@ -4,7 +4,7 @@
 #' @param data_id The id for the dataset (index or character)
 #' @param as_json Return output in JSON format
 #'
-#' @return a list with class scivrs_codebook
+#' @return a list with class codebook
 #' @export
 #'
 #' @examples
@@ -25,7 +25,7 @@ get_codebook <- function(study, data_id = 1, as_json = FALSE) {
       stop("Dataset ", data_id, " has neither a codebook nor data to make one")
     }
     message("Dataset ", data_id, " does not have a codebook; one is being created")
-    cb <- codebook(d$data, name = d$id, as_json = FALSE)
+    cb <- faux::codebook(d$data, name = d$id, as_json = FALSE)
   } else {
     cb <- d$codebook
   }
