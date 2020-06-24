@@ -1,3 +1,7 @@
+# scienceverse 0.0.0.9009 (2020-06-25)
+
+* Fixes for codebook changes in faux
+
 # scienceverse 0.0.0.9008 (2020-06-23)
 
 * New codebook vignette and enhanced codebook functions from faux

@@ -62,7 +62,7 @@ get_codebook(study, data_id = "pets", as_json = TRUE)
 
 ## Run Codebook on Existing Data
 
-You can run the codebook function on existing data, but will need to manually input some things. For now, the possible properties you can set are: "description", "privacy", "type", "propertyID", "minValue", "maxValue", "levels", "ordered", "na", "naValues", "alternateName", "unitCode".
+You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: "description", "privacy", "type", "propertyID", "minValue", "maxValue", "levels", "ordered", "na", "naValues", "alternateName", "unitCode". You can set unsupported properties, but this will produce a warning.
 
 ```{r}
 

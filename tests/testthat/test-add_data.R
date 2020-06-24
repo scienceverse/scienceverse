@@ -32,7 +32,7 @@ test_that("defaults", {
     if (is.numeric(iris[,i])) {
       expect_equal(vm$type, "float")
     } else if (is.factor(iris[,i])) {
-      expect_equal(vm$type, "factor")
+      expect_equal(vm$type, "string")
     }
   }
 })

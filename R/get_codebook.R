@@ -25,7 +25,7 @@ get_codebook <- function(study, data_id = 1, as_json = FALSE) {
       stop("Dataset ", data_id, " has neither a codebook nor data to make one")
     }
     message("Dataset ", data_id, " does not have a codebook; one is being created")
-    cb <- faux::codebook(d$data, name = d$id, as_json = FALSE)
+    cb <- faux::codebook(d$data, name = d$id, return = "list")
   } else {
     cb <- d$codebook
   }

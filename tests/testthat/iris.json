@@ -41,12 +41,12 @@
                         "@type": "PropertyValue",
                         "name": "Species",
                         "description": "Species",
-                        "type": "factor",
-                        "levels": [
-                            "setosa",
-                            "versicolor",
-                            "virginica"
-                        ],
+                        "type": "string",
+                        "levels": {
+                            "setosa": "setosa",
+                            "versicolor": "versicolor",
+                            "virginica": "virginica"
+                        },
                         "ordered": false
                     }
                 ]

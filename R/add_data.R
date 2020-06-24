@@ -45,9 +45,18 @@ add_data <- function(study, id, data = NULL,
   vm <- list()
   if (is.data.frame(data)) {
     # create codebook
-    cb <- faux::codebook(data = data, name = id,
+
+    if (all(names(data)[1:2] == c("rep", "data"))) {
+      subdata <- data$data[[1]]
+      attr(subdata, "design") <- attr(data, "design")
+      cb <- faux::codebook(data = subdata, name = id,
+                           vardesc = vardesc, ...,
+                           return = "list")
+    } else {
+      cb <- faux::codebook(data = data, name = id,
                    vardesc = vardesc, ...,
-                   as_json = FALSE)
+                   return = "list")
+    }
     d$codebook <- cb
     d$data <- data
   }
