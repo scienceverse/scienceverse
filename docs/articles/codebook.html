@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -117,16 +117,22 @@
                <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"Subject ID"</span>),
                <span class="kw">mu</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">12</span>),
                <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">4</span>)
-<span class="co">#&gt; [32mid set to type string[39m</span>
-<span class="co">#&gt; [32mpet set to type factor[39m</span>
-<span class="co">#&gt; [32mhappy set to type float[39m</span></pre></body></html></div>
+<span class="co">#&gt; id set to type string</span>
+<span class="co">#&gt; pet set to type string</span>
+<span class="co">#&gt; happy set to type float</span></pre></body></html></div>
 <p>You can retrieve the codebook with the function <code><a href="../reference/get_codebook.html">get_codebook()</a></code>. If you don’t specify the data_id, it defaults to the first data set in the study.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">cb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span>(<span class="no">study</span>, <span class="kw">data_id</span> <span class="kw">=</span> <span class="st">"pets"</span>)</pre></body></html></div>
 <p>If you just type the codebook object into the console, you’ll see the info formatted like this.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">cb</span>
 <span class="co">#&gt; Codebook for pets (Psych-DS 0.1.0)</span>
+<span class="co">#&gt; ========================================</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ===== Dataset Parameters =====</span>
+<span class="co">#&gt; * name: pets</span>
+<span class="co">#&gt; * schemaVersion: Psych-DS 0.1.0</span>
+<span class="co">#&gt; ===== Column Parameters =====</span>
 <span class="co">#&gt; * id (string): Subject ID</span>
-<span class="co">#&gt; * pet (factor)</span>
+<span class="co">#&gt; * pet (string)</span>
 <span class="co">#&gt;   * Levels</span>
 <span class="co">#&gt;     * cat: Cat Owners</span>
 <span class="co">#&gt;     * dog: Dog Owners</span>
@@ -152,7 +158,7 @@
 <span class="co">#&gt;   .. ..$ levels     :List of 2</span>
 <span class="co">#&gt;   .. .. ..$ cat: chr "Cat Owners"</span>
 <span class="co">#&gt;   .. .. ..$ dog: chr "Dog Owners"</span>
-<span class="co">#&gt;   .. ..$ type       : chr "factor"</span>
+<span class="co">#&gt;   .. ..$ type       : chr "string"</span>
 <span class="co">#&gt;   .. ..$ ordered    : logi FALSE</span>
 <span class="co">#&gt;   ..$ :List of 4</span>
 <span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
@@ -182,7 +188,7 @@
 <span class="co">#&gt;                 "cat": "Cat Owners",</span>
 <span class="co">#&gt;                 "dog": "Dog Owners"</span>
 <span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "type": "factor",</span>
+<span class="co">#&gt;             "type": "string",</span>
 <span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
@@ -198,7 +204,7 @@
 <div id="run-codebook-on-existing-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-codebook-on-existing-data" class="anchor"></a>Run Codebook on Existing Data</h2>
-<p>You can run the codebook function on existing data, but will need to manually input some things. For now, the possible properties you can set are: “description”, “privacy”, “type”, “propertyID”, “minValue”, “maxValue”, “levels”, “ordered”, “na”, “naValues”, “alternateName”, “unitCode”.</p>
+<p>You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: “description”, “privacy”, “type”, “propertyID”, “minValue”, “maxValue”, “levels”, “ordered”, “na”, “naValues”, “alternateName”, “unitCode”. You can set unsupported properties, but this will produce a warning.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r">
 
 <span class="no">vardesc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
@@ -234,11 +240,11 @@
 )
 
 <span class="kw pkg">faux</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/faux/man/codebook.html">codebook</a></span>(<span class="no">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="no">vardesc</span>)
-<span class="co">#&gt; [32mmpg set to type float[39m</span>
-<span class="co">#&gt; [32mdisp set to type float[39m</span>
-<span class="co">#&gt; [32mdrat set to type float[39m</span>
-<span class="co">#&gt; [32mwt set to type float[39m</span>
-<span class="co">#&gt; [32mqsec set to type float[39m</span>
+<span class="co">#&gt; mpg set to type float</span>
+<span class="co">#&gt; disp set to type float</span>
+<span class="co">#&gt; drat set to type float</span>
+<span class="co">#&gt; wt set to type float</span>
+<span class="co">#&gt; qsec set to type float</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "@context": "https://schema.org/",</span>
 <span class="co">#&gt;     "@type": "Dataset",</span>
@@ -294,22 +300,22 @@
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "vs",</span>
 <span class="co">#&gt;             "description": "Engine (0 = V-shaped, 1 = straight)",</span>
-<span class="co">#&gt;             "levels": [</span>
-<span class="co">#&gt;                 "V-shaped",</span>
-<span class="co">#&gt;                 "straight"</span>
-<span class="co">#&gt;             ],</span>
-<span class="co">#&gt;             "type": "factor",</span>
+<span class="co">#&gt;             "levels": {</span>
+<span class="co">#&gt;                 "0": "V-shaped",</span>
+<span class="co">#&gt;                 "1": "straight"</span>
+<span class="co">#&gt;             },</span>
+<span class="co">#&gt;             "type": "string",</span>
 <span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "am",</span>
 <span class="co">#&gt;             "description": "Transmission (0 = automatic, 1 = manual)",</span>
-<span class="co">#&gt;             "levels": [</span>
-<span class="co">#&gt;                 "automatic",</span>
-<span class="co">#&gt;                 "manual"</span>
-<span class="co">#&gt;             ],</span>
-<span class="co">#&gt;             "type": "factor",</span>
+<span class="co">#&gt;             "levels": {</span>
+<span class="co">#&gt;                 "0": "automatic",</span>
+<span class="co">#&gt;                 "1": "manual"</span>
+<span class="co">#&gt;             },</span>
+<span class="co">#&gt;             "type": "string",</span>
 <span class="co">#&gt;             "ordered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
