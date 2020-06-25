@@ -153,20 +153,31 @@ get_codebook(sim_study)
 
 Checking the data quality remains an important step before performing a meta-analysis based on available meta-study files. We are not suggesting a meta-analysis can be performed automatically. But if a researcher has information about the variables collected in a study, the process of combining studies becomes straightforward if we can read in meta-study files that contain the raw data and details about the tests that are performed.
 
-For example, for the last study we simulated, we have information about the analyses that were performed using the `output_analyses(sim_study)` function:
+For example, for the last study we simulated, we have information about the analyses that were performed:
 
-`r output_analyses(sim_study)`
+<div style="border: 2px solid grey; border-radius: 1em; padding: 1em;">
 
-We know a *t*-test was performed. We can examine the results of the study using the `output_results(sim_study)` function: 
+```{r, results='asis'}
+output_analyses(sim_study)
+```
 
-`r output_results(sim_study)`
+</div>
 
+We know a *t*-test was performed. We can examine the results of the study: 
+
+<div style="border: 2px solid grey; border-radius: 1em; padding: 1em;">
+
+```{r, results='asis'}
+output_results(sim_study)
+```
+
+</div>
 
 We see a single hypothesis was tested, and corroborated, in this study. For a *z*-curve or *p*-curve analysis, this makes it easy to select the test to include in the meta-analysis. If multiple tests are performed in a single study, we can select the hypothesis test of interest by specifying the ID. 
 
 The results can be accessed easily with the get_result function.
 
-```{r}
+```{r, results='asis'}
 # Get all results
 get_result(sim_study)
 ```
