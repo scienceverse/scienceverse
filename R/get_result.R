@@ -27,7 +27,9 @@ get_result <- function(study, result = NULL, analysis_id = 1) {
 
   if (is.null(result)) {
     # return all results
-    return(study$analyses[[idx]]$results)
+    res <- study$analyses[[idx]]$results
+    class(res) <- c("scivrs_results", "list")
+    return(res)
   } else if (is.null(study$analyses[[idx]]$results[[result]])) {
     # named result not found
     resnames <- names(study$analyses[[idx]]$results) %>%

@@ -3,7 +3,6 @@
 #' @param filename The name of the scienceverse-formatted json file
 #'
 #' @return A study object with class scivrs_study
-#' @export
 #'
 study_from_json <- function(filename) {
   if (!file.exists(filename)) {

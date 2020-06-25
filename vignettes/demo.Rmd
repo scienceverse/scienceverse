@@ -2,7 +2,7 @@
 title: "Quick Demo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Machine Readable Hypothesis Tests}
+  %\VignetteIndexEntry{Quick Demo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -110,6 +110,11 @@
 <span class="co">#&gt; http://debruine.github.io/faux/</span>
 <span class="co">#&gt; - Get and set global package options with: faux_options()</span>
 <span class="co">#&gt; ************</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'faux'</span>
+<span class="co">#&gt; The following object is masked from 'package:scienceverse':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     codebook</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></body></html></div>
 <p>First, I use the <code><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design()</a></code> function from faux to visualise the design for my proposed study. I’m simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.</p>
@@ -230,10 +235,10 @@
   <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">2</span>
 ) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span>()
-<span class="co">#&gt; [32mid set to type string[39m</span>
-<span class="co">#&gt; [32mpet set to type factor[39m</span>
-<span class="co">#&gt; [32mhappy set to type float[39m</span>
-<span class="co">#&gt; [32msmug set to type float[39m</span>
+<span class="co">#&gt; id set to type string</span>
+<span class="co">#&gt; pet set to type string</span>
+<span class="co">#&gt; happy set to type float</span>
+<span class="co">#&gt; smug set to type float</span>
 <span class="co">#&gt; Hypothesis Happy, Criterion happy_c:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
 <span class="co">#&gt;     p.value = 0.13</span>
@@ -265,8 +270,10 @@
   <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">2</span>,
   <span class="kw">rep</span> <span class="kw">=</span> <span class="fl">1000</span>
 )
-<span class="co">#&gt; [32mrep set to type int[39m</span>
-<span class="co">#&gt; [32mdata set to type list[39m</span></pre></body></html></div>
+<span class="co">#&gt; id set to type string</span>
+<span class="co">#&gt; pet set to type string</span>
+<span class="co">#&gt; happy set to type float</span>
+<span class="co">#&gt; smug set to type float</span></pre></body></html></div>
 <p>Use the <code>study_power</code> function to run the analyses on each simulated dataset and return the percent of datasets that lead to each possible conclusion for each hypothesis.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">simstudy</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span>(<span class="no">simstudy</span>)
 <span class="co">#&gt; Hypothesis Happy</span>

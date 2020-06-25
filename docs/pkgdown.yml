@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   codebook: codebook.html
   demo: demo.html
+  meta: meta.html
   sim: sim.html
-last_built: 2020-06-23T14:40Z
+last_built: 2020-06-25T11:40Z
 

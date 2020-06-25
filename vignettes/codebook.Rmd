@@ -99,6 +99,6 @@ vardesc <- list(
   )
 )
 
-faux::codebook(mtcars, "Motor Trend Car Road Tests", vardesc)
+codebook(mtcars, "Motor Trend Car Road Tests", vardesc)
 ```
 

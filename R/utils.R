@@ -233,3 +233,14 @@ load_params <- function(params, study) {
 print.scivrs_study <- function(x, ...) {
   utils::str(x)
 }
+
+#' Print Results List
+#'
+#' @param x The scivrs_results list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.scivrs_results <- function(x, ...) {
+  cat(faux::nested_list(x))
+}

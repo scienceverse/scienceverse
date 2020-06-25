@@ -25,7 +25,7 @@ Imports:
     stringr,
     rmarkdown,
     rio,
-    faux (>= 0.0.1.0),
+    faux (>= 0.0.1.1),
     methods
 Suggests: 
     testthat (>= 2.1.0),

@@ -5,9 +5,9 @@
 #' @param study A study list object with class scivrs_study
 #' @param id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
-#' @param vardesc Optional variable properties (see `faux::codebook`)
+#' @param vardesc Optional variable properties (see {{codebook}})
 #' @param design A faux design specification
-#' @param ... Further dataset properties (see `faux::codebook`)
+#' @param ... Further dataset properties (see {{codebook}})
 #'
 #' @return A study object with class scivrs_study
 #' @examples
@@ -49,13 +49,13 @@ add_data <- function(study, id, data = NULL,
     if (all(names(data)[1:2] == c("rep", "data"))) {
       subdata <- data$data[[1]]
       attr(subdata, "design") <- attr(data, "design")
-      cb <- faux::codebook(data = subdata, name = id,
-                           vardesc = vardesc, ...,
-                           return = "list")
+      cb <- codebook(data = subdata, name = id,
+                     vardesc = vardesc, ...,
+                     return = "list")
     } else {
-      cb <- faux::codebook(data = data, name = id,
-                   vardesc = vardesc, ...,
-                   return = "list")
+      cb <- codebook(data = data, name = id,
+                     vardesc = vardesc, ...,
+                     return = "list")
     }
     d$codebook <- cb
     d$data <- data

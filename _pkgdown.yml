@@ -22,14 +22,15 @@ reference:
     contents:
       - study_analyse
       - study_save
-      - study_json
       - study_power
   - title: "Other Functions"
     contents:
       - author
       - author_jats
       - check_orcid
+      - codebook
       - credit_roles
+      - get_codebook
       - get_data
       - get_power
       - get_result
@@ -44,3 +45,4 @@ articles:
       - demo
       - sim
       - codebook
+      - meta

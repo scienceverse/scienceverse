@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -172,7 +172,7 @@
            <span class='st'>"Petal width is significantly and negatively correlated to length"</span>,
            <span class='st'>"sig &amp; !pos"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to type factor</span><span></span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1, Criterion sig:</span>
+  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to type string</span><span></span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1, Criterion sig:</span>
 #&gt; <span class='message'>    p.value &lt; 0.05 is TRUE</span>
 #&gt; <span class='message'>    p.value = 0</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1, Criterion pos:</span>
 #&gt; <span class='message'>    estimate &gt; 0 is TRUE</span>
@@ -256,12 +256,12 @@
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Species",
 #&gt;                         "description": "Species",
-#&gt;                         "type": "factor",
-#&gt;                         "levels": [
-#&gt;                             "setosa",
-#&gt;                             "versicolor",
-#&gt;                             "virginica"
-#&gt;                         ],
+#&gt;                         "type": "string",
+#&gt;                         "levels": {
+#&gt;                             "setosa": "setosa",
+#&gt;                             "versicolor": "versicolor",
+#&gt;                             "virginica": "virginica"
+#&gt;                         },
 #&gt;                         "ordered": false
 #&gt;                     }
 #&gt;                 ]
