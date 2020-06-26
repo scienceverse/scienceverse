@@ -22,10 +22,14 @@ output_custom_code <- function(study, analysis_id = 1) {
       jsonlite::toJSON() %>%
       jsonlite::fromJSON() %>%
       as.list()
+
+    analysis$code[[1]] <- paste0(analysis$code[[1]],
+                                analysis$code[[2]])
+    analysis$code <- analysis$code[-2]
   }
 
   func <- paste0("analysis_", analysis$id, "_func")
-  paste(func, " <-",
+  paste0(func, " &lt;-",
     paste(analysis$code, collapse= "\n")
   )
 }
@@ -190,8 +194,8 @@ output_analyses <- function(study, header_lvl = 2) {
         " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
 
     output_custom_code(study, i) %>%
-      paste("<code><pre>", ., "</pre></code>\n\n") %>%
-      cat()
+      paste0() %>%
+      cat("<pre>", ., "</pre>\n\n", sep = "")
   }
 
   invisible(study)
