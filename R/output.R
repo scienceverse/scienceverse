@@ -29,7 +29,7 @@ output_custom_code <- function(study, analysis_id = 1) {
   }
 
   func <- paste0("analysis_", analysis$id, "_func")
-  paste0(func, " &lt;-",
+  paste0(func, " &lt;- ",
     paste(analysis$code, collapse= "\n")
   )
 }
