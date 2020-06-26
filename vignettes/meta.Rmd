@@ -36,7 +36,7 @@ This example is part of:
 
 Lakens, D., & DeBruine, L. M. (2020). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <https://doi.org/10.31234/osf.io/5xcda>
 
-# The problem
+## The problem
 
 Researchers face several challenges when they want to perform a meta-analysis. The first problem is a lack of access to the data underlying the reported results. Many scientific papers do not report results adequately. Despite recommendations to always report and interpret effect sizes, many researchers don't include effect sizes in their results section. Meta-analysists can attempt to manually calculate effect sizes, but this requires knowing the means, standard deviations, correlations for within comparisons, and exact sample sizes for each condition, which are often not reported either. Effect sizes can sometimes still be approximated from test statistics, but even these are often missing for non-significant results. The second problem a meta-analysist faces is a lack of transparency about which statistical tests in the results section are related to the predictions in the introduction section. This can make it difficult to select the best test to include in a meta-analysis.
 
@@ -155,23 +155,18 @@ Checking the data quality remains an important step before performing a meta-ana
 
 For example, for the last study we simulated, we have information about the analyses that were performed:
 
-<div style="border: 2px solid grey; border-radius: 1em; padding: 1em;">
-
 ```{r, results='asis'}
-output_analyses(sim_study)
+output_analyses(sim_study, header_lvl = 4)
 ```
 
-</div>
 
 We know a *t*-test was performed. We can examine the results of the study: 
 
-<div style="border: 2px solid grey; border-radius: 1em; padding: 1em;">
-
 ```{r, results='asis'}
-output_results(sim_study)
+output_results(sim_study, header_lvl = 4)
 ```
 
-</div>
+
 
 We see a single hypothesis was tested, and corroborated, in this study. For a *z*-curve or *p*-curve analysis, this makes it easy to select the test to include in the meta-analysis. If multiple tests are performed in a single study, we can select the hypothesis test of interest by specifying the ID. 
 
@@ -197,7 +192,7 @@ head(get_data(sim_study))
 
 We will now illustrate how these functions, together with the meta-study files, can be used to perform a *z*-curve analysis, an effect size meta-analysis, and a *p*-curve analysis. 
 
-# Z-curve analysis
+## Z-curve analysis
 
 There are several meta-analytic techniques to examine the literature. A relatively novel technique is *z*-curve, which is basically a meta-analysis of observed power (Bartos & Schimmack, 2020; Schimmack & Brunner, 2020). This analysis can be used to examine selection bias in the literature. Scientists often selectively report only statistically significant results in their manuscript, and fail to report non-significant tests they have performed. This selection for significant results introduces bias in the scientific literature. 
 
@@ -220,7 +215,7 @@ summary(z_res, all = TRUE)
 
 We see that `r z_res$fit$N_fit` out of `r nsim` studies were significant, which makes the observed power (across all these studies with different sample sizes) 60% (95% CI[0.45;0.73]). The expected discovery rate (EDR) does not statistically differ from the observed discovery rate, which means there is no indication of selection bias based on the *z*-curve analysis (and indeed, we know there was no selection bias in the simulation).    
 
-# Meta-Analysis
+## Meta-Analysis
 
 The studies all had as their main goal to examine the effect of a treatment on happiness, but all studies also collected data on the pet each participant had. Because the raw data is saved in scienceverse, and all studies share the variables *pet* (dog vs cat) and *happiness*, we can easily perform a meta-analysis across all studies for both the effect of type of pet and the treatment on happiness.
 
@@ -284,7 +279,7 @@ metafor::forest(res)
 
 In this case, not only were the meta-study files well structured, but all studies were identical. In practice, researchers would most likely need to organize the data in meta-study files so that it can be used for their analysis (e.g., generating additional grouping variables) but having the data, codebook, and analyses all accessible should greatly facilitate meta-analyses even for different sets of studies. If fields are able to standardize their measures and create shared naming conventions, one could search datasets across all available meta-study files to identify relevant studies. 
 
-# P-curve Analysis
+## P-curve Analysis
 
 A *p*-curve analysis examines the distribution of *p*-values, and compares the distribution against the predicted pattern when the null-hypothesis is true, or when there is a true effect tested with some assumed power (Simonsohn, Nelson, & Simmons, 2014). Performing a *p*-curve analysis requires the results of statistical tests to be entered. The analysis can be performed by either retrieving the test statistics, and converting these to *p*-values, or by directly using the *p*-values (as we do in the code below).
 

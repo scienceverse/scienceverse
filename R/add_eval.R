@@ -3,7 +3,7 @@
 #' Add evalution criterion to a hypothesis in a study object
 #'
 #' @param study A study list object with class scivrs_study
-#' @param type "corroboration" or "falsification"
+#' @param type "corroboration" or "falsification" (or "c"/"f")
 #' @param description A verbal description of the conditions for corroborating the hypothesis
 #' @param evaluation A logical representation of these conditions using the criteria IDs, parentheses, &, | and ! (e.g., "(c1 & c2) | (c3 & !c4)")
 #' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
@@ -49,8 +49,15 @@ add_eval <- function(study, type, description, evaluation,
     }
   }
 
+  # check type
+  type_f <- substr(type, 1, 1) %>% tolower()
+  if (!(type_f %in% c("c", "f"))) {
+    stop("The type must be one of 'corroboration' or 'falsification' (or 'c'/'f')")
+  }
+  checked_type <- ifelse(type_f == "c", "corroboration", "falsification")
+
   # add evaluation to hypothesis
-  study$hypotheses[[hypothesis$idx]][[type]] <- list(
+  study$hypotheses[[hypothesis$idx]][[checked_type]] <- list(
     description = description,
     evaluation = evaluation
   )

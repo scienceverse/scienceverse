@@ -25,8 +25,7 @@ output_custom_code <- function(study, analysis_id = 1) {
   }
 
   func <- paste0("analysis_", analysis$id, "_func")
-  paste(
-    func, "<-",
+  paste(func, " <-",
     paste(analysis$code, collapse= "\n")
   )
 }
@@ -38,20 +37,23 @@ output_custom_code <- function(study, analysis_id = 1) {
 #' Output hypotheses specified in the json file
 #'
 #' @param study A study list object with class scivrs_study
+#' @param header_lvl The starting header level for the section (defaults to 2)
 #' @return The study object
 #'
 #' @export
 
-output_hypotheses <- function(study) {
-  cat("## Hypotheses\n\n")
+output_hypotheses <- function(study, header_lvl = 2) {
+  header <- rep("#", header_lvl) %>% paste(collapse = "")
+
+  cat(header, "Hypotheses\n\n")
 
   for (i in 1:length(study$hypotheses)) {
 
-    cat("### Hypothesis ", i,
+    cat(header, "# Hypothesis ", i,
         ": ", study$hypotheses[[i]]$id, "\n\n",
         study$hypotheses[[i]]$description, "\n\n", sep = "")
 
-    cat("#### Criteria\n\n")
+    cat(header, "## Criteria\n\n", sep = "")
     criteria <- study$hypotheses[[i]]$criteria
 
     for (j in 1:length(criteria)) {
@@ -68,11 +70,11 @@ output_hypotheses <- function(study) {
     cat("\n")
 
     # explain evaluation
-    cat("#### Evaluation\n\n")
-    cat("##### Corroboration\n\n")
+    cat(header, "## Evaluation\n\n", sep = "")
+    cat(header, "### Corroboration\n\n", sep = "")
     cat(study$hypotheses[[i]]$corroboration$description, "\n\n")
     cat("```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
-    cat("##### Falsification\n\n")
+    cat(header, "### Falsification\n\n", sep = "")
     cat(study$hypotheses[[i]]$falsification$description, "\n\n")
     cat("```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
     cat("All other patterns of results are inconclusive.")
@@ -90,16 +92,19 @@ output_hypotheses <- function(study) {
 #'
 #' @param study A study list object with class scivrs_study
 #' @param digits integer indicating the number of decimal places.
+#' @param header_lvl The starting header level for the section (defaults to 2)
 #' @return The study object
 #'
 #' @export
 
-output_results <- function(study, digits = 3) {
-  cat("## Results\n\n")
+output_results <- function(study, digits = 3, header_lvl = 2) {
+  header <- rep("#", header_lvl) %>% paste(collapse = "")
+
+  cat(header, "Results\n\n")
   for (i in 1:length(study$hypotheses)) {
     h <- study$hypotheses[[i]]
 
-    cat("### Hypothesis ", i, ": ", h$id, "\n\n", h$desc, "\n\n", sep = "")
+    cat(header, "# Hypothesis ", i, ": ", h$id, "\n\n", h$desc, "\n\n", sep = "")
 
     criteria <- h$criteria
     analysis_ids <- sapply(study$analyses, function(x) {x$id})
@@ -136,12 +141,12 @@ output_results <- function(study, digits = 3) {
     cc <- h$corroboration
     ff <- h$falsification
     conc_color <- ifelse(cc$result, "green", "red")
-    cat("#### Corroboration (<span style=\"color:", conc_color, "\">", cc$result, "</span>)\n\n")
+    cat(header, "## Corroboration (<span style=\"color:", conc_color, "\">", cc$result, "</span>)\n\n", sep = "")
     cat(cc$description, "\n\n")
     cat("```\n", cc$evaluation, "\n```\n\n")
 
     conc_color <- ifelse(ff$result, "green", "red")
-    cat("#### Falsification (<span style=\"color:", conc_color, "\">", ff$result, "</span>)\n\n")
+    cat(header, "## Falsification (<span style=\"color:", conc_color, "\">", ff$result, "</span>)\n\n", sep = "")
     cat(ff$description, "\n\n")
     cat("```\n", ff$evaluation, "\n```\n\n")
 
@@ -170,15 +175,18 @@ output_results <- function(study, digits = 3) {
 #' Output analysis plan specified in the json file
 #'
 #' @param study A study list object with class scivrs_study
+#' @param header_lvl The starting header level for the section (defaults to 2)
 #' @return The study object
 #'
 #' @export
 
-output_analyses <- function(study) {
-  cat("## Analyses\n\n")
+output_analyses <- function(study, header_lvl = 2) {
+  header <- rep("#", header_lvl) %>% paste(collapse = "")
+
+  cat(header, "Analyses\n\n")
 
   for (i in 1:length(study$analyses)) {
-    cat("### Analysis ", i, ": ", study$analyses[[i]]$id,
+    cat(header, "# Analysis ", i, ": ", study$analyses[[i]]$id,
         " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
 
     output_custom_code(study, i) %>%

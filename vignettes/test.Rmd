@@ -1,0 +1,11 @@
+---
+output: rmarkdown::html_vignette
+---
+
+```{r, results='asis'}
+library(scienceverse)
+study() %>%
+  add_analysis("A1", t.test(rnorm(10))) %>%
+  output_analyses()
+```
+
