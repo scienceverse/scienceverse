@@ -4,10 +4,12 @@
 \alias{output_analyses}
 \title{Output analyses}
 \usage{
-output_analyses(study)
+output_analyses(study, header_lvl = 2)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
+
+\item{header_lvl}{The starting header level for the section (defaults to 2)}
 }
 \value{
 The study object

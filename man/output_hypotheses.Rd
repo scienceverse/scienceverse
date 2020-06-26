@@ -4,10 +4,12 @@
 \alias{output_hypotheses}
 \title{Output hypotheses}
 \usage{
-output_hypotheses(study)
+output_hypotheses(study, header_lvl = 2)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
+
+\item{header_lvl}{The starting header level for the section (defaults to 2)}
 }
 \value{
 The study object

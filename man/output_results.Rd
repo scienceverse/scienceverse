@@ -4,12 +4,14 @@
 \alias{output_results}
 \title{Output results}
 \usage{
-output_results(study, digits = 3)
+output_results(study, digits = 3, header_lvl = 2)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{digits}{integer indicating the number of decimal places.}
+
+\item{header_lvl}{The starting header level for the section (defaults to 2)}
 }
 \value{
 The study object

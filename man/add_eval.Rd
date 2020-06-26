@@ -9,7 +9,7 @@ add_eval(study, type, description, evaluation, hypothesis_id = NULL)
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
-\item{type}{"corroboration" or "falsification"}
+\item{type}{"corroboration" or "falsification" (or "c"/"f")}
 
 \item{description}{A verbal description of the conditions for corroborating the hypothesis}
 

@@ -1,0 +1,74 @@
+---
+title: "Better Functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Better Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scienceverse)
+```
+
+Scienceverse provides some functions to replace common tests like `t.test` to provide data that is useful for meta-analyses. There is only one very basic example right now, but we will expand this in the future.
+
+## t.test vs t_test
+
+The output of `t.test` does not return the number of data points per group. You can figure this out from the df for one-sample and paired t-tests, but not for two-sample t-tests. The function `t_test` returns a list with the same items as `t.test` plus `n`, which is the number of data points or pairs included in the one-sample or paired t-test (after excluding NAs, which `t.test` does silently), or a 2-number named vector of the number of data points in each group for a two-sample t-test.
+
+### Data
+
+First, we'll set up an example data frame with 20 rows, two continuous columns (x and y) and a grouping column (g).
+
+```{r}
+dat <- data.frame(
+  x = rnorm(20),
+  y = rnorm(20, 0.5),
+  g = rep(c("G1", "G2"), 10)
+)
+```
+
+### One sample
+
+```{r}
+res <- t_test(dat$x)
+res$n
+```
+
+### Paired samples
+
+```{r}
+res <- t_test(dat$x, dat$y, paired = TRUE)
+res$n
+```
+
+### Independent samples
+
+```{r}
+Grp1 <- dat[dat$g== "G1", ]$x
+Grp2 <- dat[dat$g== "G2", ]$x
+res <- t_test(Grp1, Grp2)
+res$n
+```
+
+The `n` is a named vector for independent-samples t-tests. The name comes from the variable names of `x` and `y` (not their original names in the data frame), unless you specify it directly with the `names` argument.
+
+```{r}
+res <- t_test(Grp1, Grp2, names = c("A", "B"))
+res$n
+```
+
+You can also use the formula version.
+
+```{r}
+res <- t_test(x ~ g, data = dat)
+res$n
+```
