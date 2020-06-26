@@ -2,10 +2,22 @@
 output: rmarkdown::html_vignette
 ---
 
-```{r, results='asis'}
+```{r}
 library(scienceverse)
-study() %>%
-  add_analysis("A1", t.test(rnorm(10))) %>%
-  output_analyses()
+
+
+sim_study <- study() %>%
+  add_analysis(
+  id = "ttest",
+  code = t.test(happiness~treatment,
+                data = dat, 
+                alternative = "two.sided",
+                paired = FALSE, 
+                conf.level = 0.95), 
+  software = R.version.string)
+  
 ```
 
+```{r, results='asis'}
+output_analyses(sim_study)
+```

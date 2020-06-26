@@ -103,21 +103,25 @@
 ## http://scienceverse.github.io/
 ## - Get and set global package options with: scienceverse_options()
 ## ************</code></pre>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/study.html">study</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span>(<span class="st">"A1"</span>, <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">10</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/output_analyses.html">output_analyses</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">sim_study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span>(
+  <span class="kw">id</span> <span class="kw">=</span> <span class="st">"ttest"</span>,
+  <span class="kw">code</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(<span class="no">happiness</span>~<span class="no">treatment</span>,
+                <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>,
+                <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">"two.sided"</span>,
+                <span class="kw">paired</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                <span class="kw">conf.level</span> <span class="kw">=</span> <span class="fl">0.95</span>),
+  <span class="kw">software</span> <span class="kw">=</span> <span class="no">R.version.string</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/output_analyses.html">output_analyses</a></span>(<span class="no">sim_study</span>)</pre></body></html></div>
 <div id="analyses" class="section level2">
 <h2 class="hasAnchor">
 <a href="#analyses" class="anchor"></a>Analyses</h2>
-<div id="A1" class="section level3">
+<div id="ttest" class="section level3">
 <h3 class="hasAnchor">
-<a href="#A1" class="anchor"></a>Analysis 1: A1</h3>
+<a href="#ttest" class="anchor"></a>Analysis 1: ttest</h3>
 <code>
-<pre> analysis_A1_func  &lt;- function () 
-{
-    t.test(rnorm(10))
-} </pre>
-<p></p></code>
+<pre> analysis_ttest_func  
+<p></p></pre></code>
 </div>
 </div>
   </div>
