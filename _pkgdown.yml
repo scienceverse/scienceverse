@@ -25,6 +25,7 @@ reference:
       - study_power
       - make_script
       - make_data
+      - eval_summary
   - title: "Other Functions"
     contents:
       - author
@@ -34,6 +35,7 @@ reference:
       - credit_roles
       - get_codebook
       - get_data
+      - get_html
       - get_power
       - get_result
       - output_custom_code
@@ -41,6 +43,7 @@ reference:
       - output_hypotheses
       - output_analyses
       - output_results
+      - t_test
       - scienceverse_options
 articles:
   - title: "Articles"

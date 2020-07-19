@@ -172,14 +172,19 @@
            <span class='st'>"Petal width is significantly and negatively correlated to length"</span>,
            <span class='st'>"sig &amp; !pos"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to type string</span><span></span></div><div class='output co'>#&gt; <span class='message'>Hypothesis `H1`, Criterion `sig`:</span>
-#&gt; <span class='message'>    p.value &lt; 0.05 is TRUE</span>
-#&gt; <span class='message'>    p.value = 0.00</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis `H1`, Criterion `pos`:</span>
-#&gt; <span class='message'>    estimate &gt; 0 is TRUE</span>
-#&gt; <span class='message'>    estimate = 0.96</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1:</span>
-#&gt; <span class='message'>    Corroborate: TRUE</span>
-#&gt; <span class='message'>    Falsify: FALSE</span>
-#&gt; <span class='message'>    Conclusion: corroborate</span></div><div class='input'><span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
+  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to type string</span><span></span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1: Petal width and length will be positively correlated.</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>Criterion sig:</span>
+#&gt; <span class='message'>* p.value &lt; 0.05 is TRUE</span>
+#&gt; <span class='message'>* p.value = 0.000</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>Criterion pos:</span>
+#&gt; <span class='message'>* estimate &gt; 0 is TRUE</span>
+#&gt; <span class='message'>* estimate = 0.963</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>Conclusion: corroborate</span>
+#&gt; <span class='message'>* Corroborate (sig &amp; pos): TRUE</span>
+#&gt; <span class='message'>* Falsify (sig &amp; !pos): FALSE</span></div><div class='input'><span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
 #&gt;     "name": "Demo Study",
 #&gt;     "info": [],
 #&gt;     "authors": [],

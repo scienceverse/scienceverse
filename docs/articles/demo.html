@@ -261,22 +261,27 @@
 <a href="#run-the-analysis" class="anchor"></a>Run the analysis</h3>
 <p>When you run <code>study_analyze</code> (or <code>stdy_analyse</code>), the data are loaded as their <code>id</code> names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyze</a></span>(<span class="no">study</span>)
-<span class="co">#&gt; Hypothesis `self_pref`, Criterion `trust_lowbound`:</span>
-<span class="co">#&gt;     conf.int[1] &gt; 0 is TRUE</span>
-<span class="co">#&gt;     conf.int[1] = 0.02</span>
-<span class="co">#&gt; Hypothesis `self_pref`, Criterion `trust_highbound`:</span>
-<span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span>
-<span class="co">#&gt;     conf.int[2] = 0.98</span>
-<span class="co">#&gt; Hypothesis `self_pref`, Criterion `recip_lowbound`:</span>
-<span class="co">#&gt;     conf.int[1] &gt; 0 is FALSE</span>
-<span class="co">#&gt;     conf.int[1] = -0.51</span>
-<span class="co">#&gt; Hypothesis `self_pref`, Criterion `recip_highbound`:</span>
-<span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span>
-<span class="co">#&gt;     conf.int[2] = 0.43</span>
-<span class="co">#&gt; Hypothesis self_pref:</span>
-<span class="co">#&gt;     Corroborate: TRUE</span>
-<span class="co">#&gt;     Falsify: FALSE</span>
-<span class="co">#&gt;     Conclusion: corroborate</span></pre></body></html></div>
+<span class="co">#&gt; Hypothesis self_pref: Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion trust_lowbound:</span>
+<span class="co">#&gt; * conf.int[1] &gt; 0 is TRUE</span>
+<span class="co">#&gt; * conf.int[1] = 0.021</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion trust_highbound:</span>
+<span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span>
+<span class="co">#&gt; * conf.int[2] = 0.979</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion recip_lowbound:</span>
+<span class="co">#&gt; * conf.int[1] &gt; 0 is FALSE</span>
+<span class="co">#&gt; * conf.int[1] = -0.509</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion recip_highbound:</span>
+<span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span>
+<span class="co">#&gt; * conf.int[2] = 0.426</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Conclusion: corroborate</span>
+<span class="co">#&gt; * Corroborate ((trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)): TRUE</span>
+<span class="co">#&gt; * Falsify (!trust_highbound &amp; !recip_highbound): FALSE</span></pre></body></html></div>
 </div>
 <div id="save" class="section level3">
 <h3 class="hasAnchor">

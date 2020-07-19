@@ -31,7 +31,8 @@ Imports:
     rio,
     faux,
     methods,
-    stats
+    stats,
+    utils
 Suggests: 
     testthat (>= 2.1.0),
     knitr,

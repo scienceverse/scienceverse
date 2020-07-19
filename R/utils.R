@@ -300,7 +300,22 @@ load_params <- function(params, study) {
 #' @export
 #'
 print.scivrs_study <- function(x, ...) {
-  utils::str(x)
+  hyp <- sapply(x$hypotheses, `[[`, "id") %>%
+    paste(collapse = ", ")
+  if (hyp == "") hyp <- "None"
+
+  dat <- sapply(x$data, `[[`, "id") %>%
+    paste(collapse = ", ")
+  if (dat == "") dat <- "None"
+
+  ana <- sapply(x$analyses, `[[`, "id") %>%
+    paste(collapse = ", ")
+  if (ana == "") ana <- "None"
+
+  underline <- rep("-", nchar(x$name)) %>% paste(collapse="")
+  txt <- sprintf("%s\n%s\n\n* Hypotheses: %s\n* Data: %s\n* Analyses: %s\n\n%s", x$name, underline, hyp, dat, ana, eval_summary(x))
+
+  cat(txt)
 }
 
 #' Print Results List

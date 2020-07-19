@@ -19,9 +19,9 @@ make_data <- function(study, dir = "data", format = c("tsv", "csv"), ...) {
 
     # write data
     if (format == "tsv") {
-      write.table(d$data, filename, sep = "\t", row.names = FALSE, ...)
+      utils::write.table(d$data, filename, sep = "\t", row.names = FALSE, ...)
     } else if (format == "csv") {
-      write.csv(d$data, filename, row.names = FALSE, ...)
+      utils::write.csv(d$data, filename, row.names = FALSE, ...)
     }
 
     # write codebooks

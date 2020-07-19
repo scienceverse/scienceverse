@@ -10,7 +10,7 @@ get_result(
   analysis_id = 1,
   digits = getOption("digits", 3),
   return = c("value", "char", "html"),
-  analysis_link = "analysis.html"
+  analysis_link = ""
 )
 }
 \arguments{

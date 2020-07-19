@@ -1521,12 +1521,12 @@ div.tocify {
 <h3>dat</h3>
 <ul>
 <li>id (string)</li>
-<li>group (string)
+<li>pet (string)
 <ul>
 <li>Levels
 <ul>
-<li>A</li>
-<li>B</li>
+<li>dog</li>
+<li>cat</li>
 </ul></li>
 <li>Ordered: FALSE</li>
 </ul></li>
@@ -1539,84 +1539,94 @@ div.tocify {
 </ul></li>
 <li>Ordered: FALSE</li>
 </ul></li>
-<li>size (float)</li>
+<li>y (float)</li>
 </ul>
 <pre class="r"><code>dat &lt;- read.csv(&#39;data/dat_data.tsv&#39;, sep=&#39;\t&#39;)</code></pre>
 </div>
 </div>
 <div id="analysis_1" class="section level2">
 <h2>Analysis 1: A1</h2>
-<pre class="r"><code>    t.test(size ~ group, dat)
+<pre class="r"><code>    scienceverse::t_test(y ~ pet, dat)
 #&gt; 
 #&gt;  Welch Two Sample t-test
 #&gt; 
-#&gt; data:  size by group
-#&gt; t = -0.24026, df = 111.51, p-value = 0.8106
+#&gt; data:  y by pet
+#&gt; t = -4, df = 118, p-value = 6e-05
 #&gt; alternative hypothesis: true difference in means is not equal to 0
 #&gt; 95 percent confidence interval:
-#&gt;  -4.155145  3.256451
+#&gt;  -5.88 -2.10
 #&gt; sample estimates:
-#&gt; mean in group A mean in group B 
-#&gt;        101.1039        101.5532</code></pre>
+#&gt; mean in group cat mean in group dog 
+#&gt;              7.07             11.06</code></pre>
 <div id="stored-results" class="section level3">
 <h3>Stored Results</h3>
 <ul>
-<li>statistic: -0.2403</li>
-<li>parameter: 111.5102</li>
-<li>p.value: 0.8106</li>
+<li>statistic: 4.1843</li>
+<li>parameter: 117.806</li>
+<li>p.value: 1e-04</li>
 <li>conf.int:
 <ul>
-<li>-4.1552</li>
-<li>3.2564</li>
+<li>2.1027</li>
+<li>5.8814</li>
 </ul></li>
 <li>estimate:
 <ul>
-<li>101.1039</li>
-<li>101.5532</li>
+<li>11.0571</li>
+<li>7.065</li>
 </ul></li>
 <li>null.value: 0</li>
-<li>stderr: 1.8702</li>
+<li>stderr: 0.954</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
-<li>data.name: size by group</li>
+<li>data.name: y by pet</li>
+<li>n:
+<ul>
+<li>60</li>
+<li>60</li>
+</ul></li>
 </ul>
 </div>
 </div>
 <div id="analysis_2" class="section level2">
 <h2>Analysis 2: A2</h2>
-<pre class="r"><code>    t.test(size ~ time, dat)
+<pre class="r"><code>    scienceverse::t_test(y ~ time, dat)
 #&gt; 
 #&gt;  Welch Two Sample t-test
 #&gt; 
-#&gt; data:  size by time
-#&gt; t = 2.2828, df = 116.13, p-value = 0.02426
+#&gt; data:  y by time
+#&gt; t = -0.05, df = 118, p-value = 1
 #&gt; alternative hypothesis: true difference in means is not equal to 0
 #&gt; 95 percent confidence interval:
-#&gt;  0.5531611 7.8049456
+#&gt;  -2.07  1.98
 #&gt; sample estimates:
 #&gt; mean in group morning   mean in group night 
-#&gt;             103.41808              99.23902</code></pre>
+#&gt;                  9.04                  9.08</code></pre>
 <div id="stored-results-1" class="section level3">
 <h3>Stored Results</h3>
 <ul>
-<li>statistic: 2.2828</li>
-<li>parameter: 116.126</li>
-<li>p.value: 0.0243</li>
+<li>statistic: -0.045</li>
+<li>parameter: 117.9801</li>
+<li>p.value: 0.9641</li>
 <li>conf.int:
 <ul>
-<li>0.5532</li>
-<li>7.8049</li>
+<li>-2.0706</li>
+<li>1.9785</li>
 </ul></li>
 <li>estimate:
 <ul>
-<li>103.4181</li>
-<li>99.239</li>
+<li>9.038</li>
+<li>9.0841</li>
 </ul></li>
 <li>null.value: 0</li>
-<li>stderr: 1.8307</li>
+<li>stderr: 1.0224</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
-<li>data.name: size by time</li>
+<li>data.name: y by time</li>
+<li>n:
+<ul>
+<li>60</li>
+<li>60</li>
+</ul></li>
 </ul>
 </div>
 </div>

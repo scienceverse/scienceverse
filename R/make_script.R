@@ -6,6 +6,7 @@
 #' @param data_format The data format to save with (defaults to tsv)
 #' @param show_codebook Include codebook for each dataset in comments
 #' @param use_rmarkdown Creates an Rmarkdown file if TRUE, a .R file if FALSE
+#' @param header Whether the rmarkdown version should have a header
 #'
 #' @return Text of the script if path is NULL
 #' @export
@@ -14,16 +15,19 @@
 #' s <- study() %>%
 #'   add_data("my_cars", mtcars) %>%
 #'   add_analysis("A1", cor.test(my_cars$mpg, my_cars$wt)) %>%
-#'   analyse_study()
+#'   study_analyse()
 #'
-#' make_script(s) # get Rmd text output
-#' make_script(s, use_rmarkdown = FALSE) # get R text output
+#' # get Rmd text output
+#' make_script(s) %>% cat()
+#' # get R text output
+#' make_script(s, use_rmarkdown = FALSE) %>% cat()
 #'
 make_script <- function(study, path = NULL,
                         data_path = "data",
                         data_format = "tsv",
                         show_codebook = TRUE,
-                        use_rmarkdown = TRUE) {
+                        use_rmarkdown = TRUE,
+                        header = TRUE) {
 
   # check if filename is .R
   if (isTRUE(grep("\\.(R|r)$", path) == 1)) use_rmarkdown = FALSE
@@ -50,7 +54,7 @@ make_script <- function(study, path = NULL,
       }
 
       if (is.null(data_path)) {
-        x <- capture.output(write.csv(d$data, row.names = FALSE)) %>%
+        x <- utils::capture.output(utils::write.csv(d$data, row.names = FALSE)) %>%
           paste(collapse = "\n")
         data <- sprintf("%s <- read.csv(text='%s')", d$id, x)
       } else {
@@ -103,6 +107,7 @@ make_script <- function(study, path = NULL,
                         study$name, authors, date)
   }
 
+  if (!header) preamble <- ""
   txt <- sprintf("%s\n\n%s\n\n%s", preamble, dat,  ana)
 
   if (is.null(path)) return(txt)

@@ -5,44 +5,11 @@
     "hypotheses": [
         {
             "id": "group",
-            "description": "Group A will be bigger than group B",
+            "description": "Dogs will be happier than cats",
             "criteria": [
                 {
                     "id": "p",
                     "analysis_id": "A1",
-                    "result": "p.value",
-                    "operator": "<",
-                    "comparator": 0.05,
-                    "conclusion": false
-                },
-                {
-                    "id": "dir",
-                    "analysis_id": "A1",
-                    "result": "estimate[1]",
-                    "operator": ">",
-                    "comparator": "estimate[2]",
-                    "conclusion": false
-                }
-            ],
-            "corroboration": {
-                "description": "significant in predicted direction",
-                "evaluation": "p & dir",
-                "result": false
-            },
-            "falsification": {
-                "description": "significant in unpredicted direction",
-                "evaluation": "p & !dir",
-                "result": false
-            },
-            "conclusion": "inconclusive"
-        },
-        {
-            "id": "time",
-            "description": "Subjects will be bigger in the morning than at night",
-            "criteria": [
-                {
-                    "id": "p",
-                    "analysis_id": "A2",
                     "result": "p.value",
                     "operator": "<",
                     "comparator": 0.05,
@@ -50,7 +17,7 @@
                 },
                 {
                     "id": "dir",
-                    "analysis_id": "A2",
+                    "analysis_id": "A1",
                     "result": "estimate[1]",
                     "operator": ">",
                     "comparator": "estimate[2]",
@@ -68,6 +35,39 @@
                 "result": false
             },
             "conclusion": "corroborate"
+        },
+        {
+            "id": "time",
+            "description": "Pets will be happier in the morning than at night",
+            "criteria": [
+                {
+                    "id": "p",
+                    "analysis_id": "A2",
+                    "result": "p.value",
+                    "operator": "<",
+                    "comparator": 0.05,
+                    "conclusion": false
+                },
+                {
+                    "id": "dir",
+                    "analysis_id": "A2",
+                    "result": "estimate[1]",
+                    "operator": ">",
+                    "comparator": "estimate[2]",
+                    "conclusion": false
+                }
+            ],
+            "corroboration": {
+                "description": "significant in predicted direction",
+                "evaluation": "p & dir",
+                "result": false
+            },
+            "falsification": {
+                "description": "significant in unpredicted direction",
+                "evaluation": "p & !dir",
+                "result": false
+            },
+            "conclusion": "inconclusive"
         }
     ],
     "methods": [],
@@ -88,11 +88,11 @@
                     },
                     {
                         "@type": "PropertyValue",
-                        "name": "group",
-                        "description": "group",
+                        "name": "pet",
+                        "description": "pet",
                         "levels": [
-                            "A",
-                            "B"
+                            "dog",
+                            "cat"
                         ],
                         "type": "string",
                         "ordered": false
@@ -110,8 +110,8 @@
                     },
                     {
                         "@type": "PropertyValue",
-                        "name": "size",
-                        "description": "size",
+                        "name": "y",
+                        "description": "y",
                         "type": "float"
                     }
                 ]
@@ -239,127 +239,127 @@
                     "S59",
                     "S60"
                 ],
-                "group": [
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "A",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B",
-                    "B"
+                "pet": [
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "dog",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat",
+                    "cat"
                 ],
                 "time": [
                     "morning",
@@ -483,7 +483,7 @@
                     "night",
                     "night"
                 ],
-                "size": [113.6879, 101.9171, 110.4921, 108.8218, 107.3335, 107.1279, 102.4358, 99.6495, 109.0677, 105.1751, 95.1956, 102.7729, 92.2801, 87.3175, 104.7318, 88.5014, 108.2944, 102.7523, 116.8635, 104.2268, 106.1266, 103.839, 118.8163, 102.0653, 106.2343, 103.6269, 89.2717, 103.8131, 113.8024, 88.2854, 105.3088, 112.9519, 92.1274, 100.1004, 86.0501, 118.7747, 101.1012, 103.8343, 98.2173, 107.4782, 102.4847, 103.7773, 98.3831, 86.1074, 119.2423, 119.7041, 80.2385, 125.3044, 99.4579, 77.993, 87.6907, 102.0917, 106.2314, 104.191, 89.3809, 106.2276, 117.4533, 114.8309, 105.6613, 128.163, 117.1503, 95.4844, 104.0585, 104.417, 115.464, 92.0283, 96.522, 104.9806, 113.6501, 105.4735, 98.2271, 90.7545, 102.616, 88.5414, 91.7436, 104.0739, 105.4128, 91.1504, 101.5388, 84.6046, 99.9348, 110.2942, 96.4438, 96.593, 101.3821, 92.3559, 80.5268, 82.3698, 98.2897, 95.6249, 104.1056, 107.7824, 100.3211, 88.6106, 99.184, 108.5147, 96.6614, 98.0696, 95.4041, 97.1122, 93.9267, 89.6943, 106.734, 83.0236, 113.0019, 118.3782, 89.1604, 109.6389, 87.5401, 99.2331, 76.4192, 109.6196, 100.4514, 98.5162, 104.8538, 113.927, 112.293, 97.2043, 99.8704, 93.3827]
+                "y": [10.9739, 10.6468, 10.9684, 8.8815, 15.4572, 11.9216, 8.5671, 9.954, 9.9321, 12.2499, 14.6693, 7.7133, 25.3337, 10.5904, 9.4546, 14.6965, 9.7995, 16.5318, 3.5667, 10.8898, 8.7254, 18.0873, 17.3799, 2.5773, 1.6689, 5.4169, 11.8321, 15.596, 10.1182, 11.6546, 12.8671, 12.0938, 10.1574, -3.1033, 9.8401, 10.8541, 8.2316, 4.7381, 13.6918, 12.029, -3.5589, 13.0794, 8.7916, 15.6724, 5.3306, -0.3603, 0.1404, -0.5536, 10.4776, 9.8908, -2.8608, 7.9229, 10.4259, 13.352, 6.6564, 3.3222, 7.2885, 4.6301, 6.7372, -1.3575, 15.2729, 9.0296, 18.6625, 7.9636, 11.732, 16.1861, 9.28, 7.9759, 3.0175, 3.1755, 7.3655, 11.2303, 19.785, 18.3063, 8.8615, 13.4383, 7.3209, 17.2337, -2.0849, 16.2515, 20.3198, 15.3604, 7.2203, 2.8559, 10.2914, 13.2438, 7.566, 11.0747, 10.9531, 8.6807, 9.8748, -0.5454, 11.7519, 2.6533, 11.3981, 15.4136, 9.3837, 6.2671, 4.3315, 8.2011, 5.0726, 6.6464, 7.5808, 8.9522, 5.2963, -4.6074, 0.693, 7.9368, 11.375, 10.0724, 3.9709, 11.4122, 12.7112, 11.8771, -0.1074, 11.5386, 5.2252, 18.1489, 4.1805, 0.7694]
             },
             "design": {
                 "within": {
@@ -493,87 +493,87 @@
                     }
                 },
                 "between": {
-                    "group": {
-                        "A": "A",
-                        "B": "B"
+                    "pet": {
+                        "dog": "dog",
+                        "cat": "cat"
                     }
                 },
                 "dv": {
-                    "size": "size"
+                    "y": "Happiness Score"
                 },
                 "id": {
                     "id": "id"
                 },
                 "n": {
-                    "A": 30,
-                    "B": 30
+                    "dog": 30,
+                    "cat": 30
                 },
                 "mu": {
-                    "A": {
-                        "morning": 105,
-                        "night": 100
+                    "dog": {
+                        "morning": 10,
+                        "night": 10
                     },
-                    "B": {
-                        "morning": 105,
-                        "night": 100
+                    "cat": {
+                        "morning": 8,
+                        "night": 8
                     }
                 },
                 "sd": {
-                    "A": {
-                        "morning": 10,
-                        "night": 10
+                    "dog": {
+                        "morning": 5,
+                        "night": 5
                     },
-                    "B": {
-                        "morning": 10,
-                        "night": 10
+                    "cat": {
+                        "morning": 5,
+                        "night": 5
                     }
                 },
                 "r": {
-                    "A": [
+                    "dog": [
                         [1, 0.5],
                         [0.5, 1]
                     ],
-                    "B": [
+                    "cat": [
                         [1, 0.5],
                         [0.5, 1]
                     ]
                 },
                 "params": [
                     {
-                        "group": "A",
+                        "pet": "dog",
                         "time": "morning",
                         "morning": 1,
                         "night": 0.5,
                         "n": 30,
-                        "mu": 105,
-                        "sd": 10
+                        "mu": 10,
+                        "sd": 5
                     },
                     {
-                        "group": "A",
+                        "pet": "dog",
                         "time": "night",
                         "morning": 0.5,
                         "night": 1,
                         "n": 30,
-                        "mu": 100,
-                        "sd": 10
+                        "mu": 10,
+                        "sd": 5
                     },
                     {
-                        "group": "B",
+                        "pet": "cat",
                         "time": "morning",
                         "morning": 1,
                         "night": 0.5,
                         "n": 30,
-                        "mu": 105,
-                        "sd": 10
+                        "mu": 8,
+                        "sd": 5
                     },
                     {
-                        "group": "B",
+                        "pet": "cat",
                         "time": "night",
                         "morning": 0.5,
                         "night": 1,
                         "n": 30,
-                        "mu": 100,
-                        "sd": 10
+                        "mu": 8,
+                        "sd": 5
                     }
                 ]
             }
@@ -582,34 +582,36 @@
     "analyses": [
         {
             "id": "A1",
-            "code": "    t.test(size ~ group, dat)",
+            "code": "    scienceverse::t_test(y ~ pet, dat)",
             "results": {
-                "statistic": -0.2403,
-                "parameter": 111.5102,
-                "p.value": 0.8106,
-                "conf.int": [-4.1552, 3.2564],
-                "estimate": [101.1039, 101.5532],
+                "statistic": 4.1843,
+                "parameter": 117.806,
+                "p.value": 0.0001,
+                "conf.int": [2.1027, 5.8814],
+                "estimate": [11.0571, 7.065],
                 "null.value": 0,
-                "stderr": 1.8702,
+                "stderr": 0.954,
                 "alternative": "two.sided",
                 "method": "Welch Two Sample t-test",
-                "data.name": "size by group"
+                "data.name": "y by pet",
+                "n": [60, 60]
             }
         },
         {
             "id": "A2",
-            "code": "    t.test(size ~ time, dat)",
+            "code": "    scienceverse::t_test(y ~ time, dat)",
             "results": {
-                "statistic": 2.2828,
-                "parameter": 116.126,
-                "p.value": 0.0243,
-                "conf.int": [0.5532, 7.8049],
-                "estimate": [103.4181, 99.239],
+                "statistic": -0.045,
+                "parameter": 117.9801,
+                "p.value": 0.9641,
+                "conf.int": [-2.0706, 1.9785],
+                "estimate": [9.038, 9.0841],
                 "null.value": 0,
-                "stderr": 1.8307,
+                "stderr": 1.0224,
                 "alternative": "two.sided",
                 "method": "Welch Two Sample t-test",
-                "data.name": "size by time"
+                "data.name": "y by time",
+                "n": [60, 60]
             }
         }
     ]

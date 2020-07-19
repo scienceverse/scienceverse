@@ -22,7 +22,7 @@
 get_result <- function(study, result = NULL, analysis_id = 1,
                        digits = getOption("digits", 3),
                        return = c("value", "char", "html"),
-                       analysis_link = "analysis.html") {
+                       analysis_link = "") {
   return <- match.arg(return)
 
   a_idx <- get_idx(study, analysis_id, "analyses")
@@ -30,7 +30,10 @@ get_result <- function(study, result = NULL, analysis_id = 1,
   if (a_idx > length(study$analyses)) {
     stop("Analysis ", analysis_id, " does not exist.")
   } else if (is.null(study$analyses[[a_idx]]$results)) {
-    stop("The analysis does not have results yet. Try running study_analyse first.")
+    warning("The analysis does not have results yet. Try running study_analyse first.")
+    results <- list()
+    class(results) <- c("scivrs_results", "list")
+    return(results)
   }
 
   results <- study$analyses[[a_idx]]$results
@@ -120,7 +123,7 @@ get_html <- function(result = NULL, analysis_id = 1,
 
   # get analysis link
   analysis_link <- scienceverse_options("analysis_link")
-  if (is.null(analysis_link)) analysis_link <- "analysis.html"
+  if (is.null(analysis_link)) analysis_link <- ""
 
   get_result(study, result, analysis_id, digits, return = "html", analysis_link)
 }

@@ -12,11 +12,11 @@
         },
         {
             "@type": "PropertyValue",
-            "name": "group",
-            "description": "group",
+            "name": "pet",
+            "description": "pet",
             "levels": [
-                "A",
-                "B"
+                "dog",
+                "cat"
             ],
             "type": "string",
             "ordered": false
@@ -34,8 +34,8 @@
         },
         {
             "@type": "PropertyValue",
-            "name": "size",
-            "description": "size",
+            "name": "y",
+            "description": "y",
             "type": "float"
         }
     ]

@@ -16,17 +16,17 @@ output:
 
 
 * id (string)
-* group (string)
+* pet (string)
   * Levels
-    * A
-    * B
+    * dog
+    * cat
   * Ordered: FALSE
 * time (string)
   * Levels
     * morning
     * night
   * Ordered: FALSE
-* size (float)
+* y (float)
 
 
 ```{r}
@@ -38,47 +38,53 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 ## Analysis 1: A1 {#analysis_1}
 
 ```{r}
-    t.test(size ~ group, dat)
+    scienceverse::t_test(y ~ pet, dat)
 ```
 
 ### Stored Results
 
-* statistic: -0.2403
-* parameter: 111.5102
-* p.value: 0.8106
+* statistic: 4.1843
+* parameter: 117.806
+* p.value: 1e-04
 * conf.int: 
-  * -4.1552
-  * 3.2564
+  * 2.1027
+  * 5.8814
 * estimate: 
-  * 101.1039
-  * 101.5532
+  * 11.0571
+  * 7.065
 * null.value: 0
-* stderr: 1.8702
+* stderr: 0.954
 * alternative: two.sided
 * method: Welch Two Sample t-test
-* data.name: size by group
+* data.name: y by pet
+* n: 
+  * 60
+  * 60
 
 ## Analysis 2: A2 {#analysis_2}
 
 ```{r}
-    t.test(size ~ time, dat)
+    scienceverse::t_test(y ~ time, dat)
 ```
 
 ### Stored Results
 
-* statistic: 2.2828
-* parameter: 116.126
-* p.value: 0.0243
+* statistic: -0.045
+* parameter: 117.9801
+* p.value: 0.9641
 * conf.int: 
-  * 0.5532
-  * 7.8049
+  * -2.0706
+  * 1.9785
 * estimate: 
-  * 103.4181
-  * 99.239
+  * 9.038
+  * 9.0841
 * null.value: 0
-* stderr: 1.8307
+* stderr: 1.0224
 * alternative: two.sided
 * method: Welch Two Sample t-test
-* data.name: size by time
+* data.name: y by time
+* n: 
+  * 60
+  * 60
 
 

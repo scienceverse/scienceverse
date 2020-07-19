@@ -11,39 +11,32 @@ test_that("message", {
                   "Hypothesis 1 has no criteria")
 })
 
-# warnings ---
+# warnings ----
 test_that("warnings", {
-  expect_warning(
-    study() %>% add_hypothesis() %>%
-      add_analysis(NULL, t.test(rnorm(100))) %>%
-      add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
+  s <- study() %>% add_hypothesis() %>%
+    add_analysis(NULL, t.test(rnorm(100))) %>%
+    add_criterion("C1", "p.value", "<", 0.05)
+
+  expect_message(
+     study_analyse(s),
     "Hypothesis 1 has no evaluation criteria for corroboration",
     fixed = TRUE, all = FALSE
   )
-
-  expect_warning(
-    study() %>% add_hypothesis() %>%
-      add_analysis(NULL, t.test(rnorm(100))) %>%
-      add_criterion("C1", "p.value", "<", 0.05) %>% study_analyse(),
+  expect_message(
+    study_analyse(s),
     "Hypothesis 1 has no evaluation criteria for falsification",
     fixed = TRUE, all = FALSE
   )
 
   expect_warning(
-    study() %>% add_hypothesis() %>%
-      add_analysis(NULL, t.test(rnorm(100))) %>%
-      add_criterion("C1", "p.value", "<", 0.05) %>%
-      add_eval("corroboration", "", "(oops)") %>% study_analyse(),
+    s <- add_eval(s, "corroboration", "", "oops"),
     "Criteria oops have not been defined yet.",
     fixed = TRUE, all = FALSE
   )
 
   expect_warning(
-    study() %>% add_hypothesis() %>%
-      add_analysis(NULL, t.test(rnorm(100))) %>%
-      add_criterion("C1", "p.value", "<", 0.05) %>%
-      add_eval("corroboration", "", "(oops)") %>% study_analyse(),
-    "Hypothesis 1 has an error in the evaluation criteria for corroboration: (oops)",
+    study_analyse(s),
+    "Hypothesis 1 has an error in the evaluation criteria for corroboration: oops",
     fixed = TRUE, all = FALSE
   )
 })
@@ -53,7 +46,7 @@ test_that("warnings", {
 # simple function ----
 test_that("simple function", {
   s <- study() %>%
-    add_hypothesis() %>%
+    add_hypothesis("H1") %>%
     add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate", ">", 0) %>%
@@ -61,12 +54,11 @@ test_that("simple function", {
     add_eval("falsification", "Petal width is significantly and negatively correlated to length", "sig & !pos") %>%
     add_data("dat", iris)
 
-  expect_message(s <- study_analyse(s), "Hypothesis `1`, Criterion `sig`:\n    p.value < 0.05 is TRUE\n    p.value = 0.00", fixed = TRUE, all = FALSE)
-  expect_message(s <- study_analyse(s), "Hypothesis `1`, Criterion `pos`:\n    estimate > 0 is TRUE\n    estimate = 0.96", fixed = TRUE, all = FALSE)
-  expect_message(s <- study_analyse(s), "Hypothesis 1:
-    Corroborate: TRUE
-    Falsify: FALSE
-    Conclusion: corroborate", fixed = TRUE, all = FALSE)
+  evsum <- study_analyse(s) %>% eval_summary()
+  evsum_check <- "Hypothesis H1: Describe your hypothesis\n\nCriterion sig:\n* p.value < 0.05 is TRUE\n* p.value = 0.000\n\nCriterion pos:\n* estimate > 0 is TRUE\n* estimate = 0.963\n\nConclusion: corroborate\n* Corroborate (sig & pos): TRUE\n* Falsify (sig & !pos): FALSE"
+  expect_equal(evsum, evsum_check)
+
+  expect_message(s <- study_analyse(s), evsum, fixed = TRUE, all = TRUE)
 
   scienceverse_options(verbose = FALSE)
 
@@ -110,33 +102,53 @@ test_that("criterion name overlap", {
   expect_equal(s$hypotheses[[1]]$conclusion, "inconclusive")
 })
 
+# multiple hypotheses ----
+test_that("multiple hypotheses", {
+  s <- study() %>%
+    add_sim_data("dat", within = 2, between = 2, r = 0.5) %>%
+    add_hypothesis("H1", "A1 and A2 will be correlated") %>%
+    add_analysis("A1", cor.test(dat$A1, dat$A2)) %>%
+    add_criterion("sig", "p.value", "<", 0.05) %>%
+    add_criterion("pos", "estimate", ">", 0) %>%
+    add_eval("c", "", "sig & pos") %>%
+    add_eval("f", "", "sig & !pos") %>%
+
+    add_hypothesis("H2", "B1 will have a bigger DV than B2") %>%
+    add_analysis("A2", t.test((A1+A2)~B, dat)) %>%
+    add_criterion("sig", "p.value", "<", 0.05) %>%
+    add_criterion("pos", "estimate[1]", ">", "estimate[2]") %>%
+    add_eval("c", "", "sig & pos") %>%
+    add_eval("f", "", "sig & !pos")
+
+  s2 <- study_analyse(s)
+  es <- eval_summary(s2)
+
+  expect_equal(grep("Hypothesis H1: A1 and A2 will be correlated", es), 1)
+  expect_equal(grep("Hypothesis H2: B1 will have a bigger DV than B2", es), 1)
+})
+
 
 # result in comparator ----
 test_that("result in comparator", {
   s <- study() %>%
-    add_hypothesis() %>%
+    add_hypothesis("H1") %>%
     add_analysis("A1", t.test(dat$Petal.Width, dat$Petal.Length)) %>%
     add_criterion("pos", "estimate[1]", "<", "estimate[2]") %>%
     add_eval("corroboration", "Petal width is longer than length", "pos") %>%
     add_eval("falsification", "Petal width is shorter than length", "!pos") %>%
     add_data("dat", iris)
 
-  expect_message(study_analyse(s), "Hypothesis `1`, Criterion `pos`:
-    estimate[1] < estimate[2] is TRUE
-    estimate[1] = 1.20
-    estimate[2] = 3.758", fixed = TRUE)
+  ev_sum <- "Hypothesis H1: Describe your hypothesis\n\nCriterion pos:\n* estimate[1] < estimate[2] is TRUE\n* estimate[1] = 1.199\n* estimate[2] = 3.758\n\nConclusion: corroborate\n* Corroborate (pos): TRUE\n* Falsify (!pos): FALSE"
 
-  expect_message(study_analyse(s), "Hypothesis 1:
-    Corroborate: TRUE
-    Falsify: FALSE
-    Conclusion: corroborate", fixed = TRUE)
+  expect_message(s <- study_analyse(s), ev_sum, fixed = TRUE)
 
+  expect_equal(eval_summary(s), ev_sum)
 })
 
 # app ----
 test_that("app", {
   s <- study() %>%
-    add_hypothesis() %>%
+    add_hypothesis("H1") %>%
     add_analysis("A1", cor.test(rnorm(20), rnorm(20))) %>%
     add_criterion("p", "p.value", "<", 0.5) %>%
     add_criterion("r", "estimate", ">", 0.2) %>%

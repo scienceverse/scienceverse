@@ -9,8 +9,11 @@ test_that("errors", {
     add_criterion("p", "p.value", "<", .05) %>%
     add_criterion("d", "estimate", ">", 0)
 
-  expect_error(get_result(s, "p.value"),
+  expect_warning(res <- get_result(s, "p.value"),
                "The analysis does not have results yet. Try running study_analyse first.")
+  results <- list()
+  class(results) <- c("scivrs_results", "list")
+  expect_equal(res, results)
 
   s <- s %>%
     add_eval("corroboration", "", "p&d") %>%
@@ -126,14 +129,14 @@ test_that("html", {
     study_analyse()
 
   res <- get_result(s, "estimate[1]", digits = 2, return = "html")
-  check <- "<a href='analysis.html#analysis_1' title='Analysis 1 Result estimate[1]'>15.40</a>"
+  check <- "<a href='#analysis_1' title='Analysis 1 Result estimate[1]'>15.40</a>"
   expect_equal(res, check)
 
   res <- get_result(s, "estimate[2]", digits = 2, return = "html")
-  check <- "<a href='analysis.html#analysis_1' title='Analysis 1 Result estimate[2]'>42.98</a>"
+  check <- "<a href='#analysis_1' title='Analysis 1 Result estimate[2]'>42.98</a>"
   expect_equal(res, check)
 
   res <- get_result(s, "statistic", digits = 2, return = "html")
-  check <- "<a href='analysis.html#analysis_1' title='Analysis 1 Result statistic'>-7.41</a>"
+  check <- "<a href='#analysis_1' title='Analysis 1 Result statistic'>-7.41</a>"
   expect_equal(res, check)
 })

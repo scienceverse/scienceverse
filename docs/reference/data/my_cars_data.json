@@ -1,0 +1,75 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "my_cars",
+    "schemaVersion": "Psych-DS 0.1.0",
+    "variableMeasured": [
+        {
+            "@type": "PropertyValue",
+            "name": "mpg",
+            "description": "mpg",
+            "type": "float"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "cyl",
+            "description": "cyl",
+            "type": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "disp",
+            "description": "disp",
+            "type": "float"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "hp",
+            "description": "hp",
+            "type": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "drat",
+            "description": "drat",
+            "type": "float"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "wt",
+            "description": "wt",
+            "type": "float"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "qsec",
+            "description": "qsec",
+            "type": "float"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "vs",
+            "description": "vs",
+            "type": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "am",
+            "description": "am",
+            "type": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "gear",
+            "description": "gear",
+            "type": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "carb",
+            "description": "carb",
+            "type": "int"
+        }
+    ]
+}
+

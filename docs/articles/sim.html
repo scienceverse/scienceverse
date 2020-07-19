@@ -248,26 +248,33 @@
 <span class="co">#&gt; pet set to type string</span>
 <span class="co">#&gt; happy set to type float</span>
 <span class="co">#&gt; smug set to type float</span>
-<span class="co">#&gt; Hypothesis `Happy`, Criterion `happy_c`:</span>
-<span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.13</span>
-<span class="co">#&gt; Hypothesis `Happy`, Criterion `happy_f`:</span>
-<span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.77</span>
-<span class="co">#&gt; Hypothesis Happy:</span>
-<span class="co">#&gt;     Corroborate: FALSE</span>
-<span class="co">#&gt;     Falsify: FALSE</span>
-<span class="co">#&gt;     Conclusion: inconclusive</span>
-<span class="co">#&gt; Hypothesis `Smug`, Criterion `smug_c`:</span>
-<span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.20</span>
-<span class="co">#&gt; Hypothesis `Smug`, Criterion `smug_f`:</span>
-<span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.69</span>
-<span class="co">#&gt; Hypothesis Smug:</span>
-<span class="co">#&gt;     Corroborate: FALSE</span>
-<span class="co">#&gt;     Falsify: FALSE</span>
-<span class="co">#&gt;     Conclusion: inconclusive</span></pre></body></html></div>
+<span class="co">#&gt; Hypothesis Happy: Dog owners will be happier than cat owners.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion happy_c:</span>
+<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
+<span class="co">#&gt; * p.value = 0.131</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion happy_f:</span>
+<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
+<span class="co">#&gt; * p.value = 0.774</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Conclusion: inconclusive</span>
+<span class="co">#&gt; * Corroborate (happy_c): FALSE</span>
+<span class="co">#&gt; * Falsify (happy_f): FALSE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Hypothesis Smug: Cat owners will be smugger than dog owners.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion smug_c:</span>
+<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
+<span class="co">#&gt; * p.value = 0.201</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Criterion smug_f:</span>
+<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
+<span class="co">#&gt; * p.value = 0.687</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Conclusion: inconclusive</span>
+<span class="co">#&gt; * Corroborate (smug_c): FALSE</span>
+<span class="co">#&gt; * Falsify (smug_f): FALSE</span></pre></body></html></div>
 <p>You can also increase the number of replications in the simulation to calculate the power of your study. This is especially helpful for studies with complex analyses or evaluation criteria.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">simstudy</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span>(
   <span class="no">study</span>,

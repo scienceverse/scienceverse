@@ -96,8 +96,8 @@ study_power <- function(study, rep = 100) {
         comp_value <- c()
         for (k in 1:rep) {
           kres <- results[[criterion$analysis_id]][[k]]
-          value[k] <- scienceverse:::get_res_value(criterion$result, kres)
-          comp_value[k] <- scienceverse:::get_res_value(criterion$comparator, kres)
+          value[k] <- get_res_value(criterion$result, kres)
+          comp_value[k] <- get_res_value(criterion$comparator, kres)
         }
 
         if (criterion$operator == "<") {

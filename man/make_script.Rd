@@ -10,7 +10,8 @@ make_script(
   data_path = "data",
   data_format = "tsv",
   show_codebook = TRUE,
-  use_rmarkdown = TRUE
+  use_rmarkdown = TRUE,
+  header = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ make_script(
 \item{show_codebook}{Include codebook for each dataset in comments}
 
 \item{use_rmarkdown}{Creates an Rmarkdown file if TRUE, a .R file if FALSE}
+
+\item{header}{Whether the rmarkdown version should have a header}
 }
 \value{
 Text of the script if path is NULL
@@ -36,9 +39,11 @@ Make a script with all analyses
 s <- study() \%>\%
   add_data("my_cars", mtcars) \%>\%
   add_analysis("A1", cor.test(my_cars$mpg, my_cars$wt)) \%>\%
-  analyse_study()
+  study_analyse()
 
-make_script(s) # get Rmd text output
-make_script(s, use_rmarkdown = FALSE) # get R text output
+# get Rmd text output
+make_script(s) \%>\% cat()
+# get R text output
+make_script(s, use_rmarkdown = FALSE) \%>\% cat()
 
 }

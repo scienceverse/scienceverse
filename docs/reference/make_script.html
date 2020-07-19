@@ -147,7 +147,8 @@
   <span class='kw'>data_path</span> <span class='kw'>=</span> <span class='st'>"data"</span>,
   <span class='kw'>data_format</span> <span class='kw'>=</span> <span class='st'>"tsv"</span>,
   <span class='kw'>show_codebook</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,6 +178,10 @@
       <th>use_rmarkdown</th>
       <td><p>Creates an Rmarkdown file if TRUE, a .R file if FALSE</p></td>
     </tr>
+    <tr>
+      <th>header</th>
+      <td><p>Whether the rmarkdown version should have a header</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -187,9 +192,111 @@
     <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"my_cars"</span>, <span class='no'>mtcars</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>my_cars</span>$<span class='no'>mpg</span>, <span class='no'>my_cars</span>$<span class='no'>wt</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>analyse_study</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>mpg set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>cyl set to type int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>disp set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>hp set to type int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>drat set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>wt set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>qsec set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>vs set to type int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>am set to type int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>gear set to type int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>carb set to type int</span><span></span></div><div class='output co'>#&gt; <span class='error'>Error in analyse_study(.): could not find function "analyse_study"</span></div><div class='input'>
-<span class='fu'>make_script</span>(<span class='no'>s</span>) <span class='co'># get Rmd text output</span></div><div class='output co'>#&gt; <span class='error'>Error in make_script(s): object 's' not found</span></div><div class='input'><span class='fu'>make_script</span>(<span class='no'>s</span>, <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># get R text output</span></div><div class='output co'>#&gt; <span class='error'>Error in make_script(s, use_rmarkdown = FALSE): object 's' not found</span></div><div class='input'>
-</div></span></pre>
+  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()
+
+<span class='co'># get Rmd text output</span>
+<span class='fu'>make_script</span>(<span class='no'>s</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>()</div><div class='output co'>#&gt; ---
+#&gt; title: "Demo Study"
+#&gt; author: ""
+#&gt; date: "19/07/2020"
+#&gt; output:
+#&gt;   html_document:
+#&gt;     toc: true
+#&gt;     toc_float: true
+#&gt; ---
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; ## Data
+#&gt; 
+#&gt; ### my_cars
+#&gt; 
+#&gt; 
+#&gt; * mpg (float)
+#&gt; * cyl (int)
+#&gt; * disp (float)
+#&gt; * hp (int)
+#&gt; * drat (float)
+#&gt; * wt (float)
+#&gt; * qsec (float)
+#&gt; * vs (int)
+#&gt; * am (int)
+#&gt; * gear (int)
+#&gt; * carb (int)
+#&gt; 
+#&gt; 
+#&gt; ```{r}
+#&gt; my_cars &lt;- read.csv('data/my_cars_data.tsv', sep='\t')
+#&gt; ```
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; ## Analysis 1: A1 {#analysis_1}
+#&gt; 
+#&gt; ```{r}
+#&gt;     cor.test(my_cars$mpg, my_cars$wt)
+#&gt; ```
+#&gt; 
+#&gt; ### Stored Results
+#&gt; 
+#&gt; * statistic: -9.55904414697211
+#&gt; * parameter: 30
+#&gt; * p.value: 1.29395870135052e-10
+#&gt; * estimate: -0.867659376517228
+#&gt; * null.value: 0
+#&gt; * alternative: two.sided
+#&gt; * method: Pearson's product-moment correlation
+#&gt; * data.name: my_cars$mpg and my_cars$wt
+#&gt; * conf.int: 
+#&gt;   * -0.933826413284994
+#&gt;   * -0.744087196460113
+#&gt; </div><div class='input'><span class='co'># get R text output</span>
+<span class='fu'>make_script</span>(<span class='no'>s</span>, <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>()</div><div class='output co'>#&gt; # Code for Demo Study
+#&gt; # Authors: 
+#&gt; # Created 19/07/2020
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; ## Data
+#&gt; 
+#&gt; ### my_cars
+#&gt; 
+#&gt; 
+#&gt; # * mpg (float)
+#&gt; # * cyl (int)
+#&gt; # * disp (float)
+#&gt; # * hp (int)
+#&gt; # * drat (float)
+#&gt; # * wt (float)
+#&gt; # * qsec (float)
+#&gt; # * vs (int)
+#&gt; # * am (int)
+#&gt; # * gear (int)
+#&gt; # * carb (int)
+#&gt; 
+#&gt; my_cars &lt;- read.csv('data/my_cars_data.tsv', sep='\t')
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; ## Analysis 1: A1
+#&gt; 
+#&gt;     cor.test(my_cars$mpg, my_cars$wt)
+#&gt; 
+#&gt; ### Stored Results
+#&gt; 
+#&gt; # * statistic: -9.55904414697211
+#&gt; # * parameter: 30
+#&gt; # * p.value: 1.29395870135052e-10
+#&gt; # * estimate: -0.867659376517228
+#&gt; # * null.value: 0
+#&gt; # * alternative: two.sided
+#&gt; # * method: Pearson's product-moment correlation
+#&gt; # * data.name: my_cars$mpg and my_cars$wt
+#&gt; # * conf.int: 
+#&gt; #   * -0.933826413284994
+#&gt; #   * -0.744087196460113
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
