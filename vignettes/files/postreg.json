@@ -6,10 +6,10 @@
     "authors": [
         {
             "orcid": "0000-0002-7523-5539",
-            "name": [
-                "DeBruine",
-                "Lisa M."
-            ],
+            "name": {
+                "surname": "DeBruine",
+                "given": "Lisa M."
+            },
             "roles": [
                 "Conceptualization",
                 "Data curation",
@@ -21,10 +21,10 @@
         },
         {
             "orcid": "0000-0002-0247-239X",
-            "name": [
-                "Lakens",
-                "Daniël"
-            ],
+            "name": {
+                "surname": "Lakens",
+                "given": "Daniël"
+            },
             "roles": [
                 "Conceptualization",
                 "Formal analysis",

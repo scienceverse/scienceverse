@@ -6,6 +6,7 @@
 #' @param id The id for this analysis (index or character) if an analysis with this id already exists, it will overwrite it
 #' @param code The code to run or a file name containing the code
 #' @param return A list of object names to return from the code
+#' @param type Whether the code is a function, text, or file name
 #' @param ... further arguments to add
 
 #' @return A study object with class scivrs_study
@@ -18,35 +19,43 @@
 #'
 #' @export
 #'
-add_analysis <- function(study, id = NULL, code = "", return = "", ...) {
+add_analysis <- function(study, id = NULL, code = "", return = "", type = c("func", "text", "file"), ...) {
   idx <- get_idx(study, id, "analyses")
   id <- ifelse(is.null(id), idx , fix_id(id))
+  type <- match.arg(type)
 
-  # process code to see if it is a function or file
-  code_call <- match.call()$code
-  if (is.character(code_call)) {
-    if (file.exists(code_call[1])) {
+  if (type == "file") {
+    if (file.exists(code)) {
       # make function from .R file
-      code <- readLines(code_call)
+      code <- readLines(code)
     } else {
-      stop("The file ", code_call, " was not found.")
+      stop("The file ", code, " was not found.")
     }
-  } else if (is.language(code_call)) {
-    code <- utils::capture.output(code_call)
+  } else if (type == "text") {
+    code <- code
   } else {
-    stop("The code was neither a function nor a filename.")
+    code_call <- match.call()$code
+    if (is.language(code_call)) {
+      code <- utils::capture.output(code_call)
+    } else {
+      stop("The code was not a function.")
+    }
   }
 
-  func <- paste0("analysis_", id, "_func")
-  make_func(func, code, return)
+  # get study environment
+  env <- attr(study, "env")
 
-  if (!methods::existsFunction(func)) {
+  # create function
+  func <- paste0("analysis_", id)
+  make_func(func, code, return, env)
+
+  if (!methods::existsFunction(func, where = env)) {
     stop("The function ", func, " is not defined")
   }
 
   code <- NULL
-  func_env <- get_env_name(func)
-  code <- methods::getFunction(func, where = .GlobalEnv)
+  #func_env <- get_env_name(func)
+  code <- methods::getFunction(func, where = env)
 
   analysis <- list(
     id = id,

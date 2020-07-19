@@ -4,12 +4,14 @@
 \alias{output_custom_code}
 \title{Output custom code}
 \usage{
-output_custom_code(study, analysis_id = 1)
+output_custom_code(study, analysis_id = 1, prefix = "")
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{analysis_id}{The id or index for the analysis code to output (defaults to index 1)}
+
+\item{prefix}{Text to prepend to each line (for indenting)}
 }
 \value{
 string of the function definition

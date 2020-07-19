@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="sim_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulating Data for Power</h1>
@@ -116,6 +116,15 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     codebook</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></body></html></div>
 <p>First, I use the <code><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design()</a></code> function from faux to visualise the design for my proposed study. I’m simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">simdat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design</a></span>(
@@ -239,20 +248,20 @@
 <span class="co">#&gt; pet set to type string</span>
 <span class="co">#&gt; happy set to type float</span>
 <span class="co">#&gt; smug set to type float</span>
-<span class="co">#&gt; Hypothesis Happy, Criterion happy_c:</span>
+<span class="co">#&gt; Hypothesis `Happy`, Criterion `happy_c`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
 <span class="co">#&gt;     p.value = 0.13</span>
-<span class="co">#&gt; Hypothesis Happy, Criterion happy_f:</span>
+<span class="co">#&gt; Hypothesis `Happy`, Criterion `happy_f`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
 <span class="co">#&gt;     p.value = 0.77</span>
 <span class="co">#&gt; Hypothesis Happy:</span>
 <span class="co">#&gt;     Corroborate: FALSE</span>
 <span class="co">#&gt;     Falsify: FALSE</span>
 <span class="co">#&gt;     Conclusion: inconclusive</span>
-<span class="co">#&gt; Hypothesis Smug, Criterion smug_c:</span>
+<span class="co">#&gt; Hypothesis `Smug`, Criterion `smug_c`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.2</span>
-<span class="co">#&gt; Hypothesis Smug, Criterion smug_f:</span>
+<span class="co">#&gt;     p.value = 0.20</span>
+<span class="co">#&gt; Hypothesis `Smug`, Criterion `smug_f`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
 <span class="co">#&gt;     p.value = 0.69</span>
 <span class="co">#&gt; Hypothesis Smug:</span>

@@ -4,7 +4,14 @@
 \alias{get_result}
 \title{Get Result Value}
 \usage{
-get_result(study, result = NULL, analysis_id = 1)
+get_result(
+  study,
+  result = NULL,
+  analysis_id = 1,
+  digits = getOption("digits", 3),
+  return = c("value", "char", "html"),
+  analysis_link = "analysis.html"
+)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
@@ -12,9 +19,15 @@ get_result(study, result = NULL, analysis_id = 1)
 \item{result}{The name of the result value to retrieve (omit to return all results)}
 
 \item{analysis_id}{The id for the relevant analysis (index or character) defaults to the first analysis in the list}
+
+\item{digits}{Number of digits to round to (defaults to the value for options("digits")}
+
+\item{return}{Return the value, character version, or an html linked version}
+
+\item{analysis_link}{Name of the analysis file to link to if linking to html}
 }
 \value{
-value of names result or list of results
+value of names result or list of results or html version
 }
 \description{
 Get Result Value

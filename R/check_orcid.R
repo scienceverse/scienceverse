@@ -12,6 +12,14 @@
 #' check_orcid("0000-0002-0247-2394") # incorrect, return FALSE
 check_orcid <- function(orcid) {
   baseDigits <- gsub("[^0-9X]", "", orcid)
+
+  if (nchar(baseDigits) != 16) {
+    if (scienceverse_options("verbose")) {
+      warning("The ORCiD ", orcid, " is not valid.")
+    }
+    return(FALSE)
+  }
+
   total <- 0
   for (i in 1:(nchar(baseDigits)-1)) {
     digit <- substr(baseDigits, i, i) %>% as.integer()

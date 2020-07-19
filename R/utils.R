@@ -102,20 +102,86 @@ fix_id <- function(id) {
   new_id
 }
 
+#' Get value from results list
+#'
+#' @param txt text of result to check against names
+#' @param results named list of results
+#'
+#' @return value from results list or the txt if not found
+#'
+get_res_value <- function(txt, results) {
+  # return txt if it is boolean
+  bool_vals <- list("TRUE", "FALSE", TRUE, FALSE, "true", "false")
+  if (txt %in% bool_vals) return(as.logical(txt))
+
+  # return txt if it is numeric
+  suppressWarnings(num <- as.numeric(txt))
+  if (isTRUE(num == txt)) return(num)
+
+  # probably a character so check the results list
+  splitres <- stringr::str_split(txt, "(\\$|\\[+'?\"?|'?\"?\\]+)")
+  res <- splitres[[1]][1]
+  if (length(splitres[[1]]) == 1) {
+    # no index
+    idx <- NULL
+  } else {
+    idx <- splitres[[1]][2]
+
+    # convert to numeric if it is
+    suppressWarnings(n_idx <- as.numeric(idx))
+    if (!is.na(n_idx)) idx <- n_idx
+  }
+
+  if (res %in% names(results)) {
+    if (is.null(idx)) {
+      return(results[[res]])
+    } else if (is.numeric(idx) & length(results[[res]]) < idx) {
+      warning(res, " does not have a numeric index ", idx)
+      return(NULL)
+    } else if (is.character(idx) & !idx %in% names(results[[res]])) {
+      warning(res, " does not have a named index ", idx)
+      return(NULL)
+    } else {
+      return(results[[res]][[idx]])
+    }
+  } else {
+    # named result not found
+    return(txt)
+  }
+}
+
 #' Character-safe rounding
 #'
 #' Round a vector if it is numeric, but return the original vector if it is character.
 #'
 #' @param x	a character vector.
 #' @param digits integer indicating the number of decimal places.
+#' @param as_char Whether the result should be formatted as a character with trailing 0s (if relevant)
 #' @param ...	arguments to be passed to methods.
 #' @return The character vector or the rounded version if numeric.
 #'
-round_char <- function(x, digits = 0, ...) {
+round_char <- function(x, digits = 0, as_char = FALSE, ...) {
   if (length(x) == 0) return("NA")
-  num_x <- suppressWarnings(as.numeric(x))
-  if (is.na(num_x)) return(x)
-  round(num_x, digits, ...)
+
+  if (is.list(x)) {
+    res <- lapply(x, round_char, digits = digits, as_char = as_char)
+  } else if (length(x) > 1) {
+    res <- sapply(x, round_char, digits = digits, as_char = as_char)
+  } else {
+    if (!is.numeric(x) & !is.character(x)) return (x)
+
+    num_x <- suppressWarnings(as.numeric(x))
+    if (is.na(num_x)) return(x)
+    res <- round(num_x, digits, ...)
+
+    if (as_char) {
+      fmt <- paste0("%.", digits, "f")
+      res <- sprintf(fmt, res)
+    }
+  }
+
+  names(res) <- names(x)
+  return(res)
 }
 
 
@@ -170,7 +236,10 @@ make_func <- function(func, code, return = "", envir = .GlobalEnv) {
     "\n}"
   )
 
-  eval(parse(text = p), envir = envir)
+  tryCatch(eval(parse(text = p), envir = envir),
+           error = function(e) {
+             stop("The function ", func, " has errors.")
+           })
 }
 
 

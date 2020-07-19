@@ -2,9 +2,12 @@ pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
+  analysis: analysis.html
   codebook: codebook.html
   demo: demo.html
+  export: export.html
+  functions: functions.html
   meta: meta.html
   sim: sim.html
-last_built: 2020-06-25T11:40Z
+last_built: 2020-07-19T01:24Z
 

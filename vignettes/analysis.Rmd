@@ -1,0 +1,84 @@
+---
+title: "Demo"
+author: ""
+date: "19/07/2020"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+
+## Data
+
+### dat
+
+
+* id (string)
+* group (string)
+  * Levels
+    * A
+    * B
+  * Ordered: FALSE
+* time (string)
+  * Levels
+    * morning
+    * night
+  * Ordered: FALSE
+* size (float)
+
+
+```{r}
+dat <- read.csv('data/dat_data.tsv', sep='\t')
+```
+
+
+
+## Analysis 1: A1 {#analysis_1}
+
+```{r}
+    t.test(size ~ group, dat)
+```
+
+### Stored Results
+
+* statistic: -1.3461
+* parameter: 116.6354
+* p.value: 0.1809
+* conf.int: 
+  * -5.9734
+  * 1.1392
+* estimate: 
+  * 100.7099
+  * 103.127
+* null.value: 0
+* stderr: 1.7956
+* alternative: two.sided
+* method: Welch Two Sample t-test
+* data.name: size by group
+
+## Analysis 2: A2 {#analysis_2}
+
+```{r}
+    t.test(size ~ time, dat)
+```
+
+### Stored Results
+
+* statistic: 2.9523
+* parameter: 117.0601
+* p.value: 0.0038
+* conf.int: 
+  * 1.697
+  * 8.6128
+* estimate: 
+  * 104.4959
+  * 99.341
+* null.value: 0
+* stderr: 1.746
+* alternative: two.sided
+* method: Welch Two Sample t-test
+* data.name: size by time
+
+

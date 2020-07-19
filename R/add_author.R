@@ -71,7 +71,7 @@ author <- function(orcid, surname, given = "", roles = c(), ...) {
   orcid <- check_orcid(orcid)
   a <- list(
     orcid = orcid,
-    name = c(surname = surname, given = given),
+    name = list(surname = surname, given = given),
     roles = chk_roles
   )
   a <- c(a, list(...))

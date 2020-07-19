@@ -1,18 +1,22 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9009
-Date: 2020-06-25
+Version: 0.0.0.9011
+Date: 2020-07-19
 Authors@R: c(
-  person(given = "Lisa",
+  person(  given = "Lisa",
            family = "DeBruine",
            role = c("aut", "cre"),
            email = "debruine@gmail.com",
            comment = c(ORCID = "0000-0002-7523-5539")),
-    person(given = "Daniel",
+  person(  given = "Daniel",
            family = "Lakens",
            role = c("aut"),
            email = "lakens@gmail.com",
-           comment = c(ORCID = "0000-0002-0247-239X")))
+           comment = c(ORCID = "0000-0002-0247-239X")),
+  person(  given = "Brenton",
+           family = "Wiernik",
+           role = c("ctb"),
+           comment = c(ORCID = "0000-0001-9560-6336")))
 Description: Generate and process machine-readable study descriptions.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -25,18 +29,27 @@ Imports:
     stringr,
     rmarkdown,
     rio,
-    faux (>= 0.0.1.1),
-    methods
+    faux,
+    methods,
+    stats
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
     roxygen2,
     covr,
     tidyr,
+    dplyr,
     ggplot2,
-    TOSTER
+    TOSTER,
+    zcurve,
+    metafor,
+    pwr,
+    markdown,
+    shiny
+Remotes: 
+    debruine/faux,
+    FBartos/zcurve
 URL: https://github.com/scienceverse/scienceverse
 BugReports: https://github.com/scienceverse/scienceverse/issues
 VignetteBuilder: knitr
-Remotes: 
-    debruine/faux
+

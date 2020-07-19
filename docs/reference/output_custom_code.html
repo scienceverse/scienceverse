@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Output custom code specified in an analysis component</p>
     </div>
 
-    <pre class="usage"><span class='fu'>output_custom_code</span>(<span class='no'>study</span>, <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>output_custom_code</span>(<span class='no'>study</span>, <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,6 +153,10 @@
     <tr>
       <th>analysis_id</th>
       <td><p>The id or index for the analysis code to output (defaults to index 1)</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>Text to prepend to each line (for indenting)</p></td>
     </tr>
     </table>
 

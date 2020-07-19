@@ -23,6 +23,7 @@ library(scienceverse)
 library(zcurve)
 library(dplyr)
 library(metafor)
+library(pwr)
 set.seed(404)
 scienceverse_options(verbose = FALSE)
 
@@ -298,7 +299,6 @@ ncp33z <- function(power=1/3, p.crit=.05) {
 
 theoretical_power_curve <- function(power=1/3, p.max=.05, normalize=TRUE) {
 	# compute arbitrary test statistics for requested power
-	library(pwr)
 	d <- 0.2
 	n <- pwr.t.test(d=0.2, power=power)$n*2
 	
@@ -389,3 +389,5 @@ lines(x=seq(0, p.crit-.01, by=.01)+.005, y=theoretical_power_curve(power, p.max=
 
 text(x=seq(0, p.crit-.01, by=.01)+.006, y=perc + 8, col="black", label=paste0(round(perc), "%"), cex=)
 ```
+
+

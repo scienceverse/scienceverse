@@ -61,8 +61,8 @@ test_that("simple function", {
     add_eval("falsification", "Petal width is significantly and negatively correlated to length", "sig & !pos") %>%
     add_data("dat", iris)
 
-  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion sig:\n    p.value < 0.05 is TRUE\n    p.value = 0", fixed = TRUE, all = FALSE)
-  expect_message(s <- study_analyse(s), "Hypothesis 1, Criterion pos:\n    estimate > 0 is TRUE\n    estimate = 0.96", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis `1`, Criterion `sig`:\n    p.value < 0.05 is TRUE\n    p.value = 0.00", fixed = TRUE, all = FALSE)
+  expect_message(s <- study_analyse(s), "Hypothesis `1`, Criterion `pos`:\n    estimate > 0 is TRUE\n    estimate = 0.96", fixed = TRUE, all = FALSE)
   expect_message(s <- study_analyse(s), "Hypothesis 1:
     Corroborate: TRUE
     Falsify: FALSE
@@ -110,3 +110,40 @@ test_that("criterion name overlap", {
   expect_equal(s$hypotheses[[1]]$conclusion, "inconclusive")
 })
 
+
+# result in comparator ----
+test_that("result in comparator", {
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("A1", t.test(dat$Petal.Width, dat$Petal.Length)) %>%
+    add_criterion("pos", "estimate[1]", "<", "estimate[2]") %>%
+    add_eval("corroboration", "Petal width is longer than length", "pos") %>%
+    add_eval("falsification", "Petal width is shorter than length", "!pos") %>%
+    add_data("dat", iris)
+
+  expect_message(study_analyse(s), "Hypothesis `1`, Criterion `pos`:
+    estimate[1] < estimate[2] is TRUE
+    estimate[1] = 1.20
+    estimate[2] = 3.758", fixed = TRUE)
+
+  expect_message(study_analyse(s), "Hypothesis 1:
+    Corroborate: TRUE
+    Falsify: FALSE
+    Conclusion: corroborate", fixed = TRUE)
+
+})
+
+# app ----
+test_that("app", {
+  s <- study() %>%
+    add_hypothesis() %>%
+    add_analysis("A1", cor.test(rnorm(20), rnorm(20))) %>%
+    add_criterion("p", "p.value", "<", 0.5) %>%
+    add_criterion("r", "estimate", ">", 0.2) %>%
+    add_eval("corroboration", "", "p & r") %>%
+    add_eval("falsification", "", "p & !r")
+
+
+  s <- study_analyse(s)
+  get_result(s, "p.value")
+})

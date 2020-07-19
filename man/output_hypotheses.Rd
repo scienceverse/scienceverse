@@ -4,15 +4,17 @@
 \alias{output_hypotheses}
 \title{Output hypotheses}
 \usage{
-output_hypotheses(study, header_lvl = 2)
+output_hypotheses(study, header_lvl = 2, output = c("md", "html", "text"))
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
+
+\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
 }
 \value{
-The study object
+character string with a human-readable summary of the hypotheses
 }
 \description{
 Output hypotheses specified in the json file

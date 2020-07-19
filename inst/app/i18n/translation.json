@@ -1,0 +1,102 @@
+{
+  "cultural_date_format": "%Y-%m-%d",
+  "languages": ["en", "nl"],
+  "translation": [
+    {
+      "en": "Change language",
+      "nl": "Verander de taal"
+    },
+    {
+      "en": "Study Info",
+      "nl": "Studie-informatie"
+    },
+    {
+      "en": "Study Name",
+      "nl": "Studienaam"
+    },
+    {
+      "en": "Study Description",
+      "nl": "Studiebeschrijving"
+    },
+    {
+      "en": "Authors",
+      "nl": "Auteurs"
+    },
+    {
+      "en": "Reorder Authors",
+      "nl": "Auteurs opnieuw ordenen"
+    },
+    {
+      "en": "Add an Author",
+      "nl": "Voeg een auteur toe"
+    },
+    {
+      "en": "Author Number",
+      "nl": "Auteur nummer"
+    },
+    {
+      "en": "Given Name(s) including initials",
+      "nl": "Gegeven naam / namen inclusief initialen"
+    },
+    {
+      "en": "Last Name(s)",
+      "nl": "Achternaam/namen"
+    },
+    {
+      "en": "ORCiD"
+    },
+    {
+      "en": "Contributor Roles",
+      "nl": "Bijdragersrollen"
+    },
+    {
+      "en": "Add Author",
+      "nl": "Auteur toevoegen"
+    },
+    {
+      "en": "Hypotheses",
+      "nl": "Hypothesen"
+    },
+    {
+      "en": "Hypothesis ID",
+      "nl": "Hypothese-ID"
+    },
+    {
+      "en": "Hypothesis Description",
+      "nl": "Hypothese Beschrijving"
+    },
+    {
+      "en": "Criterion ID",
+      "nl": "Criterium-ID"
+    },
+    {
+      "en": "Add Criterion",
+      "nl": "Criterium toevoegen"
+    },
+    {
+      "en": "Evaluation",
+      "nl": "Evaluatie"
+    },
+    {
+      "en": "What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ()&|!"
+    },
+    {
+      "en": "Corroboration Description"
+    },
+    {
+      "en": "Corroboration Evaluation"
+    },
+    {
+      "en": "Falsification Description"
+    },
+    {
+      "en": "Falsification Evaluation"
+    },
+    {
+      "en": "Add Hypothesis"
+    },
+    {
+      "en": "Add an analysis first to be able to add criteria."
+    }
+  ]
+}

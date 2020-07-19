@@ -119,9 +119,10 @@
 <div id="ttest" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ttest" class="anchor"></a>Analysis 1: ttest</h3>
-<code>
-<pre> analysis_ttest_func  
-<p></p></pre></code>
+<pre>analysis_ttest_func &lt;- function () {
+    t.test(happiness ~ treatment, data = dat, alternative = "two.sided", 
+        paired = FALSE, conf.level = 0.95)
+}</pre>
 </div>
 </div>
   </div>

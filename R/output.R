@@ -4,6 +4,7 @@
 #'
 #' @param study A study list object with class scivrs_study
 #' @param analysis_id The id or index for the analysis code to output (defaults to index 1)
+#' @param prefix Text to prepend to each line (for indenting)
 #'
 #' @return string of the function definition
 #' @export
@@ -14,8 +15,9 @@
 #' s <- study() %>%
 #'   add_analysis("custom", t.test(rnorm(100))) %>%
 #'   output_custom_code()
-output_custom_code <- function(study, analysis_id = 1) {
-  analysis <- study$analyses[[analysis_id]]
+output_custom_code <- function(study, analysis_id = 1, prefix = "") {
+  a_id <- get_idx(study, analysis_id, "analyses")
+  analysis <- study$analyses[[a_id]]
 
   if (is.function(analysis$code)) {
     analysis$code <- analysis$code %>%
@@ -23,15 +25,13 @@ output_custom_code <- function(study, analysis_id = 1) {
       jsonlite::fromJSON() %>%
       as.list()
 
-    analysis$code[[1]] <- paste0(analysis$code[[1]],
-                                analysis$code[[2]])
-    analysis$code <- analysis$code[-2]
+    end <- length(analysis$code)-1
+    analysis$code <- analysis$code[3:end]
   }
 
-  func <- paste0("analysis_", analysis$id, "_func")
-  paste0(func, " &lt;- ",
-    paste(analysis$code, collapse= "\n")
-  )
+  analysis$code %>%
+    paste(collapse= paste0("\n", prefix)) %>%
+    paste0(prefix, .)
 }
 
 
@@ -42,51 +42,59 @@ output_custom_code <- function(study, analysis_id = 1) {
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @return The study object
+#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#'
+#' @return character string with a human-readable summary of the hypotheses
 #'
 #' @export
 
-output_hypotheses <- function(study, header_lvl = 2) {
+output_hypotheses <- function(study, header_lvl = 2,
+                              output = c("md", "html", "text")) {
   header <- rep("#", header_lvl) %>% paste(collapse = "")
 
-  cat(header, "Hypotheses\n\n")
+  txt <- paste(header, "Hypotheses\n\n")
 
-  for (i in 1:length(study$hypotheses)) {
+  if (length(study$hypotheses) == 0) {
+    txt <- paste0(txt, "No hypotheses\n\n")
+  } else {
 
-    cat(header, "# Hypothesis ", i,
-        ": ", study$hypotheses[[i]]$id, "\n\n",
-        study$hypotheses[[i]]$description, "\n\n", sep = "")
+    for (i in 1:length(study$hypotheses)) {
 
-    cat(header, "## Criteria\n\n", sep = "")
-    criteria <- study$hypotheses[[i]]$criteria
+      txt <- paste0(txt, header, "# Hypothesis ", i,
+          ": ", study$hypotheses[[i]]$id, "\n\n",
+          study$hypotheses[[i]]$description, "\n\n", sep = "")
 
-    for (j in 1:length(criteria)) {
-      cat("* `", criteria[[j]]$id, "` is confirmed if analysis `",
-          criteria[[j]]$analysis_id, "` yields `",
-          criteria[[j]]$result,
-          criteria[[j]]$operator,
-          criteria[[j]]$comparator,
-          "`  \n",
-          sep = ""
-      )
+      txt <- paste0(txt, header, "## Criteria\n\n", sep = "")
+      criteria <- study$hypotheses[[i]]$criteria
+
+      for (j in 1:length(criteria)) {
+        txt <- paste0(txt, "* `", criteria[[j]]$id, "` is confirmed if analysis `",
+            criteria[[j]]$analysis_id, "` yields `",
+            criteria[[j]]$result,
+            criteria[[j]]$operator,
+            criteria[[j]]$comparator,
+            "`  \n",
+            sep = ""
+        )
+      }
+
+      txt <- paste0(txt, "\n")
+
+      # explain evaluation
+      txt <- paste0(txt, header, "## Evaluation\n\n", sep = "")
+      txt <- paste0(txt, header, "### Corroboration\n\n", sep = "")
+      txt <- paste0(txt, study$hypotheses[[i]]$corroboration$description, "\n\n")
+      txt <- paste0(txt, "```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
+      txt <- paste0(txt, header, "### Falsification\n\n", sep = "")
+      txt <- paste0(txt, study$hypotheses[[i]]$falsification$description, "\n\n")
+      txt <- paste0(txt, "```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
+      txt <- paste0(txt, "All other patterns of results are inconclusive.")
+
+      txt <- paste0(txt, "\n\n\n")
     }
-
-    cat("\n")
-
-    # explain evaluation
-    cat(header, "## Evaluation\n\n", sep = "")
-    cat(header, "### Corroboration\n\n", sep = "")
-    cat(study$hypotheses[[i]]$corroboration$description, "\n\n")
-    cat("```\n", study$hypotheses[[i]]$corroboration$evaluation, "\n```\n\n")
-    cat(header, "### Falsification\n\n", sep = "")
-    cat(study$hypotheses[[i]]$falsification$description, "\n\n")
-    cat("```\n", study$hypotheses[[i]]$falsification$evaluation, "\n```\n\n")
-    cat("All other patterns of results are inconclusive.")
-
-    cat("\n\n\n")
   }
 
-  invisible(study)
+  format_output(txt, output) %>% invisible()
 }
 
 
@@ -95,82 +103,99 @@ output_hypotheses <- function(study, header_lvl = 2) {
 #' Output results specified in the json file
 #'
 #' @param study A study list object with class scivrs_study
-#' @param digits integer indicating the number of decimal places.
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @return The study object
+#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param digits integer indicating the number of decimal places.
+#'
+#' @return character string with a human-readable summary of the results
 #'
 #' @export
 
-output_results <- function(study, digits = 3, header_lvl = 2) {
+output_results <- function(study, header_lvl = 2,
+                           output = c("md", "html", "text"),
+                           digits = 3) {
   header <- rep("#", header_lvl) %>% paste(collapse = "")
 
-  cat(header, "Results\n\n")
-  for (i in 1:length(study$hypotheses)) {
-    h <- study$hypotheses[[i]]
+  txt <- paste(header, "Results\n\n")
+  if (length(study$hypotheses) == 0) {
+    txt <- paste0(txt, "No hypotheses\n\n")
+  } else {
+    for (i in 1:length(study$hypotheses)) {
+      h <- study$hypotheses[[i]]
 
-    cat(header, "# Hypothesis ", i, ": ", h$id, "\n\n", h$desc, "\n\n", sep = "")
+      txt <- paste0(txt, header, "# Hypothesis ", i, ": ", h$id, "\n\n", h$desc, "\n\n", sep = "")
 
-    criteria <- h$criteria
-    analysis_ids <- sapply(study$analyses, function(x) {x$id})
+      criteria <- h$criteria
+      analysis_ids <- sapply(study$analyses, function(x) {x$id})
 
-    for (j in 1:length(criteria)) {
-      criterion <- h$criteria[[j]]
-      analysis <- match(criterion$analysis_id, analysis_ids)
+      for (j in 1:length(criteria)) {
+        criterion <- h$criteria[[j]]
+        analysis <- match(criterion$analysis_id, analysis_ids)
 
-      # get value, handle indices in result
-      splitres <- stringr::str_split(criterion$result, "(\\[|\\])")
-      res <- splitres[[1]][1]
-      idx <- as.integer(splitres[[1]][2])
-      idx <- ifelse(isTRUE(idx > 0), idx, 1)
-      value <- study$analyses[[analysis]]$results[[res]][idx]
+        # get result and comparator values from results
+        results <- study$analyses[[analysis]]$results
+        value <- get_res_value(criterion$result, results)
+        comp_value <- get_res_value(criterion$comparator, results)
 
-      conc_color <- ifelse(criterion$conclusion, "green", "red")
+        conc_color <- ifelse(criterion$conclusion, "green", "red")
 
-      cat("* `", criteria[[j]]$id, "` is confirmed if analysis [",
-          criteria[[j]]$analysis_id, "](#", criteria[[j]]$analysis_id,
-          ") yields `",
-          criteria[[j]]$result,
-          criteria[[j]]$operator,
-          criteria[[j]]$comparator,
-          "`    \nThe result was ",
-          criterion$result, " = ", round_char(value, digits),
-          " (<span style=\"color:", conc_color, "\">",
-          criterion$conclusion, "</span>)  \n",
-          sep = ""
-      )
+        comp_res <- ""
+        if (comp_value != criterion$comparator) {
+          comp_res <- sprintf("; %s = %s",
+                              criterion$comparator,
+                              comp_value)
+        }
+
+        txt <- sprintf("%s* `%s` is confirmed if analysis [%s](#%s) yields %s %s %s\nThe result was %s = %s%s (<span style=\"color:%s;\">%s</span>)  \n",
+                       txt,
+                       criteria[[j]]$id,
+                       criteria[[j]]$analysis_id,
+                       criteria[[j]]$analysis_id,
+                       criteria[[j]]$result,
+                       criteria[[j]]$operator,
+                       criteria[[j]]$comparator,
+                       criterion$result,
+                       round_char(value, digits, TRUE),
+                       comp_res,
+                       conc_color,
+                       criterion$conclusion
+        )
+      }
+      txt <- paste0(txt, "\n\n")
+
+      # explain evaluation
+      cc <- h$corroboration
+      ff <- h$falsification
+      conc_color <- ifelse(cc$result, "green", "red")
+      txt <- paste0(txt, header, "## Corroboration (<span style=\"color:", conc_color, "\">", cc$result, "</span>)\n\n", sep = "")
+      txt <- paste0(txt, cc$description, "\n\n")
+      txt <- paste0(txt, "```\n", cc$evaluation, "\n```\n\n")
+
+      conc_color <- ifelse(ff$result, "green", "red")
+      txt <- paste0(txt, header, "## Falsification (<span style=\"color:", conc_color, "\">", ff$result, "</span>)\n\n", sep = "")
+      txt <- paste0(txt, ff$description, "\n\n")
+      txt <- paste0(txt, "```\n", ff$evaluation, "\n```\n\n")
+
+      # conclusion
+      if (is.null(h$conclusion)) {
+        txt <- paste0(txt, "<span style=\"color: blue\">")
+        txt <- paste0(txt, "**No conclusion.**")
+      } else if (h$conclusion == "corroborate") {
+        txt <- paste0(txt, "<span style=\"color: green\">")
+        txt <- paste0(txt, "**All criteria were met for corroboration.**")
+      } else if (h$conclusion == "falsify") {
+        txt <- paste0(txt, "<span style=\"color: red\">")
+        txt <- paste0(txt, "**All criteria were met for falsification.**")
+      } else {
+        txt <- paste0(txt, "<span style=\"color: blue\">")
+        txt <- paste0(txt, "**Neither the corroboration nor falsification criteria were met.**")
+      }
+
+      txt <- paste0(txt, "</span>\n\n")
     }
-    cat("\n\n")
-
-    # explain evaluation
-    cc <- h$corroboration
-    ff <- h$falsification
-    conc_color <- ifelse(cc$result, "green", "red")
-    cat(header, "## Corroboration (<span style=\"color:", conc_color, "\">", cc$result, "</span>)\n\n", sep = "")
-    cat(cc$description, "\n\n")
-    cat("```\n", cc$evaluation, "\n```\n\n")
-
-    conc_color <- ifelse(ff$result, "green", "red")
-    cat(header, "## Falsification (<span style=\"color:", conc_color, "\">", ff$result, "</span>)\n\n", sep = "")
-    cat(ff$description, "\n\n")
-    cat("```\n", ff$evaluation, "\n```\n\n")
-
-    # conclusion
-    if (h$conclusion == "corroborate") {
-      cat("<span style=\"color: green\">")
-      cat("**All criteria were met for corroboration.**")
-    } else if (h$conclusion == "falsify") {
-      cat("<span style=\"color: red\">")
-      cat("**All criteria were met for falsification.**")
-    } else {
-      cat("<span style=\"color: blue\">")
-      cat("**Neither the corroboration nor falsification criteria were met.**")
-      cat("</span>")
-    }
-
-    cat("\n\n")
   }
 
-  invisible(study)
+  format_output(txt, output) %>% invisible()
 }
 
 
@@ -180,23 +205,116 @@ output_results <- function(study, digits = 3, header_lvl = 2) {
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @return The study object
+#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#'
+#' @return character string with a human-readable summary of the analyses
 #'
 #' @export
 
-output_analyses <- function(study, header_lvl = 2) {
+output_analyses <- function(study, header_lvl = 2,
+                            output = c("md", "html", "text")) {
   header <- rep("#", header_lvl) %>% paste(collapse = "")
 
-  cat(header, "Analyses\n\n")
+  txt <- paste(header, "Analyses\n\n")
 
-  for (i in 1:length(study$analyses)) {
-    cat(header, "# Analysis ", i, ": ", study$analyses[[i]]$id,
-        " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
+  if (length(study$analyses) == 0) {
+    txt <- paste0(txt, "No analyses\n\n")
+  } else {
+    for (i in 1:length(study$analyses)) {
+      txt <- paste0(txt, header, "# Analysis ", i, ": ", study$analyses[[i]]$id,
+          " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
 
-    output_custom_code(study, i) %>%
-      paste0() %>%
-      cat("<pre>", ., "</pre>\n\n", sep = "")
+      txt <- output_custom_code(study, i) %>%
+        paste0() %>%
+        paste0(txt, "<pre>", ., "</pre>\n\n", sep = "")
+    }
   }
 
-  invisible(study)
+  format_output(txt, output) %>% invisible()
 }
+
+
+#' Output study info
+#'
+#' Output study info specified in the json file
+#'
+#' @param study A study list object with class scivrs_study
+#' @param header_lvl The starting header level for the section (defaults to 2)
+#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#'
+#' @return character string with a human-readable summary of the study info
+#'
+#' @export
+
+output_info <- function(study, header_lvl = 2,
+                        output = c("md", "html", "text")) {
+  header <- rep("#", header_lvl) %>% paste(collapse = "")
+
+  txt <- paste0(header, " ", study$name, "\n\n")
+
+  if ("description" %in% names(study$info)) {
+    txt <- paste0(txt, study$info$description, "\n\n")
+    study$info$description <- NULL
+  }
+
+  if (length(study$info) > 0) {
+    txt <- paste0(txt, faux::nested_list(study$info), "\n\n")
+  }
+
+  if ("authors" %in% names(study)) {
+    txt <- paste0(txt, header, "# Authors\n\n")
+    for (a in study$authors) {
+      olink <-  paste0(" ([", a$orcid ,"](https://orcid.org/",
+                       a$orcid, "))")
+      roles <- paste(":", paste(a$roles, collapse = ", "))
+      txt <- sprintf("%s* **%s, %s**%s%s\n",
+                     txt, a$name$surname, a$name$given,
+                     ifelse(!isFALSE(a$orcid), olink, ""),
+                     ifelse(length(a$roles)>0, roles, ""))
+
+      # check for other attributes
+      a$orcid <- NULL
+      a$name <- NULL
+      a$roles <- NULL
+      if (length(a) > 0) {
+        txt <- sprintf("%s\n%s\n", txt, faux::nested_list(a, pre = "  "))
+      }
+    }
+    txt <- paste0(txt, "\n\n")
+  }
+
+  format_output(txt, output) %>% invisible()
+}
+
+#' Output as md, html or text
+#'
+#' @param txt the md output of output_**** functions
+#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#'
+#' @return character string in the specified format
+#' @keywords internal
+
+format_output <- function(txt, output = c("md", "html", "text")) {
+  output <- match.arg(output)
+  if (output == "md") {
+    cat(txt)
+    return(txt)
+  } else if (output == "html") {
+    html <- txt %>% # deal with headers > 6
+      gsub("^#{7,}\\s*([^\n]*)\n", "**\\1**\n", .) %>%
+      gsub("\n#{7,}\\s*([^\n]*)\n", "\n**\\1**\n", .) %>%
+      markdown::renderMarkdown(text = .)
+
+    cat(html)
+    return(html)
+  } else if (output == "text") {
+    text <- txt %>%
+      gsub("^#+\\s+", "", .) %>% # get rid of first #
+      gsub("\n#+\\s+", "\n", .) %>% # get rid of subsequent #
+      gsub("\\{#\\S*\\}", "", .) # get rid of {#ID} tags
+
+    cat(text)
+    return(text)
+  }
+}
+

@@ -1,12 +1,12 @@
 test_that("errors", {
   s <- study()
 
-  expect_error(add_analysis(s, NULL, "not_a_file.R"),
+  expect_error(add_analysis(s, NULL, "not_a_file.R", type = "file"),
                "The file not_a_file.R was not found.",
                fixed = TRUE)
 
   expect_error(add_analysis(s, NULL, 1),
-               "The code was neither a function nor a filename.",
+               "The code was not a function.",
                fixed = TRUE)
 })
 
@@ -14,6 +14,16 @@ test_that("errors", {
 test_that("defaults", {
   s <- study() %>%
     add_analysis(NULL, t.test(rnorm(100)))
+  expect_equal(length(s$analyses), 1)
+  expect_equal(s$analyses[[1]]$id, 1)
+  expect_equal(s$analyses[[1]]$code, function() {
+    t.test(rnorm(100))
+  })
+})
+
+test_that("as text", {
+  s <- study() %>%
+    add_analysis(NULL, "t.test(rnorm(100))", type = "text")
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
   expect_equal(s$analyses[[1]]$code, function() {
@@ -64,10 +74,18 @@ test_that("undefined data", {
 test_that("add from file", {
   #testthat::skip("only works in testthat")
   s <- study() %>%
-    add_analysis(NULL, "input-data/custom_code.R")
+    add_analysis(NULL, "input-data/custom_code.R", type = "file")
 
   func <- function() { answer <- a + b }
 
   expect_equal(s$analyses[[1]]$code, func)
 })
 
+
+# add function with parse error ----
+test_that("parse error", {
+  s <- study()
+  expect_error(
+    add_analysis(s, "A1", "t.test(1:10", type = "text"),
+    "The function analysis_A1 has errors.")
+})

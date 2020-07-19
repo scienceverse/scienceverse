@@ -31,17 +31,20 @@ study_analyse <- function(study) {
     return(invisible(study))
   }
 
+  # get study environment
+  env <- attr(study, "env")
+
   # load data
   for (d in study$data) {
-    assign(d$id, d$data, envir = .GlobalEnv)
+    assign(d$id, d$data, envir = env)
   }
 
   # run analyses ----
   for (i in 1:analysis_n) {
-    func <- paste0("analysis_", study$analyses[[i]]$id, "_func")
+    func <- paste0("analysis_", study$analyses[[i]]$id)
 
     # check the analysis function exists
-    if (!methods::existsFunction(func)) {
+    if (!methods::existsFunction(func, where = env)) {
       stop("The function for analysis ",
            study$analyses[[i]]$id,
            " is not defined")
@@ -49,137 +52,13 @@ study_analyse <- function(study) {
 
     # save results, convert to list, and make class list
     # (jsonlite doesn't deal well with non-list classes like htest , etc)
-    study$analyses[[i]]$results <- do.call(func, list()) %>%
+    study$analyses[[i]]$results <- do.call(func, list(), envir = env) %>%
       as.list()
     class(study$analyses[[i]]$results) <- "list"
   }
 
-  # evaluate each hypothesis ----
-  hypothesis_n <- length(study$hypotheses)
-  for (i in 1:hypothesis_n) {
-    h <- study$hypotheses[[i]]
-    # evaluate each criterion ----
-    criteria_n <- length(h$criteria)
-    if (criteria_n == 0) {
-      if (scienceverse_options("verbose")) {
-        message("Hypothesis ", h$id, " has no criteria")
-      }
-    } else {
-      criteria <- vector()
-      analysis_ids <- sapply(study$analyses, function(x) {x$id})
-      for (j in 1:criteria_n) {
-        criterion <- h$criteria[[j]]
-        analysis <- match(criterion$analysis_id, analysis_ids)
-
-        # get value, handle indices in result
-        splitres <- stringr::str_split(criterion$result, "(\\[|\\])")
-        res <- splitres[[1]][1]
-        idx <- as.integer(splitres[[1]][2])
-        idx <- ifelse(isTRUE(idx > 0), idx, 1)
-        value <- study$analyses[[analysis]]$results[[res]][idx]
-
-        if (criterion$operator == "<") {
-          conclusion <- value < criterion$comparator
-        } else if (criterion$operator == ">") {
-          conclusion <- value > criterion$comparator
-        } else if (criterion$operator == "=") {
-          conclusion <- value == criterion$comparator
-        } else if (criterion$operator == "!=") {
-          conclusion <- value != criterion$comparator
-        } else {
-          conclusion <- NA
-        }
-        criteria[criterion$id] <- conclusion
-        study$hypotheses[[i]]$criteria[[j]]$conclusion <- conclusion
-
-        if (scienceverse_options("verbose")) {
-          message("Hypothesis ", h$id, ", Criterion ", criterion$id, ":\n    ",
-                  criterion$result, " ", criterion$operator,
-                  " ", criterion$comparator, " is ", conclusion,
-                  "\n    ", criterion$result, " = ", round_char(value, 2))
-        }
-      }
-
-      # evaluate hypothesis ----
-      replacement <- as.character(criteria)
-      names(replacement) <- names(criteria)
-
-      if (is.null(h$corroboration$evaluation)) {
-        warning("Hypothesis ", h$id, " has no evaluation criteria for corroboration")
-        corrob <- FALSE
-      } else {
-        tryCatch({
-          corrob_pieces <- h$corroboration$evaluation %>%
-            gsub("(\\(|\\)|\\||\\!|&)", " \\1 ", .) %>%
-            strsplit("\\s+", perl = TRUE) %>%
-            magrittr::extract2(1)
-          potential_criteria <- grep("^[a-zA-Z0-9_]+$", corrob_pieces)
-          for (pc in potential_criteria) {
-            crit <- corrob_pieces[pc]
-            if (crit %in% names(replacement)) {
-              corrob_pieces[pc] <- replacement[[crit]]
-            } else {
-              stop(crit, " is not a defined criterion")
-            }
-          }
-
-          corrob <- corrob_pieces %>%
-            paste(collapse = "") %>%
-            parse(text = .) %>%
-            eval(envir = .GlobalEnv)
-        }, error = function(e) {
-          warning("Hypothesis ", h$id, " has an error in the evaluation criteria for corroboration: ", h$corroboration$evaluation)
-          corrob <<- FALSE
-        })
-      }
-      if (is.null(h$falsification$evaluation)) {
-        warning("Hypothesis ", h$id, " has no evaluation criteria for falsification")
-        falsify <- FALSE
-      } else {
-        tryCatch({
-          falsify_pieces <- h$falsification$evaluation %>%
-            gsub("(\\(|\\)|\\||\\!|&)", " \\1 ", .) %>%
-            strsplit("\\s+", perl = TRUE) %>%
-            magrittr::extract2(1)
-          potential_criteria <- grep("^[a-zA-Z0-9_]+$", falsify_pieces)
-          for (pc in potential_criteria) {
-            crit <- falsify_pieces[pc]
-            if (crit %in% names(replacement)) {
-              falsify_pieces[pc] <- replacement[[crit]]
-            } else {
-              stop(crit, " is not a defined criterion")
-            }
-          }
-
-          falsify <- falsify_pieces %>%
-            paste(collapse = "") %>%
-            parse(text = .) %>%
-            eval(envir = .GlobalEnv)
-        }, error = function(e) {
-          warning("Hypothesis ", h$id, " has an error in the evaluation criteria for falsification: ", h$falsification$evaluation)
-          falsify <<- FALSE
-        })
-      }
-
-      study$hypotheses[[i]]$corroboration[["result"]] <- corrob
-      study$hypotheses[[i]]$falsification[["result"]] <- falsify
-
-      if (corrob & !isTRUE(falsify)) {
-        study$hypotheses[[i]]$conclusion = "corroborate"
-      } else if (!isTRUE(corrob) & falsify) {
-        study$hypotheses[[i]]$conclusion = "falsify"
-      } else {
-        study$hypotheses[[i]]$conclusion = "inconclusive"
-      }
-
-      if (scienceverse_options("verbose")) {
-        message("Hypothesis ", h$id, ":\n",
-                "    Corroborate: ", corrob, "\n",
-                "    Falsify: ", falsify, "\n",
-                "    Conclusion: ", study$hypotheses[[i]]$conclusion)
-      }
-    }
-  }
+  # evaluate hypotheses based on the results
+  study <- study_eval(study)
 
   invisible(study)
 }

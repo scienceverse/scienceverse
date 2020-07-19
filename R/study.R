@@ -37,6 +37,8 @@ study <- function(name = "Demo Study", ...) {
     )
 
     class(study) <- c("scivrs_study", "list")
+    # create a new environment for this study
+    attr(study, "env") <- new.env()
   }
 
   invisible(study)

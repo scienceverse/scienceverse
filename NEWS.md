@@ -1,3 +1,16 @@
+# scienceverse 0.0.0.9011 (2020-07-19)
+
+* `make_script`, `make_data` functions
+* new capabilities for `get_results` function
+* Vignette on exporting study matierals from the meta-study file.
+
+# scienceverse 0.0.0.9010 (2020-07-08)
+
+* Better `output_****` functions
+* Each study object now loads its data and functions in its own environment to avoid namaspace clashes
+* Various bug fixes to prevent crashes
+* Demo app (in progress) with `scivrs_app()`
+
 # scienceverse 0.0.0.9009 (2020-06-25)
 
 * Fixes for codebook changes in faux

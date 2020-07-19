@@ -4,12 +4,14 @@
 \alias{round_char}
 \title{Character-safe rounding}
 \usage{
-round_char(x, digits = 0, ...)
+round_char(x, digits = 0, as_char = FALSE, ...)
 }
 \arguments{
 \item{x}{a character vector.}
 
 \item{digits}{integer indicating the number of decimal places.}
+
+\item{as_char}{Whether the result should be formatted as a character with trailing 0s (if relevant)}
 
 \item{...}{arguments to be passed to methods.}
 }

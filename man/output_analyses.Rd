@@ -4,15 +4,17 @@
 \alias{output_analyses}
 \title{Output analyses}
 \usage{
-output_analyses(study, header_lvl = 2)
+output_analyses(study, header_lvl = 2, output = c("md", "html", "text"))
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
+
+\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
 }
 \value{
-The study object
+character string with a human-readable summary of the analyses
 }
 \description{
 Output analysis plan specified in the json file

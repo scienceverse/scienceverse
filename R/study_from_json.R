@@ -12,27 +12,34 @@ study_from_json <- function(filename) {
   #load from json file
   study <- jsonlite::read_json(filename)
 
+  # create study environment
+  env <- new.env()
+  attr(study, "env") <- env
+
   # set up custom analysis code ----
   n_analyses <- length(study$analyses)
   if (n_analyses > 0) {
     for (i in 1:n_analyses) {
       code <- study$analyses[[i]]$code
-      func <- paste0("analysis_", study$analyses[[i]]$id, "_func")
+      func <- paste0("analysis_", study$analyses[[i]]$id)
       if (!is.null(code) && length(code)) {
         # handle custom code from string
-        c <- paste(func, "<- function() {\n", paste(code, collapse = "\n"), "\n}")
-        eval(parse(text = c), envir = .GlobalEnv)
+        #c <- paste(func, "<- function() {\n", paste(code, collapse = "\n"), "\n}")
+        #eval(parse(text = c), envir = env)
+
+        make_func(func, paste(code, collapse = "\n"), "", env)
+
         if (scienceverse_options("verbose")) message("Loaded custom function: ", func)
       }
       # check the function exists
-      if (!exists(func)) {
+      if (!exists(func, envir = env)) {
         stop("The function ", func, " in analysis ", i, " is not defined")
-      } else if (parse(text=func) %>% eval() %>% is.function() == FALSE) {
+      } else if (parse(text=paste0("env$",func)) %>% eval() %>% is.function() == FALSE) {
         stop("The function ", func, " in analysis ", i, " is not a function")
       } else {
         # load the function as code
-        func_env <- get_env_name(func)
-        code <- methods::getFunction(func, where = .GlobalEnv)
+        #func_env <- get_env_name(func)
+        code <- methods::getFunction(func, where = env)
         study$analyses[[i]]$code <- code
       }
     }
@@ -42,20 +49,25 @@ study_from_json <- function(filename) {
   n_data <- length(study$data)
   if (n_data > 0) {
     for (i in 1:n_data) {
-      if (!is.null(study$data[[i]]$data)) {
-        d <- study$data[[i]]$data
+      if (!is.null(study$data[[i]]$design)) {
+        class(study$data[[i]]$design) <- c("design", "list")
+      }
+
+      if (!is.null(study$data[[i]]$codebook)) {
+        class(study$data[[i]]$codebook) <- c("psychds_codebook", "list")
+        vm <- study$data[[i]]$codebook$variableMeasured
+        lvls <- sapply(vm, function(x) { x$levels })
+        names(lvls) <- sapply(vm, function(x) { x$name })
+
+        coltypes <- sapply(vm, function(x) { x$type })
+        names(coltypes) <- names(lvls)
+      } else {
         lvls <- NULL
         coltypes <- NULL
+      }
 
-        if (!is.null(study$data[[i]]$codebook)) {
-          class(study$data[[i]]$codebook) <- c("psychds_codebook", "list")
-          vm <- study$data[[i]]$codebook$variableMeasured
-          lvls <- sapply(vm, function(x) { x$levels })
-          names(lvls) <- sapply(vm, function(x) { x$name })
-
-          coltypes <- sapply(vm, function(x) { x$type })
-          names(coltypes) <- names(lvls)
-        }
+      if (!is.null(study$data[[i]]$data)) {
+        d <- study$data[[i]]$data
 
         nrows <- length(d[[1]])
         df <- data.frame(row.names = 1:nrows)

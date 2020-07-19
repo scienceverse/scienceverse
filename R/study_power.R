@@ -36,6 +36,9 @@ study_power <- function(study, rep = 100) {
     stop("There are no analyses")
   }
 
+  # get study environment
+  env <- attr(study, "env")
+
   # check data have designs ----
   simdata <- list()
   for (d in study$data) {
@@ -45,7 +48,7 @@ study_power <- function(study, rep = 100) {
       } else if (scienceverse_options("verbose")) {
         message("The data `", d$id, "` will not be simulated, but be used as is for each analysis.")
         # load static data
-        assign(d$id, d$data, envir = .GlobalEnv)
+        assign(d$id, d$data, envir = env)
       }
     } else {
       # simulate new data ----
@@ -59,13 +62,13 @@ study_power <- function(study, rep = 100) {
   for (i in 1:rep) {
     # assign data ----
     for (id in dataids) {
-      assign(id, simdata[[id]][["data"]][[i]], envir = .GlobalEnv)
+      assign(id, simdata[[id]][["data"]][[i]], envir = env)
     }
 
     # run analyses ----
     for (a in study$analyses) {
-      func <- paste0("analysis_", a$id, "_func")
-      res <- do.call(func, list()) %>% as.list()
+      func <- paste0("analysis_", a$id)
+      res <- do.call(func, list(), envir = env) %>% as.list()
       class(res) <- "list"
       results[[a$id]][[i]] <- res
     }
@@ -88,23 +91,23 @@ study_power <- function(study, rep = 100) {
         criterion <- h$criteria[[j]]
         analysis <- match(criterion$analysis_id, analysis_ids)
 
-        # get value, handle indices in result
-        splitres <- stringr::str_split(criterion$result, "(\\[|\\])")
-        res <- splitres[[1]][1]
-        idx <- as.integer(splitres[[1]][2])
-        idx <- ifelse(isTRUE(idx > 0), idx, 1)
-        value <- sapply(results[[analysis]], function(x) {
-          x[[res]][[idx]]
-        })
+        # get result and comparator values from results
+        value <- c()
+        comp_value <- c()
+        for (k in 1:rep) {
+          kres <- results[[criterion$analysis_id]][[k]]
+          value[k] <- scienceverse:::get_res_value(criterion$result, kres)
+          comp_value[k] <- scienceverse:::get_res_value(criterion$comparator, kres)
+        }
 
         if (criterion$operator == "<") {
-          conclusion <- value < criterion$comparator
+          conclusion <- value < comp_value
         } else if (criterion$operator == ">") {
-          conclusion <- value > criterion$comparator
+          conclusion <- value > comp_value
         } else if (criterion$operator == "=") {
-          conclusion <- value == criterion$comparator
+          conclusion <- value == comp_value
         } else if (criterion$operator == "!=") {
-          conclusion <- value != criterion$comparator
+          conclusion <- value != comp_value
         } else {
           conclusion <- NA
         }
@@ -115,7 +118,6 @@ study_power <- function(study, rep = 100) {
 
       # evaluate hypothesis ----
       replacement <- sapply(criteria, as.character)
-      #names(replacement) <- names(criteria)
 
       if (is.null(h$corroboration$evaluation)) {
         warning("Hypothesis ", h$id, " has no evaluation criteria for corroboration")
@@ -127,28 +129,26 @@ study_power <- function(study, rep = 100) {
             strsplit("\\s+", perl = TRUE) %>%
             magrittr::extract2(1)
           potential_criteria <- grep("^[a-zA-Z0-9_]+$", corrob_pieces)
-
-          cp <- replicate(rep, corrob_pieces)
-          if (is.matrix(cp)) {
-            cp <- t(cp)
-          } else if (is.vector(cp)) {
-            cp <- matrix(cp, ncol = 1)
+          cp <- list()
+          for (j in 1:rep) {
+            cp[[j]] <- corrob_pieces
           }
-
           for (pc in potential_criteria) {
             crit <- corrob_pieces[pc]
-            if (crit %in% colnames(replacement)) {
-              cp[, pc] <- replacement[,crit]
+            if (crit %in% names(replacement[1,])) {
+              for (j in 1:rep) {
+                cp[[j]][pc] <- replacement[j,crit]
+              }
             } else {
               stop(crit, " is not a defined criterion")
             }
           }
 
-          corrob <- apply(cp, 1, paste, collapse="") %>%
-            sapply(function(x) {
-            parse(text = x) %>%
+          corrob <- sapply(cp, function(x) {
+            paste(x, collapse = "") %>%
+              parse(text = .) %>%
               eval(envir = .GlobalEnv)
-            }) %>% unname()
+          })
         }, error = function(e) {
           warning("Hypothesis ", h$id, " has an error in the evaluation criteria for corroboration: ", h$corroboration$evaluation)
           corrob <<- FALSE
@@ -164,27 +164,26 @@ study_power <- function(study, rep = 100) {
             strsplit("\\s+", perl = TRUE) %>%
             magrittr::extract2(1)
           potential_criteria <- grep("^[a-zA-Z0-9_]+$", falsify_pieces)
-          fp <- replicate(rep, falsify_pieces)
-          if (is.matrix(fp)) {
-            fp <- t(fp)
-          } else if (is.vector(fp)) {
-            fp <- matrix(fp, ncol = 1)
+          fp <- list()
+          for (j in 1:rep) {
+            fp[[j]] <- falsify_pieces
           }
-
           for (pc in potential_criteria) {
             crit <- falsify_pieces[pc]
-            if (crit %in% colnames(replacement)) {
-              fp[, pc] <- replacement[,crit]
+            if (crit %in% names(replacement[1,])) {
+              for (j in 1:rep) {
+                fp[[j]][pc] <- replacement[j,crit]
+              }
             } else {
               stop(crit, " is not a defined criterion")
             }
           }
 
-          falsify <- apply(fp, 1, paste, collapse="") %>%
-            sapply(function(x) {
-              parse(text = x) %>%
-                eval(envir = .GlobalEnv)
-            }) %>% unname()
+          falsify <- sapply(fp, function(x) {
+            paste(x, collapse = "") %>%
+              parse(text = .) %>%
+              eval(envir = .GlobalEnv)
+          })
         }, error = function(e) {
           warning("Hypothesis ", h$id, " has an error in the evaluation criteria for falsification: ", h$falsification$evaluation)
           falsify <<- FALSE

@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="meta_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Meta-Analyses</h1>
@@ -102,6 +102,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">zcurve</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">metafor</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">pwr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">404</span>)
 <span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span>(<span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
@@ -238,9 +239,8 @@
 <div id="ttest" class="section level5">
 <h5 class="hasAnchor">
 <a href="#ttest" class="anchor"></a>Analysis 1: ttest</h5>
-<code>
-<pre> analysis_ttest_func 
-<p></p></pre></code>
+<pre>    t.test(happiness ~ treatment, data = dat, alternative = "two.sided", 
+        paired = FALSE, conf.level = 0.95)</pre>
 <p>We know a <em>t</em>-test was performed. We can examine the results of the study:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/output_results.html">output_results</a></span>(<span class="no">sim_study</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
 </div>
@@ -254,41 +254,40 @@
 <p>Self-reported happiness will differ in the treatment group compared to the control group</p>
 <ul>
 <li>
-<code>p_val</code> is confirmed if analysis <a href="#ttest">ttest</a> yields <code>p.value&lt;0.05</code><br>
-The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
+<code>p_val</code> is confirmed if analysis <a href="#ttest">ttest</a> yields p.value &lt; 0.05 The result was p.value = 0.001 (<span style="color:green;">TRUE</span>)</li>
 </ul>
 <div id="corroboration-true" class="section level6">
 <h6>Corroboration (<span style="color:green">TRUE</span>)</h6>
 <p>The hypothesis is corroborated if analysis ‘ttest’ is significant.</p>
-<pre><code> p_val </code></pre>
+<pre><code>p_val</code></pre>
 </div>
 <div id="falsification-false" class="section level6">
 <h6>Falsification (<span style="color:red">FALSE</span>)</h6>
 <p>The hypothesis is falsified if analysis ‘ttest’ is not significant.</p>
-<pre><code> !p_val </code></pre>
+<pre><code>!p_val</code></pre>
 <p><span style="color: green"><strong>All criteria were met for corroboration.</strong></span></p>
 <p>We see a single hypothesis was tested, and corroborated, in this study. For a <em>z</em>-curve or <em>p</em>-curve analysis, this makes it easy to select the test to include in the meta-analysis. If multiple tests are performed in a single study, we can select the hypothesis test of interest by specifying the ID.</p>
 <p>The results can be accessed easily with the get_result function.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># Get all results</span>
 <span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">sim_study</span>)</pre></body></html></div>
 <ul>
-<li>statistic: -3.4392620790208</li>
-<li>parameter: 1191.99271322459</li>
-<li>p.value: 0.000603455501982571</li>
+<li>statistic: -3.4392621</li>
+<li>parameter: 1191.9927132</li>
+<li>p.value: 0.0006035</li>
 <li>conf.int:
 <ul>
-<li>-5.6693947117837</li>
-<li>-1.55065581534977</li>
+<li>-5.6693947</li>
+<li>-1.5506558</li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li>mean in group control: 59.5113960442195</li>
-<li>mean in group intervention: 63.1214213077862</li>
+<li>mean in group control: 59.511396</li>
+<li>mean in group intervention: 63.1214213</li>
 </ul>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 1.04965111137868</li>
+<li>stderr: 1.0496511</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: happiness by treatment</li>
@@ -296,7 +295,7 @@ The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
 <p>For the <em>z</em>-curve and <em>p</em>-curve analysis we would just retrieve the <em>p</em>-value.</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># Or only get the p-value</span>
 <span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">sim_study</span>, <span class="kw">result</span> <span class="kw">=</span> <span class="st">"p.value"</span>)</pre></body></html></div>
-<pre><code>&gt; [1] 0.0006034555</code></pre>
+<pre><code>&gt; [1] 0.0006035</code></pre>
 <p>To perform a meta-analysis we need to compute the effect size and we need to code the sample size. These can be approximated from the test results (e.g., by calculating these from the <em>t</em>-value and degrees of freedom). However, if the data is shared, we can also compute the effect size based on the raw data. Data can be read in using the get_data function:</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">sim_study</span>))</pre></body></html></div>
 <pre><code>&gt;      id pet treatment happiness
@@ -332,7 +331,7 @@ The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
 &gt; 
 &gt; Estimates:
 &gt;       ERR       EDR 
-&gt; 0.6558644 0.6175098</code></pre>
+&gt; 0.6558697 0.6175144</code></pre>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">z_res</span>, <span class="kw">all</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>&gt; Call:
 &gt; zcurve::zcurve(z = z, method = "EM", bootstrap = 1000)
@@ -349,7 +348,7 @@ The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
 &gt; 
 &gt; Model converged in 88 + 39 iterations
 &gt; Fitted using 30 z-values. 50 supplied, 30 significant (ODR = 0.60, 95% CI [0.45, 0.73]).
-&gt; Q = -26.59, 95% CI[-30.08, -20.66]</code></pre>
+&gt; Q = -26.60, 95% CI[-30.08, -20.66]</code></pre>
 <p>We see that 30 out of 50 studies were significant, which makes the observed power (across all these studies with different sample sizes) 60% (95% CI[0.45;0.73]). The expected discovery rate (EDR) does not statistically differ from the observed discovery rate, which means there is no indication of selection bias based on the <em>z</em>-curve analysis (and indeed, we know there was no selection bias in the simulation).</p>
 </div>
 <div id="meta-analysis" class="section level2">
@@ -456,7 +455,6 @@ The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
 
 <span class="no">theoretical_power_curve</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">power</span><span class="kw">=</span><span class="fl">1</span>/<span class="fl">3</span>, <span class="no">p.max</span><span class="kw">=</span><span class="fl">.05</span>, <span class="no">normalize</span><span class="kw">=</span><span class="fl">TRUE</span>) {
     <span class="co"># compute arbitrary test statistics for requested power</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">pwr</span>)
     <span class="no">d</span> <span class="kw">&lt;-</span> <span class="fl">0.2</span>
     <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span>(<span class="kw">d</span><span class="kw">=</span><span class="fl">0.2</span>, <span class="kw">power</span><span class="kw">=</span><span class="no">power</span>)$<span class="no">n</span>*<span class="fl">2</span>
 
@@ -526,12 +524,12 @@ The result was p.value = 0.001 (<span style="color:green">TRUE</span>)</li>
 
 <span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu">p_curve_3</span>(<span class="kw">pps</span> <span class="kw">=</span> <span class="no">res</span>)</pre></body></html></div>
 <ul>
-<li>Z_evidence: -7.57337853362524</li>
-<li>p_evidence: 0.0000000000000181820357939267</li>
-<li>Z_hack: 7.57337853362523</li>
+<li>Z_evidence: -7.57342662584462</li>
+<li>p_evidence: 0.0000000000000181753030035479</li>
+<li>Z_hack: 7.57342662584462</li>
 <li>p_hack: 0.999999999999982</li>
-<li>Z_lack: 3.38849878744461</li>
-<li>p_lack: 0.999648618301994</li>
+<li>Z_lack: 3.3885428953757</li>
+<li>p_lack: 0.999648674812107</li>
 <li>inconclusive: FALSE</li>
 </ul>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="co"># Create p-curve plot</span>

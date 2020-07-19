@@ -1,0 +1,43 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "dat",
+    "schemaVersion": "Psych-DS 0.1.0",
+    "variableMeasured": [
+        {
+            "@type": "PropertyValue",
+            "name": "id",
+            "description": "id",
+            "type": "string"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "group",
+            "description": "group",
+            "levels": [
+                "A",
+                "B"
+            ],
+            "type": "string",
+            "ordered": false
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "time",
+            "description": "time",
+            "levels": [
+                "morning",
+                "night"
+            ],
+            "type": "string",
+            "ordered": false
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "size",
+            "description": "size",
+            "type": "float"
+        }
+    ]
+}
+

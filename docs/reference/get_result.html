@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -141,7 +141,14 @@
     <p>Get Result Value</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_result</span>(<span class='no'>study</span>, <span class='kw'>result</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>get_result</span>(
+  <span class='no'>study</span>,
+  <span class='kw'>result</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>, <span class='fl'>3</span>),
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"char"</span>, <span class='st'>"html"</span>),
+  <span class='kw'>analysis_link</span> <span class='kw'>=</span> <span class='st'>"analysis.html"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,24 +165,36 @@
       <th>analysis_id</th>
       <td><p>The id for the relevant analysis (index or character) defaults to the first analysis in the list</p></td>
     </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>Number of digits to round to (defaults to the value for options("digits")</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Return the value, character version, or an html linked version</p></td>
+    </tr>
+    <tr>
+      <th>analysis_link</th>
+      <td><p>Name of the analysis file to link to if linking to html</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>value of names result or list of results</p>
+    <p>value of names result or list of results or html version</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>, <span class='st'>"Petals are wider than long"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>iris</span>$<span class='no'>Petal.Width</span>, <span class='no'>iris</span>$<span class='no'>Petal.Height</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"p"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()</div><div class='output co'>#&gt; <span class='message'>Hypothesis H1, Criterion p:</span>
+  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()</div><div class='output co'>#&gt; <span class='message'>Hypothesis `H1`, Criterion `p`:</span>
 #&gt; <span class='message'>    p.value &lt; 0.05 is TRUE</span>
-#&gt; <span class='message'>    p.value = 0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Hypothesis H1 has no evaluation criteria for corroboration</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Hypothesis H1 has no evaluation criteria for falsification</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1:</span>
+#&gt; <span class='message'>    p.value = 0.00</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Hypothesis H1 has no evaluation criteria for corroboration</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Hypothesis H1 has no evaluation criteria for falsification</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1:</span>
 #&gt; <span class='message'>    Corroborate: FALSE</span>
 #&gt; <span class='message'>    Falsify: FALSE</span>
 #&gt; <span class='message'>    Conclusion: inconclusive</span></div><div class='input'>
- <span class='fu'>get_result</span>(<span class='no'>s</span>, <span class='st'>"p.value"</span>, <span class='st'>"A1"</span>)</div><div class='output co'>#&gt; [1] 2.659021e-42</div><div class='input'>
+ <span class='fu'>get_result</span>(<span class='no'>s</span>, <span class='st'>"p.value"</span>, <span class='st'>"A1"</span>)</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

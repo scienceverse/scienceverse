@@ -6,6 +6,11 @@
 \usage{
 t_test(x, ...)
 }
+\arguments{
+\item{x}{a (non-empty) numeric vector of data values.}
+
+\item{...}{further arguments to be passed to or from methods.}
+}
 \description{
 See \code{stats::\link[stats]{t.test}} for details.
 }

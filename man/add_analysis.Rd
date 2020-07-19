@@ -4,7 +4,14 @@
 \alias{add_analysis}
 \title{Add Analysis}
 \usage{
-add_analysis(study, id = NULL, code = "", return = "", ...)
+add_analysis(
+  study,
+  id = NULL,
+  code = "",
+  return = "",
+  type = c("func", "text", "file"),
+  ...
+)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
@@ -14,6 +21,8 @@ add_analysis(study, id = NULL, code = "", return = "", ...)
 \item{code}{The code to run or a file name containing the code}
 
 \item{return}{A list of object names to return from the code}
+
+\item{type}{Whether the code is a function, text, or file name}
 
 \item{...}{further arguments to add}
 }

@@ -19,6 +19,7 @@ set.seed(8675309)
 library(scienceverse)
 library(faux)
 library(tidyr)
+library(dplyr)
 library(ggplot2)
 ```
 

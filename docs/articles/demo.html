@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="demo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Demo</h1>
@@ -152,6 +152,7 @@
 <span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span>(<span class="no">study</span>,
                       <span class="kw">id</span> <span class="kw">=</span> <span class="st">"recip"</span>,
                       <span class="kw">code</span> <span class="kw">=</span> <span class="st">"files/recip_analysis.R"</span>,
+                      <span class="kw">type</span> <span class="kw">=</span> <span class="st">"file"</span>,
                       <span class="kw">software</span> <span class="kw">=</span> <span class="no">R.version.string</span>)</pre></body></html></div>
 </div>
 <div id="criteria" class="section level3">
@@ -260,16 +261,16 @@
 <a href="#run-the-analysis" class="anchor"></a>Run the analysis</h3>
 <p>When you run <code>study_analyze</code> (or <code>stdy_analyse</code>), the data are loaded as their <code>id</code> names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyze</a></span>(<span class="no">study</span>)
-<span class="co">#&gt; Hypothesis self_pref, Criterion trust_lowbound:</span>
+<span class="co">#&gt; Hypothesis `self_pref`, Criterion `trust_lowbound`:</span>
 <span class="co">#&gt;     conf.int[1] &gt; 0 is TRUE</span>
 <span class="co">#&gt;     conf.int[1] = 0.02</span>
-<span class="co">#&gt; Hypothesis self_pref, Criterion trust_highbound:</span>
+<span class="co">#&gt; Hypothesis `self_pref`, Criterion `trust_highbound`:</span>
 <span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span>
 <span class="co">#&gt;     conf.int[2] = 0.98</span>
-<span class="co">#&gt; Hypothesis self_pref, Criterion recip_lowbound:</span>
+<span class="co">#&gt; Hypothesis `self_pref`, Criterion `recip_lowbound`:</span>
 <span class="co">#&gt;     conf.int[1] &gt; 0 is FALSE</span>
 <span class="co">#&gt;     conf.int[1] = -0.51</span>
-<span class="co">#&gt; Hypothesis self_pref, Criterion recip_highbound:</span>
+<span class="co">#&gt; Hypothesis `self_pref`, Criterion `recip_highbound`:</span>
 <span class="co">#&gt;     conf.int[2] &gt; 0.2 is TRUE</span>
 <span class="co">#&gt;     conf.int[2] = 0.43</span>
 <span class="co">#&gt; Hypothesis self_pref:</span>
@@ -293,10 +294,125 @@
 <a href="#reload" class="anchor"></a>Reload</h3>
 <p>You can load a study directly from the JSON file with the <code>study</code> function.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">study2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"files/postreg.json"</span>)
-<span class="co">#&gt; Loaded custom function: analysis_trust_func</span>
-<span class="co">#&gt; Loaded custom function: analysis_recip_func</span></pre></body></html></div>
+<span class="co">#&gt; Loaded custom function: analysis_trust</span>
+<span class="co">#&gt; Loaded custom function: analysis_recip</span></pre></body></html></div>
 <p>Use the function <code>get_data</code> to extract data from the study object.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">kindata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">study2</span>, <span class="st">"kin"</span>)</pre></body></html></div>
+</div>
+<div id="view-sections" class="section level3">
+<h3 class="hasAnchor">
+<a href="#view-sections" class="anchor"></a>View sections</h3>
+<p>You can include sections of the human-readable summaries in any report or just view them in the console with the functions <code>output_info</code>, <code>output_hypotheses</code>, <code>output_analyses</code> and <code>output_results</code>. By default, they output markdown (<code>md</code>), but you can change that to <code>html</code> or plain <code>text</code>. If you want to display markdown or html from a code chunk, make sure to set <code>results='asis'</code>. The <code>header_lvl</code> argument determines what level the first header is (defaults to 2).</p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/output_info.html">output_info</a></span>(<span class="no">study2</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
+<div id="kinship-and-prosocial-behaviour" class="section level4">
+<h4 class="hasAnchor">
+<a href="#kinship-and-prosocial-behaviour" class="anchor"></a>Kinship and Prosocial Behaviour</h4>
+<ul>
+<li>abstract: A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.</li>
+</ul>
+<div id="authors-1" class="section level5">
+<h5 class="hasAnchor">
+<a href="#authors-1" class="anchor"></a>Authors</h5>
+<ul>
+<li>
+<p><strong>DeBruine, Lisa M.</strong> (<a href="https://orcid.org/0000-0002-7523-5539">0000-0002-7523-5539</a>): Conceptualization, Data curation, Software, Writing - original draft, Writing - review &amp; editing</p>
+<ul>
+<li>email: <a href="mailto:lisa.debruine@glasgow.ac.uk" class="email">lisa.debruine@glasgow.ac.uk</a>
+</li>
+</ul>
+</li>
+<li><p><strong>Lakens, Daniël</strong> (<a href="https://orcid.org/0000-0002-0247-239X">0000-0002-0247-239X</a>): Conceptualization, Formal analysis, Writing - original draft, Writing - review &amp; editing</p></li>
+</ul>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/output_hypotheses.html">output_hypotheses</a></span>(<span class="no">study2</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">"md"</span>)</pre></body></html></div>
+</div>
+</div>
+<div id="hypotheses-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#hypotheses-1" class="anchor"></a>Hypotheses</h4>
+<div id="hypothesis-1-self_pref" class="section level5">
+<h5 class="hasAnchor">
+<a href="#hypothesis-1-self_pref" class="anchor"></a>Hypothesis 1: self_pref</h5>
+<p>Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</p>
+<div id="criteria-1" class="section level6">
+<h6>Criteria</h6>
+<ul>
+<li>
+<code>trust_lowbound</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[1]&gt;0</code><br>
+</li>
+<li>
+<code>trust_highbound</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[2]&gt;0.2</code><br>
+</li>
+<li>
+<code>recip_lowbound</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[1]&gt;0</code><br>
+</li>
+<li>
+<code>recip_highbound</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[2]&gt;0.2</code>
+</li>
+</ul>
+</div>
+<div id="evaluation-1" class="section level6">
+<h6>Evaluation</h6>
+<div id="corroboration" class="section level7">
+<p class="heading">Corroboration</p>
+<p>The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.</p>
+<pre><code>(trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)</code></pre>
+</div>
+<div id="falsification" class="section level7">
+<p class="heading">Falsification</p>
+<p>The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.</p>
+<pre><code>!trust_highbound &amp; !recip_highbound</code></pre>
+<p>All other patterns of results are inconclusive.</p>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/output_analyses.html">output_analyses</a></span>(<span class="no">study2</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">"html"</span>)</pre></body></html></div>
+<h4 class="hasAnchor">
+<a href="#falsification" class="anchor"></a>
+Analyses
+</h4>
+<h5>
+Analysis 1: trust {#trust}
+</h5>
+<pre>    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)</pre>
+<h5>
+Analysis 2: recip {#recip}
+</h5>
+<pre>    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)</pre>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/output_results.html">output_results</a></span>(<span class="no">study2</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">"text"</span>)
+<span class="co">#&gt; Results</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Hypothesis 1: self_pref</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; * `trust_lowbound` is confirmed if analysis [trust](#trust) yields conf.int[1] &gt; 0</span>
+<span class="co">#&gt; The result was conf.int[1] = 0.021 (&lt;span style="color:green;"&gt;TRUE&lt;/span&gt;)  </span>
+<span class="co">#&gt; * `trust_highbound` is confirmed if analysis [trust](#trust) yields conf.int[2] &gt; 0.2</span>
+<span class="co">#&gt; The result was conf.int[2] = 0.979 (&lt;span style="color:green;"&gt;TRUE&lt;/span&gt;)  </span>
+<span class="co">#&gt; * `recip_lowbound` is confirmed if analysis [recip](#recip) yields conf.int[1] &gt; 0</span>
+<span class="co">#&gt; The result was conf.int[1] = -0.509 (&lt;span style="color:red;"&gt;FALSE&lt;/span&gt;)  </span>
+<span class="co">#&gt; * `recip_highbound` is confirmed if analysis [recip](#recip) yields conf.int[2] &gt; 0.2</span>
+<span class="co">#&gt; The result was conf.int[2] = 0.426 (&lt;span style="color:green;"&gt;TRUE&lt;/span&gt;)  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Corroboration (&lt;span style="color:green"&gt;TRUE&lt;/span&gt;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ```</span>
+<span class="co">#&gt; (trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)</span>
+<span class="co">#&gt; ```</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Falsification (&lt;span style="color:red"&gt;FALSE&lt;/span&gt;)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ```</span>
+<span class="co">#&gt; !trust_highbound &amp; !recip_highbound</span>
+<span class="co">#&gt; ```</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; &lt;span style="color: green"&gt;**All criteria were met for corroboration.**&lt;/span&gt;</span></pre></body></html></div>
+</div>
+</div>
+</div>
+</div>
 </div>
   </div>
 

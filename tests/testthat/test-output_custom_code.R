@@ -2,9 +2,22 @@ context("test-output_custom_code")
 
 test_that("null", {
   s <- study() %>%
-    add_analysis("id", t.test(x = 1:10, y = 2:11))
+    add_analysis("A1", {
+      a <- rnorm(10)
+      b<- rnorm(10)
+      t.test(a, b)
+    })
 
-  op <- output_custom_code(s)
+  op <- "    {\n        a <- rnorm(10)\n        b <- rnorm(10)\n        t.test(a, b)\n    }"
+  expect_equal(op, output_custom_code(s))
 
-  expect_equal(op, "analysis_id_func <- function () \n{\n    t.test(x = 1:10, y = 2:11)\n}")
+  op <- output_custom_code(s, 1)
+  expect_equal(op, output_custom_code(s))
+
+  op <- output_custom_code(s, "A1")
+  expect_equal(op, output_custom_code(s))
+
+  op <- output_custom_code(s, prefix = ">")
+  expect_equal(gsub(">", "", op),
+               output_custom_code(s))
 })

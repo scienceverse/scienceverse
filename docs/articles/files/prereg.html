@@ -362,7 +362,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Registration of Statistical Hypotheses</h1>
-<h4 class="date">25 June, 2020</h4>
+<h4 class="date">19 July, 2020</h4>
 
 </div>
 
@@ -407,12 +407,12 @@ summary {
 <div id="corroboration" class="section level5">
 <h5>Corroboration</h5>
 <p>The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.</p>
-<pre><code> (trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound) </code></pre>
+<pre><code>(trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)</code></pre>
 </div>
 <div id="falsification" class="section level5">
 <h5>Falsification</h5>
 <p>The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.</p>
-<pre><code> !trust_highbound &amp; !recip_highbound </code></pre>
+<pre><code>!trust_highbound &amp; !recip_highbound</code></pre>
 <p>All other patterns of results are inconclusive.</p>
 </div>
 </div>
@@ -422,21 +422,11 @@ summary {
 <h2>Analyses</h2>
 <div id="trust" class="section level3">
 <h3>Analysis 1: trust</h3>
-<code>
-<pre> analysis_trust_func &lt;- function () 
-{
-    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)
-} </pre>
-<p></code></p>
+<pre>    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)</pre>
 </div>
 <div id="recip" class="section level3">
 <h3>Analysis 2: recip</h3>
-<code>
-<pre> analysis_recip_func &lt;- function () 
-{
-    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)
-} </pre>
-<p></code></p>
+<pre>    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)</pre>
 </div>
 </div>
 

@@ -76,7 +76,8 @@ study <- add_analysis(study,
 # add by referencing an external .R file
 study <- add_analysis(study,
                       id = "recip",
-                      code = "files/recip_analysis.R", 
+                      code = "files/recip_analysis.R",
+                      type = "file",
                       software = R.version.string)
 ```
 
@@ -232,6 +233,26 @@ Use the function `get_data` to extract data from the study object.
 
 ```{r}
 kindata <- get_data(study2, "kin")
+```
+
+### View sections
+
+You can include sections of the human-readable summaries in any report or just view them in the console with the functions `output_info`, `output_hypotheses`, `output_analyses` and `output_results`. By default, they output markdown (`md`), but you can change that to `html` or plain `text`. If you want to display markdown or html from a code chunk, make sure to set `results='asis'`. The `header_lvl` argument determines what level the first header is (defaults to 2).
+
+```{r, results='asis'}
+output_info(study2, header_lvl = 4)
+```
+
+```{r, results='asis'}
+output_hypotheses(study2, header_lvl = 4, output = "md")
+```
+
+```{r, results='asis'}
+output_analyses(study2, header_lvl = 4, output = "html")
+```
+
+```{r}
+output_results(study2, header_lvl = 4, output = "text")
 ```
 
 

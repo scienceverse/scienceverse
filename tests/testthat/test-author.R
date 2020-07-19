@@ -1,5 +1,5 @@
 demo <- list(orcid = "0000-0002-7523-5539",
-             name = c(surname = "DeBruine", given = "Lisa M."),
+             name = list(surname = "DeBruine", given = "Lisa M."),
              roles = c("Conceptualization", "Methodology"))
 class(demo) <- c("scivrs_author", "list")
 

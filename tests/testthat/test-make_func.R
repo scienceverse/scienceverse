@@ -7,6 +7,18 @@ test_that("make_func", {
   remove(myfunc2)
 })
 
+test_that("study env", {
+  s <- study()
+  e <- attr(s, "env")
+
+  make_func("myfunc", "t.test(rnorm(100))", "", e)
+  myfunc2 <- function() { t.test(rnorm(100)) }
+  expect_equal(e$myfunc, myfunc2)
+
+  remove(myfunc, envir = e)
+  remove(myfunc2)
+})
+
 test_that("unnamed return list", {
   code <- "{
     a <- 1
@@ -65,4 +77,10 @@ test_that("bad function names", {
   make_func("my *BAD* func", "t.test(rnorm(100))", "", environment())
   expect_true(exists("my_BAD_func"))
   remove(my_BAD_func)
+})
+
+# add function with parse error ----
+test_that("parse error", {
+  expect_error(make_func("f", "x <-"),
+               "The function f has errors.")
 })

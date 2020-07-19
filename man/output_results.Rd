@@ -4,17 +4,24 @@
 \alias{output_results}
 \title{Output results}
 \usage{
-output_results(study, digits = 3, header_lvl = 2)
+output_results(
+  study,
+  header_lvl = 2,
+  output = c("md", "html", "text"),
+  digits = 3
+)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
-\item{digits}{integer indicating the number of decimal places.}
-
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
+
+\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
+
+\item{digits}{integer indicating the number of decimal places.}
 }
 \value{
-The study object
+character string with a human-readable summary of the results
 }
 \description{
 Output results specified in the json file
