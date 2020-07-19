@@ -89,7 +89,6 @@ get_result(study = s,
 You can display the value as a link to the analysis file (created with `make_script`). The digits default to the global option, so you can reset that. And you can use the shorthand function `get_html` if you only have one study object loaded. The analysis link defaults to "analysis.html", but you can change this with `scienceverse_options()` as shown.
 
 ```{r, message=FALSE}
-remove(s2)
 make_script(s, "analysis.Rmd")
 rmarkdown::render("analysis.Rmd")
 options(digits = 3)

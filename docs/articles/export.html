@@ -136,22 +136,22 @@
   <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span>()
 <span class="co">#&gt; Hypothesis `group`, Criterion `p`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt;     p.value = 0.18</span>
+<span class="co">#&gt;     p.value = 0.81</span>
 <span class="co">#&gt; Hypothesis `group`, Criterion `dir`:</span>
 <span class="co">#&gt;     estimate[1] &gt; estimate[2] is FALSE</span>
-<span class="co">#&gt;     estimate[1] = 100.71</span>
-<span class="co">#&gt;     estimate[2] = 103.126999836945</span>
+<span class="co">#&gt;     estimate[1] = 101.10</span>
+<span class="co">#&gt;     estimate[2] = 101.5532282802</span>
 <span class="co">#&gt; Hypothesis group:</span>
 <span class="co">#&gt;     Corroborate: FALSE</span>
 <span class="co">#&gt;     Falsify: FALSE</span>
 <span class="co">#&gt;     Conclusion: inconclusive</span>
 <span class="co">#&gt; Hypothesis `time`, Criterion `p`:</span>
 <span class="co">#&gt;     p.value &lt; 0.05 is TRUE</span>
-<span class="co">#&gt;     p.value = 0.00</span>
+<span class="co">#&gt;     p.value = 0.02</span>
 <span class="co">#&gt; Hypothesis `time`, Criterion `dir`:</span>
 <span class="co">#&gt;     estimate[1] &gt; estimate[2] is TRUE</span>
-<span class="co">#&gt;     estimate[1] = 104.50</span>
-<span class="co">#&gt;     estimate[2] = 99.3410258259418</span>
+<span class="co">#&gt;     estimate[1] = 103.42</span>
+<span class="co">#&gt;     estimate[2] = 99.2390252648151</span>
 <span class="co">#&gt; Hypothesis time:</span>
 <span class="co">#&gt;     Corroborate: TRUE</span>
 <span class="co">#&gt;     Falsify: FALSE</span>
@@ -166,23 +166,23 @@
 <p>You can get all the results with the <code><a href="../reference/get_result.html">get_result()</a></code> function. If you don’t specify the result name or the analysis ID, it defaults to all of the results of the first analysis. It retruns a list that you can use, but will display an RMarkdown-formatted list if you print it (and set the chunk options to <code>results='asis'</code>).</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">s</span>)</pre></body></html></div>
 <ul>
-<li>statistic: -1.3461</li>
-<li>parameter: 116.6354</li>
-<li>p.value: 0.1809</li>
+<li>statistic: -0.2403</li>
+<li>parameter: 111.5102</li>
+<li>p.value: 0.8106</li>
 <li>conf.int:
 <ul>
-<li>-5.9734</li>
-<li>1.1392</li>
+<li>-4.1552</li>
+<li>3.2564</li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li>100.7099</li>
-<li>103.127</li>
+<li>101.1039</li>
+<li>101.5532</li>
 </ul>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 1.7956</li>
+<li>stderr: 1.8702</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: size by group</li>
@@ -193,27 +193,25 @@
            <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A2"</span>,
            <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>,
            <span class="kw">return</span> <span class="kw">=</span> <span class="st">"value"</span>)
-<span class="co">#&gt; [1] 0.004</span></pre></body></html></div>
+<span class="co">#&gt; [1] 0.024</span></pre></body></html></div>
 <p>Set <code>value</code> to <code>char</code> if you want to keep trailing zeros (return the number as a character string).</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="kw">study</span> <span class="kw">=</span> <span class="no">s</span>,
            <span class="kw">result</span> <span class="kw">=</span> <span class="st">"parameter"</span>,
            <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="fl">1</span>,
            <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>,
            <span class="kw">return</span> <span class="kw">=</span> <span class="st">"char"</span>)
-<span class="co">#&gt; [1] "116.635"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "111.510"</span></pre></body></html></div>
 <p>You can display the value as a link to the analysis file (created with <code>make_script</code>). The digits default to the global option, so you can reset that. And you can use the shorthand function <code>get_html</code> if you only have one study object loaded. The analysis link defaults to “analysis.html”, but you can change this with <code><a href="../reference/scienceverse_options.html">scienceverse_options()</a></code> as shown.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/rm.html">remove</a></span>(<span class="no">s2</span>)
-<span class="co">#&gt; Warning in remove(s2): object 's2' not found</span>
-<span class="fu"><a href="../reference/make_script.html">make_script</a></span>(<span class="no">s</span>, <span class="st">"analysis.Rmd"</span>)
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/make_script.html">make_script</a></span>(<span class="no">s</span>, <span class="st">"analysis.Rmd"</span>)
 <span class="kw pkg">rmarkdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">render</a></span>(<span class="st">"analysis.Rmd"</span>)
-<span class="co">#&gt; /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS analysis.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output analysis.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /var/folders/6w/y3tyzgs1403cz7tgw8k4lk600000gq/T//RtmptuVFYe/rmarkdown-str58534eedd6eb.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua</span>
+<span class="co">#&gt; /Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS analysis.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output analysis.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /var/folders/6w/y3tyzgs1403cz7tgw8k4lk600000gq/T//Rtmp7Eqcaw/rmarkdown-str59812a16aa6.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>)
 <span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span>(<span class="kw">analysis_link</span> <span class="kw">=</span> <span class="st">"analysis.html"</span>)
 <span class="fu"><a href="../reference/get_html.html">get_html</a></span>(<span class="st">"p.value"</span>)
-<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.181&lt;/a&gt;"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.811&lt;/a&gt;"</span></pre></body></html></div>
 <p>You’ll probably want to use <code><a href="../reference/get_html.html">get_html()</a></code> inline most of the time like this:</p>
-<p>For hypothesis 1, the subjects in group A were not any bigger than those in group B (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">-1.35</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">116.6</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.181</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">-5.97</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">1.14</a>]).</p>
-<p>For hypothesis 1, the subjects were larger in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">2.95</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">117.1</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.004</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">1.70</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">8.61</a>]).</p>
+<p>For hypothesis 1, the subjects in group A were not any bigger than those in group B (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">-0.24</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">111.5</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.811</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">-4.16</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">3.26</a>]).</p>
+<p>For hypothesis 1, the subjects were larger in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">2.28</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">116.1</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.024</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">0.55</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">7.80</a>]).</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
