@@ -114,9 +114,9 @@ get_res_value <- function(txt, results) {
   bool_vals <- list("TRUE", "FALSE", TRUE, FALSE, "true", "false")
   if (txt %in% bool_vals) return(as.logical(txt))
 
-  # return txt if it is numeric
+  # return numeric version if it is numeric
   suppressWarnings(num <- as.numeric(txt))
-  if (isTRUE(num == txt)) return(num)
+  if (!is.na(num)) return(num)
 
   # probably a character so check the results list
   splitres <- stringr::str_split(txt, "(\\$|\\[+'?\"?|'?\"?\\]+)")

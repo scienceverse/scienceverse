@@ -221,11 +221,22 @@ server <- function(input, output, session) {
 
   observeEvent(input$add_criterion, {
     crit <- criteria()
+
+    # check and coerce comparator value
+    bool_vals <- list("TRUE", "FALSE", "true", "false")
+    comp <- input$crit_comparator # always a text value
+    if (comp %in% bool_vals) {
+      comp <- as.logical(comp)
+    } else {
+      num <- suppressWarnings(as.numeric(comp))
+      if (!is.na(num)) comp <- num
+    }
+
     crit[[input$crit_id]] <- list(
       id = input$crit_id,
       result = input$crit_result,
       operator = input$crit_operator,
-      comparator = input$crit_comparator,
+      comparator = comp,
       analysis_id = input$crit_ana_id
     )
 
