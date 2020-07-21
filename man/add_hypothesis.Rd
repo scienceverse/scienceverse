@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_hypothesis.R
 \name{add_hypothesis}
 \alias{add_hypothesis}
-\title{Add Hypothesis}
+\title{Add a hypothesis}
 \usage{
 add_hypothesis(study, id = NULL, description = "Describe your hypothesis")
 }

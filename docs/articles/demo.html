@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -239,7 +239,12 @@
 <span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_data.html">add_data</a></span>(<span class="no">study</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="st">"kin"</span>,
                   <span class="kw">data</span> <span class="kw">=</span> <span class="no">kin_data</span>,
                   <span class="kw">vardesc</span> <span class="kw">=</span> <span class="no">desc</span>,
-                  <span class="kw">url</span> <span class="kw">=</span> <span class="st">"https://osf.io/ewfhs/"</span>)</pre></body></html></div>
+                  <span class="kw">url</span> <span class="kw">=</span> <span class="st">"https://osf.io/ewfhs/"</span>)
+<span class="co">#&gt; Warning in faux::codebook(data = data, name = name, vardesc = vardesc, schemaVersion = schemaVersion, : The following variable properties are not standard: type</span>
+<span class="co">#&gt; trust_self set to dataType int</span>
+<span class="co">#&gt; trust_other set to dataType int</span>
+<span class="co">#&gt; recip_self set to dataType int</span>
+<span class="co">#&gt; recip_other set to dataType int</span></pre></body></html></div>
 <p>If you don’t have existing data, you can simulate data with factorial designs with the <code>add_sim_data</code> function, which uses the same syntax as <code>sim_design</code> from <a href="https://debruine.github.io/faux/">faux</a>. Give the simulated data the same <code>data_id</code> as referenced in the analyses to test your analysis code.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># this function currently only simulates data with a normal distribution</span>
 <span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span>(<span class="no">study</span>,
@@ -298,9 +303,7 @@
 <h3 class="hasAnchor">
 <a href="#reload" class="anchor"></a>Reload</h3>
 <p>You can load a study directly from the JSON file with the <code>study</code> function.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">study2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"files/postreg.json"</span>)
-<span class="co">#&gt; Loaded custom function: analysis_trust</span>
-<span class="co">#&gt; Loaded custom function: analysis_recip</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">study2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"files/postreg.json"</span>)</pre></body></html></div>
 <p>Use the function <code>get_data</code> to extract data from the study object.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">kindata</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">study2</span>, <span class="st">"kin"</span>)</pre></body></html></div>
 </div>

@@ -34,7 +34,7 @@ test_that("basic", {
   expect_equal(eval_summary(s), txt)
 
   s <- add_criterion(s, "p", "p.value", "<", .05, "H1", "A1")
-  txt <- "Hypothesis H1: test\n\nCriterion p:\n* p.value < 0.05 is \n* p.value = 0.000\n\nConclusion: You may need to run `study_analyse()`\n* Corroborate (*no criteria*): \n* Falsify (*no criteria*):"
+  txt <- "Hypothesis H1: test\n\nCriterion p:\n* p.value < 0.05 is unknown\n* p.value = 0.000\n\nConclusion: You may need to run `study_analyse()`\n* Corroborate (*no criteria*): \n* Falsify (*no criteria*):"
   expect_equal(eval_summary(s), txt)
 
   s <- study_analyse(s)

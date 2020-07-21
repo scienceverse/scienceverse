@@ -9,7 +9,7 @@ format_output(txt, output = c("md", "html", "text"))
 \arguments{
 \item{txt}{the md output of output_**** functions}
 
-\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
+\item{output}{whether the output should be markdown, html, or plain text (defaults to md)}
 }
 \value{
 character string in the specified format

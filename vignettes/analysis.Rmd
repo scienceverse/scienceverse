@@ -1,7 +1,7 @@
 ---
 title: "Demo"
 author: ""
-date: "19/07/2020"
+date: "21/07/2020"
 output:
   html_document:
     toc: true
@@ -43,17 +43,17 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: 4.1843
-* parameter: 117.806
-* p.value: 1e-04
+* statistic: 1.5681
+* parameter: 109.6131
+* p.value: 0.1197
 * conf.int: 
-  * 2.1027
-  * 5.8814
+  * -0.3469
+  * 2.976
 * estimate: 
-  * 11.0571
-  * 7.065
+  * 9.597
+  * 8.2824
 * null.value: 0
-* stderr: 0.954
+* stderr: 0.8383
 * alternative: two.sided
 * method: Welch Two Sample t-test
 * data.name: y by pet
@@ -69,17 +69,17 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: -0.045
-* parameter: 117.9801
-* p.value: 0.9641
+* statistic: -0.2509
+* parameter: 115.1965
+* p.value: 0.8024
 * conf.int: 
-  * -2.0706
-  * 1.9785
+  * -1.8898
+  * 1.4649
 * estimate: 
-  * 9.038
-  * 9.0841
+  * 8.8335
+  * 9.0459
 * null.value: 0
-* stderr: 1.0224
+* stderr: 0.8468
 * alternative: two.sided
 * method: Welch Two Sample t-test
 * data.name: y by time

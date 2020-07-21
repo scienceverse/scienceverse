@@ -8,7 +8,7 @@
             "@type": "PropertyValue",
             "name": "id",
             "description": "id",
-            "type": "string"
+            "dataType": "string"
         },
         {
             "@type": "PropertyValue",
@@ -18,8 +18,8 @@
                 "dog",
                 "cat"
             ],
-            "type": "string",
-            "ordered": false
+            "dataType": "string",
+            "levelsOrdered": false
         },
         {
             "@type": "PropertyValue",
@@ -29,14 +29,14 @@
                 "morning",
                 "night"
             ],
-            "type": "string",
-            "ordered": false
+            "dataType": "string",
+            "levelsOrdered": false
         },
         {
             "@type": "PropertyValue",
             "name": "y",
             "description": "y",
-            "type": "float"
+            "dataType": "float"
         }
     ]
 }

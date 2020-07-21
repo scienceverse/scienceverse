@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_author.R
 \name{add_author}
 \alias{add_author}
-\title{Add an Author}
+\title{Add an author}
 \usage{
 add_author(study, orcid, surname, given = "", roles = c(), ...)
 }
@@ -23,7 +23,7 @@ add_author(study, orcid, surname, given = "", roles = c(), ...)
 A study object with class scivrs_study
 }
 \description{
-Add an Author
+Add an author
 }
 \examples{
 s <- study() \%>\% add_author(

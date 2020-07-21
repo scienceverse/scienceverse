@@ -1,4 +1,4 @@
-#' Power Analysis through Simulation
+#' Power analysis through simulation
 #'
 #' This function is experimental. Check power analyses with an external package before using for important decisions.
 #'

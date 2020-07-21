@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -233,42 +233,11 @@
 <p>Checking the data quality remains an important step before performing a meta-analysis based on available meta-study files. We are not suggesting a meta-analysis can be performed automatically. But if a researcher has information about the variables collected in a study, the process of combining studies becomes straightforward if we can read in meta-study files that contain the raw data and details about the tests that are performed.</p>
 <p>For example, for the last study we simulated, we have information about the analyses that were performed:</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/output_analyses.html">output_analyses</a></span>(<span class="no">sim_study</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
-<div id="analyses" class="section level4">
-<h4 class="hasAnchor">
-<a href="#analyses" class="anchor"></a>Analyses</h4>
-<div id="ttest" class="section level5">
-<h5 class="hasAnchor">
-<a href="#ttest" class="anchor"></a>Analysis 1: ttest</h5>
-<pre>    t.test(happiness ~ treatment, data = dat, alternative = "two.sided", 
-        paired = FALSE, conf.level = 0.95)</pre>
 <p>We know a <em>t</em>-test was performed. We can examine the results of the study:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/output_results.html">output_results</a></span>(<span class="no">sim_study</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
-</div>
-</div>
-<div id="results" class="section level4">
-<h4 class="hasAnchor">
-<a href="#results" class="anchor"></a>Results</h4>
-<div id="hypothesis-1-h1" class="section level5">
-<h5 class="hasAnchor">
-<a href="#hypothesis-1-h1" class="anchor"></a>Hypothesis 1: H1</h5>
-<p>Self-reported happiness will differ in the treatment group compared to the control group</p>
-<ul>
-<li>
-<code>p_val</code> is confirmed if analysis <a href="#ttest">ttest</a> yields p.value &lt; 0.05 The result was p.value = 0.001 (<span style="color:green;">TRUE</span>)</li>
-</ul>
-<div id="corroboration-true" class="section level6">
-<h6>Corroboration (<span style="color:green">TRUE</span>)</h6>
-<p>The hypothesis is corroborated if analysis ‘ttest’ is significant.</p>
-<pre><code>p_val</code></pre>
-</div>
-<div id="falsification-false" class="section level6">
-<h6>Falsification (<span style="color:red">FALSE</span>)</h6>
-<p>The hypothesis is falsified if analysis ‘ttest’ is not significant.</p>
-<pre><code>!p_val</code></pre>
-<p><span style="color: green"><strong>All criteria were met for corroboration.</strong></span></p>
 <p>We see a single hypothesis was tested, and corroborated, in this study. For a <em>z</em>-curve or <em>p</em>-curve analysis, this makes it easy to select the test to include in the meta-analysis. If multiple tests are performed in a single study, we can select the hypothesis test of interest by specifying the ID.</p>
 <p>The results can be accessed easily with the get_result function.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># Get all results</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Get all results</span>
 <span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">sim_study</span>)</pre></body></html></div>
 <ul>
 <li>statistic: -3.4392621</li>
@@ -293,11 +262,11 @@
 <li>data.name: happiness by treatment</li>
 </ul>
 <p>For the <em>z</em>-curve and <em>p</em>-curve analysis we would just retrieve the <em>p</em>-value.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># Or only get the p-value</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Or only get the p-value</span>
 <span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">sim_study</span>, <span class="kw">result</span> <span class="kw">=</span> <span class="st">"p.value"</span>)</pre></body></html></div>
 <pre><code>&gt; [1] 0.0006035</code></pre>
 <p>To perform a meta-analysis we need to compute the effect size and we need to code the sample size. These can be approximated from the test results (e.g., by calculating these from the <em>t</em>-value and degrees of freedom). However, if the data is shared, we can also compute the effect size based on the raw data. Data can be read in using the get_data function:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">sim_study</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">sim_study</span>))</pre></body></html></div>
 <pre><code>&gt;      id pet treatment happiness
 &gt; 1 S0001 cat   control  62.04273
 &gt; 2 S0002 cat   control  60.15729
@@ -308,9 +277,6 @@
 <p>We will now illustrate how these functions, together with the meta-study files, can be used to perform a <em>z</em>-curve analysis, an effect size meta-analysis, and a <em>p</em>-curve analysis.</p>
 </div>
 </div>
-</div>
-</div>
-</div>
 <div id="z-curve-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#z-curve-analysis" class="anchor"></a>Z-curve analysis</h2>
@@ -318,21 +284,21 @@
 <p>Like a traditional meta-analysis, <em>z</em>-curve transforms observed test results (<em>p</em>-values) into <em>z</em>-scores. Using mixtures of normal distributions centered at means 0 to 6, <em>z</em>-curve aims to estimate the average power of the studies. The newest version of <em>z</em>-curve then calculates the <em>observed discovery rate</em> (the percentage of significant results, or the observed power), the <em>expected discovery rate</em> (EDR: the proportion of the area under the curve on the right side of the significance criterion) and the expected replication rate (ERR: the proportion of successfully replicated significant studies from all significant studies). <em>Z</em>-curve is able to correct for selection bias for positive results (under specific assumptions), and can estimate the EDR and ERR using only the significant <em>p</em>-values.</p>
 <p>To examine the presence of bias, it is preferable to submit non-significant and significant <em>p</em>-values to a <em>z</em>-curve analysis, even if only the significant <em>p</em>-values are used to produce estimates. Publication bias can then be examined by comparing the ODR to the EDR. If the results of studies are shared in a well-structured meta-study file, all the <em>p</em>-values needed to perform a <em>z</em>-curve analysis are directly available, and it is clear which statistical test is related to a hypothesis is researchers are interested in including only specific analyses in the <em>z</em>-curve.</p>
 <p>Since our 50 simulated studies have no bias, the <em>z</em>-curve analysis should yield results that (when looking at the values not excluded by the confidence interval) represent unbiased estimates for the EDR and ERR.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># Get the p-value for each analysis</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Get the p-value for each analysis</span>
 <span class="no">p_vals</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">study_list</span>, <span class="no">get_result</span>, <span class="kw">result</span><span class="kw">=</span><span class="st">'p.value'</span>)
 <span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span>(<span class="fl">1</span>-<span class="no">p_vals</span>/<span class="fl">2</span>)
 <span class="co"># Perform the z-curve analysis using the z-curve package</span>
 <span class="no">z_res</span> <span class="kw">&lt;-</span> <span class="kw pkg">zcurve</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/zcurve/man/zcurve.html">zcurve</a></span>(<span class="no">z</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"EM"</span>, <span class="kw">bootstrap</span> <span class="kw">=</span> <span class="fl">1000</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">z_res</span>, <span class="kw">annotation</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">CI</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="meta_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">z_res</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">z_res</span>)</pre></body></html></div>
 <pre><code>&gt; Call:
 &gt; zcurve::zcurve(z = z, method = "EM", bootstrap = 1000)
 &gt; 
 &gt; Estimates:
 &gt;       ERR       EDR 
 &gt; 0.6558697 0.6175144</code></pre>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">z_res</span>, <span class="kw">all</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">z_res</span>, <span class="kw">all</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>&gt; Call:
 &gt; zcurve::zcurve(z = z, method = "EM", bootstrap = 1000)
 &gt; 
@@ -356,11 +322,11 @@
 <a href="#meta-analysis" class="anchor"></a>Meta-Analysis</h2>
 <p>The studies all had as their main goal to examine the effect of a treatment on happiness, but all studies also collected data on the pet each participant had. Because the raw data is saved in scienceverse, and all studies share the variables <em>pet</em> (dog vs cat) and <em>happiness</em>, we can easily perform a meta-analysis across all studies for both the effect of type of pet and the treatment on happiness.</p>
 <p>We first perform a meta-analysis for the effect of pets and then a meta-analysis for the effect of treatment, across all studies. We do this by grouping all raw datasets together in a single dataset with <strong>study</strong> as an identifier using <code><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr::bind_rows()</a></code>.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="co"># Create a single meta-analysis dataframe</span>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co"># Create a single meta-analysis dataframe</span>
 <span class="no">merged_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">all_data</span>, <span class="kw">.id</span> <span class="kw">=</span> <span class="st">"study"</span>)</pre></body></html></div>
 <p>Then we can calculate means, standard deviations, and get the sample sizes for all conditions (grouped based on pet, or treatment). We can use these descriptives to compute effect sizes for each study using the metafor package. We then perform a meta-analysis on the effect sizes computed from all studies.</p>
 <p>We first perform the meta-analysis for the difference between pets and dogs on happiness.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co"># Create summary dataframe with means, sd, and n for pet effect </span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># Create summary dataframe with means, sd, and n for pet effect </span>
 <span class="no">MA_sum</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">merged_data</span>, <span class="no">pet</span>, <span class="no">study</span>)
 <span class="no">MA_sum</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="no">MA_sum</span>,
                            <span class="kw">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">happiness</span>),
@@ -395,10 +361,10 @@
 &gt; 
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="kw pkg">metafor</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/metafor/man/forest.html">forest</a></span>(<span class="no">res</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="kw pkg">metafor</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/metafor/man/forest.html">forest</a></span>(<span class="no">res</span>)</pre></body></html></div>
 <p><img src="meta_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
 <p>Then we perform the meta-analysis for the treatment effect.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co"># Create summary dataframe for treatment effect</span>
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co"># Create summary dataframe for treatment effect</span>
 <span class="no">MA_sum</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">merged_data</span>, <span class="no">treatment</span>, <span class="no">study</span>)
 <span class="no">MA_sum</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="no">MA_sum</span>,
                            <span class="kw">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">happiness</span>),
@@ -434,7 +400,7 @@
 &gt; 
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="kw pkg">metafor</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/metafor/man/forest.html">forest</a></span>(<span class="no">res</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="kw pkg">metafor</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/metafor/man/forest.html">forest</a></span>(<span class="no">res</span>)</pre></body></html></div>
 <p><img src="meta_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 <p>In this case, not only were the meta-study files well structured, but all studies were identical. In practice, researchers would most likely need to organize the data in meta-study files so that it can be used for their analysis (e.g., generating additional grouping variables) but having the data, codebook, and analyses all accessible should greatly facilitate meta-analyses even for different sets of studies. If fields are able to standardize their measures and create shared naming conventions, one could search datasets across all available meta-study files to identify relevant studies.</p>
 </div>
@@ -443,7 +409,7 @@
 <a href="#p-curve-analysis" class="anchor"></a>P-curve Analysis</h2>
 <p>A <em>p</em>-curve analysis examines the distribution of <em>p</em>-values, and compares the distribution against the predicted pattern when the null-hypothesis is true, or when there is a true effect tested with some assumed power (Simonsohn, Nelson, &amp; Simmons, 2014). Performing a <em>p</em>-curve analysis requires the results of statistical tests to be entered. The analysis can be performed by either retrieving the test statistics, and converting these to <em>p</em>-values, or by directly using the <em>p</em>-values (as we do in the code below).</p>
 <p>Since our simulated studies have no bias, the <em>p</em>-curve analysis should indicate that the pattern of <em>p</em>-values looks like what would would expect if there is a true effect (a skewed distribution, with more small <em>p</em>-values than larger <em>p</em>-values).</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="co"># Adapted from https://github.com/nicebread/p-checker/blob/master/p-curve.R</span>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="co"># Adapted from https://github.com/nicebread/p-checker/blob/master/p-curve.R</span>
 
 <span class="no">ncp33z</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">power</span><span class="kw">=</span><span class="fl">1</span>/<span class="fl">3</span>, <span class="no">p.crit</span><span class="kw">=</span><span class="fl">.05</span>) {
       <span class="no">xc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span>(<span class="kw">p</span><span class="kw">=</span><span class="fl">1</span>-<span class="no">p.crit</span>/<span class="fl">2</span>)
@@ -532,7 +498,7 @@
 <li>p_lack: 0.999648674812107</li>
 <li>inconclusive: FALSE</li>
 </ul>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="co"># Create p-curve plot</span>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="co"># Create p-curve plot</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fl">NA</span>, <span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="no">p.crit</span>), <span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">100</span>), <span class="kw">xlab</span><span class="kw">=</span><span class="st">"p-value"</span>, <span class="kw">ylab</span><span class="kw">=</span><span class="st">"Percentage of p values"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="kw">h</span><span class="kw">=</span><span class="fl">1</span>/<span class="no">p.crit</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">"red"</span>, <span class="kw">lty</span><span class="kw">=</span><span class="st">"dashed"</span>, <span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>)

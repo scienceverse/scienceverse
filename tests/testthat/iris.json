@@ -17,37 +17,37 @@
                         "@type": "PropertyValue",
                         "name": "Sepal.Length",
                         "description": "Sepal.Length",
-                        "type": "float"
+                        "dataType": "float"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "Sepal.Width",
                         "description": "Sepal.Width",
-                        "type": "float"
+                        "dataType": "float"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "Petal.Length",
                         "description": "Petal.Length",
-                        "type": "float"
+                        "dataType": "float"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "Petal.Width",
                         "description": "Petal.Width",
-                        "type": "float"
+                        "dataType": "float"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "Species",
                         "description": "Species",
-                        "type": "string",
+                        "dataType": "string",
                         "levels": {
                             "setosa": "setosa",
                             "versicolor": "versicolor",
                             "virginica": "virginica"
                         },
-                        "ordered": false
+                        "levelsOrdered": false
                     }
                 ]
             },

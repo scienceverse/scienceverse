@@ -1,8 +1,8 @@
-#' Study
+#' Create a study object
 #'
-#' Create or load a study object
+#' Create a new study object or load a study from the JSON meta-study file
 #'
-#' @param name The name of the study or a file path to a json file
+#' @param name The name of the study or a file path to a JSON meta-study file
 #' @param ... further arguments to add
 #' @return A study object with class scivrs_study
 #' @examples

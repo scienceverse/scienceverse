@@ -62,7 +62,7 @@ get_codebook(study, data_id = "pets", as_json = TRUE)
 
 ## Run Codebook on Existing Data
 
-You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: "description", "privacy", "type", "propertyID", "minValue", "maxValue", "levels", "ordered", "na", "naValues", "alternateName", "unitCode". You can set unsupported properties, but this will produce a warning.
+You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: "description", "privacy", "dataType", "propertyID", "minValue", "maxValue", "levels", "levelsOrdered", "na", "naValue", "alternateName", "unitCode" and "unitText". You can set unsupported properties, but this will produce a warning.
 
 ```{r}
 
@@ -89,7 +89,7 @@ vardesc <- list(
     vs = c("0" = "V-shaped", "1" = "straight"),
     am = c("0" = "automatic", "1" = "manual")
   ),
-  type = list(
+  dataType = list(
     cyl = "integer",
     hp = "integer",
     vs = "factor",

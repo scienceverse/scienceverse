@@ -6,7 +6,10 @@ test_that("info", {
     add_author("0000-0002-7523-5539", "DeBruine", "Lisa", c("ana", "dat", "sof")) %>%
     add_author("0000-0002-0247-239X", "Lakens", "Daniel", c("val", "dra"))
 
+  # suppress annoying cat() from format_output in test window
+  scienceverse_options(verbose = FALSE)
   op <- output_info(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "## Test Study")
   expect_equal(op[[3]], desc)
@@ -16,7 +19,9 @@ test_that("info", {
   expect_equal(op[[10]], "* **Lakens, Daniel** ([0000-0002-0247-239X](https://orcid.org/0000-0002-0247-239X)): Validation, Writing - original draft")
 
   # html
+  scienceverse_options(verbose = FALSE)
   op <- output_info(s, output = "html") %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "<h2>Test Study</h2>")
   expect_equal(op[[3]], "<p>This is my test study</p>")
@@ -25,7 +30,9 @@ test_that("info", {
   expect_equal(op[[12]], "<li><strong>DeBruine, Lisa</strong> (<a href=\"https://orcid.org/0000-0002-7523-5539\">0000-0002-7523-5539</a>): Data curation, Formal analysis, Software</li>")
 
   # plain text
+  scienceverse_options(verbose = FALSE)
   op <- output_info(s, output = "text") %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "Test Study")
   expect_equal(op[[3]], desc)
@@ -40,7 +47,9 @@ test_that("hypotheses", {
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_criterion("C1", result = "p.value", operator = "<", comparator = 0.05)
 
+  scienceverse_options(verbose = FALSE)
   op <- output_hypotheses(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "## Hypotheses")
   expect_equal(op[[3]], "### Hypothesis 1: H1")
@@ -53,8 +62,10 @@ test_that("hypotheses header_lvl", {
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_criterion("C1", result = "p.value", operator = "<", comparator = 0.05)
 
+  scienceverse_options(verbose = FALSE)
   op <- output_hypotheses(s, header_lvl = 3) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "### Hypotheses")
   expect_equal(op[[3]], "#### Hypothesis 1: H1")
@@ -74,7 +85,9 @@ test_that("multiple hypotheses", {
     add_criterion("C3", result = "estimate", operator = ">", comparator = 0,
                   hypothesis_id = "H2", analysis_id = "A2")
 
+  scienceverse_options(verbose = FALSE)
   op <- output_hypotheses(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "## Hypotheses")
   expect_equal(op[[3]], "### Hypothesis 1: H1")
@@ -87,7 +100,9 @@ test_that("analyses", {
   s <- study() %>%
     add_analysis("A1", t.test(1:10, 2:11))
 
+  scienceverse_options(verbose = FALSE)
   op <- output_analyses(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "## Analyses")
   expect_equal(op[[3]], "### Analysis 1: A1 {#A1}")
@@ -98,8 +113,10 @@ test_that("analyses header_lvl", {
   s <- study() %>%
     add_analysis("A1", t.test(1:10, 2:11))
 
+  scienceverse_options(verbose = FALSE)
   op <- output_analyses(s, header_lvl = 3) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "### Analyses")
   expect_equal(op[[3]], "#### Analysis 1: A1 {#A1}")
@@ -111,8 +128,10 @@ test_that("multiple analyses", {
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_analysis("A2", cor(rnorm(10), rnorm(10)))
 
+  scienceverse_options(verbose = FALSE)
   op <- output_analyses(s, header_lvl = 3) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "### Analyses")
   expect_equal(op[[3]], "#### Analysis 1: A1 {#A1}")
@@ -131,7 +150,9 @@ test_that("results", {
     add_eval("f", "non-sig", "!C1") %>%
     study_analyse()
 
+  scienceverse_options(verbose = FALSE)
   op <- output_results(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "## Results")
   expect_equal(op[[3]], "### Hypothesis 1: H1" )
@@ -147,8 +168,10 @@ test_that("results header_lvl", {
     add_eval("f", "non-sig", "!C1") %>%
     study_analyse()
 
+  scienceverse_options(verbose = FALSE)
   op <- output_results(s, header_lvl = 1) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[1]], "# Results")
   expect_equal(op[[3]], "## Hypothesis 1: H1" )
@@ -163,18 +186,24 @@ test_that("results digits", {
     add_eval("f", "non-sig", "!C1") %>%
     study_analyse()
 
+  scienceverse_options(verbose = FALSE)
   op <- output_results(s, header_lvl = 1, digits = 4) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[8]], "The result was p.value = 0.4697 (<span style=\"color:red;\">FALSE</span>)  ")
 
+  scienceverse_options(verbose = FALSE)
   op <- output_results(s, header_lvl = 1, digits = 2) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[8]], "The result was p.value = 0.47 (<span style=\"color:red;\">FALSE</span>)  ")
 
+  scienceverse_options(verbose = FALSE)
   op <- output_results(s, header_lvl = 1) %>%
     strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
 
   expect_equal(op[[8]], "The result was p.value = 0.470 (<span style=\"color:red;\">FALSE</span>)  ")
 

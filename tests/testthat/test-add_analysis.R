@@ -1,3 +1,4 @@
+# errors ----
 test_that("errors", {
   s <- study()
 
@@ -10,10 +11,11 @@ test_that("errors", {
                fixed = TRUE)
 })
 
-
+# defaults ----
 test_that("defaults", {
   s <- study() %>%
     add_analysis(NULL, t.test(rnorm(100)))
+
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
   expect_equal(s$analyses[[1]]$code, function() {
@@ -21,6 +23,7 @@ test_that("defaults", {
   })
 })
 
+#as text ----
 test_that("as text", {
   s <- study() %>%
     add_analysis(NULL, "t.test(rnorm(100))", type = "text")
@@ -89,3 +92,86 @@ test_that("parse error", {
     add_analysis(s, "A1", "t.test(1:10", type = "text"),
     "The function analysis_A1 has errors.")
 })
+
+# return ----
+test_that("return", {
+  s <- study() %>%
+    add_analysis("A1", { a = 1; b = 2 }, list("a", "b"))
+
+  res <- s$analyses[[1]]$code()
+  expect_equal(res, list(a = 1, b = 2))
+
+  code <- output_custom_code(s)
+  expect_equal(code, "    {\n        a = 1\n        b = 2\n    }\n    list(a = a, b = b)")
+
+  s <- study() %>%
+    add_analysis("A1", { a = 1; b = 2 }, list(a1 = "a", a2 = "b"))
+
+  res <- s$analyses[[1]]$code()
+  expect_equal(res, list(a1 = 1, a2 = 2))
+
+  code <- output_custom_code(s)
+  expect_equal(code, "    {\n        a = 1\n        b = 2\n    }\n    list(a1 = a, a2 = b)")
+
+})
+
+# extras ----
+test_that("extras", {
+  s <- study() %>%
+    add_analysis("A1", rnorm(10), description = "10 random numbers")
+
+  expect_equal(s$analyses[[1]]$description, "10 random numbers")
+})
+
+# update_analysis ----
+test_that("update_analysis", {
+  s <- study() %>%
+    add_analysis("A1", rnorm(10), description = "10 random numbers") %>%
+    update_analysis(1, rnorm(20), new_id = "ANA1", description = "20 rnorm")
+
+  expect_equal(s$analyses[[1]]$id, "ANA1")
+  expect_equal(s$analyses[[1]]$description, "20 rnorm")
+  expect_equal(s$analyses[[1]]$code, function() { rnorm(20) })
+
+  s <- study() %>%
+    add_analysis("A1", rnorm(10), description = "10 random numbers") %>%
+    update_analysis(1, "rnorm(20)", type = "text")
+
+  expect_equal(s$analyses[[1]]$id, "A1")
+  expect_equal(s$analyses[[1]]$description, "10 random numbers")
+  expect_equal(s$analyses[[1]]$code, function() { rnorm(20) })
+  code <- output_custom_code(s) %>% trimws()
+  expect_equal(code, "rnorm(20)")
+
+  # check new analysis is in the right environment
+  s <- study() %>%
+    add_hypothesis("H1") %>%
+    add_data("i", iris) %>%
+    add_analysis("A1", t.test(i$Sepal.Width)) %>%
+    add_criterion("p1", "p.value", "<", 0.5) %>%
+    add_analysis("A2", t.test(i$Sepal.Length)) %>%
+    add_criterion("p1", "p.value", "<", 0.5) %>%
+    study_analyse()
+  env1 <- attr(s, "env")
+
+  s2 <- update_analysis(s, "A2", t.test(i$Petal.Width)) %>%
+    study_analyse()
+  env2 <- attr(s2, "env")
+
+  expect_equal(env1, env2)
+  expect_equal(s2$analyses[[2]]$code, function() {t.test(i$Petal.Width)})
+
+  # change returns
+  s <- study() %>%
+    add_analysis("A1", { a = 1; b = 2 }, list("a")) %>%
+    study_analyse()
+
+  expect_equal(s$analyses[[1]]$results, list(a = 1))
+
+  s2 <- s %>%
+    update_analysis("A1", return = list("b")) %>%
+    study_analyse()
+
+  expect_equal(s2$analyses[[1]]$results, list(b = 2))
+})
+

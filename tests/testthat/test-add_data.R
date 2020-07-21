@@ -30,9 +30,9 @@ test_that("defaults", {
     expect_equal(vm$description, names(iris)[i])
     expect_equal(vm$name, names(iris)[i])
     if (is.numeric(iris[,i])) {
-      expect_equal(vm$type, "float")
+      expect_equal(vm$dataType, "float")
     } else if (is.factor(iris[,i])) {
-      expect_equal(vm$type, "string")
+      expect_equal(vm$dataType, "string")
     }
   }
 })

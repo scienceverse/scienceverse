@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -117,9 +117,9 @@
                <span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"Subject ID"</span>),
                <span class="kw">mu</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">12</span>),
                <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">4</span>)
-<span class="co">#&gt; id set to type string</span>
-<span class="co">#&gt; pet set to type string</span>
-<span class="co">#&gt; happy set to type float</span></pre></body></html></div>
+<span class="co">#&gt; id set to dataType string</span>
+<span class="co">#&gt; pet set to dataType string</span>
+<span class="co">#&gt; happy set to dataType float</span></pre></body></html></div>
 <p>You can retrieve the codebook with the function <code><a href="../reference/get_codebook.html">get_codebook()</a></code>. If you don’t specify the data_id, it defaults to the first data set in the study.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">cb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span>(<span class="no">study</span>, <span class="kw">data_id</span> <span class="kw">=</span> <span class="st">"pets"</span>)</pre></body></html></div>
 <p>If you just type the codebook object into the console, you’ll see the info formatted like this.</p>
@@ -150,21 +150,21 @@
 <span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
 <span class="co">#&gt;   .. ..$ name       : chr "id"</span>
 <span class="co">#&gt;   .. ..$ description: chr "Subject ID"</span>
-<span class="co">#&gt;   .. ..$ type       : chr "string"</span>
+<span class="co">#&gt;   .. ..$ dataType   : chr "string"</span>
 <span class="co">#&gt;   ..$ :List of 6</span>
-<span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
-<span class="co">#&gt;   .. ..$ name       : chr "pet"</span>
-<span class="co">#&gt;   .. ..$ description: chr "pet"</span>
-<span class="co">#&gt;   .. ..$ levels     :List of 2</span>
+<span class="co">#&gt;   .. ..$ @type        : chr "PropertyValue"</span>
+<span class="co">#&gt;   .. ..$ name         : chr "pet"</span>
+<span class="co">#&gt;   .. ..$ description  : chr "pet"</span>
+<span class="co">#&gt;   .. ..$ levels       :List of 2</span>
 <span class="co">#&gt;   .. .. ..$ cat: chr "Cat Owners"</span>
 <span class="co">#&gt;   .. .. ..$ dog: chr "Dog Owners"</span>
-<span class="co">#&gt;   .. ..$ type       : chr "string"</span>
-<span class="co">#&gt;   .. ..$ ordered    : logi FALSE</span>
+<span class="co">#&gt;   .. ..$ dataType     : chr "string"</span>
+<span class="co">#&gt;   .. ..$ levelsOrdered: logi FALSE</span>
 <span class="co">#&gt;   ..$ :List of 4</span>
 <span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
 <span class="co">#&gt;   .. ..$ name       : chr "happy"</span>
 <span class="co">#&gt;   .. ..$ description: chr "Happiness Score"</span>
-<span class="co">#&gt;   .. ..$ type       : chr "float"</span>
+<span class="co">#&gt;   .. ..$ dataType   : chr "float"</span>
 <span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></pre></body></html></div>
 <p>You can also view it in JSON format.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span>(<span class="no">study</span>, <span class="kw">data_id</span> <span class="kw">=</span> <span class="st">"pets"</span>, <span class="kw">as_json</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
@@ -178,7 +178,7 @@
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "id",</span>
 <span class="co">#&gt;             "description": "Subject ID",</span>
-<span class="co">#&gt;             "type": "string"</span>
+<span class="co">#&gt;             "dataType": "string"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -188,14 +188,14 @@
 <span class="co">#&gt;                 "cat": "Cat Owners",</span>
 <span class="co">#&gt;                 "dog": "Dog Owners"</span>
 <span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "type": "string",</span>
-<span class="co">#&gt;             "ordered": false</span>
+<span class="co">#&gt;             "dataType": "string",</span>
+<span class="co">#&gt;             "levelsOrdered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "happy",</span>
 <span class="co">#&gt;             "description": "Happiness Score",</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>
@@ -204,7 +204,7 @@
 <div id="run-codebook-on-existing-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-codebook-on-existing-data" class="anchor"></a>Run Codebook on Existing Data</h2>
-<p>You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: “description”, “privacy”, “type”, “propertyID”, “minValue”, “maxValue”, “levels”, “ordered”, “na”, “naValues”, “alternateName”, “unitCode”. You can set unsupported properties, but this will produce a warning.</p>
+<p>You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: “description”, “privacy”, “dataType”, “propertyID”, “minValue”, “maxValue”, “levels”, “levelsOrdered”, “na”, “naValue”, “alternateName”, “unitCode” and “unitText”. You can set unsupported properties, but this will produce a warning.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r">
 
 <span class="no">vardesc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
@@ -229,7 +229,7 @@
     <span class="kw">vs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span> <span class="kw">=</span> <span class="st">"V-shaped"</span>, <span class="st">"1"</span> <span class="kw">=</span> <span class="st">"straight"</span>),
     <span class="kw">am</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span> <span class="kw">=</span> <span class="st">"automatic"</span>, <span class="st">"1"</span> <span class="kw">=</span> <span class="st">"manual"</span>)
   ),
-  <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+  <span class="kw">dataType</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
     <span class="kw">cyl</span> <span class="kw">=</span> <span class="st">"integer"</span>,
     <span class="kw">hp</span> <span class="kw">=</span> <span class="st">"integer"</span>,
     <span class="kw">vs</span> <span class="kw">=</span> <span class="st">"factor"</span>,
@@ -240,11 +240,11 @@
 )
 
 <span class="fu"><a href="../reference/codebook.html">codebook</a></span>(<span class="no">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="no">vardesc</span>)
-<span class="co">#&gt; mpg set to type float</span>
-<span class="co">#&gt; disp set to type float</span>
-<span class="co">#&gt; drat set to type float</span>
-<span class="co">#&gt; wt set to type float</span>
-<span class="co">#&gt; qsec set to type float</span>
+<span class="co">#&gt; mpg set to dataType float</span>
+<span class="co">#&gt; disp set to dataType float</span>
+<span class="co">#&gt; drat set to dataType float</span>
+<span class="co">#&gt; wt set to dataType float</span>
+<span class="co">#&gt; qsec set to dataType float</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "@context": "https://schema.org/",</span>
 <span class="co">#&gt;     "@type": "Dataset",</span>
@@ -256,7 +256,7 @@
 <span class="co">#&gt;             "name": "mpg",</span>
 <span class="co">#&gt;             "description": "Miles/(US) gallon",</span>
 <span class="co">#&gt;             "minValue": 0,</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -264,37 +264,37 @@
 <span class="co">#&gt;             "description": "Number of cylinders",</span>
 <span class="co">#&gt;             "minValue": 4,</span>
 <span class="co">#&gt;             "maxValue": 8,</span>
-<span class="co">#&gt;             "type": "int"</span>
+<span class="co">#&gt;             "dataType": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "disp",</span>
 <span class="co">#&gt;             "description": "Displacement (cu.in.)",</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "hp",</span>
 <span class="co">#&gt;             "description": "Gross horsepower",</span>
-<span class="co">#&gt;             "type": "int"</span>
+<span class="co">#&gt;             "dataType": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "drat",</span>
 <span class="co">#&gt;             "description": "Rear axle ratio",</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "wt",</span>
 <span class="co">#&gt;             "description": "Weight (1000 lbs)",</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "qsec",</span>
 <span class="co">#&gt;             "description": "1/4 mile time",</span>
-<span class="co">#&gt;             "type": "float"</span>
+<span class="co">#&gt;             "dataType": "float"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -304,8 +304,8 @@
 <span class="co">#&gt;                 "0": "V-shaped",</span>
 <span class="co">#&gt;                 "1": "straight"</span>
 <span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "type": "string",</span>
-<span class="co">#&gt;             "ordered": false</span>
+<span class="co">#&gt;             "dataType": "string",</span>
+<span class="co">#&gt;             "levelsOrdered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
@@ -315,20 +315,20 @@
 <span class="co">#&gt;                 "0": "automatic",</span>
 <span class="co">#&gt;                 "1": "manual"</span>
 <span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "type": "string",</span>
-<span class="co">#&gt;             "ordered": false</span>
+<span class="co">#&gt;             "dataType": "string",</span>
+<span class="co">#&gt;             "levelsOrdered": false</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "gear",</span>
 <span class="co">#&gt;             "description": "Number of forward gears",</span>
-<span class="co">#&gt;             "type": "int"</span>
+<span class="co">#&gt;             "dataType": "int"</span>
 <span class="co">#&gt;         },</span>
 <span class="co">#&gt;         {</span>
 <span class="co">#&gt;             "@type": "PropertyValue",</span>
 <span class="co">#&gt;             "name": "carb",</span>
 <span class="co">#&gt;             "description": "Number of carburetors",</span>
-<span class="co">#&gt;             "type": "int"</span>
+<span class="co">#&gt;             "dataType": "int"</span>
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>

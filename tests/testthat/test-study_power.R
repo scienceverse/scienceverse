@@ -82,6 +82,6 @@ test_that("null", {
 
   for (d in seq(0, 1, 0.1)) {
      add_sim_data(study, "D1", between = 2, n = 20, mu = c(0, d)) %>%
-      study_power(100)
+      study_power(10)
   }
 })

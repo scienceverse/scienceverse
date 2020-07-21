@@ -1,6 +1,6 @@
-#' Add Evaluation
+#' Add an evaluation
 #'
-#' Add evalution criterion to a hypothesis in a study object
+#' Add an evaluation criterion to a hypothesis in a study object
 #'
 #' @param study A study list object with class scivrs_study
 #' @param type "corroboration" or "falsification" (or "c"/"f")

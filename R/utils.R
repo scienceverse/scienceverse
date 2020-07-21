@@ -39,7 +39,7 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
             ifelse(is.null(id), "NULL", id))
 
     if (section == "hypotheses") study <- add_hypothesis(study, id=id)
-    if (section == "analyses") study <- add_analysis(study, id=id, code = "")
+    if (section == "analyses") study <- add_analysis(study, id=id, type = "text")
     if (section == "data") study <- add_data(study, id=id)
   }
   n <- length(study[[section]])
@@ -66,12 +66,11 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
     }
   } else if (is.character(id)) {
     # find existing item with this id
-    item_exists <- FALSE
-    for (i in 1:n) {
-      if (study[[section]][[i]]$id == id) idx <- i
-      item_exists <- TRUE
-    }
-    if (!item_exists) {
+    ids <- sapply(study[[section]], `[[`, "id")
+
+    if (id %in% ids) {
+      idx <- which(id == ids)
+    } else {
       warning("No ", section, " item with index = ", id,
               " exists. Creating a default item at index = ",
               n+1)
@@ -211,7 +210,7 @@ get_env_name <- function(f) {
 #' @keywords internal
 #'
 make_func <- function(func, code, return = "", envir = .GlobalEnv) {
-  if (length(return) > 1) {
+  if (return[1] != "") {
     if (is.null(names(return))) {
       names(return) <- return
     }
@@ -221,7 +220,7 @@ make_func <- function(func, code, return = "", envir = .GlobalEnv) {
       return[r] <- paste0('  "', key, '" = ', var)
     }
     return = paste0(
-      "  list(\n    ",
+      "\n\n  # return values\n  list(\n    ",
       paste(return, collapse = ",\n    "),
       "\n  )"
     )
@@ -230,8 +229,7 @@ make_func <- function(func, code, return = "", envir = .GlobalEnv) {
   p <- paste0(
     fix_id(func),
     " <- function() {\n  ",
-    paste(code, collapse = "\n  "),
-    "\n\n",
+    paste(code, collapse = "\n  ") %>% trimws(),
     return,
     "\n}"
   )

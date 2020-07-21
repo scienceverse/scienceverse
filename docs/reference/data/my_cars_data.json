@@ -8,67 +8,67 @@
             "@type": "PropertyValue",
             "name": "mpg",
             "description": "mpg",
-            "type": "float"
+            "dataType": "float"
         },
         {
             "@type": "PropertyValue",
             "name": "cyl",
             "description": "cyl",
-            "type": "int"
+            "dataType": "int"
         },
         {
             "@type": "PropertyValue",
             "name": "disp",
             "description": "disp",
-            "type": "float"
+            "dataType": "float"
         },
         {
             "@type": "PropertyValue",
             "name": "hp",
             "description": "hp",
-            "type": "int"
+            "dataType": "int"
         },
         {
             "@type": "PropertyValue",
             "name": "drat",
             "description": "drat",
-            "type": "float"
+            "dataType": "float"
         },
         {
             "@type": "PropertyValue",
             "name": "wt",
             "description": "wt",
-            "type": "float"
+            "dataType": "float"
         },
         {
             "@type": "PropertyValue",
             "name": "qsec",
             "description": "qsec",
-            "type": "float"
+            "dataType": "float"
         },
         {
             "@type": "PropertyValue",
             "name": "vs",
             "description": "vs",
-            "type": "int"
+            "dataType": "int"
         },
         {
             "@type": "PropertyValue",
             "name": "am",
             "description": "am",
-            "type": "int"
+            "dataType": "int"
         },
         {
             "@type": "PropertyValue",
             "name": "gear",
             "description": "gear",
-            "type": "int"
+            "dataType": "int"
         },
         {
             "@type": "PropertyValue",
             "name": "carb",
             "description": "carb",
-            "type": "int"
+            "dataType": "int"
         }
     ]
 }

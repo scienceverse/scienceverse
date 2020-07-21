@@ -1,4 +1,4 @@
-#' Add Data
+#' Add a dataset
 #'
 #' Add a dataset to a study object
 #'

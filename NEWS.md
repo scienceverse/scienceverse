@@ -1,8 +1,15 @@
+# scienceverse 0.0.0.9012 (2020-07-21)
+
+* Shiny App!! Start with `scivrs_app()`
+* `update_hypothesis()`, `update_analysis()` and `update_criterion()` functions
+* codebook updated to most recent Psych-DS spec (still experimental)
+* various bug fixes
+
 # scienceverse 0.0.0.9011 (2020-07-19)
 
-* `make_script`, `make_data` functions
-* new capabilities for `get_results` function
-* Vignette on exporting study matierals from the meta-study file.
+* `make_script()`, `make_data()` functions
+* new capabilities for `get_results()` function
+* Vignette on exporting study materials from the meta-study file.
 
 # scienceverse 0.0.0.9010 (2020-07-08)
 

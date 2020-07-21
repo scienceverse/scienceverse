@@ -146,13 +146,13 @@ cb_vars <- function(cb) {
       extras <- sprintf(
         "\n  * Levels\n    * %s\n  * Ordered: %s",
         paste(lvls, collapse = "\n    * "),
-        ifelse(is.null(v$ordered), FALSE, v$ordered)
+        ifelse(is.null(v$levelsOrdered), FALSE, v$levelsOrdered)
       )
     }
 
     vars[v$name] = sprintf(
       "* %s (%s)%s%s",
-      v$name, v$type, desc, extras
+      v$name, v$dataType, desc, extras
     )
   }
 

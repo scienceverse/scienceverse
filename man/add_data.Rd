@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_data.R
 \name{add_data}
 \alias{add_data}
-\title{Add Data}
+\title{Add a dataset}
 \usage{
 add_data(study, id, data = NULL, vardesc = list(), design = NULL, ...)
 }

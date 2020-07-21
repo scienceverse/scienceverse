@@ -9,6 +9,7 @@ reference:
   - title: "Study Setup"
     desc: "Setting up a study object"
     contents:
+      - scivrs_app
       - study
       - add_author
       - add_hypothesis
@@ -17,6 +18,9 @@ reference:
       - add_eval
       - add_data
       - add_sim_data
+      - update_hypothesis
+      - update_analysis
+      - update_criterion
   - title: "Study Functions"
     desc: "Running analyses, generating reports, and saving data"
     contents:

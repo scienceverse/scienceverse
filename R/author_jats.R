@@ -11,7 +11,7 @@
 #'   surname = "DeBruine", given = "Lisa M.",
 #'   roles = list("Conceptualization", "Methodology")
 #' )
-#' author_jats(ld)
+#' author_jats(ld) %>% cat()
 author_jats <- function(author) {
   if ("scivrs_study" %in% class(author)) {
     aa <- author$authors

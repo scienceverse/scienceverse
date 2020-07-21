@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Data — add_data • scienceverse</title>
+<title>Add a dataset — add_data • scienceverse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Add Data — add_data" />
+<meta property="og:title" content="Add a dataset — add_data" />
 <meta property="og:description" content="Add a dataset to a study object" />
 <meta property="og:image" content="/logo.png" />
 
@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add Data</h1>
+    <h1>Add a dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/add_data.R'><code>R/add_data.R</code></a></small>
     <div class="hidden name"><code>add_data.Rd</code></div>
     </div>
@@ -178,7 +178,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>add_data</span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to type float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to type string</span><span></span></div><div class='input'><span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>add_data</span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='input'><span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
 #&gt;     "name": "Demo Study",
 #&gt;     "info": [],
 #&gt;     "authors": [],
@@ -197,37 +197,37 @@
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Sepal.Length",
 #&gt;                         "description": "Sepal.Length",
-#&gt;                         "type": "float"
+#&gt;                         "dataType": "float"
 #&gt;                     },
 #&gt;                     {
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Sepal.Width",
 #&gt;                         "description": "Sepal.Width",
-#&gt;                         "type": "float"
+#&gt;                         "dataType": "float"
 #&gt;                     },
 #&gt;                     {
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Petal.Length",
 #&gt;                         "description": "Petal.Length",
-#&gt;                         "type": "float"
+#&gt;                         "dataType": "float"
 #&gt;                     },
 #&gt;                     {
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Petal.Width",
 #&gt;                         "description": "Petal.Width",
-#&gt;                         "type": "float"
+#&gt;                         "dataType": "float"
 #&gt;                     },
 #&gt;                     {
 #&gt;                         "@type": "PropertyValue",
 #&gt;                         "name": "Species",
 #&gt;                         "description": "Species",
-#&gt;                         "type": "string",
+#&gt;                         "dataType": "string",
 #&gt;                         "levels": {
 #&gt;                             "setosa": "setosa",
 #&gt;                             "versicolor": "versicolor",
 #&gt;                             "virginica": "virginica"
 #&gt;                         },
-#&gt;                         "ordered": false
+#&gt;                         "levelsOrdered": false
 #&gt;                     }
 #&gt;                 ]
 #&gt;             },

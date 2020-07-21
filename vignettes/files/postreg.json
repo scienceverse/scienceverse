@@ -99,25 +99,29 @@
                         "@type": "PropertyValue",
                         "name": "trust_self",
                         "description": "Number of trusting moves towards self-morphs",
-                        "type": "int"
+                        "type": "int",
+                        "dataType": "int"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "trust_other",
                         "description": "Number of trusting moves towards self-morphs",
-                        "type": "int"
+                        "type": "int",
+                        "dataType": "int"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "recip_self",
                         "description": "Number of reciprocating moves towards other-morphs",
-                        "type": "int"
+                        "type": "int",
+                        "dataType": "int"
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "recip_other",
                         "description": "Number of reciprocating moves towards other-morphs",
-                        "type": "int"
+                        "type": "int",
+                        "dataType": "int"
                     }
                 ]
             },

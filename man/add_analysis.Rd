@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_analysis.R
 \name{add_analysis}
 \alias{add_analysis}
-\title{Add Analysis}
+\title{Add an analysis}
 \usage{
 add_analysis(
   study,

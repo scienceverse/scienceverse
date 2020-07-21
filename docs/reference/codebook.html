@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"float"</span>, <span class='st'>"float"</span>),
   <span class='kw'>unitText</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>speed</span> <span class='kw'>=</span> <span class='st'>"mph"</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"ft"</span>)
 )
-<span class='fu'>codebook</span>(<span class='no'>cars</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: unitText</span></div><div class='output co'>#&gt; {
+<span class='fu'>codebook</span>(<span class='no'>cars</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: type</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>speed set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>dist set to dataType int</span><span></span></div><div class='output co'>#&gt; {
 #&gt;     "@context": "https://schema.org/",
 #&gt;     "@type": "Dataset",
 #&gt;     "name": "cars",
@@ -207,27 +207,29 @@
 #&gt;             "name": "speed",
 #&gt;             "description": "Speed",
 #&gt;             "type": "float",
-#&gt;             "unitText": "mph"
+#&gt;             "unitText": "mph",
+#&gt;             "dataType": "int"
 #&gt;         },
 #&gt;         {
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "dist",
 #&gt;             "description": "Stopping distance",
 #&gt;             "type": "float",
-#&gt;             "unitText": "ft"
+#&gt;             "unitText": "ft",
+#&gt;             "dataType": "int"
 #&gt;         }
 #&gt;     ]
 #&gt; }
-#&gt;  </div><div class='input'><span class='fu'>codebook</span>(<span class='no'>cars</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"list"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: unitText</span></div><div class='output co'>#&gt; Codebook for cars (Psych-DS 0.1.0)
+#&gt;  </div><div class='input'><span class='fu'>codebook</span>(<span class='no'>cars</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"list"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: type</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>speed set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>dist set to dataType int</span><span></span></div><div class='output co'>#&gt; Codebook for cars (Psych-DS 0.1.0)
 #&gt; ========================================
 #&gt; 
 #&gt; ===== Dataset Parameters =====
 #&gt; * name: cars
 #&gt; * schemaVersion: Psych-DS 0.1.0
 #&gt; ===== Column Parameters =====
-#&gt; * speed (float): Speed
-#&gt; * dist (float): Stopping distance</div><div class='input'>
-</div></pre>
+#&gt; * speed (int): Speed
+#&gt; * dist (int): Stopping distance</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

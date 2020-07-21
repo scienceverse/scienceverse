@@ -29,7 +29,7 @@ study_from_json <- function(filename) {
 
         make_func(func, paste(code, collapse = "\n"), "", env)
 
-        if (scienceverse_options("verbose")) message("Loaded custom function: ", func)
+        #if (scienceverse_options("verbose")) message("Loaded custom function: ", func)
       }
       # check the function exists
       if (!exists(func, envir = env)) {
@@ -59,7 +59,7 @@ study_from_json <- function(filename) {
         lvls <- sapply(vm, function(x) { x$levels })
         names(lvls) <- sapply(vm, function(x) { x$name })
 
-        coltypes <- sapply(vm, function(x) { x$type })
+        coltypes <- sapply(vm, function(x) { x$dataType })
         names(coltypes) <- names(lvls)
       } else {
         lvls <- NULL

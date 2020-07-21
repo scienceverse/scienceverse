@@ -45,7 +45,7 @@
                         "@type": "PropertyValue",
                         "name": "id",
                         "description": "id",
-                        "type": "string"
+                        "dataType": "string"
                     },
                     {
                         "@type": "PropertyValue",
@@ -55,8 +55,8 @@
                             "cat",
                             "dog"
                         ],
-                        "type": "string",
-                        "ordered": false
+                        "dataType": "string",
+                        "levelsOrdered": false
                     },
                     {
                         "@type": "PropertyValue",
@@ -66,14 +66,14 @@
                             "control",
                             "intervention"
                         ],
-                        "type": "string",
-                        "ordered": false
+                        "dataType": "string",
+                        "levelsOrdered": false
                     },
                     {
                         "@type": "PropertyValue",
                         "name": "happiness",
                         "description": "happiness",
-                        "type": "float"
+                        "dataType": "float"
                     }
                 ]
             },

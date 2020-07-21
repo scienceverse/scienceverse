@@ -120,7 +120,7 @@ test_that("complex", {
     # min and max are often outside the observed range
     minValue = list(mpg = 0, cyl = min(mtcars$cyl)),
     maxValue = list(cyl = max(mtcars$cyl)),
-    type = list(
+    dataType = list(
       cyl = "integer",
       hp = "integer",
       vs = "integer",
@@ -168,7 +168,7 @@ study <- study() %>%
 
   make_script(study, "test.R", data_path = NULL)
   make_script(study, "test.Rmd")
-  rmarkdown::render("test.Rmd")
+  rmarkdown::render("test.Rmd", quiet = TRUE)
 
   expect_true(file.exists("test.html"))
 

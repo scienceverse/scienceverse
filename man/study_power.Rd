@@ -2,7 +2,7 @@
 % Please edit documentation in R/study_power.R
 \name{study_power}
 \alias{study_power}
-\title{Power Analysis through Simulation}
+\title{Power analysis through simulation}
 \usage{
 study_power(study, rep = 100)
 }

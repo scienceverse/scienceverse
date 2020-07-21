@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_criterion.R
 \name{add_criterion}
 \alias{add_criterion}
-\title{Add Criterion}
+\title{Add a criterion}
 \usage{
 add_criterion(
   study,

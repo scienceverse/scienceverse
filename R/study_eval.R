@@ -157,8 +157,11 @@ eval_summary <- function(study) {
                             eval_summary, h$id, h$description)
 
     for (criterion in h$criteria) {
-      results <- get_result(study, analysis_id = criterion$analysis_id,
+      results <- suppressWarnings(
+        get_result(study, analysis_id = criterion$analysis_id,
                             digits = 3, return = "char")
+      )
+
       value <- get_res_value(criterion$result, results)
       v2 <- get_res_value(criterion$comparator, results)
       comp_res <- ""
@@ -171,7 +174,7 @@ eval_summary <- function(study) {
                               criterion$result,
                               criterion$operator,
                               criterion$comparator,
-                              no_null(criterion$conclusion),
+                              no_null(criterion$conclusion, "unknown"),
                               no_null(criterion$result),
                               no_null(value),
                               no_null(comp_res)

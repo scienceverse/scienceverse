@@ -90,7 +90,7 @@ test_that("complex study from json", {
       recip_self  = "Number of reciprocating moves towards other-morphs",
       recip_other = "Number of reciprocating moves towards other-morphs"
     ),
-    type = rep("float", 4)
+    dataType = rep("float", 4)
   )
 
   cb_json <- s$data[[1]]$codebook

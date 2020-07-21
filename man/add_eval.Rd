@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_eval.R
 \name{add_eval}
 \alias{add_eval}
-\title{Add Evaluation}
+\title{Add an evaluation}
 \usage{
 add_eval(study, type, description, evaluation, hypothesis_id = NULL)
 }
@@ -21,7 +21,7 @@ add_eval(study, type, description, evaluation, hypothesis_id = NULL)
 A study object with class scivrs_study
 }
 \description{
-Add evalution criterion to a hypothesis in a study object
+Add an evaluation criterion to a hypothesis in a study object
 }
 \examples{
 

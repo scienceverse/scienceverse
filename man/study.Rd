@@ -2,12 +2,12 @@
 % Please edit documentation in R/study.R
 \name{study}
 \alias{study}
-\title{Study}
+\title{Create a study object}
 \usage{
 study(name = "Demo Study", ...)
 }
 \arguments{
-\item{name}{The name of the study or a file path to a json file}
+\item{name}{The name of the study or a file path to a JSON meta-study file}
 
 \item{...}{further arguments to add}
 }
@@ -15,7 +15,7 @@ study(name = "Demo Study", ...)
 A study object with class scivrs_study
 }
 \description{
-Create or load a study object
+Create a new study object or load a study from the JSON meta-study file
 }
 \examples{
 

@@ -166,7 +166,7 @@ You can also display the value as a link to an external analysis file created wi
 # create the analysis .Rmd and .html file, 
 # or you can do this outside this script
 make_script(s, "analysis.Rmd")
-rmarkdown::render("analysis.Rmd") 
+rmarkdown::render("analysis.Rmd", quiet = TRUE) 
 
 scienceverse_options(analysis_link = "analysis.html")
 get_html("p.value")

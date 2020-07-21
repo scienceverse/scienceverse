@@ -1,4 +1,4 @@
-#' Add an Author
+#' Add an author
 #'
 #' @param study A study list object with class scivrs_study
 #' @param orcid the author's unique ORCiD (see https://orcid.org/)

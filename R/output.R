@@ -289,7 +289,7 @@ output_info <- function(study, header_lvl = 2,
 #' Output as md, html or text
 #'
 #' @param txt the md output of output_**** functions
-#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
 #'
 #' @return character string in the specified format
 #' @keywords internal
@@ -297,7 +297,7 @@ output_info <- function(study, header_lvl = 2,
 format_output <- function(txt, output = c("md", "html", "text")) {
   output <- match.arg(output)
   if (output == "md") {
-    cat(txt)
+    if (scienceverse_options("verbose")) cat(txt)
     return(txt)
   } else if (output == "html") {
     html <- txt %>% # deal with headers > 6
@@ -305,7 +305,7 @@ format_output <- function(txt, output = c("md", "html", "text")) {
       gsub("\n#{7,}\\s*([^\n]*)\n", "\n**\\1**\n", .) %>%
       markdown::renderMarkdown(text = .)
 
-    cat(html)
+    if (scienceverse_options("verbose")) cat(html)
     return(html)
   } else if (output == "text") {
     text <- txt %>%
@@ -313,7 +313,7 @@ format_output <- function(txt, output = c("md", "html", "text")) {
       gsub("\n#+\\s+", "\n", .) %>% # get rid of subsequent #
       gsub("\\{#\\S*\\}", "", .) # get rid of {#ID} tags
 
-    cat(text)
+    if (scienceverse_options("verbose")) cat(text)
     return(text)
   }
 }
