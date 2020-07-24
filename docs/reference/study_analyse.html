@@ -165,14 +165,12 @@
   <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>dat</span>$<span class='no'>Petal.Width</span>, <span class='no'>dat</span>$<span class='no'>Petal.Length</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"sig"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"pos"</span>, <span class='st'>"estimate"</span>, <span class='st'>"&gt;"</span>, <span class='fl'>0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>,
-           <span class='st'>"Petal width is significantly and positively correlated to length"</span>,
-           <span class='st'>"sig &amp; pos"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>,
-           <span class='st'>"Petal width is significantly and negatively correlated to length"</span>,
-           <span class='st'>"sig &amp; !pos"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>, <span class='st'>"sig &amp; pos"</span>,
+           <span class='st'>"Petal width is significantly and positively correlated to length"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>, <span class='st'>"sig &amp; !pos"</span>,
+           <span class='st'>"Petal width is significantly and negatively correlated to length"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1: Petal width and length will be positively correlated.</span>
+  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Hypothesis H1: Petal width and length will be positively correlated.</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Criterion sig:</span>
 #&gt; <span class='message'>* p.value &lt; 0.05 is TRUE</span>
@@ -184,272 +182,26 @@
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Conclusion: corroborate</span>
 #&gt; <span class='message'>* Corroborate (sig &amp; pos): TRUE</span>
-#&gt; <span class='message'>* Falsify (sig &amp; !pos): FALSE</span></div><div class='input'><span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
-#&gt;     "name": "Demo Study",
-#&gt;     "info": [],
-#&gt;     "authors": [],
-#&gt;     "hypotheses": [
-#&gt;         {
-#&gt;             "id": "H1",
-#&gt;             "description": "Petal width and length will be positively correlated.",
-#&gt;             "criteria": [
-#&gt;                 {
-#&gt;                     "id": "sig",
-#&gt;                     "analysis_id": "A1",
-#&gt;                     "result": "p.value",
-#&gt;                     "operator": "&lt;",
-#&gt;                     "comparator": 0.05,
-#&gt;                     "conclusion": true
-#&gt;                 },
-#&gt;                 {
-#&gt;                     "id": "pos",
-#&gt;                     "analysis_id": "A1",
-#&gt;                     "result": "estimate",
-#&gt;                     "operator": "&gt;",
-#&gt;                     "comparator": 0,
-#&gt;                     "conclusion": true
-#&gt;                 }
-#&gt;             ],
-#&gt;             "corroboration": {
-#&gt;                 "description": "Petal width is significantly and positively correlated to length",
-#&gt;                 "evaluation": "sig &amp; pos",
-#&gt;                 "result": true
-#&gt;             },
-#&gt;             "falsification": {
-#&gt;                 "description": "Petal width is significantly and negatively correlated to length",
-#&gt;                 "evaluation": "sig &amp; !pos",
-#&gt;                 "result": false
-#&gt;             },
-#&gt;             "conclusion": "corroborate"
-#&gt;         }
-#&gt;     ],
-#&gt;     "methods": [],
-#&gt;     "data": [
-#&gt;         {
-#&gt;             "id": "dat",
-#&gt;             "codebook": {
-#&gt;                 "@context": "https://schema.org/",
-#&gt;                 "@type": "Dataset",
-#&gt;                 "name": "dat",
-#&gt;                 "schemaVersion": "Psych-DS 0.1.0",
-#&gt;                 "variableMeasured": [
-#&gt;                     {
-#&gt;                         "@type": "PropertyValue",
-#&gt;                         "name": "Sepal.Length",
-#&gt;                         "description": "Sepal.Length",
-#&gt;                         "dataType": "float"
-#&gt;                     },
-#&gt;                     {
-#&gt;                         "@type": "PropertyValue",
-#&gt;                         "name": "Sepal.Width",
-#&gt;                         "description": "Sepal.Width",
-#&gt;                         "dataType": "float"
-#&gt;                     },
-#&gt;                     {
-#&gt;                         "@type": "PropertyValue",
-#&gt;                         "name": "Petal.Length",
-#&gt;                         "description": "Petal.Length",
-#&gt;                         "dataType": "float"
-#&gt;                     },
-#&gt;                     {
-#&gt;                         "@type": "PropertyValue",
-#&gt;                         "name": "Petal.Width",
-#&gt;                         "description": "Petal.Width",
-#&gt;                         "dataType": "float"
-#&gt;                     },
-#&gt;                     {
-#&gt;                         "@type": "PropertyValue",
-#&gt;                         "name": "Species",
-#&gt;                         "description": "Species",
-#&gt;                         "dataType": "string",
-#&gt;                         "levels": {
-#&gt;                             "setosa": "setosa",
-#&gt;                             "versicolor": "versicolor",
-#&gt;                             "virginica": "virginica"
-#&gt;                         },
-#&gt;                         "levelsOrdered": false
-#&gt;                     }
-#&gt;                 ]
-#&gt;             },
-#&gt;             "data": {
-#&gt;                 "Sepal.Length": [5.1, 4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, 5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, 5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, 6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, 5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9],
-#&gt;                 "Sepal.Width": [3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, 3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, 2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, 2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, 3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, 3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, 3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3, 2.5, 3, 3.4, 3],
-#&gt;                 "Petal.Length": [1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, 1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, 1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, 1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, 4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, 4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, 4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, 4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, 5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, 4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, 5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, 5.1],
-#&gt;                 "Petal.Width": [0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, 1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8],
-#&gt;                 "Species": [
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "setosa",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "versicolor",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica",
-#&gt;                     "virginica"
-#&gt;                 ]
-#&gt;             }
-#&gt;         }
-#&gt;     ],
-#&gt;     "analyses": [
-#&gt;         {
-#&gt;             "id": "A1",
-#&gt;             "code": "    cor.test(dat$Petal.Width, dat$Petal.Length)",
-#&gt;             "results": {
-#&gt;                 "statistic": 43.3872,
-#&gt;                 "parameter": 148,
-#&gt;                 "p.value": 4.675e-86,
-#&gt;                 "estimate": 0.9629,
-#&gt;                 "null.value": 0,
-#&gt;                 "alternative": "two.sided",
-#&gt;                 "method": "Pearson's product-moment correlation",
-#&gt;                 "data.name": "dat$Petal.Width and dat$Petal.Length",
-#&gt;                 "conf.int": [0.9491, 0.973]
-#&gt;             }
-#&gt;         }
-#&gt;     ]
-#&gt; }
-#&gt;  </div><div class='input'>
+#&gt; <span class='message'>* Falsify (sig &amp; !pos): FALSE</span><span></span></div><div class='input'><span class='no'>s</span></div><div class='output co'>#&gt; Demo Study
+#&gt; ----------
+#&gt; 
+#&gt; * Hypotheses: H1
+#&gt; * Data: dat
+#&gt; * Analyses: A1
+#&gt; 
+#&gt; Hypothesis H1: Petal width and length will be positively correlated.
+#&gt; 
+#&gt; Criterion sig:
+#&gt; * p.value &lt; 0.05 is TRUE
+#&gt; * p.value = 0.000
+#&gt; 
+#&gt; Criterion pos:
+#&gt; * estimate &gt; 0 is TRUE
+#&gt; * estimate = 0.963
+#&gt; 
+#&gt; Conclusion: corroborate
+#&gt; * Corroborate (sig &amp; pos): TRUE
+#&gt; * Falsify (sig &amp; !pos): FALSE</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

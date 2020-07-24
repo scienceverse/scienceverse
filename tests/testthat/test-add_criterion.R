@@ -23,7 +23,7 @@ test_that("default", {
     add_hypothesis("B") %>%
     add_analysis("B1", t.test(rnorm(100))) %>%
     add_analysis("B2", t.test(rnorm(100))) %>%
-    add_criterion("B1", "p.value", "<", 0.21, 2, 1) %>%
+    add_criterion("B1", "p.value", "<", 0.21, 1, 2) %>%
     add_criterion("B2", "p.value", "<", 0.22, 2, 2) %>%
     add_criterion("A1", "p.value", "<", 0.11, 1, 1)
 
@@ -57,10 +57,10 @@ test_that("default", {
 
 
   s <- s %>%
-    update_criterion("A1", NULL, NULL, 0.31, "A", "A1", "C1") %>%
-    update_criterion("A2", "statistic", "=", 0.32, "A", "A2", "C2") %>%
-    update_criterion("B1", "statistic", "=", 0.41, "B", "A1", "D1") %>%
-    update_criterion("B2", "statistic", "=", 0.42, "B", "A2", "D2")
+    update_criterion("A1", NULL,       NULL, 0.31, "A1", "A", "C1") %>%
+    update_criterion("A2", "statistic", "=", 0.32, "A2", "A", "C2") %>%
+    update_criterion("B1", "statistic", "=", 0.41, "A1", "B", "D1") %>%
+    update_criterion("B2", "statistic", "=", 0.42, "A2", "B", "D2")
 
   A1 <- s$hypotheses[[1]]$criteria[[2]]
   expect_equal(A1$id, "C1")

@@ -147,8 +147,8 @@
   <span class='kw'>result</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>operator</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>comparator</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hypothesis_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hypothesis_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>new_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
@@ -176,12 +176,12 @@
       <td><p>The value to compare</p></td>
     </tr>
     <tr>
-      <th>hypothesis_id</th>
-      <td><p>The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list</p></td>
-    </tr>
-    <tr>
       <th>analysis_id</th>
       <td><p>The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list</p></td>
+    </tr>
+    <tr>
+      <th>hypothesis_id</th>
+      <td><p>The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list</p></td>
     </tr>
     <tr>
       <th>new_id</th>
@@ -194,32 +194,7 @@
     <p>A study object with class scivrs_study</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"p"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&gt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()</div><div class='output co'>#&gt; <span class='message'>Hypothesis H1 has no evaluation criteria for corroboration</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1 has no evaluation criteria for falsification</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1: Describe your hypothesis</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Criterion p:</span>
-#&gt; <span class='message'>* p.value &gt; 0.05 is FALSE</span>
-#&gt; <span class='message'>* p.value = 0.001</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Conclusion: inconclusive</span>
-#&gt; <span class='message'>* Corroborate (*no criteria*): FALSE</span>
-#&gt; <span class='message'>* Falsify (*no criteria*): FALSE</span></div><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>update_criterion</span>(<span class='no'>s</span>, <span class='st'>"p"</span>, <span class='kw'>operator</span> <span class='kw'>=</span> <span class='st'>"&lt;"</span>,
-                      <span class='kw'>hypothesis_id</span> <span class='kw'>=</span> <span class='st'>"H1"</span>,
-                      <span class='kw'>analysis_id</span> <span class='kw'>=</span> <span class='st'>"A1"</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()</div><div class='output co'>#&gt; <span class='message'>Hypothesis H1 has no evaluation criteria for corroboration</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1 has no evaluation criteria for falsification</span></div><div class='output co'>#&gt; <span class='message'>Hypothesis H1: Describe your hypothesis</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Criterion p:</span>
-#&gt; <span class='message'>* p.value &lt; 0.05 is FALSE</span>
-#&gt; <span class='message'>* p.value = 0.937</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Conclusion: inconclusive</span>
-#&gt; <span class='message'>* Corroborate (*no criteria*): FALSE</span>
-#&gt; <span class='message'>* Falsify (*no criteria*): FALSE</span></div><div class='input'>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

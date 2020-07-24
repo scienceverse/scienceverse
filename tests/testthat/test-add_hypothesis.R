@@ -46,7 +46,7 @@ test_that("overwrite hypothesis", {
   s <- study() %>%
     add_analysis("A1") %>%
     add_hypothesis("H1", "My test hypothesis 1") %>%
-    add_criterion("p", "p.value", "<", 0.05, "H1", "A1") %>%
+    add_criterion("p", "p.value", "<", 0.05, "A1", "H1") %>%
     add_hypothesis("H1", "My test hypothesis 1 - revised")
 
   expect_equal(length(s$hypotheses), 1)
@@ -67,7 +67,7 @@ test_that("update hypothesis", {
   s <- study() %>%
     add_hypothesis("H1", "My test hypothesis 1") %>%
     add_analysis("A1") %>%
-    add_criterion("p", "p.value", "<", 0.05, "H1", "A1") %>%
+    add_criterion("p", "p.value", "<", 0.05, "A1", "H1") %>%
     update_hypothesis(1, "New desc", "NewID")
 
   h <- s$hypotheses[[1]]

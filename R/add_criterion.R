@@ -7,8 +7,8 @@
 #' @param result The name of the item in the analysis results list to compare
 #' @param operator The operator for comparison c("<", "=", ">", "!=")
 #' @param comparator The value to compare
-#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
+#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #'
 #' @return A study object with class scivrs_study
 #' @examples
@@ -22,8 +22,7 @@
 #' @export
 #'
 add_criterion <- function(study, id, result, operator, comparator,
-                          hypothesis_id = NULL,
-                          analysis_id = NULL) {
+                          analysis_id = NULL, hypothesis_id = NULL) {
   # get ids and indices
   hypothesis <- get_id_idx(study, hypothesis_id, "hypotheses")
   analysis <- get_id_idx(study, analysis_id, "analyses")
@@ -58,8 +57,8 @@ add_criterion <- function(study, id, result, operator, comparator,
 #' @param result The name of the item in the analysis results list to compare
 #' @param operator The operator for comparison c("<", "=", ">", "!=")
 #' @param comparator The value to compare
-#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #' @param analysis_id The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list
+#' @param hypothesis_id The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list
 #' @param new_id A new (character) ID for this criterion
 #'
 #' @return A study object with class scivrs_study
@@ -73,16 +72,16 @@ add_criterion <- function(study, id, result, operator, comparator,
 #'   study_analyse()
 #'
 #' s <- update_criterion(s, "p", operator = "<",
-#'                       hypothesis_id = "H1",
-#'                       analysis_id = "A1") %>%
+#'                       analysis_id = "A1"
+#'                       hypothesis_id = "H1" ) %>%
 #'      study_analyse()
 #'
 update_criterion <- function(study, id,
                              result = NULL,
                              operator = NULL,
                              comparator = NULL,
-                             hypothesis_id = NULL,
                              analysis_id = NULL,
+                             hypothesis_id = NULL,
                              new_id = NULL) {
   hypothesis <- get_id_idx(study, hypothesis_id, "hypotheses")
   analysis <- get_id_idx(study, analysis_id, "analyses")

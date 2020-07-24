@@ -10,8 +10,8 @@ add_criterion(
   result,
   operator,
   comparator,
-  hypothesis_id = NULL,
-  analysis_id = NULL
+  analysis_id = NULL,
+  hypothesis_id = NULL
 )
 }
 \arguments{
@@ -25,9 +25,9 @@ add_criterion(
 
 \item{comparator}{The value to compare}
 
-\item{hypothesis_id}{The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list}
-
 \item{analysis_id}{The id for the relevant analysis (index or character) if NULL, assigns to the last analysis in the list}
+
+\item{hypothesis_id}{The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list}
 }
 \value{
 A study object with class scivrs_study
