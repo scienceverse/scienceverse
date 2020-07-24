@@ -159,3 +159,51 @@ test_that("app", {
   s <- study_analyse(s)
   get_result(s, "p.value")
 })
+
+test_that("check logic", {
+  s <- study() %>%
+    add_hypothesis("H1") %>%
+    add_analysis("A1", t.test(rnorm(10, 10))) %>%
+    add_criterion("p", "p.value", "<", .05) %>%
+    add_criterion("dir", "estimate", ">", 0)
+
+  s2 <- add_eval(s, "c", "p") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "p & dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "(p & dir)") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "p | dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "!p | dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "p | !dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, TRUE)
+
+  s2 <- add_eval(s, "c", "!p") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+
+  s2 <- add_eval(s, "c", "!dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+
+  s2 <- add_eval(s, "c", "!p & !dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+
+  s2 <- add_eval(s, "c", "p & !dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+
+  s2 <- add_eval(s, "c", "!p & dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+
+  s2 <- add_eval(s, "c", "!p | !dir") %>% study_analyse()
+  expect_equal(s2$hypotheses[[1]]$corroboration$result, FALSE)
+})
+

@@ -12,15 +12,13 @@
 #'   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
 #'   add_criterion("sig", "p.value", "<", 0.05) %>%
 #'   add_criterion("pos", "estimate", ">", 0) %>%
-#'   add_eval("corroboration",
-#'            "Petal width is significantly and positively correlated to length",
-#'            "sig & pos") %>%
-#'   add_eval("falsification",
-#'            "Petal width is significantly and negatively correlated to length",
-#'            "sig & !pos") %>%
+#'   add_eval("corroboration", "sig & pos",
+#'            "Petal width is significantly and positively correlated to length") %>%
+#'   add_eval("falsification", "sig & !pos",
+#'            "Petal width is significantly and negatively correlated to length") %>%
 #'   add_data("dat", iris) %>%
 #'   study_analyse()
-#' study_to_json(s)
+#' s
 #'
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)

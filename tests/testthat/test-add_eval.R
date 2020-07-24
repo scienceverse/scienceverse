@@ -1,15 +1,15 @@
 s <- study() %>%
   add_hypothesis("H1") %>%
-  add_analysis("A1", t.test(rnorm(10))) %>%
+  add_analysis("A1", t.test(rnorm(10, 10))) %>%
   add_criterion("p", "p.value", "<", .05) %>%
   add_criterion("dir", "estimate", ">", 0)
 
 test_that("errors", {
   err <- "argument \"evaluation\" is missing, with no default"
-  expect_error(add_eval(s), err, fixed = TRUE)
   expect_error(add_eval(s, "c"), err, fixed = TRUE)
 
   err <- "argument \"type\" is missing, with no default"
+  expect_error(add_eval(s), err, fixed = TRUE)
   expect_error(add_eval(s, evaluation = "p"), err, fixed = TRUE)
 
   type_err <- "The type must be one of 'corroboration' or 'falsification' (or 'c'/'f')"
@@ -26,8 +26,8 @@ test_that("errors", {
   expect_silent(add_eval(s, "F", "p"))
   expect_silent(add_eval(s, "frumpy", "p"))
 
-  err <- "Criteria `and` have not been defined yet."
-  expect_warning(add_eval(s, "c", "p and dir"), err, fixed = TRUE)
+  err <- "Criteria `r` have not been defined yet."
+  expect_warning(add_eval(s, "c", "p | r"), err, fixed = TRUE)
 
   err <- "Criteria `q`, `r` have not been defined yet."
   expect_warning(add_eval(s, "c", "q & r"), err, fixed = TRUE)
@@ -49,4 +49,29 @@ test_that("default", {
   s2 <- add_eval(s, "falsification", "!dir", "desc2")
   expect_equal(s2$hypotheses[[1]]$falsification$evaluation, "!dir")
   expect_equal(s2$hypotheses[[1]]$falsification$description, "desc2")
+})
+
+
+test_that("syntax checks", {
+  err <- "The evaluation does not contain any criterion references"
+  expect_error(add_eval(s, "c", ""), err, fixed = TRUE)
+  expect_error(add_eval(s, "c", "&"), err, fixed = TRUE)
+  expect_error(add_eval(s, "c", "|"), err, fixed = TRUE)
+  expect_error(add_eval(s, "c", "( & | )"), err, fixed = TRUE)
+
+  err <- "The evaluation doesn't parse; there is probably a typo"
+  expect_error(add_eval(s, "c", "p &"), err, fixed = TRUE)
+  expect_error(add_eval(s, "c", "& p"), err, fixed = TRUE)
+
+  # these should work
+  expect_silent(add_eval(s, "c", "(p)"))
+  expect_silent(add_eval(s, "c", "(p&dir)"))
+  expect_silent(add_eval(s, "c", "(p & dir)"))
+  expect_silent(add_eval(s, "c", "p&dir"))
+  expect_silent(add_eval(s, "c", "p & dir"))
+  expect_silent(add_eval(s, "c", "(p|dir)"))
+  expect_silent(add_eval(s, "c", "(p|!dir)"))
+  expect_silent(add_eval(s, "c", "!p|!dir"))
+  expect_silent(add_eval(s, "c", "!p|(!dir)"))
+  expect_silent(add_eval(s, "c", "!p|!(dir)"))
 })

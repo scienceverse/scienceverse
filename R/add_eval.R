@@ -26,14 +26,24 @@
 #'
 add_eval <- function(study, type, evaluation, description= "",
                      hypothesis_id = NULL) {
-  # get ids and indices
+  # check type ----
+  type_f <- substr(type, 1, 1) %>% tolower()
+  if (!(type_f %in% c("c", "f"))) {
+    stop("The type must be one of 'corroboration' or 'falsification' (or 'c'/'f')")
+  }
+  checked_type <- ifelse(type_f == "c", "corroboration", "falsification")
+
+  # get ids and indices ----
   hypothesis <- get_id_idx(study, hypothesis_id, "hypotheses")
 
-  # check all referenced criteria exist
+  # check all referenced criteria exist ----
   criteria_refs <- evaluation %>%
     strsplit("(\\(|\\)|\\||\\&|\\!|\\s)+")
   # remove empty refs - ugh
   criteria_refs <- criteria_refs[[1]][criteria_refs[[1]]!=""]
+  if (length(criteria_refs) == 0) {
+    stop("The evaluation does not contain any criterion references")
+  }
 
   criteria_ids <- c()
   for (criterion in study$hypotheses[[hypothesis$idx]]$criteria) {
@@ -48,14 +58,16 @@ add_eval <- function(study, type, evaluation, description= "",
     }
   }
 
-  # check type
-  type_f <- substr(type, 1, 1) %>% tolower()
-  if (!(type_f %in% c("c", "f"))) {
-    stop("The type must be one of 'corroboration' or 'falsification' (or 'c'/'f')")
-  }
-  checked_type <- ifelse(type_f == "c", "corroboration", "falsification")
 
-  # add evaluation to hypothesis
+  # check syntax ----
+  pattern <- sprintf("(%s)", paste(criteria_refs, collapse = "|"))
+  to_parse <- gsub(pattern, "TRUE", evaluation)
+  tryCatch(parse(text = to_parse), error = function(e) {
+    stop("The evaluation doesn't parse; there is probably a typo")
+  })
+
+
+  # add evaluation to hypothesis ----
   study$hypotheses[[hypothesis$idx]][[checked_type]] <- list(
     description = description,
     evaluation = evaluation

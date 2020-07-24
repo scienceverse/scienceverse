@@ -133,10 +133,11 @@ server <- function(input, output, session) {
     }
 
     # add evaluations
-    s <- add_eval(s, "c", input$eval_cor_desc,
-                  input$eval_cor_eval, input$hyp_id)
-    s <- add_eval(s, "f", input$eval_fal_desc,
-                  input$eval_fal_eval, input$hyp_id)
+    # FIX: tryCatch for input errors and messages
+    s <- add_eval(s, "c", input$eval_cor_eval,
+                  input$eval_cor_desc, input$hyp_id)
+    s <- add_eval(s, "f", input$eval_fal_eval,
+                  input$eval_fal_desc, input$hyp_id)
 
     myStudy(s)
 
