@@ -24,8 +24,8 @@ study() \%>\%
  add_criterion("C1", "p.value", "<", 0.05) \%>\%
  add_analysis("A2", t.test(y~A, data = D2)) \%>\%
  add_criterion("C2", "p.value", "<", 0.05) \%>\%
- add_eval("corroboration", "", "C1 & C2") \%>\%
- add_eval("falsification", "", "!C1 & !C2") \%>\%
+ add_eval("corroboration", "C1 & C2") \%>\%
+ add_eval("falsification", "!C1 & !C2") \%>\%
  add_sim_data("D1", between = 2, n = 25, mu = c(0, 0.5)) \%>\%
  add_sim_data("D2", between = 2, n = 50, mu = c(0, 0.5)) \%>\%
  study_power(rep = 100) \%>\%

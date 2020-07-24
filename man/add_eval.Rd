@@ -4,16 +4,16 @@
 \alias{add_eval}
 \title{Add an evaluation}
 \usage{
-add_eval(study, type, description, evaluation, hypothesis_id = NULL)
+add_eval(study, type, evaluation, description = "", hypothesis_id = NULL)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{type}{"corroboration" or "falsification" (or "c"/"f")}
 
-\item{description}{A verbal description of the conditions for corroborating the hypothesis}
-
 \item{evaluation}{A logical representation of these conditions using the criteria IDs, parentheses, &, | and ! (e.g., "(c1 & c2) | (c3 & !c4)")}
+
+\item{description}{A verbal description of the conditions for corroborating the hypothesis}
 
 \item{hypothesis_id}{The id for the hypothesis (index or character) if NULL, assigns to the last hypothesis in the list}
 }
@@ -30,12 +30,11 @@ s <- study() \%>\%
   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) \%>\%
   add_criterion("sig", "p.value", "<", 0.05) \%>\%
   add_criterion("pos", "estimate", ">", 0) \%>\%
-  add_eval("corroboration",
-           "Petal width is significantly and positively correlated to length",
-           "sig & pos") \%>\%
-  add_eval("falsification",
-           "Petal width is significantly and negatively correlated to length",
-           "sig & !pos")
-study_to_json(s)
-
+  add_eval("corroboration", "sig & pos",
+           "Petal width is significantly and positively correlated to length"
+           ) \%>\%
+  add_eval("falsification", "sig & !pos",
+           "Petal width is significantly and negatively correlated to length"
+           )
+s
 }

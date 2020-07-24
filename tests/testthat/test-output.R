@@ -146,8 +146,8 @@ test_that("results", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_criterion("C1", result = "p.value", operator = "<", comparator = 0.05) %>%
-    add_eval("c", "sig", "C1") %>%
-    add_eval("f", "non-sig", "!C1") %>%
+    add_eval("c", "C1") %>%
+    add_eval("f", "!C1") %>%
     study_analyse()
 
   scienceverse_options(verbose = FALSE)
@@ -164,8 +164,8 @@ test_that("results header_lvl", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_criterion("C1", result = "p.value", operator = "<", comparator = 0.05) %>%
-    add_eval("c", "sig", "C1") %>%
-    add_eval("f", "non-sig", "!C1") %>%
+    add_eval("c", "C1") %>%
+    add_eval("f", "!C1") %>%
     study_analyse()
 
   scienceverse_options(verbose = FALSE)
@@ -182,8 +182,8 @@ test_that("results digits", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(1:10, 2:11)) %>%
     add_criterion("C1", result = "p.value", operator = "<", comparator = 0.05) %>%
-    add_eval("c", "sig", "C1") %>%
-    add_eval("f", "non-sig", "!C1") %>%
+    add_eval("c", "C1") %>%
+    add_eval("f", "!C1") %>%
     study_analyse()
 
   scienceverse_options(verbose = FALSE)

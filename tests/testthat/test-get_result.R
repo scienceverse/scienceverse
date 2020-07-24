@@ -16,8 +16,8 @@ test_that("errors", {
   expect_equal(res, results)
 
   s <- s %>%
-    add_eval("corroboration", "", "p&d") %>%
-    add_eval("falsification", "", "p & !d") %>% # yes I know this is bad
+    add_eval("corroboration", "p&d") %>%
+    add_eval("falsification", "p & !d") %>% # yes I know this is bad
     study_analyse()
 
   expect_error(get_result(s, "p.value", "A2"),
@@ -36,8 +36,8 @@ test_that("all results", {
     add_analysis("A1", t.test(-10:15)) %>%
     add_criterion("p", "p.value", "<", .05) %>%
     add_criterion("d", "estimate", ">", 0) %>%
-    add_eval("corroboration", "", "p&d") %>%
-    add_eval("falsification", "", "p & !d") %>%
+    add_eval("corroboration", "p&d") %>%
+    add_eval("falsification", "p & !d") %>%
     study_analyse()
 
   res <- get_result(s)

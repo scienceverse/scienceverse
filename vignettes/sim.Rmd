@@ -89,8 +89,8 @@ study <- study("Simple Simulation Demo")  %>%
     t.test(dog_happy, cat_happy, mu = 0.2, alternative = "less")
   }) %>%
   add_criterion("happy_f", "p.value", "<", 0.05) %>%
-  add_eval("corroboration", "The hypothesis will be corroborated if dog owners are significantly happier than cat owners.", "happy_c") %>%
-  add_eval("falsification", "The hypothesis will be falsified if dog owners are significantly less than 0.2 units happier than cat owners.", "happy_f")
+  add_eval("corroboration", "happy_c", "The hypothesis will be corroborated if dog owners are significantly happier than cat owners.") %>%
+  add_eval("falsification", "happy_f", "The hypothesis will be falsified if dog owners are significantly less than 0.2 units happier than cat owners.")
 ```
 
 Add a second hypothesis, with all associated analyses, criteria, and evaluation rules.
@@ -110,8 +110,8 @@ study <- study %>%
     t.test(cat_smug, dog_smug, mu = 0.2, alternative = "less")
   }) %>%
   add_criterion("smug_f", "p.value", "<", 0.05) %>%
-  add_eval("corroboration", "The hypothesis will be corroborated if cat owners are significantly smugger than dog owners.", "smug_c") %>%
-  add_eval("falsification", "The hypothesis will be falsified if cat owners are significantly less than 0.2 units smugger than dog owners.", "smug_f")
+  add_eval("corroboration", "smug_c", "The hypothesis will be corroborated if cat owners are significantly smugger than dog owners.") %>%
+  add_eval("falsification", "smug_f", "The hypothesis will be falsified if cat owners are significantly less than 0.2 units smugger than dog owners.")
 ```
 
 Now we can simulate a dataset. Make sure to give it the same `data_id` that you used to reference it in the analysis.

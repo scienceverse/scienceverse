@@ -29,8 +29,8 @@ test_that("warnings", {
   )
 
   expect_warning(
-    s <- add_eval(s, "corroboration", "", "oops"),
-    "Criteria oops have not been defined yet.",
+    s <- add_eval(s, "corroboration", "oops"),
+    "Criteria `oops` have not been defined yet.",
     fixed = TRUE, all = FALSE
   )
 
@@ -50,8 +50,8 @@ test_that("simple function", {
     add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate", ">", 0) %>%
-    add_eval("corroboration", "Petal width is significantly and positively correlated to length", "sig & pos") %>%
-    add_eval("falsification", "Petal width is significantly and negatively correlated to length", "sig & !pos") %>%
+    add_eval("corroboration", "sig & pos", "Petal width is significantly and positively correlated to length") %>%
+    add_eval("falsification", "sig & !pos", "Petal width is significantly and negatively correlated to length") %>%
     add_data("dat", iris)
 
   evsum <- study_analyse(s) %>% eval_summary()
@@ -93,8 +93,8 @@ test_that("criterion name overlap", {
     add_criterion("a", "p.value", ">", 0.001) %>%
     add_criterion("aa", "estimate", "<", 10) %>%
     add_criterion("aa2", "estimate", ">", -10) %>%
-    add_eval("corroboration", "", "a | (aa | aa2)") %>%
-    add_eval("falsification", "", "aa2 | (aa & a)") %>%
+    add_eval("corroboration", "a | (aa | aa2)") %>%
+    add_eval("falsification", "aa2 | (aa & a)") %>%
     study_analyse()
 
   expect_equal(s$hypotheses[[1]]$corroboration$result, TRUE)
@@ -110,15 +110,15 @@ test_that("multiple hypotheses", {
     add_analysis("A1", cor.test(dat$A1, dat$A2)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate", ">", 0) %>%
-    add_eval("c", "", "sig & pos") %>%
-    add_eval("f", "", "sig & !pos") %>%
+    add_eval("c", "sig & pos") %>%
+    add_eval("f", "sig & !pos") %>%
 
     add_hypothesis("H2", "B1 will have a bigger DV than B2") %>%
     add_analysis("A2", t.test((A1+A2)~B, dat)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate[1]", ">", "estimate[2]") %>%
-    add_eval("c", "", "sig & pos") %>%
-    add_eval("f", "", "sig & !pos")
+    add_eval("c", "sig & pos") %>%
+    add_eval("f", "sig & !pos")
 
   s2 <- study_analyse(s)
   es <- eval_summary(s2)
@@ -134,8 +134,8 @@ test_that("result in comparator", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(dat$Petal.Width, dat$Petal.Length)) %>%
     add_criterion("pos", "estimate[1]", "<", "estimate[2]") %>%
-    add_eval("corroboration", "Petal width is longer than length", "pos") %>%
-    add_eval("falsification", "Petal width is shorter than length", "!pos") %>%
+    add_eval("corroboration", "pos", "Petal width is longer than length") %>%
+    add_eval("falsification", "!pos", "Petal width is shorter than length") %>%
     add_data("dat", iris)
 
   ev_sum <- "Hypothesis H1: Describe your hypothesis\n\nCriterion pos:\n* estimate[1] < estimate[2] is TRUE\n* estimate[1] = 1.199\n* estimate[2] = 3.758\n\nConclusion: corroborate\n* Corroborate (pos): TRUE\n* Falsify (!pos): FALSE"
@@ -152,8 +152,8 @@ test_that("app", {
     add_analysis("A1", cor.test(rnorm(20), rnorm(20))) %>%
     add_criterion("p", "p.value", "<", 0.5) %>%
     add_criterion("r", "estimate", ">", 0.2) %>%
-    add_eval("corroboration", "", "p & r") %>%
-    add_eval("falsification", "", "p & !r")
+    add_eval("corroboration", "p & r") %>%
+    add_eval("falsification", "p & !r")
 
 
   s <- study_analyse(s)

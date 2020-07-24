@@ -159,14 +159,12 @@
 <span class="co"># Add evaluation rules for corroboration and falsification</span>
 <span class="no">sim_study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="no">sim_study</span>,
                       <span class="kw">hypothesis_id</span> <span class="kw">=</span> <span class="st">"H1"</span>,
-                      <span class="st">"corroboration"</span>,
-                      <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is corroborated if analysis 'ttest' is significant."</span>,
+                      <span class="kw">type</span> <span class="kw">=</span> <span class="st">"corroboration"</span>,
                       <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"p_val"</span>)
 
 <span class="no">sim_study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="no">sim_study</span>,
                       <span class="kw">hypothesis_id</span> <span class="kw">=</span> <span class="st">"H1"</span>,
-                      <span class="st">"falsification"</span>,
-                      <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is falsified if analysis 'ttest' is not significant."</span>,
+                      <span class="kw">type</span> <span class="kw">=</span> <span class="st">"falsification"</span>,
                       <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"!p_val"</span>)
 
 <span class="co"># Simulate data, run analysis, and save the meta-data file nsim times</span>

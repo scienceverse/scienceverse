@@ -89,14 +89,12 @@ sim_study <- add_criterion(
 # Add evaluation rules for corroboration and falsification
 sim_study <- add_eval(sim_study,
                       hypothesis_id = "H1",
-                      "corroboration",
-                      description = "The hypothesis is corroborated if analysis 'ttest' is significant.",
+                      type = "corroboration",
                       evaluation = "p_val")
 
 sim_study <- add_eval(sim_study,
                       hypothesis_id = "H1",
-                      "falsification",
-                      description = "The hypothesis is falsified if analysis 'ttest' is not significant.",
+                      type = "falsification",
                       evaluation = "!p_val")
 
 # Simulate data, run analysis, and save the meta-data file nsim times

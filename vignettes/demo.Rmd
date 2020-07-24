@@ -116,11 +116,11 @@ Add evaluation criteria for corroboration and falsification. Include a verbal `d
 
 ```{r}
 study <- add_eval(study, "corroboration",
-                  description = "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.",
-                  evaluation = "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)") %>%
+                  evaluation = "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)",
+                  description = "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.") %>%
          add_eval("falsification",
-                  description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
-                  evaluation = "!trust_highbound & !recip_highbound")
+                  evaluation = "!trust_highbound & !recip_highbound",
+                  description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.")
 ```
 
 ### Save in machine-readable format

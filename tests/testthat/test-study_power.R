@@ -2,8 +2,8 @@ s <- study() %>%
   add_hypothesis("H1") %>%
   add_analysis("A1", t.test(D1$Sepal.Length)) %>%
   add_criterion("C1", "p.value", "<", .05) %>%
-  add_eval("corroboration", "the t-test is significant", "C1") %>%
-  add_eval("falsification", "the t-test is not significant", "!C1") %>%
+  add_eval("corroboration", "C1", "the t-test is significant") %>%
+  add_eval("falsification", "!C1", "the t-test is not significant") %>%
   add_data("D1", iris)
 
 test_that("messages", {
@@ -36,8 +36,8 @@ test_that("basic", {
     add_criterion("C1", "p.value", "<", 0.05) %>%
     add_analysis("A2", t.test(y~A, data = D2)) %>%
     add_criterion("C2", "p.value", "<", 0.05) %>%
-    add_eval("corroboration", "", "C1 | C2") %>%
-    add_eval("falsification", "", "!C1 & !C2") %>%
+    add_eval("corroboration", "C1 | C2") %>%
+    add_eval("falsification", "!C1 & !C2") %>%
     add_sim_data("D1", between = 2, n = 20, mu = c(0, 1)) %>%
     add_sim_data("D2", between = 2, n = 30, mu = c(0, 1))
 
@@ -64,8 +64,8 @@ test_that("null", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(y~A, data = D1)) %>%
     add_criterion("C1", "p.value", "<", 0.05) %>%
-    add_eval("corroboration", "", "C1") %>%
-    add_eval("falsification", "", "!C1") %>%
+    add_eval("corroboration", "C1") %>%
+    add_eval("falsification", "!C1") %>%
     add_sim_data("D1", between = 2, n = 20) %>%
     study_power(100)
 
@@ -77,8 +77,8 @@ test_that("null", {
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(y~A, data = D1)) %>%
     add_criterion("C1", "p.value", "<", 0.05) %>%
-    add_eval("corroboration", "", "C1") %>%
-    add_eval("falsification", "", "!C1")
+    add_eval("corroboration", "C1") %>%
+    add_eval("falsification", "!C1")
 
   for (d in seq(0, 1, 0.1)) {
      add_sim_data(study, "D1", between = 2, n = 20, mu = c(0, d)) %>%

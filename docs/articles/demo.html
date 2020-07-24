@@ -186,11 +186,11 @@
 <a href="#evaluation" class="anchor"></a>Evaluation</h3>
 <p>Add evaluation criteria for corroboration and falsification. Include a verbal <code>description</code> and a logical <code>evaluation</code> that references the criterion <code>id</code>s above.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="no">study</span>, <span class="st">"corroboration"</span>,
-                  <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves."</span>,
-                  <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"(trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)"</span>) <span class="kw">%&gt;%</span>
+                  <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"(trust_lowbound &amp; trust_highbound) | (recip_lowbound &amp; recip_highbound)"</span>,
+                  <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves."</span>) <span class="kw">%&gt;%</span>
          <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="st">"falsification"</span>,
-                  <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span>,
-                  <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"!trust_highbound &amp; !recip_highbound"</span>)</pre></body></html></div>
+                  <span class="kw">evaluation</span> <span class="kw">=</span> <span class="st">"!trust_highbound &amp; !recip_highbound"</span>,
+                  <span class="kw">description</span> <span class="kw">=</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span>)</pre></body></html></div>
 </div>
 <div id="save-in-machine-readable-format" class="section level3">
 <h3 class="hasAnchor">

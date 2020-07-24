@@ -68,15 +68,15 @@ s <- s %>%
   add_analysis("A1", scienceverse::t_test(y~pet, dat)) %>%
   add_criterion("p", "p.value", "<", 0.05) %>%
   add_criterion("dir", "estimate[1]", ">", "estimate[2]") %>%
-  add_eval("c", "significant in predicted direction", "p & dir") %>%
-  add_eval("f", "significant in unpredicted direction", "p & !dir") %>%
+  add_eval("c", "p & dir") %>%
+  add_eval("f", "p & !dir") %>%
   
   add_hypothesis("time", "Pets will be happier in the morning than at night") %>%
   add_analysis("A2", scienceverse::t_test(y~time, dat)) %>%
   add_criterion("p", "p.value", "<", 0.05) %>%
   add_criterion("dir", "estimate[1]", ">", "estimate[2]") %>%
-  add_eval("c", "significant in predicted direction", "p & dir") %>%
-  add_eval("f", "significant in unpredicted direction", "p & !dir") %>%
+  add_eval("c", "p & dir") %>%
+  add_eval("f", "p & !dir") %>%
   study_analyse()
 ```
 
