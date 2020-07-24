@@ -6,6 +6,7 @@
 #' @param data_format The data format to save with (defaults to tsv)
 #' @param show_codebook Include codebook for each dataset in comments
 #' @param use_rmarkdown Creates an Rmarkdown file if TRUE, a .R file if FALSE
+#' @param header_lvl The starting header level for the section (defaults to 2)
 #' @param header Whether the rmarkdown version should have a header
 #'
 #' @return Text of the script if path is NULL
@@ -27,7 +28,10 @@ make_script <- function(study, path = NULL,
                         data_format = "tsv",
                         show_codebook = TRUE,
                         use_rmarkdown = TRUE,
+                        header_lvl = 2,
                         header = TRUE) {
+
+  h <- rep("#", header_lvl) %>% paste(collapse = "")
 
   # check if filename is .R
   if (isTRUE(grep("\\.(R|r)$", path) == 1)) use_rmarkdown = FALSE
@@ -41,7 +45,7 @@ make_script <- function(study, path = NULL,
     }
 
 
-    dat <- "\n\n## Data"
+    dat <- paste0("\n\n", h, " Data")
     for (d in study$data) {
       # . codebook ----
       cb <- ""
@@ -63,9 +67,9 @@ make_script <- function(study, path = NULL,
       }
 
       fmt <- ifelse(use_rmarkdown,
-                    "%s\n\n### %s\n\n%s\n```{r}\n%s\n```",
-                    "%s\n\n### %s\n\n%s%s")
-      dat <- sprintf(fmt, dat, d$id, cb, data)
+                    "%s\n\n%s# %s\n\n%s\n```{r}\n%s\n```",
+                    "%s\n\n%s# %s\n\n%s%s")
+      dat <- sprintf(fmt, dat, h, d$id, cb, data)
     }
     dat <- sprintf("%s\n\n", dat)
   }
@@ -78,19 +82,20 @@ make_script <- function(study, path = NULL,
       code <- output_custom_code(study, a$id, "")
       idx <- get_idx(study, a$id, "analyses")
       if(use_rmarkdown) {
-        fmt <- "%s## Analysis %d: %s {#analysis_%d}\n\n```{r}\n%s\n```\n\n"
-        ana <- sprintf(fmt, ana, idx, a$id, idx, code)
+        fmt <- "%s%s Analysis %d: %s {#analysis_%d}\n\n```{r}\n%s\n```\n\n"
+        ana <- sprintf(fmt, ana, h, idx, a$id, idx, code)
       } else {
-        fmt <- "%s## Analysis %d: %s\n\n%s\n\n"
-        ana <- sprintf(fmt, ana, idx, a$id, code)
+        fmt <- "%s%s Analysis %d: %s\n\n%s\n\n"
+        ana <- sprintf(fmt, ana, h, idx, a$id, code)
       }
 
       # results ----
       if ("results" %in% names(a)) {
         prefix <- ifelse(use_rmarkdown, "", "# ")
-        res <- faux::nested_list(a$results, prefix)
-        ana <- sprintf("%s### Stored Results\n\n%s\n\n",
-                       ana, res)
+        quote <- ifelse(use_rmarkdown, "`", "")
+        res <- faux::nested_list(a$results, prefix, quote)
+        ana <- sprintf("%s%s# Stored Results\n\n%s\n\n",
+                       ana, h, res)
       }
     }
   }

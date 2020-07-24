@@ -177,3 +177,60 @@ study <- study() %>%
   if (file.exists("test.html")) file.remove("test.html")
   if (dir.exists("data")) unlink("data", recursive = TRUE)
 })
+
+test_that("levels", {
+  s <- study() %>%
+    add_hypothesis("H1", "First H") %>%
+    add_analysis("A1", t.test(rnorm(10))) %>%
+    add_criterion("p", "p.value", "<", .05) %>%
+    add_eval("c", "p") %>%
+    add_eval("f", "!p") %>%
+    add_data("D1", cars) %>%
+    study_analyse()
+
+  default <- make_script(s)
+  h1 <- make_script(s, header_lvl = 1)
+  h2 <- make_script(s, header_lvl = 2)
+  h3 <- make_script(s, header_lvl = 3)
+
+  expect_equal(default, h2)
+
+  expect_equal(grep("\n# Data\n", h1), 1)
+  expect_equal(grep("\n## D1\n", h1), 1)
+  expect_equal(grep("\n# Analysis 1: A1", h1), 1)
+  expect_equal(grep("\n## Stored Results\n", h1), 1)
+
+  expect_equal(grep("\n## Data\n", h2), 1)
+  expect_equal(grep("\n### D1\n", h2), 1)
+  expect_equal(grep("\n## Analysis 1: A1", h2), 1)
+  expect_equal(grep("\n### Stored Results\n", h2), 1)
+
+  expect_equal(grep("\n### Data\n", h3), 1)
+  expect_equal(grep("\n#### D1\n", h3), 1)
+  expect_equal(grep("\n### Analysis 1: A1", h3), 1)
+  expect_equal(grep("\n#### Stored Results\n", h3), 1)
+})
+
+
+test_that("stored results", {
+  s <- study() %>%
+    add_analysis("A1", list(a = 1, b = "b", c = c(1, 2))) %>%
+    study_analyse()
+
+  x <- make_script(s) %>% strsplit("\n") %>% `[[`(1)
+  quoteres <- c("* a: `1`",
+                "* b: `b`",
+                "* c: ",
+                "  * `1`",
+                "  * `2`")
+
+  expect_equal(x[21:25], quoteres)
+
+  x <- make_script(s, use_rmarkdown = FALSE) %>% strsplit("\n") %>% `[[`(1)
+  quoteres <- c("# * a: 1",
+                "# * b: b",
+                "# * c: ",
+                "#   * 1",
+                "#   * 2")
+  expect_equal(x[13:17], quoteres)
+})

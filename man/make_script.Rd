@@ -11,6 +11,7 @@ make_script(
   data_format = "tsv",
   show_codebook = TRUE,
   use_rmarkdown = TRUE,
+  header_lvl = 2,
   header = TRUE
 )
 }
@@ -26,6 +27,8 @@ make_script(
 \item{show_codebook}{Include codebook for each dataset in comments}
 
 \item{use_rmarkdown}{Creates an Rmarkdown file if TRUE, a .R file if FALSE}
+
+\item{header_lvl}{The starting header level for the section (defaults to 2)}
 
 \item{header}{Whether the rmarkdown version should have a header}
 }

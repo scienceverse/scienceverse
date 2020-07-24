@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(scienceverse)
 ```
 
-One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and scienceverse can then take the preregistration file and the data and automatically evaluate whether the predictions were confirmed or not.
+One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and the scienceverse R package (or other platforms that handle scienceverse-formatted files) can then use the preregistration file and the data to automatically evaluate whether the predictions were confirmed or not.
 
 The demo below follows the example from: 
 
@@ -61,89 +61,71 @@ study <- add_hypothesis(study, id = "self_pref",
 
 ### Analyses
 
-Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an `id` for reference in the criteria later. The `code` can be R code (wrap it in {} if you need more than one function) or the file path for a .R file. You can also add other information about your analysis, such as the software it's running on. 
+Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an `id` for reference in the criteria later. The `code` can be R code (wrap it in {} if you need more than one line) or the file path for a .R file. You can also add other information about your analysis, such as the software it's running on. 
 
 ```{r}
-# add by writing the code directly into this function
-study <- add_analysis(study,
-                      id = "trust",
+study <- add_analysis(study, id = "trust",
                       code = t.test(kin$trust_self, 
                                     kin$trust_other, 
                                     paired = TRUE, 
                                     conf.level = 0.975), 
-                      software = R.version.string)
-
-# add by referencing an external .R file
-study <- add_analysis(study,
-                      id = "recip",
-                      code = "files/recip_analysis.R",
-                      type = "file",
+                      software = R.version.string) %>%
+         add_analysis(id = "recip",
+                      code = t.test(kin$recip_self,
+                                    kin$recip_other,
+                                    paired = TRUE,
+                                    conf.level = 0.975), 
                       software = R.version.string)
 ```
 
 ### Criteria
 
-Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique `id` so you can reference it next in the evaluation. Then, specify the `analysis_id` where you'll look for the result. For example, the analysis `trust_analysis` returns a list from the function `t.test`, which includes a value for `conf.int`. To see if the first number in this vector is larger than 0, set `result` to "conf.int[1]", `operator` to ">" , and `comparator` to $0$. The options for `operator` are ">", "<", "=", and "!=".
+Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique `id` so you can reference it next in the evaluation. Then, optionally specify the `hypothesis_id` and `analysis_id` where you'll look for the result. If you omit these it will default to the last one added. For example, the analysis `trust` returns a list from the function `t.test`, which includes a value for `conf.int`. To see if the first number in this vector is larger than 0, set `result` to "conf.int[1]", `operator` to ">" , and `comparator` to $0$. The options for `operator` are ">", "<", "=", and "!=".
 
 ```{r}
 study <- study %>%
-  add_criterion(id = "trust_lowbound",
-                analysis_id = "trust",
+  add_criterion(id = "t_lo",
                 result = "conf.int[1]",
                 operator = ">",
-                comparator = 0) %>%
-  add_criterion(id = "trust_highbound",
+                comparator = 0.0,
                 analysis_id = "trust",
-                result = "conf.int[2]",
-                operator = ">",
-                comparator = 0.2) %>%
-  add_criterion(id = "recip_lowbound",
-                analysis_id = "recip",
-                result = "conf.int[1]",
-                operator = ">",
-                comparator = 0) %>%
-  add_criterion(id = "recip_highbound",
-                analysis_id = "recip",
-                result = "conf.int[2]",
-                operator = ">",
-                comparator = 0.2)
+                hypothesis_id = "self_pref") %>%
+  add_criterion("t_hi", "conf.int[2]", ">", 0.2, "trust") %>%
+  add_criterion("r_lo", "conf.int[1]", ">", 0.0, "recip") %>%
+  add_criterion("r_hi", "conf.int[2]", ">", 0.2, "recip")
   
 ```
 
 ### Evaluation
 
-Add evaluation criteria for corroboration and falsification. Include a verbal `description` and a logical `evaluation` that references the criterion `id`s above.
+Add evaluation criteria for corroboration and falsification. The logical `evaluation` should reference the criterion `id`s above and can consist of those ids and the symbols `(`, `)`, `&`, and `|`. You can optionally include a verbal `description` of the criterion to clarify the logical evaluation.
 
 ```{r}
 study <- add_eval(study, "corroboration",
-                  evaluation = "(trust_lowbound & trust_highbound) | (recip_lowbound & recip_highbound)",
-                  description = "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.") %>%
-         add_eval("falsification",
-                  evaluation = "!trust_highbound & !recip_highbound",
+                  evaluation = "(t_lo & t_hi) | (r_lo & r_hi)",
+                  description = "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.")
+
+study <- add_eval(study, "falsification",
+                  evaluation = "!t_hi & !r_hi",
                   description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.")
 ```
 
+
 ### Save in machine-readable format
 
-At this point, you can save your study to a JSON-formatted file.
+At this point, you can save your study to a machine-readable JSON-formatted file.
 
 ```{r}
-# make a directory for saving files
-if (!dir.exists("files")) dir.create("files")
-study_save(study, "files/prereg.json", "json")
+study_save(study, "prereg.json", format = "json")
 ```
-
-You can view the [JSON-formatted study description](files/prereg.json)  through: `file.edit('files/prereg.json')`.
 
 ### Save in human-readable format
 
 You can also export a human-readable pre-registration using the built-in "prereg" template.
 
 ```{r}
-study_save(study, "files/prereg.html", "prereg")
+study_save(study, "prereg.html", format = "prereg")
 ```
-
-View the [prereg](files/prereg.html) report.
 
 ### Data
 
@@ -152,14 +134,10 @@ The `id` you give the data can be used in the analysis code to refer to this dat
 ```{r}
 
 kin_data <- data.frame(
-  trust_self  = c(1,2,2,1,1,1,1,1,2,0,2,0,
-                  1,2,2,3,2,2,1,1,2,0,0,1),
-  trust_other = c(1,2,2,0,1,0,0,0,1,0,1,0,
-                  1,1,1,0,1,2,2,0,0,0,2,1),
-  recip_self  = c(0,1,3,2,1,1,1,3,3,2,3,1,
-                  1,2,3,3,3,1,1,1,3,0,3,1),
-  recip_other = c(1,1,2,2,3,2,1,3,3,1,3,0,
-                  1,3,3,3,3,0,3,0,1,0,3,2)
+  trust_self  = c(1,2,2,1,1,1,1,1,2,0,2,0,1,2,2,3,2,2,1,1,2,0,0,1),
+  trust_other = c(1,2,2,0,1,0,0,0,1,0,1,0,1,1,1,0,1,2,2,0,0,0,2,1),
+  recip_self  = c(0,1,3,2,1,1,1,3,3,2,3,1,1,2,3,3,3,1,1,1,3,0,3,1),
+  recip_other = c(1,1,2,2,3,2,1,3,3,1,3,0,1,3,3,3,3,0,3,0,1,0,3,2)
 )
 
 desc <- list(
@@ -169,7 +147,7 @@ desc <- list(
     recip_self  = "Number of reciprocating moves towards other-morphs",
     recip_other = "Number of reciprocating moves towards other-morphs"
   ),
-  type = rep("int", 4) # all variables are integer types
+  dataType = rep("int", 4) # all variables are integer types
 )
 
 study <- add_data(study, id = "kin", 
@@ -179,32 +157,12 @@ study <- add_data(study, id = "kin",
 
 ```
 
-If you don't have existing data, you can simulate data with factorial designs with the `add_sim_data` function, which uses the same syntax as `sim_design` from [faux](https://debruine.github.io/faux/). Give the simulated data the same `data_id` as referenced in the analyses to test your analysis code.
+### Run Analyses
 
-```{r, eval = FALSE}
-# this function currently only simulates data with a normal distribution
-study <- add_sim_data(study, 
-                      data_id = "kin",
-                      within = list(
-                        game = c("trust", "recip"),
-                        opponent = c("self", "other")
-                      ),
-                      n = 24,
-                      mu = list(trust_self = 1.3, 
-                             trust_other = 0.8,
-                             recip_self = 1.8,
-                             recip_other = 1.8),
-                      sd = c(0.8, 0.8, 1.1, 1.1),
-                      r = .5)
-```
-
-
-### Run the analysis
-
-When you run `study_analyze` (or `stdy_analyse`), the data are loaded as their `id` names and the analyses are run in order. The evaluation of each criterion and hypothesis is printed as a message.
+When you run `study_analyse`, the data are loaded as their `id` names and the analyses are run in order. For example, the data from the section above will be available to your analyses as a dataframe called `kin`. The analysis is run in a separate environment, so you won't see any new objects in the global environment. Therefore, changes you make to, e.g., a dataframe called `kin` in your global environment won't affect the analysis. The evaluation of each criterion and hypothesis is printed as a message.
 
 ```{r}
-study <- study_analyze(study)
+study <- study_analyse(study)
 ```
 
 
@@ -213,27 +171,20 @@ study <- study_analyze(study)
 At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.
 
 ```{r}
-study_save(study, "files/postreg.json", "json")
-study_save(study, "files/postreg.html", "postreg")
+study_save(study, "postreg.json", "json")
+study_save(study, "postreg.html", "postreg")
 ```
-
-View the [postreg](files/postreg.html) report.
-
-You can view the [JSON-formatted study description](files/postreg.json) through: `file.edit('files/postreg.json')`.
 
 ### Reload
 
-You can load a study directly from the JSON file with the `study` function.
+You can reload and edit your study by loading the .json file with the study() function.
 
 ```{r}
-study2 <- study("files/postreg.json")
+study2 <- study("postreg.json")
+
+study2 # displays a summary
 ```
 
-Use the function `get_data` to extract data from the study object.
-
-```{r}
-kindata <- get_data(study2, "kin")
-```
 
 ### View sections
 

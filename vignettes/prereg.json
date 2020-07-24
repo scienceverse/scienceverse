@@ -1,0 +1,95 @@
+{
+    "name": "Kinship and Prosocial Behaviour",
+    "info": {
+        "abstract": "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."
+    },
+    "authors": [
+        {
+            "orcid": "0000-0002-7523-5539",
+            "name": {
+                "surname": "DeBruine",
+                "given": "Lisa M."
+            },
+            "roles": [
+                "Conceptualization",
+                "Data curation",
+                "Software",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ],
+            "email": "lisa.debruine@glasgow.ac.uk"
+        },
+        {
+            "orcid": "0000-0002-0247-239X",
+            "name": {
+                "surname": "Lakens",
+                "given": "Daniël"
+            },
+            "roles": [
+                "Conceptualization",
+                "Formal analysis",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ]
+        }
+    ],
+    "hypotheses": [
+        {
+            "id": "self_pref",
+            "description": "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.",
+            "criteria": [
+                {
+                    "id": "t_lo",
+                    "analysis_id": "trust",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "t_hi",
+                    "analysis_id": "trust",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                },
+                {
+                    "id": "r_lo",
+                    "analysis_id": "recip",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "r_hi",
+                    "analysis_id": "recip",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                }
+            ],
+            "corroboration": {
+                "description": "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.",
+                "evaluation": "(t_lo & t_hi) | (r_lo & r_hi)"
+            },
+            "falsification": {
+                "description": "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
+                "evaluation": "!t_hi & !r_hi"
+            }
+        }
+    ],
+    "methods": [],
+    "data": [],
+    "analyses": [
+        {
+            "id": "trust",
+            "code": "    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.0 (2020-04-24)"
+        },
+        {
+            "id": "recip",
+            "code": "    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.0 (2020-04-24)"
+        }
+    ]
+}
+

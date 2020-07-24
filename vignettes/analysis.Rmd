@@ -43,23 +43,23 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: 1.6046
-* parameter: 116.1363
-* p.value: 0.1113
+* statistic: `2.8526`
+* parameter: `117.4128`
+* p.value: `0.0051`
 * conf.int: 
-  * -0.3273
-  * 3.1201
+  * `0.8141`
+  * `4.5111`
 * estimate: 
-  * 10.4188
-  * 9.0224
-* null.value: 0
-* stderr: 0.8703
-* alternative: two.sided
-* method: Welch Two Sample t-test
-* data.name: y by pet
+  * `10.8755`
+  * `8.2129`
+* null.value: `0`
+* stderr: `0.9334`
+* alternative: `two.sided`
+* method: `Welch Two Sample t-test`
+* data.name: `y by pet`
 * n: 
-  * 60
-  * 60
+  * `60`
+  * `60`
 
 ## Analysis 2: A2 {#analysis_2}
 
@@ -69,22 +69,22 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: 0.0942
-* parameter: 117.963
-* p.value: 0.9251
+* statistic: `-0.5373`
+* parameter: `117.6541`
+* p.value: `0.592`
 * conf.int: 
-  * -1.6592
-  * 1.8249
+  * `-2.4267`
+  * `1.3909`
 * estimate: 
-  * 9.762
-  * 9.6792
-* null.value: 0
-* stderr: 0.8797
-* alternative: two.sided
-* method: Welch Two Sample t-test
-* data.name: y by time
+  * `9.2852`
+  * `9.8032`
+* null.value: `0`
+* stderr: `0.9639`
+* alternative: `two.sided`
+* method: `Welch Two Sample t-test`
+* data.name: `y by time`
 * n: 
-  * 60
-  * 60
+  * `60`
+  * `60`
 
 

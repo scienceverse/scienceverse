@@ -144,8 +144,8 @@ ap_dep_study <- add_criterion(
   result = "TOST_p2", 
   operator = "<", 
   comparator = 0.01,
-  hypothesis_id = "H1",
-  analysis_id = "main_analysis"
+  analysis_id = "main_analysis",
+  hypothesis_id = "H1"
 )
 ```
 

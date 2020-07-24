@@ -100,7 +100,7 @@ s <- study("study.json")
 
 ## Get Results
 
-You can get all the results with the `get_result()` function. If you don't specify the result name or the analysis ID, it defaults to all of the results of the first analysis. It retruns a list that you can use, but will display an RMarkdown-formatted list if you print it (and set the chunk options to `results='asis'`).
+You can get all the results with the `get_result()` function. If you don't specify the result name or the analysis ID, it defaults to all of the results of the first analysis. It returns a list that you can use, but will display an RMarkdown-formatted list if you print it (and set the chunk options to `results='asis'`).
 
 ```{r, results='asis'}
 get_result(s, analysis_id = "A1")
@@ -120,7 +120,7 @@ get_result(study = s,
            return = "value")
 ```
 
-Set `value` to `char` if you want to keep trailing zeros (this returns the number as a character string).
+Set `return` to "char" if you want to keep trailing zeros (this returns the number as a character string).
 
 ```{r}
 get_result(study = s, 
@@ -193,10 +193,17 @@ For hypothesis 2, the subjects were not happier in the morning than at night
 
 ## Inline Script {#Appendix}
 
-Add the script inline at the end with the function [`make_script`](../reference/make_script.html). Set `header` to `FALSE` to omit the YAML header. This function will save the data and codebooks in a folder called "data". Set the argument `data_path` to NULL to include the actual data in the text of the script. For large datasets, you'll want to leave it as the default "data" folder (or set a custom folder name).
+Add the script inline at the end with the function [`make_script`](../reference/make_script.html). Set `header` to `FALSE` to omit the YAML header. Set `header_lvl` to change the default starting header level of 2.This function will save the data and codebooks in a folder called "data". Set the argument `data_path` to NULL to include the actual data in the text of the script. For large datasets, you'll want to leave it as the default "data" folder (or set a custom folder name).
 
 ```{r, results='asis'}
-make_script(s, header = FALSE) %>% cat()
+make_script(s, header_lvl = 3, header = FALSE) %>% cat()
 ```
+
+```{r, include= FALSE}
+# clean up data directory for vignette-creation purposes
+unlink("data", recursive = TRUE)
+remove("analysis.html")
+```
+
 
 

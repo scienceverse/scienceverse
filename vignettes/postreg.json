@@ -1,0 +1,169 @@
+{
+    "name": "Kinship and Prosocial Behaviour",
+    "info": {
+        "abstract": "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."
+    },
+    "authors": [
+        {
+            "orcid": "0000-0002-7523-5539",
+            "name": {
+                "surname": "DeBruine",
+                "given": "Lisa M."
+            },
+            "roles": [
+                "Conceptualization",
+                "Data curation",
+                "Software",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ],
+            "email": "lisa.debruine@glasgow.ac.uk"
+        },
+        {
+            "orcid": "0000-0002-0247-239X",
+            "name": {
+                "surname": "Lakens",
+                "given": "Daniël"
+            },
+            "roles": [
+                "Conceptualization",
+                "Formal analysis",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ]
+        }
+    ],
+    "hypotheses": [
+        {
+            "id": "self_pref",
+            "description": "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.",
+            "criteria": [
+                {
+                    "id": "t_lo",
+                    "analysis_id": "trust",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0,
+                    "conclusion": true
+                },
+                {
+                    "id": "t_hi",
+                    "analysis_id": "trust",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2,
+                    "conclusion": true
+                },
+                {
+                    "id": "r_lo",
+                    "analysis_id": "recip",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0,
+                    "conclusion": false
+                },
+                {
+                    "id": "r_hi",
+                    "analysis_id": "recip",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2,
+                    "conclusion": true
+                }
+            ],
+            "corroboration": {
+                "description": "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.",
+                "evaluation": "(t_lo & t_hi) | (r_lo & r_hi)",
+                "result": true
+            },
+            "falsification": {
+                "description": "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.",
+                "evaluation": "!t_hi & !r_hi",
+                "result": false
+            },
+            "conclusion": "corroborate"
+        }
+    ],
+    "methods": [],
+    "data": [
+        {
+            "id": "kin",
+            "codebook": {
+                "@context": "https://schema.org/",
+                "@type": "Dataset",
+                "name": "kin",
+                "schemaVersion": "Psych-DS 0.1.0",
+                "url": "https://osf.io/ewfhs/",
+                "variableMeasured": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trust_self",
+                        "description": "Number of trusting moves towards self-morphs",
+                        "dataType": "int"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trust_other",
+                        "description": "Number of trusting moves towards self-morphs",
+                        "dataType": "int"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "recip_self",
+                        "description": "Number of reciprocating moves towards other-morphs",
+                        "dataType": "int"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "recip_other",
+                        "description": "Number of reciprocating moves towards other-morphs",
+                        "dataType": "int"
+                    }
+                ]
+            },
+            "data": {
+                "trust_self": [1, 2, 2, 1, 1, 1, 1, 1, 2, 0, 2, 0, 1, 2, 2, 3, 2, 2, 1, 1, 2, 0, 0, 1],
+                "trust_other": [1, 2, 2, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 2, 2, 0, 0, 0, 2, 1],
+                "recip_self": [0, 1, 3, 2, 1, 1, 1, 3, 3, 2, 3, 1, 1, 2, 3, 3, 3, 1, 1, 1, 3, 0, 3, 1],
+                "recip_other": [1, 1, 2, 2, 3, 2, 1, 3, 3, 1, 3, 0, 1, 3, 3, 3, 3, 0, 3, 0, 1, 0, 3, 2]
+            }
+        }
+    ],
+    "analyses": [
+        {
+            "id": "trust",
+            "code": "    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.0 (2020-04-24)",
+            "results": {
+                "statistic": 2.5045,
+                "parameter": 23,
+                "p.value": 0.0198,
+                "conf.int": [0.0213, 0.9787],
+                "estimate": 0.5,
+                "null.value": 0,
+                "stderr": 0.1996,
+                "alternative": "two.sided",
+                "method": "Paired t-test",
+                "data.name": "kin$trust_self and kin$trust_other"
+            }
+        },
+        {
+            "id": "recip",
+            "code": "    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.0 (2020-04-24)",
+            "results": {
+                "statistic": -0.2138,
+                "parameter": 23,
+                "p.value": 0.8326,
+                "conf.int": [-0.5089, 0.4256],
+                "estimate": -0.0417,
+                "null.value": 0,
+                "stderr": 0.1949,
+                "alternative": "two.sided",
+                "method": "Paired t-test",
+                "data.name": "kin$recip_self and kin$recip_other"
+            }
+        }
+    ]
+}
+

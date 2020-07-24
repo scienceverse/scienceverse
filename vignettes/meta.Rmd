@@ -388,4 +388,7 @@ lines(x=seq(0, p.crit-.01, by=.01)+.005, y=theoretical_power_curve(power, p.max=
 text(x=seq(0, p.crit-.01, by=.01)+.006, y=perc + 8, col="black", label=paste0(round(perc), "%"), cex=)
 ```
 
-
+```{r, include= FALSE}
+# clean up metastudies directory for vignette-creation purposes
+unlink("metastudies", recursive = TRUE)
+```

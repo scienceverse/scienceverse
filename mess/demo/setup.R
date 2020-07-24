@@ -31,8 +31,8 @@ s <- add_criterion(
   result = "TOST_p2",
   operator = "<",
   comparator = 0.01,
-  hypothesis_id = "H1",
-  analysis_id = "A1"
+  analysis_id = "A1",
+  hypothesis_id = "H1"
 )
 
 study_report(s, "prereg", "pre")

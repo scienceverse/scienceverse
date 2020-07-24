@@ -46,7 +46,7 @@ s <- study() \%>\%
   study_analyse()
 
 s <- update_criterion(s, "p", operator = "<",
-                      analysis_id = "A1"
+                      analysis_id = "A1",
                       hypothesis_id = "H1" ) \%>\%
      study_analyse()
 
