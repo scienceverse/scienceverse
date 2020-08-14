@@ -15,7 +15,6 @@
 #' @param dv the name of the dv for long plots (defaults to y)
 #' @param id the name of the id column (defaults to id)
 #' @param plot whether to show a plot of the design
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #'
 #' @return A study object with class scivrs_study
@@ -25,8 +24,7 @@
 #' s <- study() %>%
 #'   add_sim_data("dat", within = list(time = c("day", "night")),
 #'                between = list(pet = c("cat", "dog")),
-#'                n = 10, mu = 100, sd = 10, r = 0.5,
-#'                seed = 8675309)
+#'                n = 10, mu = 100, sd = 10, r = 0.5)
 #' s$data[[1]]$data
 #'
 #' @export
@@ -38,7 +36,6 @@ add_sim_data <- function(study, data_id,
                          dv = list(y = "value"),
                          id = list(id = "id"),
                          plot = FALSE,
-                         seed = NULL,
                          rep = 1) {
 
   design <- faux::check_design(
@@ -50,7 +47,6 @@ add_sim_data <- function(study, data_id,
     empirical = empirical,
     long = long,
     plot = plot,
-    seed = seed,
     rep = rep)
 
   c(between, within)
@@ -62,8 +58,6 @@ add_sim_data <- function(study, data_id,
     vardesc <- list(levels = between)
     vardesc[["description"]] <- c(id, dv)
   }
-
-
 
   study <- add_data(study, data_id, data = dat,
                     vardesc = vardesc, design = design)
