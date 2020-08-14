@@ -39,8 +39,9 @@ add_sim_data <- function(study, data_id,
                          rep = 1) {
 
   design <- faux::check_design(
-    within, between,
-    n, mu, sd, r, dv, id, plot)
+    within = within, between = between,
+    n = n, mu = mu, sd = sd, r = r, dv = dv, id = id,
+    plot = plot)
 
   dat <- faux::sim_design(
     design = design,
