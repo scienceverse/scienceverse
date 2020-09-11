@@ -22,7 +22,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports: 
     magrittr,
     jsonlite,
@@ -53,4 +53,3 @@ Remotes:
 URL: https://github.com/scienceverse/scienceverse
 BugReports: https://github.com/scienceverse/scienceverse/issues
 VignetteBuilder: knitr
-

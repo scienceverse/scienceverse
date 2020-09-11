@@ -23,7 +23,7 @@ test_that("defaults", {
   })
 })
 
-#as text ----
+# as text ----
 test_that("as text", {
   s <- study() %>%
     add_analysis(NULL, "t.test(rnorm(100))", type = "text")

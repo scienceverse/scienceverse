@@ -50,8 +50,6 @@ add_sim_data <- function(study, data_id,
     plot = plot,
     rep = rep)
 
-  c(between, within)
-
   if (long) {
     vardesc <- list(levels = c(between, within))
     vardesc[["description"]] <- id
