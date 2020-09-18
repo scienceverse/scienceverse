@@ -1,7 +1,7 @@
 ---
 title: "Demo"
 author: ""
-date: "24/07/2020"
+date: "18/09/2020"
 output:
   html_document:
     toc: true
@@ -26,7 +26,7 @@ output:
     * morning
     * night
   * Ordered: FALSE
-* y (float)
+* y (float): Happiness Score
 
 
 ```{r}
@@ -43,17 +43,17 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: `2.8526`
-* parameter: `117.4128`
-* p.value: `0.0051`
+* statistic: `4.7533`
+* parameter: `117.903`
+* p.value: `5.704e-06`
 * conf.int: 
-  * `0.8141`
-  * `4.5111`
+  * `2.3572`
+  * `5.7238`
 * estimate: 
-  * `10.8755`
-  * `8.2129`
+  * `10.9981`
+  * `6.9576`
 * null.value: `0`
-* stderr: `0.9334`
+* stderr: `0.85`
 * alternative: `two.sided`
 * method: `Welch Two Sample t-test`
 * data.name: `y by pet`
@@ -69,17 +69,17 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 
 ### Stored Results
 
-* statistic: `-0.5373`
-* parameter: `117.6541`
-* p.value: `0.592`
+* statistic: `0.6917`
+* parameter: `117.7134`
+* p.value: `0.4905`
 * conf.int: 
-  * `-2.4267`
-  * `1.3909`
+  * `-1.1932`
+  * `2.4742`
 * estimate: 
-  * `9.2852`
-  * `9.8032`
+  * `9.2981`
+  * `8.6576`
 * null.value: `0`
-* stderr: `0.9639`
+* stderr: `0.926`
 * alternative: `two.sided`
 * method: `Welch Two Sample t-test`
 * data.name: `y by time`

@@ -7,9 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
+  collapse = FALSE,
   comment = "#>"
 )
 ```
@@ -24,7 +25,7 @@ The demo below follows the example from:
 
 Lakens, D., & DeBruine, L. M. (2020, January 27). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <https://doi.org/10.31234/osf.io/5xcda>
 
-### Set up the study
+## Set up the study
 
 Set up the study with a name and any additional info you want to add.
 
@@ -33,7 +34,7 @@ study <- study(name = "Kinship and Prosocial Behaviour",
                abstract = "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.")
 ```
 
-### Authors
+## Authors
 
 Add each author in the following format. Use the function `credit_roles()` to see a list of the roles and their descriptions. Use `credit_roles("name")` or `credit_roles("abbr")` to just see their names or abbreviations. You can also add any further info, like an orcid or email address.
 
@@ -50,7 +51,7 @@ study <- add_author(study,
                     roles = c("con", "ana", "dra", "edi"))
 ```
 
-### Hypotheses
+## Hypotheses
 
 Now add a hypothesis with a verbal description. You can add more than one hypothesis, but this demo study only has one.
 
@@ -59,7 +60,7 @@ study <- add_hypothesis(study, id = "self_pref",
                         description = "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.")
 ```
 
-### Analyses
+## Analyses
 
 Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an `id` for reference in the criteria later. The `code` can be R code (wrap it in {} if you need more than one line) or the file path for a .R file. You can also add other information about your analysis, such as the software it's running on. 
 
@@ -78,7 +79,24 @@ study <- add_analysis(study, id = "trust",
                       software = R.version.string)
 ```
 
-### Criteria
+If your analysis was run using other software or you only have summary statistics available, you can add a list of arbitrary named values like this (setting unknown values to `NA` for preregistration):
+
+```{r, eval = FALSE}
+study <- add_analysis(study, id = "tr_self",
+                      code = list(
+                        t = -2.50,
+                        df = 23,
+                        p = 0.0198,
+                        ci = c(-0.9787, -0.0213),
+                        estimate = -0.5,
+                        stderr = 0.2,
+                        description = "two-tailed paired t-test of trust_self vs recip_self"
+                      ), 
+                      software = "SPSS")
+```
+
+
+## Criteria
 
 Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique `id` so you can reference it next in the evaluation. Then, optionally specify the `hypothesis_id` and `analysis_id` where you'll look for the result. If you omit these it will default to the last one added. For example, the analysis `trust` returns a list from the function `t.test`, which includes a value for `conf.int`. To see if the first number in this vector is larger than 0, set `result` to "conf.int[1]", `operator` to ">" , and `comparator` to $0$. The options for `operator` are ">", "<", "=", and "!=".
 
@@ -96,7 +114,7 @@ study <- study %>%
   
 ```
 
-### Evaluation
+## Evaluation
 
 Add evaluation criteria for corroboration and falsification. The logical `evaluation` should reference the criterion `id`s above and can consist of those ids and the symbols `(`, `)`, `&`, and `|`. You can optionally include a verbal `description` of the criterion to clarify the logical evaluation.
 
@@ -111,7 +129,7 @@ study <- add_eval(study, "falsification",
 ```
 
 
-### Save in machine-readable format
+## Saving
 
 At this point, you can save your study to a machine-readable JSON-formatted file.
 
@@ -119,15 +137,13 @@ At this point, you can save your study to a machine-readable JSON-formatted file
 study_save(study, "prereg.json", format = "json")
 ```
 
-### Save in human-readable format
-
 You can also export a human-readable pre-registration using the built-in "prereg" template.
 
 ```{r}
 study_save(study, "prereg.html", format = "prereg")
 ```
 
-### Data
+## Data
 
 The `id` you give the data can be used in the analysis code to refer to this dataset. The `data` argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument `vardesc` and other dataset parameters as additional arguments.
 
@@ -157,7 +173,7 @@ study <- add_data(study, id = "kin",
 
 ```
 
-### Run Analyses
+## Run Analyses
 
 When you run `study_analyse`, the data are loaded as their `id` names and the analyses are run in order. For example, the data from the section above will be available to your analyses as a dataframe called `kin`. The analysis is run in a separate environment, so you won't see any new objects in the global environment. Therefore, changes you make to, e.g., a dataframe called `kin` in your global environment won't affect the analysis. The evaluation of each criterion and hypothesis is printed as a message.
 
@@ -166,7 +182,7 @@ study <- study_analyse(study)
 ```
 
 
-### Save
+## Save and reload
 
 At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.
 
@@ -174,8 +190,6 @@ At this point, you can save the post-registration version of your study to a JSO
 study_save(study, "postreg.json", "json")
 study_save(study, "postreg.html", "postreg")
 ```
-
-### Reload
 
 You can reload and edit your study by loading the .json file with the study() function.
 
@@ -186,24 +200,5 @@ study2 # displays a summary
 ```
 
 
-### View sections
-
-You can include sections of the human-readable summaries in any report or just view them in the console with the functions `output_info`, `output_hypotheses`, `output_analyses` and `output_results`. By default, they output markdown (`md`), but you can change that to `html` or plain `text`. If you want to display markdown or html from a code chunk, make sure to set `results='asis'`. The `header_lvl` argument determines what level the first header is (defaults to 2).
-
-```{r, results='asis'}
-output_info(study2, header_lvl = 4)
-```
-
-```{r, results='asis'}
-output_hypotheses(study2, header_lvl = 4, output = "md")
-```
-
-```{r, results='asis'}
-output_analyses(study2, header_lvl = 4, output = "html")
-```
-
-```{r}
-output_results(study2, header_lvl = 4, output = "text")
-```
 
 

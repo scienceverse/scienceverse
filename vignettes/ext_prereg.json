@@ -1,0 +1,180 @@
+{
+    "name": "Kinship and Prosocial Behaviour",
+    "info": {
+        "abstract": "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."
+    },
+    "authors": [
+        {
+            "orcid": "0000-0002-7523-5539",
+            "name": {
+                "surname": "DeBruine",
+                "given": "Lisa M."
+            },
+            "roles": [
+                "Conceptualization",
+                "Data curation",
+                "Software",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ],
+            "email": "lisa.debruine@glasgow.ac.uk"
+        },
+        {
+            "orcid": "0000-0002-0247-239X",
+            "name": {
+                "surname": "Lakens",
+                "given": "Daniël"
+            },
+            "roles": [
+                "Conceptualization",
+                "Formal analysis",
+                "Writing - original draft",
+                "Writing - review & editing"
+            ]
+        }
+    ],
+    "hypotheses": [
+        {
+            "id": "self_pref",
+            "description": "Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.",
+            "criteria": [
+                {
+                    "id": "t_lo",
+                    "analysis_id": "trust",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "t_hi",
+                    "analysis_id": "trust",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                },
+                {
+                    "id": "r_lo",
+                    "analysis_id": "recip",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "r_hi",
+                    "analysis_id": "recip",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                },
+                {
+                    "id": "ts_norm",
+                    "analysis_id": "norm",
+                    "result": "ts",
+                    "operator": ">",
+                    "comparator": 0.05
+                },
+                {
+                    "id": "to_norm",
+                    "analysis_id": "norm",
+                    "result": "to",
+                    "operator": ">",
+                    "comparator": 0.05
+                },
+                {
+                    "id": "rs_norm",
+                    "analysis_id": "norm",
+                    "result": "rs",
+                    "operator": ">",
+                    "comparator": 0.05
+                },
+                {
+                    "id": "ro_norm",
+                    "analysis_id": "norm",
+                    "result": "ro",
+                    "operator": ">",
+                    "comparator": 0.05
+                },
+                {
+                    "id": "t_lo_w",
+                    "analysis_id": "trust_wilcox",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "t_hi_w",
+                    "analysis_id": "trust_wilcox",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                },
+                {
+                    "id": "r_lo_w",
+                    "analysis_id": "recip_wilcox",
+                    "result": "conf.int[1]",
+                    "operator": ">",
+                    "comparator": 0
+                },
+                {
+                    "id": "r_hi_w",
+                    "analysis_id": "recip_wilcox",
+                    "result": "conf.int[2]",
+                    "operator": ">",
+                    "comparator": 0.2
+                }
+            ],
+            "corroboration": {
+                "description": "The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves. Use t.test if the data are normally distributed, or Wilcox test otherwise.",
+                "evaluation": "(ts_norm & to_norm & t_lo & t_hi) | \n                   (!(ts_norm & to_norm) & t_lo_w & t_hi_w) | \n                   (rs_norm & ro_norm & r_lo & r_hi) | \n                   (!(rs_norm & ro_norm) & r_lo_w & r_hi_w)"
+            },
+            "falsification": {
+                "description": "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation. Use t.test if the data are normally distributed, or Wilcox test otherwise.",
+                "evaluation": "( (ts_norm & to_norm & !t_hi) |\n                     (!(ts_norm & to_norm) & !t_hi_w) ) & \n                   ( (rs_norm & ro_norm & !r_hi) |\n                     (!(rs_norm & ro_norm) & !r_hi_w) )"
+            }
+        }
+    ],
+    "methods": [],
+    "data": [],
+    "analyses": [
+        {
+            "id": "trust",
+            "code": "    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.2 (2020-06-22)"
+        },
+        {
+            "id": "recip",
+            "code": "    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
+            "software": "R version 4.0.2 (2020-06-22)"
+        },
+        {
+            "id": "norm",
+            "code": [
+                "    {",
+                "        ts <- shapiro.test(kin$trust_self)$p.value",
+                "        to <- shapiro.test(kin$trust_other)$p.value",
+                "        rs <- shapiro.test(kin$recip_self)$p.value",
+                "        ro <- shapiro.test(kin$recip_other)$p.value",
+                "    }",
+                "    list(ts = ts, to = to, rs = rs, ro = ro)"
+            ],
+            "software": "R version 4.0.2 (2020-06-22)"
+        },
+        {
+            "id": "trust_wilcox",
+            "code": [
+                "    wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, ",
+                "        conf.level = 0.975, conf.int = TRUE)"
+            ],
+            "software": "R version 4.0.2 (2020-06-22)"
+        },
+        {
+            "id": "recip_wilcox",
+            "code": [
+                "    wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, ",
+                "        conf.level = 0.975, conf.int = TRUE)"
+            ],
+            "software": "R version 4.0.2 (2020-06-22)"
+        }
+    ]
+}
+

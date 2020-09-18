@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -155,7 +155,6 @@
   <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>),
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>),
   <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fl'>1</span>
 )</pre>
 
@@ -215,10 +214,6 @@
       <td><p>whether to show a plot of the design</p></td>
     </tr>
     <tr>
-      <th>seed</th>
-      <td><p>a single value, interpreted as an integer, or NULL (see set.seed)</p></td>
-    </tr>
-    <tr>
       <th>rep</th>
       <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep</p></td>
     </tr>
@@ -233,28 +228,27 @@
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>add_sim_data</span>(<span class='st'>"dat"</span>, <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"night"</span>)),
                <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cat"</span>, <span class='st'>"dog"</span>)),
-               <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-               <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>8675309</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>id set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>pet set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>day set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>night set to dataType float</span><span></span></div><div class='input'><span class='no'>s</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>data</span></div><div class='output co'>#&gt;     id pet       day     night
-#&gt; 1  S01 cat  99.11711  83.62158
-#&gt; 2  S02 cat 101.13799 111.36437
-#&gt; 3  S03 cat  93.90440  95.40523
-#&gt; 4  S04 cat 120.87487 114.27523
-#&gt; 5  S05 cat 114.19972 104.25383
-#&gt; 6  S06 cat  98.68728 118.41187
-#&gt; 7  S07 cat 102.44677  98.02875
-#&gt; 8  S08 cat 110.33043 101.32406
-#&gt; 9  S09 cat 105.70718 104.20130
-#&gt; 10 S10 cat 111.96555 103.68661
-#&gt; 11 S11 dog 115.31684 119.07868
-#&gt; 12 S12 dog  94.61344 106.14874
-#&gt; 13 S13 dog  88.62430 104.37333
-#&gt; 14 S14 dog  92.96108  98.84635
-#&gt; 15 S15 dog  99.48275  93.33230
-#&gt; 16 S16 dog 107.06154 104.77243
-#&gt; 17 S17 dog 105.65773 106.29690
-#&gt; 18 S18 dog 106.18754 103.05281
-#&gt; 19 S19 dog  99.63078  97.14579
-#&gt; 20 S20 dog 104.08538 102.54743</div><div class='input'>
+               <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>id set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>pet set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>day set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>night set to dataType float</span><span></span></div><div class='input'><span class='no'>s</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>data</span></div><div class='output co'>#&gt;       id pet       day     night
+#&gt; 1.1  S01 cat  90.64376  85.10677
+#&gt; 1.2  S02 cat  99.06620 105.35602
+#&gt; 1.3  S03 cat  68.56755  89.21780
+#&gt; 1.4  S04 cat 108.10670  91.79680
+#&gt; 1.5  S05 cat 102.82067 107.94494
+#&gt; 1.6  S06 cat 119.26059 100.63048
+#&gt; 1.7  S07 cat  86.83266  81.61253
+#&gt; 1.8  S08 cat  98.12111  97.59509
+#&gt; 1.9  S09 cat  95.17019 100.60015
+#&gt; 1.10 S10 cat 102.12207  92.98132
+#&gt; 1.11 S11 dog  99.37752 108.73115
+#&gt; 1.12 S12 dog 102.26081 104.02569
+#&gt; 1.13 S13 dog  87.48389  89.92075
+#&gt; 1.14 S14 dog  98.27159 114.50707
+#&gt; 1.15 S15 dog 115.79474 116.91512
+#&gt; 1.16 S16 dog  99.82609  98.48612
+#&gt; 1.17 S17 dog 101.44576  82.34489
+#&gt; 1.18 S18 dog 101.25805  98.46568
+#&gt; 1.19 S19 dog  94.40703  91.27257
+#&gt; 1.20 S20 dog  81.56570  92.23877</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

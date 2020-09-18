@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -171,12 +171,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion p:</span>
 <span class="co">#&gt; * p.value &lt; 0.05 is TRUE</span>
-<span class="co">#&gt; * p.value = 0.005</span>
+<span class="co">#&gt; * p.value = 0.000</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion dir:</span>
 <span class="co">#&gt; * estimate[1] &gt; estimate[2] is TRUE</span>
-<span class="co">#&gt; * estimate[1] = 10.875</span>
-<span class="co">#&gt; * estimate[2] = 8.213</span>
+<span class="co">#&gt; * estimate[1] = 10.998</span>
+<span class="co">#&gt; * estimate[2] = 6.958</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Conclusion: corroborate</span>
 <span class="co">#&gt; * Corroborate (p &amp; dir): TRUE</span>
@@ -186,12 +186,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion p:</span>
 <span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.592</span>
+<span class="co">#&gt; * p.value = 0.490</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion dir:</span>
-<span class="co">#&gt; * estimate[1] &gt; estimate[2] is FALSE</span>
-<span class="co">#&gt; * estimate[1] = 9.285</span>
-<span class="co">#&gt; * estimate[2] = 9.803</span>
+<span class="co">#&gt; * estimate[1] &gt; estimate[2] is TRUE</span>
+<span class="co">#&gt; * estimate[1] = 9.298</span>
+<span class="co">#&gt; * estimate[2] = 8.658</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Conclusion: inconclusive</span>
 <span class="co">#&gt; * Corroborate (p &amp; dir): FALSE</span>
@@ -212,23 +212,23 @@
 <p>You can get all the results with the <code><a href="../reference/get_result.html">get_result()</a></code> function. If you don’t specify the result name or the analysis ID, it defaults to all of the results of the first analysis. It returns a list that you can use, but will display an RMarkdown-formatted list if you print it (and set the chunk options to <code>results='asis'</code>).</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">s</span>, <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A1"</span>)</pre></body></html></div>
 <ul>
-<li>statistic: 2.8526</li>
-<li>parameter: 117.4128</li>
-<li>p.value: 0.0051</li>
+<li>statistic: 4.7533</li>
+<li>parameter: 117.903</li>
+<li>p.value: 5.7e-06</li>
 <li>conf.int:
 <ul>
-<li>0.8141</li>
-<li>4.5111</li>
+<li>2.3572</li>
+<li>5.7238</li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li>10.8755</li>
-<li>8.2129</li>
+<li>10.9981</li>
+<li>6.9576</li>
 </ul>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 0.9334</li>
+<li>stderr: 0.85</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: y by pet</li>
@@ -241,23 +241,23 @@
 </ul>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">s</span>, <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A2"</span>)</pre></body></html></div>
 <ul>
-<li>statistic: -0.5373</li>
-<li>parameter: 117.6541</li>
-<li>p.value: 0.592</li>
+<li>statistic: 0.6917</li>
+<li>parameter: 117.7134</li>
+<li>p.value: 0.4905</li>
 <li>conf.int:
 <ul>
-<li>-2.4267</li>
-<li>1.3909</li>
+<li>-1.1932</li>
+<li>2.4742</li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li>9.2852</li>
-<li>9.8032</li>
+<li>9.2981</li>
+<li>8.6576</li>
 </ul>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 0.9639</li>
+<li>stderr: 0.926</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: y by time</li>
@@ -274,25 +274,25 @@
            <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A2"</span>,
            <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>,
            <span class="kw">return</span> <span class="kw">=</span> <span class="st">"value"</span>)
-<span class="co">#&gt; [1] 0.592</span></pre></body></html></div>
+<span class="co">#&gt; [1] 0.49</span></pre></body></html></div>
 <p>Set <code>return</code> to “char” if you want to keep trailing zeros (this returns the number as a character string).</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="kw">study</span> <span class="kw">=</span> <span class="no">s</span>,
            <span class="kw">result</span> <span class="kw">=</span> <span class="st">"parameter"</span>,
            <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="fl">1</span>,
            <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">5</span>,
            <span class="kw">return</span> <span class="kw">=</span> <span class="st">"char"</span>)
-<span class="co">#&gt; [1] "117.41280"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "117.90300"</span></pre></body></html></div>
 <div id="linked-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#linked-values" class="anchor"></a>Linked values</h3>
 <p>You can display the value as a link if you set <code>return</code> to “html”. You can use the shorthand function <code>get_html</code> if you only have one study object loaded. The digits default to the global option, so you can set that as shown.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>)
 <span class="fu"><a href="../reference/get_html.html">get_html</a></span>(<span class="st">"p.value"</span>)
-<span class="co">#&gt; [1] "&lt;a href='#analysis_1' title='Analysis 1 Result p.value'&gt;0.005&lt;/a&gt;"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "&lt;a href='#analysis_1' title='Analysis 1 Result p.value'&gt;0.000&lt;/a&gt;"</span></pre></body></html></div>
 <p>You’ll probably want to use <code><a href="../reference/get_html.html">get_html()</a></code> inline most of the time like below. The links go to a section at the end of this document that is created with <a href="#Appendix"><code><a href="../reference/make_script.html">make_script()</a></code></a>.</p>
 <div class="example">
-<p>For hypothesis 1, dogs were happier than cats (t = <a href="#analysis_1" title="Analysis 1 Result statistic">2.85</a>, df = <a href="#analysis_1" title="Analysis 1 Result parameter">117.4</a>, p = <a href="#analysis_1" title="Analysis 1 Result p.value">0.005</a>, 95% CI = [<a href="#analysis_1" title="Analysis 1 Result conf.int[1]">0.81</a>, <a href="#analysis_1" title="Analysis 1 Result conf.int[2]">4.51</a>]).</p>
-<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="#analysis_2" title="Analysis 2 Result statistic">-0.54</a>, df = <a href="#analysis_2" title="Analysis 2 Result parameter">117.7</a>, p = <a href="#analysis_2" title="Analysis 2 Result p.value">0.592</a>, 95% CI = [<a href="#analysis_2" title="Analysis 2 Result conf.int[1]">-2.43</a>, <a href="#analysis_2" title="Analysis 2 Result conf.int[2]">1.39</a>]).</p>
+<p>For hypothesis 1, dogs were happier than cats (t = <a href="#analysis_1" title="Analysis 1 Result statistic">4.75</a>, df = <a href="#analysis_1" title="Analysis 1 Result parameter">117.9</a>, p = <a href="#analysis_1" title="Analysis 1 Result p.value">0.000</a>, 95% CI = [<a href="#analysis_1" title="Analysis 1 Result conf.int[1]">2.36</a>, <a href="#analysis_1" title="Analysis 1 Result conf.int[2]">5.72</a>]).</p>
+<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="#analysis_2" title="Analysis 2 Result statistic">0.69</a>, df = <a href="#analysis_2" title="Analysis 2 Result parameter">117.7</a>, p = <a href="#analysis_2" title="Analysis 2 Result p.value">0.490</a>, 95% CI = [<a href="#analysis_2" title="Analysis 2 Result conf.int[1]">-1.19</a>, <a href="#analysis_2" title="Analysis 2 Result conf.int[2]">2.47</a>]).</p>
 </div>
 </div>
 <div id="external-analysis-file" class="section level3">
@@ -306,11 +306,11 @@
 
 <span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span>(<span class="kw">analysis_link</span> <span class="kw">=</span> <span class="st">"analysis.html"</span>)
 <span class="fu"><a href="../reference/get_html.html">get_html</a></span>(<span class="st">"p.value"</span>)
-<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.005&lt;/a&gt;"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.000&lt;/a&gt;"</span></pre></body></html></div>
 <p>Here the inline links now go to an external file:</p>
 <div class="example">
-<p>For hypothesis 1, dogs were happier than cats (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">2.85</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">117.4</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.005</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">0.81</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">4.51</a>]).</p>
-<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">-0.54</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">117.7</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.592</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">-2.43</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">1.39</a>]).</p>
+<p>For hypothesis 1, dogs were happier than cats (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">4.75</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">117.9</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.000</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">2.36</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">5.72</a>]).</p>
+<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">0.69</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">117.7</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.490</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">-1.19</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">2.47</a>]).</p>
 </div>
 </div>
 </div>
@@ -349,7 +349,7 @@
 <li>Ordered: FALSE</li>
 </ul>
 </li>
-<li>y (float)</li>
+<li>y (float): Happiness Score</li>
 </ul>
 <pre class="{r}"><code>dat &lt;- read.csv('data/dat_data.tsv', sep='\t')</code></pre>
 </div>
@@ -362,27 +362,27 @@
 <h4 class="hasAnchor">
 <a href="#stored-results" class="anchor"></a>Stored Results</h4>
 <ul>
-<li>statistic: <code>2.8526</code>
+<li>statistic: <code>4.7533</code>
 </li>
-<li>parameter: <code>117.4128</code>
+<li>parameter: <code>117.903</code>
 </li>
-<li>p.value: <code>0.0051</code>
+<li>p.value: <code>5.704e-06</code>
 </li>
 <li>conf.int:
 <ul>
-<li><code>0.8141</code></li>
-<li><code>4.5111</code></li>
+<li><code>2.3572</code></li>
+<li><code>5.7238</code></li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li><code>10.8755</code></li>
-<li><code>8.2129</code></li>
+<li><code>10.9981</code></li>
+<li><code>6.9576</code></li>
 </ul>
 </li>
 <li>null.value: <code>0</code>
 </li>
-<li>stderr: <code>0.9334</code>
+<li>stderr: <code>0.85</code>
 </li>
 <li>alternative: <code>two.sided</code>
 </li>
@@ -407,27 +407,27 @@
 <h4 class="hasAnchor">
 <a href="#stored-results-1" class="anchor"></a>Stored Results</h4>
 <ul>
-<li>statistic: <code>-0.5373</code>
+<li>statistic: <code>0.6917</code>
 </li>
-<li>parameter: <code>117.6541</code>
+<li>parameter: <code>117.7134</code>
 </li>
-<li>p.value: <code>0.592</code>
+<li>p.value: <code>0.4905</code>
 </li>
 <li>conf.int:
 <ul>
-<li><code>-2.4267</code></li>
-<li><code>1.3909</code></li>
+<li><code>-1.1932</code></li>
+<li><code>2.4742</code></li>
 </ul>
 </li>
 <li>estimate:
 <ul>
-<li><code>9.2852</code></li>
-<li><code>9.8032</code></li>
+<li><code>9.2981</code></li>
+<li><code>8.6576</code></li>
 </ul>
 </li>
 <li>null.value: <code>0</code>
 </li>
-<li>stderr: <code>0.9639</code>
+<li>stderr: <code>0.926</code>
 </li>
 <li>alternative: <code>two.sided</code>
 </li>

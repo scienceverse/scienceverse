@@ -397,18 +397,40 @@ summary {
 </li>
 <li><code>r_lo</code> is confirmed if analysis <a href="#recip">recip</a> yields conf.int[1] &gt; 0 The result was conf.int[1] = -0.509 (<span style="color:red;">FALSE</span>)<br />
 </li>
-<li><code>r_hi</code> is confirmed if analysis <a href="#recip">recip</a> yields conf.int[2] &gt; 0.2 The result was conf.int[2] = 0.426 (<span style="color:green;">TRUE</span>)</li>
+<li><code>r_hi</code> is confirmed if analysis <a href="#recip">recip</a> yields conf.int[2] &gt; 0.2 The result was conf.int[2] = 0.426 (<span style="color:green;">TRUE</span>)<br />
+</li>
+<li><code>ts_norm</code> is confirmed if analysis <a href="#norm">norm</a> yields ts &gt; 0.05 The result was ts = 0.004 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>to_norm</code> is confirmed if analysis <a href="#norm">norm</a> yields to &gt; 0.05 The result was to = 0.000 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>rs_norm</code> is confirmed if analysis <a href="#norm">norm</a> yields rs &gt; 0.05 The result was rs = 0.000 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>ro_norm</code> is confirmed if analysis <a href="#norm">norm</a> yields ro &gt; 0.05 The result was ro = 0.001 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>t_lo_w</code> is confirmed if analysis <a href="#trust_wilcox">trust_wilcox</a> yields conf.int[1] &gt; 0 The result was conf.int[1] = -0.000 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>t_hi_w</code> is confirmed if analysis <a href="#trust_wilcox">trust_wilcox</a> yields conf.int[2] &gt; 0.2 The result was conf.int[2] = 1.500 (<span style="color:green;">TRUE</span>)<br />
+</li>
+<li><code>r_lo_w</code> is confirmed if analysis <a href="#recip_wilcox">recip_wilcox</a> yields conf.int[1] &gt; 0 The result was conf.int[1] = -1.500 (<span style="color:red;">FALSE</span>)<br />
+</li>
+<li><code>r_hi_w</code> is confirmed if analysis <a href="#recip_wilcox">recip_wilcox</a> yields conf.int[2] &gt; 0.2 The result was conf.int[2] = 1.000 (<span style="color:green;">TRUE</span>)</li>
 </ul>
-<div id="corroboration-true" class="section level4">
-<h4>Corroboration (<span style="color:green">TRUE</span>)</h4>
-<p>The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves.</p>
-<pre><code>(t_lo &amp; t_hi) | (r_lo &amp; r_hi)</code></pre>
+<div id="corroboration-false" class="section level4">
+<h4>Corroboration (<span style="color:red">FALSE</span>)</h4>
+<p>The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves. Use t.test if the data are normally distributed, or Wilcox test otherwise.</p>
+<pre><code>(ts_norm &amp; to_norm &amp; t_lo &amp; t_hi) | 
+                   (!(ts_norm &amp; to_norm) &amp; t_lo_w &amp; t_hi_w) | 
+                   (rs_norm &amp; ro_norm &amp; r_lo &amp; r_hi) | 
+                   (!(rs_norm &amp; ro_norm) &amp; r_lo_w &amp; r_hi_w)</code></pre>
 </div>
 <div id="falsification-false" class="section level4">
 <h4>Falsification (<span style="color:red">FALSE</span>)</h4>
-<p>The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.</p>
-<pre><code>!t_hi &amp; !r_hi</code></pre>
-<p><span style="color: green"><strong>All criteria were met for corroboration.</strong></span></p>
+<p>The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation. Use t.test if the data are normally distributed, or Wilcox test otherwise.</p>
+<pre><code>( (ts_norm &amp; to_norm &amp; !t_hi) |
+                     (!(ts_norm &amp; to_norm) &amp; !t_hi_w) ) &amp; 
+                   ( (rs_norm &amp; ro_norm &amp; !r_hi) |
+                     (!(rs_norm &amp; ro_norm) &amp; !r_hi_w) )</code></pre>
+<p><span style="color: blue"><strong>Neither the corroboration nor falsification criteria were met.</strong></span></p>
 </div>
 </div>
 </div>
@@ -421,6 +443,26 @@ summary {
 <div id="recip" class="section level3">
 <h3>Analysis 2: recip</h3>
 <pre>    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)</pre>
+</div>
+<div id="norm" class="section level3">
+<h3>Analysis 3: norm</h3>
+<pre>    {
+        ts &lt;- shapiro.test(kin$trust_self)$p.value
+        to &lt;- shapiro.test(kin$trust_other)$p.value
+        rs &lt;- shapiro.test(kin$recip_self)$p.value
+        ro &lt;- shapiro.test(kin$recip_other)$p.value
+    }
+    list(ts = ts, to = to, rs = rs, ro = ro)</pre>
+</div>
+<div id="trust_wilcox" class="section level3">
+<h3>Analysis 4: trust_wilcox</h3>
+<pre>    wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, 
+        conf.level = 0.975, conf.int = TRUE)</pre>
+</div>
+<div id="recip_wilcox" class="section level3">
+<h3>Analysis 5: recip_wilcox</h3>
+<pre>    wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, 
+        conf.level = 0.975, conf.int = TRUE)</pre>
 </div>
 </div>
 

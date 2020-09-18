@@ -23,7 +23,6 @@ library(scienceverse)
 library(zcurve)
 library(dplyr)
 library(metafor)
-library(pwr)
 set.seed(404)
 scienceverse_options(verbose = FALSE)
 
@@ -37,7 +36,7 @@ This example is part of:
 
 Lakens, D., & DeBruine, L. M. (2020). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <https://doi.org/10.31234/osf.io/5xcda>
 
-## The problem
+# The problem
 
 Researchers face several challenges when they want to perform a meta-analysis. The first problem is a lack of access to the data underlying the reported results. Many scientific papers do not report results adequately. Despite recommendations to always report and interpret effect sizes, many researchers don't include effect sizes in their results section. Meta-analysists can attempt to manually calculate effect sizes, but this requires knowing the means, standard deviations, correlations for within comparisons, and exact sample sizes for each condition, which are often not reported either. Effect sizes can sometimes still be approximated from test statistics, but even these are often missing for non-significant results. The second problem a meta-analysist faces is a lack of transparency about which statistical tests in the results section are related to the predictions in the introduction section. This can make it difficult to select the best test to include in a meta-analysis.
 
@@ -56,7 +55,7 @@ if (!dir.exists("metastudies")) dir.create("metastudies")
 
 # set up study
 sim_study <- study(name = "Study",
-                   abstract = "Examining the effect of an intervention on happiness")
+                     abstract = "Examining the effect of an intervention on happiness")
   
 # Add a hypothesis
 sim_study <- add_hypothesis(
@@ -69,7 +68,7 @@ sim_study <- add_hypothesis(
 sim_study <- add_analysis(
   sim_study,
   id = "ttest",
-  code = t.test(happiness~treatment,
+  code = scienceverse::t_test(happiness~treatment,
                 data = dat, 
                 alternative = "two.sided",
                 paired = FALSE, 
@@ -89,12 +88,14 @@ sim_study <- add_criterion(
 # Add evaluation rules for corroboration and falsification
 sim_study <- add_eval(sim_study,
                       hypothesis_id = "H1",
-                      type = "corroboration",
+                      "corroboration",
+                      description = "The hypothesis is corroborated if analysis 'ttest' is significant.",
                       evaluation = "p_val")
 
 sim_study <- add_eval(sim_study,
                       hypothesis_id = "H1",
-                      type = "falsification",
+                      "falsification",
+                      description = "The hypothesis is falsified if analysis 'ttest' is not significant.",
                       evaluation = "!p_val")
 
 # Simulate data, run analysis, and save the meta-data file nsim times
@@ -110,7 +111,8 @@ for (i in 1:nsim) {
     dv = "happiness",
     n = sample(30:300, 1), 
     mu = c(60, 62, 61, 65), 
-    sd = 18)
+    sd = 18,
+    plot = FALSE)
   
   # Run the analysis
   sim_study <- study_analyse(sim_study)
@@ -154,31 +156,24 @@ Checking the data quality remains an important step before performing a meta-ana
 
 For example, for the last study we simulated, we have information about the analyses that were performed:
 
-```{r, results='asis'}
-output_analyses(sim_study, header_lvl = 4)
+```{r}
+output_analyses(sim_study)
 ```
-
 
 We know a *t*-test was performed. We can examine the results of the study: 
 
-```{r, results='asis'}
-output_results(sim_study, header_lvl = 4)
+```{r}
+output_results(sim_study)
 ```
-
-
 
 We see a single hypothesis was tested, and corroborated, in this study. For a *z*-curve or *p*-curve analysis, this makes it easy to select the test to include in the meta-analysis. If multiple tests are performed in a single study, we can select the hypothesis test of interest by specifying the ID. 
 
-The results can be accessed easily with the get_result function.
-
-```{r, results='asis'}
-# Get all results
-get_result(sim_study)
-```
-
-For the *z*-curve and *p*-curve analysis we would just retrieve the *p*-value. 
+The results can be accessed easily with the get_result function. For the *z*-curve and *p*-curve analysis we would retrieve the *p*-value. 
 
 ```{r}
+# Get all results
+get_result(sim_study)
+
 # Or only get the p-value
 get_result(sim_study, result = "p.value")
 ```
@@ -191,7 +186,7 @@ head(get_data(sim_study))
 
 We will now illustrate how these functions, together with the meta-study files, can be used to perform a *z*-curve analysis, an effect size meta-analysis, and a *p*-curve analysis. 
 
-## Z-curve analysis
+# Z-curve analysis
 
 There are several meta-analytic techniques to examine the literature. A relatively novel technique is *z*-curve, which is basically a meta-analysis of observed power (Bartos & Schimmack, 2020; Schimmack & Brunner, 2020). This analysis can be used to examine selection bias in the literature. Scientists often selectively report only statistically significant results in their manuscript, and fail to report non-significant tests they have performed. This selection for significant results introduces bias in the scientific literature. 
 
@@ -214,7 +209,7 @@ summary(z_res, all = TRUE)
 
 We see that `r z_res$fit$N_fit` out of `r nsim` studies were significant, which makes the observed power (across all these studies with different sample sizes) 60% (95% CI[0.45;0.73]). The expected discovery rate (EDR) does not statistically differ from the observed discovery rate, which means there is no indication of selection bias based on the *z*-curve analysis (and indeed, we know there was no selection bias in the simulation).    
 
-## Meta-Analysis
+# Meta-Analysis
 
 The studies all had as their main goal to examine the effect of a treatment on happiness, but all studies also collected data on the pet each participant had. Because the raw data is saved in scienceverse, and all studies share the variables *pet* (dog vs cat) and *happiness*, we can easily perform a meta-analysis across all studies for both the effect of type of pet and the treatment on happiness.
 
@@ -236,8 +231,7 @@ MA_sum <- dplyr::group_by(merged_data, pet, study)
 MA_sum <- dplyr::summarize(MA_sum, 
                            m = mean(happiness), 
                            sd = sd(happiness), 
-                           n = length(happiness),
-                           .groups = "drop")
+                           n = length(happiness))
 
 ma_dat <- metafor::escalc(m1 = MA_sum$m[1:nsim], 
                           m2 = MA_sum$m[(nsim+1):(nsim*2)], 
@@ -259,8 +253,7 @@ MA_sum <- dplyr::group_by(merged_data, treatment, study)
 MA_sum <- dplyr::summarize(MA_sum, 
                            m = mean(happiness), 
                            sd = sd(happiness), 
-                           n = length(happiness),
-                           .groups = "drop")
+                           n = length(happiness))
 
 ma_dat <- metafor::escalc(m1 = MA_sum$m[1:nsim], 
                           m2 = MA_sum$m[(nsim+1):(nsim*2)], 
@@ -278,7 +271,7 @@ metafor::forest(res)
 
 In this case, not only were the meta-study files well structured, but all studies were identical. In practice, researchers would most likely need to organize the data in meta-study files so that it can be used for their analysis (e.g., generating additional grouping variables) but having the data, codebook, and analyses all accessible should greatly facilitate meta-analyses even for different sets of studies. If fields are able to standardize their measures and create shared naming conventions, one could search datasets across all available meta-study files to identify relevant studies. 
 
-## P-curve Analysis
+# P-curve Analysis
 
 A *p*-curve analysis examines the distribution of *p*-values, and compares the distribution against the predicted pattern when the null-hypothesis is true, or when there is a true effect tested with some assumed power (Simonsohn, Nelson, & Simmons, 2014). Performing a *p*-curve analysis requires the results of statistical tests to be entered. The analysis can be performed by either retrieving the test statistics, and converting these to *p*-values, or by directly using the *p*-values (as we do in the code below).
 
@@ -297,6 +290,7 @@ ncp33z <- function(power=1/3, p.crit=.05) {
 
 theoretical_power_curve <- function(power=1/3, p.max=.05, normalize=TRUE) {
 	# compute arbitrary test statistics for requested power
+	library(pwr)
 	d <- 0.2
 	n <- pwr.t.test(d=0.2, power=power)$n*2
 	
@@ -364,10 +358,9 @@ p_curve_3 <- function(pps) {
 		inconclusive = ifelse(p_ppr>.05 & p_ppl>.05 & p_pp33>.05, TRUE, FALSE)))
 }
 
-p3 <- p_curve_3(pps = res)
+p_curve_3(pps = res)
 ```
 
-`r faux::nested_list(p3)`
 
 ```{r, fig.height = 5}
 # Create p-curve plot
