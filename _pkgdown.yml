@@ -53,8 +53,9 @@ articles:
   - title: "Articles"
     contents:
       - demo
+      - extended
+      - meta
       - sim
       - codebook
-      - meta
       - functions
       - export
