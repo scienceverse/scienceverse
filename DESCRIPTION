@@ -48,7 +48,6 @@ Suggests:
     markdown,
     shiny
 Remotes: 
-    debruine/faux,
     FBartos/zcurve
 URL: https://github.com/scienceverse/scienceverse
 BugReports: https://github.com/scienceverse/scienceverse/issues
