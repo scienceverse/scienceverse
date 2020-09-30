@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -141,15 +141,11 @@
     <p>Author in CRediT Format</p>
     </div>
 
-    <pre class="usage"><span class='fu'>author</span>(<span class='no'>orcid</span>, <span class='no'>surname</span>, <span class='kw'>given</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>roles</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>author</span>(<span class='no'>surname</span>, <span class='kw'>given</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>orcid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>roles</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>orcid</th>
-      <td><p>the author's unique ORCiD (see https://orcid.org/)</p></td>
-    </tr>
     <tr>
       <th>surname</th>
       <td><p>a character string with the author's last name(s)</p></td>
@@ -157,6 +153,10 @@
     <tr>
       <th>given</th>
       <td><p>a character string with the author's given name(s)</p></td>
+    </tr>
+    <tr>
+      <th>orcid</th>
+      <td><p>the author's unique ORCiD (see https://orcid.org/)</p></td>
     </tr>
     <tr>
       <th>roles</th>
@@ -174,25 +174,16 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>author</span>(
-  <span class='kw'>orcid</span> <span class='kw'>=</span> <span class='st'>"0000-0002-7523-5539"</span>,
   <span class='kw'>surname</span> <span class='kw'>=</span> <span class='st'>"DeBruine"</span>, <span class='kw'>given</span> <span class='kw'>=</span> <span class='st'>"Lisa M."</span>,
+  <span class='kw'>orcid</span> <span class='kw'>=</span> <span class='st'>"0000-0002-7523-5539"</span>,
   <span class='kw'>roles</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Conceptualization"</span>, <span class='st'>"Methodology"</span>)
-)</div><div class='output co'>#&gt; $orcid
-#&gt; [1] "0000-0002-7523-5539"
-#&gt; 
-#&gt; $name
-#&gt; $name$surname
-#&gt; [1] "DeBruine"
-#&gt; 
-#&gt; $name$given
-#&gt; [1] "Lisa M."
-#&gt; 
-#&gt; 
-#&gt; $roles
-#&gt; [1] "Conceptualization" "Methodology"      
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "scivrs_author" "list"         </div></pre>
+)</div><div class='output co'>#&gt; * orcid: 0000-0002-7523-5539
+#&gt; * name: 
+#&gt;   * surname: DeBruine
+#&gt;   * given: Lisa M.
+#&gt; * roles: 
+#&gt;   * Conceptualization
+#&gt;   * Methodology</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

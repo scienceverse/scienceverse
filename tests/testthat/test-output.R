@@ -3,8 +3,8 @@ test_that("info", {
   desc <- "This is my test study"
   other <- "Other info"
   s <- study("Test Study", description = desc, other = other) %>%
-    add_author("0000-0002-7523-5539", "DeBruine", "Lisa", c("ana", "dat", "sof")) %>%
-    add_author("0000-0002-0247-239X", "Lakens", "Daniel", c("val", "dra"))
+    add_author("DeBruine", "Lisa", "0000-0002-7523-5539", c("ana", "dat", "sof")) %>%
+    add_author("Lakens", "Daniel", "0000-0002-0247-239X", c("val", "dra"))
 
   # suppress annoying cat() from format_output in test window
   scienceverse_options(verbose = FALSE)

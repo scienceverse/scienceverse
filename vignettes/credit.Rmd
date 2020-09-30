@@ -1,0 +1,95 @@
+---
+title: "Crediting Authors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Crediting Authors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scienceverse)
+```
+
+## CRediT
+
+Scienceverse supports the [CRediT taxonomy](https://casrai.org/credit/) for authorship roles.
+
+Use the function `credit_roles()` to view a list of possible roles and their abbreviations. Set `display` to `"names"` or `"abbr"` to just list the names or abbreviations.
+
+```{r}
+credit_roles()
+```
+
+
+```{r}
+credit_roles(display = "names")
+```
+
+```{r}
+credit_roles(display = "abbr")
+```
+
+## ORCiD
+
+Scienceverse supports recording and searching for [ORCiDs](https://orcid.org/). Every researcher should have an ORCiD to link their papers and avoid problems with name changes.
+
+You can use the `get_orcid()` function to search for an ORCiD quickly, although you might need to go to their website for more advanced search if they have a common name and you get multiple hits. This function requires a web connection.
+
+```{r}
+ldb_orcid <- get_orcid("DeBruine", "Lisa")
+```
+
+## Adding an author to a study
+
+You can add authors to a study object with the `add_author()` function. Authors must have a `surname`, and you can optionally add a `given` name, `orcid` and `roles` (using the names, abbreviations, or indices above). You can also make up any other category of information, such as `email` or `affiliation`.
+
+```{r, results='asis'}
+# set up an empty study
+s <- study("Demo") 
+
+s <- add_author(s, 
+                surname = "DeBruine",
+                given = "Lisa M.",
+                orcid = ldb_orcid, 
+                roles = c("con", "sof", "edi"),
+                email = "debruine@gmail.com") %>%
+  add_author(surname = "Lakens",
+             given = "Daniel",
+             orcid = get_orcid("Lakens", "Daniel"),
+             roles = c(1, 13, 14))
+
+s$authors
+```
+
+
+
+## CRediT format
+
+You can use the `author_jats()` function to format a study's author list in the machine-readable JATS format requested by CRediT.
+
+```{r}
+jats <- author_jats(s)
+```
+
+The output of `author_jats()` looks like this in the source code of a webpage:
+
+<pre>
+`r htmltools::htmlEscape(jats)`
+</pre>
+
+ 
+
+
+
+
+
+
+

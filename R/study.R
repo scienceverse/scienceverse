@@ -37,6 +37,8 @@ study <- function(name = "Demo Study", ...) {
     )
 
     class(study) <- c("scivrs_study", "list")
+    class(study$authors) <- c("scivrs_authors", "list")
+
     # create a new environment for this study
     attr(study, "env") <- new.env()
   }

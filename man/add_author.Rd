@@ -4,16 +4,16 @@
 \alias{add_author}
 \title{Add an author}
 \usage{
-add_author(study, orcid, surname, given = "", roles = c(), ...)
+add_author(study, surname, given = "", orcid = NULL, roles = c(), ...)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
-\item{orcid}{the author's unique ORCiD (see https://orcid.org/)}
-
 \item{surname}{a character string with the author's last name(s)}
 
 \item{given}{a character string with the author's given name(s)}
+
+\item{orcid}{the author's unique ORCiD (see https://orcid.org/)}
 
 \item{roles}{a vector of roles from the CRediT taxonomy (see https://casrai.org/credit/); use credit_roles() to view the full list}
 
@@ -27,8 +27,8 @@ Add an author
 }
 \examples{
 s <- study() \%>\% add_author(
-  orcid = "0000-0002-7523-5539",
   surname = "DeBruine", given = "Lisa M.",
+  orcid = "0000-0002-7523-5539",
   roles = c("Conceptualization", "Methodology")
 )
 study_to_json(s)

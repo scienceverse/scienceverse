@@ -47,3 +47,15 @@ make_author_list <- function(authors) {
   do.call(tags$ul, alist)
 }
 
+make_data_list <- function(data) {
+  if (length(data) == 0) return("")
+
+  mapply(function(d, i) {
+      sprintf("1. [<a class='data_edit' data='%s'>edit</a>] [<a class='data_delete' data='%s'>delete</a>] %s: %d rows, %d cols\n\n",
+              i, i, d$id, nrow(d$data), ncol(d$data))
+    }, data, 1:length(data)) %>%
+    paste0(collapse = "\n") %>%
+    markdown::renderMarkdown(text = .) %>%
+    HTML()
+}
+

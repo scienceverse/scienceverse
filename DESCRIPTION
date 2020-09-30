@@ -1,7 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9013
-Date: 2020-08-14
+Version: 0.0.0.9014
+Date: 2020-09-30
 Authors@R: c(
   person(  given = "Lisa",
            family = "DeBruine",
@@ -32,7 +32,8 @@ Imports:
     faux (>= 0.0.1.4),
     methods,
     stats,
-    utils
+    utils,
+    xml2
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -46,6 +47,7 @@ Suggests:
     metafor,
     pwr,
     markdown,
+    htmltools,
     shiny
 Remotes: 
     FBartos/zcurve

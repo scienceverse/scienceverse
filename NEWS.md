@@ -1,3 +1,8 @@
+# scienceverse 0.0.0.9014 (2020-09-30)
+
+* `get_orcid()` lets you look up ORCiDs from family and given name
+* New vignette about CRediT authorship format and ORCiDs
+
 # scienceverse 0.0.0.9013 (2020-08-14)
 
 * Updated for faux 0.0.1.4 (no seed argument)

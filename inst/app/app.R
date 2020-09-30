@@ -30,7 +30,8 @@ ui <- dashboardPage(
       menuItem("Data", tabName = "dat_tab"),
       menuItem("Analysis", tabName = "ana_tab"),
       menuItem("Human-Readable Summary", tabName = "output_tab"),
-      menuItem("JSON", tabName = "json_tab")
+      menuItem("JSON", tabName = "json_tab"),
+      menuItem("CRedit JATS Format", tabName = "jats_tab")
     ),
     selectInput("lang", "Change language",
                 choices = c(English = "en", Dutch = "nl"),
@@ -51,6 +52,7 @@ ui <- dashboardPage(
       dat_tab,
       ana_tab,
       json_tab,
+      jats_tab,
       output_tab
     )
   )
@@ -86,10 +88,22 @@ server <- function(input, output, session) {
   criteria <- reactiveVal(list())
   return_list <- reactiveVal(list())
   authors <- reactiveVal(list())
+  loadedData <- reactiveVal(data.frame())
 
   observeEvent(input$reset_study, {
-    updateTextInput(session, "study_name", value = "")
-    updateTextAreaInput(session, "study_description", value = "")
+    c("study_name", "given", "surname", "orcid", "email",
+      "eval_cor_eval", "eval_fal_eval") %>%
+      lapply(updateTextInput,
+             session = session,
+             value = "")
+
+    c("study_description", "hyp_description",
+      "eval_cor_desc", "eval_fal_desc")%>%
+      lapply(updateTextAreaInput,
+             session = session,
+             value = "")
+
+    authors(list())
 
     s <- study(name = input$study_name,
                description = input$study_description)
@@ -201,9 +215,79 @@ server <- function(input, output, session) {
 
   # add_data ----
   observeEvent(input$add_data, {
+    if (is.null(input$dat_id) |
+        nrow(loadedData()) == 0) return(FALSE)
+
     s <- myStudy() %>%
       add_data(input$dat_id, loadedData())
+    myStudy(s)
 
+    ## reset add data interface
+    loadedData(data.frame())
+    shinyjs::reset("dat_id")
+    shinyjs::reset("dat_file")
+    output$codebook <- renderText("")
+    output$codebook_json <- renderText("")
+  }, ignoreNULL = TRUE)
+
+  # . . loadedData ----
+  observeEvent(input$dat_file, {
+    req(input$dat_file)
+
+    if (input$dat_id == "") {
+      input$dat_file$datapath %>%
+        tools::file_ext() %>%
+        paste0("." , .) %>%
+        gsub("", input$dat_file$name) %>%
+        updateTextInput(session, "dat_id", value = .)
+    }
+
+    d <- rio::import(input$dat_file$datapath)
+    loadedData(d)
+
+    output$codebook_json <- renderText({
+      codebook(d, name = input$dat_id)
+    })
+    output$codebook <- renderText({
+      codebook(d, name = input$dat_id, return = "list") %>%
+        faux::nested_list() %>%
+        markdown::renderMarkdown(text = .) %>%
+        HTML()
+    })
+  })
+
+  # . . data_list ----
+  output$data_list <- renderUI({
+    s <- myStudy()
+    make_data_list(s$data)
+  })
+
+  # . . data_edit ----
+  observeEvent(input$data_edit, {
+    s <- myStudy()
+    to_edit <- as.integer(input$data_edit)
+    d <- s$data[[to_edit]]
+
+    updateTextInput(session, "dat_id", value = d$id)
+    loadedData(d$data)
+    output$codebook_json <- renderText({
+      get_codebook(s, data_id = to_edit, as_json = TRUE)
+    })
+    output$codebook<- renderText({
+      get_codebook(s, data_id = to_edit) %>%
+        faux::nested_list() %>%
+        markdown::renderMarkdown(text = .) %>%
+        HTML()
+    })
+
+  }, ignoreNULL = TRUE)
+
+  # . . data_delete ----
+  observeEvent(input$data_delete, {
+    s <- myStudy()
+    to_del <- as.integer(input$data_delete)
+
+    s$data[to_del] <- NULL
     myStudy(s)
   }, ignoreNULL = TRUE)
 
@@ -281,21 +365,6 @@ server <- function(input, output, session) {
     )
   })
 
-  # loadedData ----
-  loadedData <- reactive({
-    req(input$dat_file)
-
-    if (input$dat_id == "") {
-      input$dat_file$datapath %>%
-        tools::file_ext() %>%
-        paste0("." , .) %>%
-        gsub("", input$dat_file$name) %>%
-        updateTextInput(session, "dat_id", value = .)
-    }
-
-    rio::import(input$dat_file$datapath)
-  })
-
   ### output$dat_table ----
   output$dat_table <- renderTable({
     loadedData()
@@ -304,6 +373,17 @@ server <- function(input, output, session) {
   ### output$json_text  ----
   output$json_text <- renderText({
     myStudy() %>% study_to_json()
+  })
+
+  ### output$jats_text  ----
+  output$jats_text <- renderText({
+    s <- myStudy()
+
+    if (length(s$authors) > 0) {
+      author_jats(s)
+    } else {
+      ""
+    }
   })
 
   ## output$human_readable ----
@@ -327,6 +407,18 @@ server <- function(input, output, session) {
       paste(collapse = "\n") %>%
       markdown::renderMarkdown(text = .) %>%
       HTML()
+  })
+
+  # . . get_orcid ----
+  observeEvent(input$get_orcid, {
+    o <- get_orcid(input$surname, input$given)
+    n <- length(o)
+    if (n == 1) {
+      updateTextInput(session, "orcid", value = o)
+    } else {
+      js <- sprintf('alert("%d ORCiDs found");', n)
+      runjs(js)
+    }
   })
 
   observeEvent(input$add_author, {

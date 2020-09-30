@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -276,9 +276,9 @@
 <p>The <code>study_power</code> function runs the specified number of replications: simulating your data, running the analyses, and evaluating the criteria to produce a summary of the proportion of simulation where each hypothesis was corroborated, falsified, or inconclusive.</p>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">study</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span>(<span class="no">study</span>, <span class="kw">rep</span> <span class="kw">=</span> <span class="fl">100</span>)</pre></body></html></div>
 <pre><code>#&gt; Hypothesis self_pref
-#&gt;       corroboration: 52.0%
+#&gt;       corroboration: 58.0%
 #&gt;       falsification: 0.0%
-#&gt;       inconclusive:  48.0%</code></pre>
+#&gt;       inconclusive:  42.0%</code></pre>
 <p>You can access the values for each criterion for each simulation with the function <code>get_power</code> (set <code>values = TRUE</code>). This returns a list of hypotheses and their associated criteria that you can then plot or further assess.</p>
 <div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">power</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span>(<span class="no">study</span>, <span class="kw">values</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 

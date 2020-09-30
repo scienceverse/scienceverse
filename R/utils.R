@@ -327,6 +327,28 @@ print.scivrs_results <- function(x, ...) {
   cat(faux::nested_list(x))
 }
 
+#' Print Author List
+#'
+#' @param x The scivrs_author list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.scivrs_author <- function(x, ...) {
+  cat(faux::nested_list(x))
+}
+
+#' Print Authors List
+#'
+#' @param x The scivrs_authors list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.scivrs_authors <- function(x, ...) {
+  cat(faux::nested_list(x))
+}
+
 #' Less scary green messages
 #'
 #' @param ... message components (see \code{\link[base]{message}})

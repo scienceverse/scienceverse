@@ -18,6 +18,7 @@ study_tab <- tabItem(
       textInput("given", "Given Name(s) including initials"),
       textInput("surname", "Last Name(s)"),
       textInput("orcid", "ORCiD"),
+      actionButton("get_orcid", "Look up ORCiD"),
       textInput("email", "Email"),
       checkboxGroupInput("roles", "Contributor Roles",
                          choices = credit_roles("names")),

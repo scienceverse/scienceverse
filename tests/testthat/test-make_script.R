@@ -135,8 +135,8 @@ test_that("complex", {
     )
   )
 study <- study() %>%
-  add_author("0000-0002-7523-5539", "DeBruine", "Lisa") %>%
-  add_author("0000-0002-0247-239X", "Lakens", "Daniel") %>%
+  add_author("DeBruine", "Lisa", orcid = "0000-0002-7523-5539") %>%
+  add_author("Lakens", "Daniel", orcid = "0000-0002-0247-239X") %>%
   add_data("mycars", mtcars, vardesc = vardesc) %>%
   add_analysis("A1", cor.test(mycars$mpg, mycars$wt)) %>%
   add_analysis("A2", t.test(rnorm(100))) %>%

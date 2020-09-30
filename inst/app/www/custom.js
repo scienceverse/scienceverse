@@ -11,4 +11,12 @@ $(function() {
   $("#author_list").on("click", "a.author_delete", function() {
     Shiny.onInputChange("author_delete", $(this).attr("data"));
   });
+
+  $("#data_list").on("click", "a.data_edit", function() {
+    Shiny.onInputChange("data_edit", $(this).attr("data"));
+  });
+  $("#data_list").on("click", "a.data_delete", function() {
+    Shiny.onInputChange("data_delete", $(this).attr("data"));
+  });
+
 });

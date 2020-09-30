@@ -1,8 +1,13 @@
 test_that("default study", {
   s <- study()
 
+  alist <- list()
+  alist
+
   expect_equal(s$name, "Demo Study")
-  expect_equal(s$authors, list())
+  expect_equivalent(s$authors, list())
+  expect_s3_class(s$authors, "list")
+  expect_s3_class(s$authors, "scivrs_authors")
   expect_equal(s$hypotheses, list())
   expect_equal(s$methods, list())
   expect_equal(s$data, list())

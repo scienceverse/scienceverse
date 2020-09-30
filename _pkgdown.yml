@@ -40,6 +40,7 @@ reference:
       - get_codebook
       - get_data
       - get_html
+      - get_orcid
       - get_power
       - get_result
       - output_custom_code
@@ -57,5 +58,6 @@ articles:
       - meta
       - sim
       - codebook
+      - credit
       - functions
       - export

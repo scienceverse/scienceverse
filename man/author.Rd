@@ -4,14 +4,14 @@
 \alias{author}
 \title{Author in CRediT Format}
 \usage{
-author(orcid, surname, given = "", roles = c(), ...)
+author(surname, given = "", orcid = NULL, roles = c(), ...)
 }
 \arguments{
-\item{orcid}{the author's unique ORCiD (see https://orcid.org/)}
-
 \item{surname}{a character string with the author's last name(s)}
 
 \item{given}{a character string with the author's given name(s)}
+
+\item{orcid}{the author's unique ORCiD (see https://orcid.org/)}
 
 \item{roles}{a vector of roles from the CRediT taxonomy (see https://casrai.org/credit/); use credit_roles() to view the full list}
 
@@ -25,8 +25,8 @@ Author in CRediT Format
 }
 \examples{
 author(
-  orcid = "0000-0002-7523-5539",
   surname = "DeBruine", given = "Lisa M.",
+  orcid = "0000-0002-7523-5539",
   roles = c("Conceptualization", "Methodology")
 )
 }
