@@ -54,3 +54,5 @@ Remotes:
 URL: https://github.com/scienceverse/scienceverse
 BugReports: https://github.com/scienceverse/scienceverse/issues
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

@@ -21,6 +21,7 @@ study_tab <- tabItem(
       actionButton("get_orcid", "Look up ORCiD"),
       textInput("email", "Email"),
       checkboxGroupInput("roles", "Contributor Roles",
+                         inline = TRUE,
                          choices = credit_roles("names")),
       actionButton("add_author", "Add Author"),
   ),

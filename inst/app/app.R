@@ -113,12 +113,16 @@ server <- function(input, output, session) {
   observeEvent(input$study_analyse, {
     s <- myStudy()
 
-    tryCatch(s <- study_analyse(s),
-             error = function(e) {
-               js <- sprintf('alert("%s");', e$message)
-               runjs(js)
-    })
-    myStudy(s)
+    if (length(s$analyses) == 0) {
+      runjs("alert('No analyses have been specified')")
+    } else {
+      tryCatch(s <- study_analyse(s),
+               error = function(e) {
+                 js <- sprintf('alert("%s");', e$message)
+                 runjs(js)
+      })
+      myStudy(s)
+    }
   })
 
   observe({
@@ -173,10 +177,12 @@ server <- function(input, output, session) {
 
     s <- myStudy()
 
-    s <- tryCatch({add_analysis(s, input$ana_id,
-                               input$ana_code,
-                               return_list(),
-                               type = "text")},
+    r <- return_list()
+    if (length(r) == 0) r <- ""
+
+    s <- tryCatch({add_analysis(
+      s, input$ana_id, input$ana_code,
+      return = r, type = "text")},
              error = function(e) {
                js <- sprintf('alert("%s");', e$message)
                runjs(js)
@@ -395,7 +401,18 @@ server <- function(input, output, session) {
     a <- output_analyses(s, lvl, "html")
     r <- output_results(s, lvl, "html")
 
-    paste(i, h, a, r, sep = "\n\n") %>% HTML()
+    if (length(s$data) == 0) {
+      ds <- "No data"
+    } else {
+      ds <- sapply(s$data, "[[", "id") %>%
+        paste("*", . ) %>%
+        paste(collapse = "\n")
+    }
+    d <- sprintf("<h%d>Data</h%d>\n\n%s",
+                 lvl, lvl, ds)
+
+
+    paste(i, h, d, a, r, sep = "\n\n") %>% HTML()
   })
 
   # . authors ----

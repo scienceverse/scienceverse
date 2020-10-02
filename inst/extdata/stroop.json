@@ -1,0 +1,41 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "Stroop Task",
+    "schemaVersion": "Psych-DS 0.1.0",
+    "author": "Lisa DeBruine",
+    "description": "50 simulated subjects in a stroop task viewing all combinations of word and ink colours blue, purple, green, red, and brown, 5 times each. Subjects respond with the ink colour. Subjects who do not respond in time have NA for response and rt.",
+    "license": "CC-BY 4.0",
+    "variableMeasured": [
+        {
+            "@type": "PropertyValue",
+            "name": "sub_id",
+            "description": "Subject ID",
+            "dataType": "string"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "word",
+            "description": "The text of the word",
+            "dataType": "string"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "ink",
+            "description": "The ink colour of the word",
+            "dataType": "string"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "response",
+            "description": "The subject's response (should equal the ink colour)",
+            "dataType": "string"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "rt",
+            "description": "Reaction time (in ms)",
+            "dataType": "float"
+        }
+    ]
+}

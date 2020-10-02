@@ -12,3 +12,4 @@
 ^tests/custom_code_test.R$
 ^\.travis\.yml$
 ^codecov\.yml$
+^data-raw$
