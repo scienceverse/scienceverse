@@ -19,6 +19,8 @@ author_jats <- function(author) {
     aa <- list(author)
   }
 
+  if (length(aa) == 0) return("")
+
   for (i in 1:length(aa)) {
     contrib_author <- '<contrib>%s
   <string-name>
@@ -36,9 +38,9 @@ author_jats <- function(author) {
     }
 
     contrib_role <- '<role vocab="credit"
-  vocab-identifier="http://credit.niso.org/"
-  vocab-term="%s"
-  vocab-term-identifier="http://credit.niso.org/contributor-roles/%s/">%s</role>'
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="%s"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/%s/">%s</role>'
     dash_roles <- gsub("\\W+", "-", aa[[i]]$roles) %>% tolower()
 
     aa[i] <- sprintf(contrib_role,

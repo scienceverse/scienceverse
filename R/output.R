@@ -221,12 +221,18 @@ output_analyses <- function(study, header_lvl = 2,
     txt <- paste0(txt, "No analyses\n\n")
   } else {
     for (i in 1:length(study$analyses)) {
-      txt <- paste0(txt, header, "# Analysis ", i, ": ", study$analyses[[i]]$id,
-          " {#", study$analyses[[i]]$id, "}\n\n", sep = "")
+      a <- study$analyses[[i]]
+      txt <- paste0(txt, header, "# Analysis ", i, ": ", a$id,
+          " {#", a$id, "}\n\n", sep = "")
 
       txt <- output_custom_code(study, i) %>%
         paste0() %>%
         paste0(txt, "<pre>", ., "</pre>\n\n", sep = "")
+
+      # show each analysis results if available
+      if (length(a$results) > 0) {
+        txt <- paste0(txt, faux::nested_list(a$results), "\n\n")
+      }
     }
   }
 

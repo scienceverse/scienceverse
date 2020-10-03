@@ -1,3 +1,9 @@
+# scienceverse 0.0.0.9015 (2020-10-03)
+
+* Lots of changes to `scivrs_app()` 
+    - It's still not-production ready
+    - But check out the demo
+
 # scienceverse 0.0.0.9014 (2020-09-30)
 
 * `get_orcid()` lets you look up ORCiDs from family and given name

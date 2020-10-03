@@ -6,25 +6,11 @@ study_tab <- tabItem(
       textInput("study_name", "Study Name", "", "100%"),
       textAreaInput("study_description", "Study Description", "", "100%")
   ),
-  h4("Authors"),
-  htmlOutput("author_list"),
-  actionButton("author_reorder", "Reorder Authors"),
-
-  h4("Add an Author"),
-  box(width=12,
-      hidden(
-        numericInput("author_n", "Author Number", value = 1, min = 1)
-      ),
-      textInput("given", "Given Name(s) including initials"),
-      textInput("surname", "Last Name(s)"),
-      textInput("orcid", "ORCiD"),
-      actionButton("get_orcid", "Look up ORCiD"),
-      textInput("email", "Email"),
-      checkboxGroupInput("roles", "Contributor Roles",
-                         inline = TRUE,
-                         choices = credit_roles("names")),
-      actionButton("add_author", "Add Author"),
-  ),
-  h4("Contributor Roles"),
-  uiOutput("credit_roles")
+  h4("Custom Info"),
+  uiOutput("custom_info_list", class="section_list"),
+  box(width = 12,
+      textInput("custom_info_name", "Custom Info Name", "", "100%"),
+      textAreaInput("custom_info_value", "Custom Info Value", "", "100%"),
+      actionButton("add_custom_info", "Add Custom Info")
+  )
 )

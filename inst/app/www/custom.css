@@ -1,3 +1,4 @@
 .warning { border: 1px solid red; }
 textarea { width: 100%; }
 .shiny-notification { border-color: red !important; }
+#var_list button.selected { background-color: blue; }

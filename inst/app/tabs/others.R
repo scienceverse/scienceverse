@@ -1,3 +1,41 @@
+### aut_tab ----
+aut_tab <- tabItem(
+  tabName = "aut_tab",
+  h3("Authors"),
+  uiOutput("author_list"),
+  actionButton("author_reorder", "Reorder Authors"),
+
+  box(width=12,
+      hidden(
+        numericInput("author_n", "Author Number", value = 1, min = 1)
+      ),
+      actionButton("add_author", "Add Author"),
+      textInput("given", "Given Name(s) including initials"),
+      textInput("surname", "Last Name(s)"),
+      textInput("orcid", "ORCiD"),
+      actionButton("get_orcid", "Look up ORCiD"),
+      checkboxGroupInput("roles", "Contributor Roles",
+                         inline = TRUE,
+                         choices = credit_roles("names"))
+  ),
+  h4("Custom Info"),
+  uiOutput("author_info_list", class="section_list"),
+  box(width = 12,
+      textInput("author_info_name", "Custom Info Name", "", "100%"),
+      textAreaInput("author_info_value", "Custom Info Value", "", "100%"),
+      actionButton("add_author_info", "Add Custom Info")
+  ),
+
+  # credit ----
+  h4("CRediT"),
+  tabsetPanel(type = "tabs",
+              tabPanel("Contributor Roles", uiOutput("credit_roles")),
+              tabPanel("JATS Format",
+                       p(HTML("CRediT in JATS 1.2 format as described at <a href='https://jats4r.org/credit-taxonomy'>https://jats4r.org/credit-taxonomy</a>")),
+                       downloadButton("download_jats", "Download"),
+                       verbatimTextOutput("jats_text")))
+)
+
 ### met_tab ----
 met_tab <- tabItem(
   tabName = "met_tab",
@@ -8,9 +46,7 @@ met_tab <- tabItem(
 dat_tab <- tabItem(
   tabName = "dat_tab",
   h3("Data"),
-  box(width = 12,
-      uiOutput("data_list")
-  ),
+  uiOutput("data_list", class="section_list"),
   box(width = 12,
       textInput("dat_id", "Data ID", "", "100%"),
       checkboxInput("dat_data", "Include Data", value = TRUE),
@@ -18,32 +54,34 @@ dat_tab <- tabItem(
       actionButton("add_data", "Add Data", icon("plus"))
   ),
   tabsetPanel(type = "tabs",
-    tabPanel("Data", tableOutput("dat_table")),
+    tabPanel("Data", dataTableOutput("dat_table")),
     tabPanel("Codebook",
              h4("We will add the ability to edit codebooks soon"),
-             uiOutput("codebook")),
+             uiOutput("var_list"),
+             textInput("var_desc", "Description", width="100%"),
+             selectInput("var_type", "Data Type",
+                         c("int" = "Integer",
+                           "string" = "Character",
+                           "float" = "Double",
+                           "bool" = "Logical")),
+             actionButton("var_update", "Update")),
     tabPanel("Codebook JSON",
+             downloadButton("download_cb", "Download"),
              verbatimTextOutput("codebook_json"))
   )
-)
-
-### json_tab ----
-json_tab <- tabItem(
-  tabName = "json_tab",
-  h3("JSON Text"),
-  verbatimTextOutput("json_text")
-)
-
-### jats_tab ----
-jats_tab <- tabItem(
-  tabName = "jats_tab",
-  h3("CRediT JATS Format"),
-  verbatimTextOutput("jats_text")
 )
 
 ### output_tab ----
 output_tab <- tabItem(
   tabName = "output_tab",
-  h3("Human-Readable Summary"),
-  htmlOutput("human_readable")
+
+  tabsetPanel(type = "tabs",
+    tabPanel("Human-Readable",
+             #downloadButton("download_rmd", "Download Rmd"),
+             #downloadButton("download_html", "Download HTML"),
+             htmlOutput("human_readable")),
+    tabPanel("Machine-Readable JSON",
+             downloadButton("download_json", "Download"),
+             verbatimTextOutput("json_text"))
+  )
 )

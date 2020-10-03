@@ -2,7 +2,7 @@
 hyp_tab <- tabItem(
   tabName = "hyp_tab",
   h3("Hypotheses"),
-
+  uiOutput("hypotheses_list", class="section_list"),
   box(width = 12,
       textInput("hyp_id", "Hypothesis ID", "", "100%"),
       textAreaInput("hyp_description", "Hypothesis Description", "", "100%")
@@ -24,11 +24,9 @@ hyp_tab <- tabItem(
   ),
   ## . evaluation ----
   box(width = 12, title = "Evaluation",
-      p("What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ()&|!"),
+      p("What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"),
 
-      textAreaInput("eval_cor_desc", "Corroboration Description", "", "100%"),
       textInput("eval_cor_eval", "Corroboration Evaluation", "", "100%"),
-      textAreaInput("eval_fal_desc", "Falsification Description", "", "100%"),
       textInput("eval_fal_eval", "Falsification Evaluation", "", "100%")
   ),
 

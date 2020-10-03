@@ -13,6 +13,16 @@ makeReactiveTrigger <- function() {
   )
 }
 
+get_credit_roles <- function() {
+  x <- utils::capture.output(credit_roles())
+  x %>%
+    gsub("^\\[\\S+\\] ", "* **", .) %>%
+    gsub(": ", "**: ", .) %>%
+    paste(collapse = "\n") %>%
+    markdown::renderMarkdown(text = .) %>%
+    HTML()
+}
+
 make_author_list <- function(authors) {
   i <- 0
   alist <- list()
@@ -54,6 +64,19 @@ make_data_list <- function(data) {
       sprintf("1. [<a class='data_edit' data='%s'>edit</a>] [<a class='data_delete' data='%s'>delete</a>] %s: %d rows, %d cols\n\n",
               i, i, d$id, nrow(d$data), ncol(d$data))
     }, data, 1:length(data)) %>%
+    paste0(collapse = "\n") %>%
+    markdown::renderMarkdown(text = .) %>%
+    HTML()
+}
+
+make_section_list <- function(study, section) {
+  sec <- study[[section]]
+  if (length(sec) == 0) return("")
+
+  mapply(function(x, i) {
+    sprintf("1. [<a class='section_edit' section='%s' section_idx='%d'>edit</a>] [<a class='section_delete' section='%s' section_idx='%d'>delete</a>] %s\n\n",
+            section, i, section, i, x$id)
+  }, sec, 1:length(sec)) %>%
     paste0(collapse = "\n") %>%
     markdown::renderMarkdown(text = .) %>%
     HTML()

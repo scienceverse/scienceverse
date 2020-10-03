@@ -227,6 +227,18 @@
     },
     {
       "en": "What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"
+    },
+    {
+      "en": "Data Type"
+    },
+    {
+      "en": "Description"
+    },
+    {
+      "en": "Load Demo Study"
+    },
+    {
+      "en": "Update"
     }
   ]
 }

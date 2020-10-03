@@ -210,7 +210,7 @@ get_env_name <- function(f) {
 #' @keywords internal
 #'
 make_func <- function(func, code, return = "", envir = .GlobalEnv) {
-  if (return[1] != "") {
+  if (return[1] != "" & length(return) > 0) {
     if (is.null(names(return))) {
       names(return) <- return
     }
