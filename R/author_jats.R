@@ -35,10 +35,16 @@ author_jats <- function(author) {
       orcid <- ''
     }
 
-    contrib_role <- '<role content-type="https://dictionary.casrai.org/Contributor_Roles/%s" >%s</role>'
-    underscore_roles <- gsub("\\W+", "_", aa[[i]]$roles)
+    contrib_role <- '<role vocab="credit"
+  vocab-identifier="http://credit.niso.org/"
+  vocab-term="%s"
+  vocab-term-identifier="http://credit.niso.org/contributor-roles/%s/">%s</role>'
+    dash_roles <- gsub("\\W+", "-", aa[[i]]$roles) %>% tolower()
 
-    aa[i] <- sprintf(contrib_role, underscore_roles, aa[[i]]$roles) %>%
+    aa[i] <- sprintf(contrib_role,
+                     aa[[i]]$roles,
+                     dash_roles,
+                     aa[[i]]$roles) %>%
       paste(collapse = "\n  ") %>%
       sprintf(contrib_author,
               orcid,
@@ -48,5 +54,4 @@ author_jats <- function(author) {
 
   paste0("<contrib-group>\n", paste(aa, collapse = "\n"), "\n</contrib-group>")
 }
-
 
