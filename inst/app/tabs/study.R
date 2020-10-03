@@ -1,6 +1,7 @@
 ### study_tab ----
 study_tab <- tabItem(
   tabName = "study_tab",
+  p("This shiny app is under development and likely to have a lot of bugs."),
   h3("Study Info"),
   box(width = 12,
       textInput("study_name", "Study Name", "", "100%"),

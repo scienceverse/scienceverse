@@ -229,6 +229,17 @@
       "en": "What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"
     },
     {
+      "en": "English",
+      "nl": "Engels"
+    },
+    {
+      "en": "Dutch",
+      "nl": "Nederlands"
+    },
+    {
+      "en": "Clear"
+    },
+    {
       "en": "Data Type"
     },
     {
@@ -236,6 +247,15 @@
     },
     {
       "en": "Load Demo Study"
+    },
+    {
+      "en": "Name"
+    },
+    {
+      "en": "This section is under construction and quite buggy"
+    },
+    {
+      "en": "This shiny app is under development and likely to have a lot of bugs."
     },
     {
       "en": "Update"

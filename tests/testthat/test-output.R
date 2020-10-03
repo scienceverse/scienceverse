@@ -106,7 +106,7 @@ test_that("analyses", {
 
   expect_equal(op[[1]], "## Analyses")
   expect_equal(op[[3]], "### Analysis 1: A1 {#A1}")
-  expect_equal(op[[5]], "<pre>    t.test(1:10, 2:11)</pre>")
+  expect_equal(op[[5]], "<pre>t.test(1:10, 2:11)</pre>")
 })
 
 test_that("analyses header_lvl", {
@@ -120,7 +120,7 @@ test_that("analyses header_lvl", {
 
   expect_equal(op[[1]], "### Analyses")
   expect_equal(op[[3]], "#### Analysis 1: A1 {#A1}")
-  expect_equal(op[[5]], "<pre>    t.test(1:10, 2:11)</pre>")
+  expect_equal(op[[5]], "<pre>t.test(1:10, 2:11)</pre>")
 })
 
 test_that("multiple analyses", {
@@ -135,9 +135,9 @@ test_that("multiple analyses", {
 
   expect_equal(op[[1]], "### Analyses")
   expect_equal(op[[3]], "#### Analysis 1: A1 {#A1}")
-  expect_equal(op[[5]], "<pre>    t.test(1:10, 2:11)</pre>" )
+  expect_equal(op[[5]], "<pre>t.test(1:10, 2:11)</pre>" )
   expect_equal(op[[7]], "#### Analysis 2: A2 {#A2}")
-  expect_equal(op[[9]], "<pre>    cor(rnorm(10), rnorm(10))</pre>" )
+  expect_equal(op[[9]], "<pre>cor(rnorm(10), rnorm(10))</pre>" )
 })
 
 # output_results ----

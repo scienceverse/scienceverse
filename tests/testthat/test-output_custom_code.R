@@ -8,7 +8,7 @@ test_that("null", {
       t.test(a, b)
     })
 
-  op <- "    {\n        a <- rnorm(10)\n        b <- rnorm(10)\n        t.test(a, b)\n    }"
+  op <- "{\n    a <- rnorm(10)\n    b <- rnorm(10)\n    t.test(a, b)\n}"
   expect_equal(op, output_custom_code(s))
 
   op <- output_custom_code(s, 1)

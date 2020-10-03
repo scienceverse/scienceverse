@@ -104,7 +104,8 @@ server <- function(input, output, session) {
     # text changes (h3, h4, p)
     for (h in trans_text) {
       js <- sprintf("$('*[en=\"%s\"]').text(\"%s\");",
-                    h, i18n()$t(h))
+                    gsub("'", "\\\\'", h),
+                    i18n()$t(h))
       shinyjs::runjs(js)
     }
 
@@ -129,6 +130,7 @@ server <- function(input, output, session) {
   author_info <- reactiveVal(list())
   loaded_data <- reactiveVal(data.frame())
   custom_info <- reactiveVal(list())
+  cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
 
   # functions ----
   section_delete <- function(section, idx) {
@@ -261,16 +263,22 @@ server <- function(input, output, session) {
     }
   })
 
+  # . . add_author ----
   observeEvent(input$add_author, {
     problems <- FALSE
 
     # check orcid
-    orcid <- check_orcid(input$orcid)
-    if (isFALSE(orcid) & input$orcid != "") {
-      problems <- TRUE
-      updateTextInput(session, "orcid",
-                      label = "ORCiD is not valid" %>% i18n()$t())
-      shinyjs::addClass("orcid", "warning")
+
+    if (input$orcid != "") {
+      orcid <- check_orcid(input$orcid)
+      if (isFALSE(orcid)) {
+        problems <- TRUE
+        updateTextInput(session, "orcid",
+                        label = "ORCiD is not valid" %>% i18n()$t())
+        shinyjs::addClass("orcid", "warning")
+      }
+    } else {
+      orcid <- ""
     }
 
     # check names
@@ -292,6 +300,7 @@ server <- function(input, output, session) {
                 given = trimws(input$given),
                 orcid = orcid,
                 roles = input$roles)
+      a <- c(a, author_info())
       aa <- authors()
       aa[[input$author_n]] <- a
       authors(aa)
@@ -305,11 +314,28 @@ server <- function(input, output, session) {
       updateTextInput(session, "orcid", value = "",
                       label = "ORCiD" %>% i18n()$t())
       updateCheckboxGroupInput(session, "roles", selected = character(0))
+      author_info(list())
+      shinyjs::reset("author_info_name")
+      shinyjs::reset("author_info_value")
       shinyjs::removeClass("given", "warning")
       shinyjs::removeClass("surname", "warning")
       shinyjs::removeClass("orcid", "warning")
     }
   }, ignoreNULL = TRUE)
+
+  # . . add_author ----
+  observe({
+    # update study$authors whenever authors() changes
+    s <- my_study()
+    s$authors <- list()
+    for (a in authors()) {
+      s <- tryCatch(
+        do.call(add_author, c(list(study = s), a)),
+        error = function(e) { message(e); return(s) }
+      )
+    }
+    my_study(s)
+  })
 
   # . . author_list ----
   output$author_list <- renderUI({
@@ -422,17 +448,6 @@ server <- function(input, output, session) {
     a[idx] <- NULL
     authors(a)
   }, ignoreNULL = TRUE)
-
-  # . . add_author ----
-  observe({
-    # update study$authors whenever authors() changes
-    s <- my_study()
-    s$authors <- list()
-    for (a in authors()) {
-      s <- do.call(add_author, c(list(study = s), a))
-    }
-    my_study(s)
-  })
 
   # . . credit_roles ----
   output$credit_roles <- renderUI( get_credit_roles() )
@@ -718,13 +733,21 @@ server <- function(input, output, session) {
 
     s <- my_study() %>%
       add_data(input$dat_id, loaded_data())
+
+    ## add codebook
+    idx <- match(input$dat_id, sapply(s$data, "[[", "id"))[1]
+    if (!is.na(idx)) s$data[[idx]]$codebook <- cb()
+
     my_study(s)
 
     ## reset add data interface
     loaded_data(data.frame())
+    cb(codebook(loaded_data(), "", return = "list"))
     shinyjs::reset("dat_id")
     shinyjs::reset("dat_file")
-    output$codebook_json <- renderText("")
+    shinyjs::reset("var_name")
+    shinyjs::reset("var_desc")
+    shinyjs::reset("var_type")
   }, ignoreNULL = TRUE)
 
   # . . dat_file ----
@@ -741,19 +764,16 @@ server <- function(input, output, session) {
 
     d <- rio::import(input$dat_file$datapath)
     loaded_data(d)
+    cb(codebook(d, name = input$dat_id, return = "list"))
+  })
 
-    output$codebook_json <- renderText({
-      codebook(d, name = input$dat_id)
-    })
-
-    output$var_list <- renderUI({
-      varnames <- names(loaded_data())
-      if (length(varnames)==0) return("")
-
-      paste0("<button>", varnames, "</button>") %>%
-        paste(collapse = "\n    ") %>%
-        HTML()
-    })
+  # . . update cb name ----
+  observe({
+    cb <- cb()
+    if (length(cb)) {
+      cb$name <- input$dat_id
+      cb(cb)
+    }
   })
 
   # . . dat_table ----
@@ -774,27 +794,86 @@ server <- function(input, output, session) {
 
     updateTextInput(session, "dat_id", value = d$id)
     loaded_data(d$data)
-    shinyjs::reset("dat_file")
-    output$codebook_json <- renderText({
-      get_codebook(s, data_id = idx, as_json = TRUE)
-    })
+    cb(get_codebook(s, data_id = idx))
 
+    shinyjs::reset("dat_file")
+    shinyjs::reset("var_name")
+    shinyjs::reset("var_desc")
+    shinyjs::reset("var_type")
   }, ignoreNULL = TRUE)
+
+  # . . codebook_json ----
+  output$codebook_json <- renderText({
+    cb() %>%
+      jsonlite::toJSON(auto_unbox = TRUE) %>%
+      jsonlite::prettify(4)
+  })
 
   # . . data_delete ----
   observeEvent(input$data_delete, {
     section_delete("data", input$data_delete)
   }, ignoreNULL = TRUE)
 
+  # . . cb() ----
+  reactive({
+    cb <- tryCatch({
+      get_codebook(my_study(), input$dat_id)
+    }, error = function(e) {
+      message("caught cb():\n", e)
+      return(codebook(loaded_data(),
+                      input$dat_id,
+                      return = "list"))
+    })
+
+    cb(cb)
+  })
+
+  # . . var_list ----
+  output$var_list <- renderUI({
+    varnames <- names(loaded_data())
+    if (length(varnames)==0) return("")
+
+    paste0("<button>", varnames, "</button>") %>%
+      paste(collapse = "\n    ") %>%
+      HTML()
+  })
+
   # . . var_selected ----
   observeEvent(input$var_selected, {
-    cb <- get_codebook(my_study(), input$dat_id)
-    vm <- cb$variableMeasured
-    names(vm) <- nm <- sapply(vm, "[[", "name")
-    v <- vm[[input$var_selected]]
+    v <- tryCatch({
+        vm <- cb()$variableMeasured
+        names(vm) <- sapply(vm, "[[", "name")
+        vm[[input$var_selected]]
+      },
+      error = function(e) {
+        message("caught var_selected v:\n", e)
+        return(list(name = "",
+                    description = "",
+                    dataType = "string"))
+      }
+    )
 
-    updateTextInput(session, "var_desc", value = v$description)
-    updateSelectInput(session, "var_type", value = v$dataType)
+    updateTextInput(session, "var_name",
+                    value = v$name)
+    updateTextInput(session, "var_desc",
+                    value = v$description)
+    updateSelectInput(session, "var_type",
+                      selected = v$dataType)
+  })
+
+  # . . var_update ----
+  observeEvent(input$var_update, {
+    cb <- cb()
+    vm <- cb$variableMeasured
+
+    if (length(vm)) {
+      nm <- sapply(vm, "[[", "name")
+      idx <- match(input$var_name, nm)
+      vm[[idx]]["description"] <- input$var_desc
+      vm[[idx]]["dataType"] <- input$var_type
+      cb$variableMeasured <- vm
+      cb(cb)
+    }
   })
 
   # . . download_cb ----
@@ -803,9 +882,10 @@ server <- function(input, output, session) {
       paste0("data_", input$dat_id, ".json")
     },
     content = function(file) {
-      d <- loaded_data()
-      j <- codebook(d, name = input$dat_id)
-      write(j, file)
+      cb() %>%
+        jsonlite::toJSON(auto_unbox = TRUE) %>%
+        jsonlite::prettify(4) %>%
+        write(file)
     }
   )
 

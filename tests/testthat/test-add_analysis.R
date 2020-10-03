@@ -102,7 +102,7 @@ test_that("return", {
   expect_equal(res, list(a = 1, b = 2))
 
   code <- output_custom_code(s)
-  expect_equal(code, "    {\n        a = 1\n        b = 2\n    }\n    list(a = a, b = b)")
+  expect_equal(code, "{\n    a = 1\n    b = 2\n}\nlist(a = a, b = b)")
 
   s <- study() %>%
     add_analysis("A1", { a = 1; b = 2 }, list(a1 = "a", a2 = "b"))
@@ -111,7 +111,7 @@ test_that("return", {
   expect_equal(res, list(a1 = 1, a2 = 2))
 
   code <- output_custom_code(s)
-  expect_equal(code, "    {\n        a = 1\n        b = 2\n    }\n    list(a1 = a, a2 = b)")
+  expect_equal(code, "{\n    a = 1\n    b = 2\n}\nlist(a1 = a, a2 = b)")
 
 })
 

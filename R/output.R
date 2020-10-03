@@ -29,7 +29,15 @@ output_custom_code <- function(study, analysis_id = 1, prefix = "") {
     analysis$code <- analysis$code[3:end]
   }
 
+  ## strip minimum leading space
+  strip_space <- analysis$code %>%
+    sub("^( *).*$", "\\1", .) %>%
+    nchar() %>% min() %>% rep(" ", .) %>%
+    paste(collapse = "") %>%
+    paste0("^", .)
+
   analysis$code %>%
+    gsub(strip_space, "", .) %>%
     paste(collapse= paste0("\n", prefix)) %>%
     paste0(prefix, .)
 }

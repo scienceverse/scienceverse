@@ -227,7 +227,9 @@
     },
     {
       "en": "What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"
-    }
+    },
+    {"en": "English", "nl": "Engels"},
+    {"en": "Dutch", "nl": "Nederlands"}
   ]
 }
 
