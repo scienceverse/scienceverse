@@ -4,14 +4,21 @@
 \alias{output_analyses}
 \title{Output analyses}
 \usage{
-output_analyses(study, header_lvl = 2, output = c("md", "html", "text"))
+output_analyses(
+  study,
+  header_lvl = 2,
+  output = c("md", "html", "text"),
+  results = TRUE
+)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
 
-\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
+\item{output}{whether the output should be markdown, html, or plain text (defaults to md)}
+
+\item{results}{whether to include results (defaults to TRUE)}
 }
 \value{
 character string with a human-readable summary of the analyses
