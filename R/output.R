@@ -213,14 +213,15 @@ output_results <- function(study, header_lvl = 2,
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
+#' @param results whether to include results (defaults to TRUE)
 #'
 #' @return character string with a human-readable summary of the analyses
 #'
 #' @export
 
 output_analyses <- function(study, header_lvl = 2,
-                            output = c("md", "html", "text")) {
+                            output = c("md", "html", "text"), results = TRUE) {
   header <- rep("#", header_lvl) %>% paste(collapse = "")
 
   txt <- paste(header, "Analyses\n\n")
@@ -238,8 +239,8 @@ output_analyses <- function(study, header_lvl = 2,
         paste0(txt, "<pre>", ., "</pre>\n\n", sep = "")
 
       # show each analysis results if available
-      if (length(a$results) > 0) {
-        txt <- paste0(txt, faux::nested_list(a$results), "\n\n")
+      if (length(a$results) > 0 & results) {
+        txt <- paste0(txt, faux::nested_list(a$results, quote = "`"), "\n\n")
       }
     }
   }

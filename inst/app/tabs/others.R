@@ -59,8 +59,8 @@ output_tab <- tabItem(
 
   tabsetPanel(type = "tabs",
     tabPanel("Human-Readable",
-             #downloadButton("download_rmd", "Download Rmd"),
-             #downloadButton("download_html", "Download HTML"),
+             downloadButton("download_pre", "Download Prereg Report"),
+             downloadButton("download_post", "Download Postreg Report"),
              htmlOutput("human_readable")),
     tabPanel("Machine-Readable JSON",
              downloadButton("download_json", "Download"),

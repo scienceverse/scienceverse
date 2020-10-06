@@ -908,6 +908,26 @@ server <- function(input, output, session) {
     }
   )
 
+  # . . download_pre ----
+  output$download_pre <- downloadHandler(
+    filename = function() {
+      paste0(input$study_name, "_prereg.html")
+    },
+    content = function(file) {
+      study_save(my_study(), file, format = "prereg")
+    }
+  )
+
+  # . . download_post ----
+  output$download_post <- downloadHandler(
+    filename = function() {
+      paste0(input$study_name, "_postreg.html")
+    },
+    content = function(file) {
+      study_save(my_study(), file, format = "postreg")
+    }
+  )
+
   ## . . human_readable ----
   output$human_readable <- renderUI({
     s <- my_study()

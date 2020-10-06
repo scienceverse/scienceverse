@@ -51,7 +51,7 @@ output_hypotheses(study)
 ```
 
 ```{r results='asis'}
-output_analyses(study)
+output_analyses(study, results = FALSE)
 ```
 
 
