@@ -140,6 +140,32 @@ test_that("multiple analyses", {
   expect_equal(op[[9]], "<pre>cor(rnorm(10), rnorm(10))</pre>" )
 })
 
+test_that("analyses with results", {
+  scienceverse_options(verbose = FALSE)
+  s <- study() %>%
+    add_analysis("A1", t.test(1:10, 2:11)) %>%
+    study_analyse()
+
+  op <- output_analyses(s, header_lvl = 3) %>%
+    strsplit("\n") %>% `[[`(1)
+
+  op_T <- output_analyses(s, header_lvl = 3, results = TRUE) %>%
+    strsplit("\n") %>% `[[`(1)
+
+  op_F <- output_analyses(s, header_lvl = 3, results = FALSE) %>%
+    strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
+
+  expect_equal(op[[14]], "  * mean of x: `5.5`")
+  expect_equal(op[[15]], "  * mean of y: `6.5`")
+  expect_equal(op[[16]], "* null.value: `0`")
+  expect_equal(op[[20]], "* data.name: `1:10 and 2:11`")
+
+  expect_equal(op_T, op)
+  expect_equal(op_F, op_T[1:length(op_F)])
+  expect_equal(length(op_F), 6L)
+})
+
 # output_results ----
 test_that("results", {
   s <- study() %>%
