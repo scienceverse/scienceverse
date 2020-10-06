@@ -1,8 +1,10 @@
 ### study_tab ----
 study_tab <- tabItem(
   tabName = "study_tab",
-  p("This shiny app is under development and likely to have a lot of bugs."),
   h3("Study Info"),
+  p("This shiny app is under development and likely to have a lot of bugs."),
+  fileInput("load_json", "Load from JSON", width = "100%"),
+  h4("Required Info"),
   box(width = 12,
       textInput("study_name", "Study Name", "", "100%"),
       textAreaInput("study_description", "Study Description", "", "100%")

@@ -16,7 +16,8 @@ source("i18n/trans.R")
 source("tabs/study.R")
 source("tabs/hyp.R")
 source("tabs/ana.R")
-source("tabs/others.R") # data, met, json, output
+source("tabs/dat.r")
+source("tabs/others.R") # met, aut, output
 
 
 ## UI ----
@@ -929,8 +930,25 @@ server <- function(input, output, session) {
     paste(i, h, d, a, r, sep = "\n\n") %>% HTML()
   })
 
-  # demo ----
+  # inputs ----
+  # . . load_json ----
+  observeEvent(input$load_json, {
+    req(input$load_json)
+
+    tryCatch({
+      s <- study(input$load_json$datapath)
+      update_from_study(s)
+    }, error = function(e) {
+      message(e)
+      sprintf("alert('%s')", e) %>%
+        shinyjs::runjs()
+    })
+  })
+
+  # . . update_from_study ----
   update_from_study <- function(study) {
+    my_study(study)
+
     a <- lapply(study$author, function(x) {
       x$surname <- x$name$surname
       x$given <- x$name$given
@@ -938,6 +956,11 @@ server <- function(input, output, session) {
       x
     })
     authors(a)
+
+    updateTextInput(session, "study_name",
+                    value = study$name)
+    updateTextAreaInput(session, "study_description",
+                        value = study$info$description)
 
     # custom info
     ci <- study$info
@@ -949,15 +972,10 @@ server <- function(input, output, session) {
     updateSelectInput(session, "crit_ana_id", choices = a)
   }
 
+  # . . demo ----
   observeEvent(input$demo, {
     s <- kin_demo()
-    my_study(s)
     update_from_study(s)
-
-    updateTextInput(session, "study_name", value = s$name)
-    updateTextAreaInput(session, "study_description",
-                        value = s$info$description)
-
   })
 
 
