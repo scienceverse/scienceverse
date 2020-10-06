@@ -48,7 +48,8 @@ Suggests:
     pwr,
     markdown,
     htmltools,
-    shiny
+    shiny,
+    shiny.i18n
 Remotes: 
     FBartos/zcurve
 URL: https://github.com/scienceverse/scienceverse
