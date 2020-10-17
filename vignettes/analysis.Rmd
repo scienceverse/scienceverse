@@ -1,7 +1,7 @@
 ---
 title: "Demo"
 author: ""
-date: "30/09/2020"
+date: "17/10/2020"
 output:
   html_document:
     toc: true
@@ -38,53 +38,53 @@ dat <- read.csv('data/dat_data.tsv', sep='\t')
 ## Analysis 1: A1 {#analysis_1}
 
 ```{r}
-    scienceverse::t_test(y ~ pet, dat)
+scienceverse::t_test(y ~ pet, dat)
 ```
 
 ### Stored Results
 
-* statistic: `3.0784`
-* parameter: `117.757`
-* p.value: `0.0026`
+* statistic: `2.5266`
+* parameter: `117.118`
+* p.value: `0.0129`
 * conf.int: 
-  * `0.9353`
-  * `4.3087`
+    1. `0.4967`
+    2. `4.0989`
 * estimate: 
-  * `10.7868`
-  * `8.1647`
+    1. `9.0335`
+    2. `6.7357`
 * null.value: `0`
-* stderr: `0.8517`
+* stderr: `0.9094`
 * alternative: `two.sided`
 * method: `Welch Two Sample t-test`
 * data.name: `y by pet`
 * n: 
-  * `60`
-  * `60`
+    1. `60`
+    2. `60`
 
 ## Analysis 2: A2 {#analysis_2}
 
 ```{r}
-    scienceverse::t_test(y ~ time, dat)
+scienceverse::t_test(y ~ time, dat)
 ```
 
 ### Stored Results
 
-* statistic: `-0.8188`
-* parameter: `117.9216`
-* p.value: `0.4145`
+* statistic: `0.105`
+* parameter: `117.5104`
+* p.value: `0.9166`
 * conf.int: 
-  * `-2.471`
-  * `1.0253`
+    1. `-1.751`
+    2. `1.947`
 * estimate: 
-  * `9.1143`
-  * `9.8372`
+    1. `7.9336`
+    2. `7.8356`
 * null.value: `0`
-* stderr: `0.8828`
+* stderr: `0.9337`
 * alternative: `two.sided`
 * method: `Welch Two Sample t-test`
 * data.name: `y by time`
 * n: 
-  * `60`
-  * `60`
+    1. `60`
+    2. `60`
 
 

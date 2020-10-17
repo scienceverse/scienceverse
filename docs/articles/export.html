@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -103,7 +103,8 @@
     padding: 0.5em;
   }
 </style>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">scienceverse</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ************</span>
 <span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span>
@@ -111,7 +112,7 @@
 <span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span>
 <span class="co">#&gt; ************</span>
 <span class="co"># suppress most messages</span>
-<span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span>(<span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <div id="create-the-meta-study-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-the-meta-study-file" class="anchor"></a>Create the meta-study file</h2>
@@ -120,46 +121,54 @@
 <h3 class="hasAnchor">
 <a href="#simulate-data" class="anchor"></a>Simulate Data</h3>
 <p>First, set up the basic study object and add a simulated dataset.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"Demo"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span>(<span class="st">"dat"</span>,
-               <span class="kw">within</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">time</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"morning"</span>, <span class="st">"night"</span>)),
-               <span class="kw">between</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">pet</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"dog"</span>, <span class="st">"cat"</span>)),
-               <span class="kw">dv</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">y</span> <span class="kw">=</span> <span class="st">"Happiness Score"</span>),
-               <span class="kw">mu</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">dog</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">10</span>),
-                         <span class="kw">cat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">8</span>)),
-               <span class="kw">n</span> <span class="kw">=</span> <span class="fl">30</span>, <span class="kw">r</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">long</span> <span class="kw">=</span> <span class="fl">TRUE</span>
-  )</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span><span class="st">"dat"</span>, 
+               within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"morning"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>,
+               between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>, 
+               dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Happiness Score"</span><span class="op">)</span>,
+               mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dog <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>, 
+                         cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span>, 
+               n <span class="op">=</span> <span class="fl">30</span>, r <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">5</span>, long <span class="op">=</span> <span class="cn">TRUE</span>
+  <span class="op">)</span>
+<span class="co">#&gt; Registered S3 method overwritten by 'faux':</span>
+<span class="co">#&gt;   method            from        </span>
+<span class="co">#&gt;   print.nested_list scienceverse</span></pre></div>
 <p>Plot the actual data and the design to check it looks like you expect.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># plot faux data</span>
-<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">s</span>, <span class="st">"dat"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">dat</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># plot faux data</span>
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">s</span>, <span class="st">"dat"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></pre></div>
 <p><img src="export_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># plot faux design specification</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">dat</span>, <span class="st">"design"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co"># plot faux design specification</span>
+<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span>, <span class="st">"design"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <p><img src="export_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
 </div>
 <div id="set-up-hypotheses" class="section level3">
 <h3 class="hasAnchor">
 <a href="#set-up-hypotheses" class="anchor"></a>Set up hypotheses</h3>
 <p>Here, we’re adding two hypotheses, along with their associated analyses, evaluation criteria, and criteria for corroboration or falsification. These are very simple examples for demonstration, but you can include more complex analyses in curly brackets or as external .R files.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">s</span> <span class="kw">&lt;-</span> <span class="no">s</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span>(<span class="st">"group"</span>, <span class="st">"Dogs will be happier than cats"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span>(<span class="st">"A1"</span>, <span class="kw pkg">scienceverse</span><span class="kw ns">::</span><span class="fu"><a href="../reference/t_test.html">t_test</a></span>(<span class="no">y</span>~<span class="no">pet</span>, <span class="no">dat</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="st">"p"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="st">"dir"</span>, <span class="st">"estimate[1]"</span>, <span class="st">"&gt;"</span>, <span class="st">"estimate[2]"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="st">"c"</span>, <span class="st">"p &amp; dir"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="st">"f"</span>, <span class="st">"p &amp; !dir"</span>) <span class="kw">%&gt;%</span>
-
-  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span>(<span class="st">"time"</span>, <span class="st">"Pets will be happier in the morning than at night"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span>(<span class="st">"A2"</span>, <span class="kw pkg">scienceverse</span><span class="kw ns">::</span><span class="fu"><a href="../reference/t_test.html">t_test</a></span>(<span class="no">y</span>~<span class="no">time</span>, <span class="no">dat</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="st">"p"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span>(<span class="st">"dir"</span>, <span class="st">"estimate[1]"</span>, <span class="st">"&gt;"</span>, <span class="st">"estimate[2]"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="st">"c"</span>, <span class="st">"p &amp; dir"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span>(<span class="st">"f"</span>, <span class="st">"p &amp; !dir"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"group"</span>, <span class="st">"Dogs will be happier than cats"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="fu">scienceverse</span><span class="fu">::</span><span class="fu"><a href="../reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">pet</span>, <span class="va">dat</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"dir"</span>, <span class="st">"estimate[1]"</span>, <span class="st">"&gt;"</span>, <span class="st">"estimate[2]"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"p &amp; dir"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"p &amp; !dir"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  
+  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"Pets will be happier in the morning than at night"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"A2"</span>, <span class="fu">scienceverse</span><span class="fu">::</span><span class="fu"><a href="../reference/t_test.html">t_test</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">time</span>, <span class="va">dat</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"dir"</span>, <span class="st">"estimate[1]"</span>, <span class="st">"&gt;"</span>, <span class="st">"estimate[2]"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"p &amp; dir"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"p &amp; !dir"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <p>NB: I’m using the scienceverse function <code><a href="../reference/t_test.html">t_test()</a></code> instead of <code>t.test</code> because it gives you the Ns for each group in between-group comparisons (useful for meta-analyses) and also labels the estimates to avoid confusion.</p>
 <p>Aftr you’ve run <code><a href="../reference/study_analyse.html">study_analyse()</a></code>, printing the study object will show a summary of the evaluation.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">s</span>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">s</span>
 <span class="co">#&gt; Demo</span>
 <span class="co">#&gt; ----</span>
 <span class="co">#&gt; </span>
@@ -171,12 +180,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion p:</span>
 <span class="co">#&gt; * p.value &lt; 0.05 is TRUE</span>
-<span class="co">#&gt; * p.value = 0.003</span>
+<span class="co">#&gt; * p.value = 0.013</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion dir:</span>
 <span class="co">#&gt; * estimate[1] &gt; estimate[2] is TRUE</span>
-<span class="co">#&gt; * estimate[1] = 10.787</span>
-<span class="co">#&gt; * estimate[2] = 8.165</span>
+<span class="co">#&gt; * estimate[1] = 9.033</span>
+<span class="co">#&gt; * estimate[2] = 6.736</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Conclusion: corroborate</span>
 <span class="co">#&gt; * Corroborate (p &amp; dir): TRUE</span>
@@ -186,131 +195,138 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion p:</span>
 <span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.415</span>
+<span class="co">#&gt; * p.value = 0.917</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Criterion dir:</span>
-<span class="co">#&gt; * estimate[1] &gt; estimate[2] is FALSE</span>
-<span class="co">#&gt; * estimate[1] = 9.114</span>
-<span class="co">#&gt; * estimate[2] = 9.837</span>
+<span class="co">#&gt; * estimate[1] &gt; estimate[2] is TRUE</span>
+<span class="co">#&gt; * estimate[1] = 7.934</span>
+<span class="co">#&gt; * estimate[2] = 7.836</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Conclusion: inconclusive</span>
 <span class="co">#&gt; * Corroborate (p &amp; dir): FALSE</span>
-<span class="co">#&gt; * Falsify (p &amp; !dir): FALSE</span></pre></body></html></div>
+<span class="co">#&gt; * Falsify (p &amp; !dir): FALSE</span></pre></div>
 </div>
 <div id="save-and-reload" class="section level3">
 <h3 class="hasAnchor">
 <a href="#save-and-reload" class="anchor"></a>Save and reload</h3>
 <p>You can save the study in JSON (machine-readable) format and reload it later.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/study_save.html">study_save</a></span>(<span class="no">s</span>, <span class="st">"study.json"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/rm.html">remove</a></span>(<span class="no">s</span>)
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"study.json"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">s</span>, <span class="st">"study.json"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">remove</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"study.json"</span><span class="op">)</span></pre></div>
 </div>
 </div>
 <div id="get-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-results" class="anchor"></a>Get Results</h2>
 <p>You can get all the results with the <code><a href="../reference/get_result.html">get_result()</a></code> function. If you don’t specify the result name or the analysis ID, it defaults to all of the results of the first analysis. It returns a list that you can use, but will display an RMarkdown-formatted list if you print it (and set the chunk options to <code>results='asis'</code>).</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">s</span>, <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A1"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"A1"</span><span class="op">)</span></pre></div>
 <ul>
-<li>statistic: 3.0784</li>
-<li>parameter: 117.757</li>
-<li>p.value: 0.0026</li>
+<li>statistic: 2.5266</li>
+<li>parameter: 117.118</li>
+<li>p.value: 0.0129</li>
 <li>conf.int:
-<ul>
-<li>0.9353</li>
-<li>4.3087</li>
-</ul>
+<ol style="list-style-type: decimal">
+<li>0.4967</li>
+<li>4.0989</li>
+</ol>
 </li>
 <li>estimate:
-<ul>
-<li>10.7868</li>
-<li>8.1647</li>
-</ul>
+<ol style="list-style-type: decimal">
+<li>9.0335</li>
+<li>6.7357</li>
+</ol>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 0.8517</li>
+<li>stderr: 0.9094</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: y by pet</li>
 <li>n:
-<ul>
+<ol style="list-style-type: decimal">
 <li>60</li>
 <li>60</li>
-</ul>
+</ol>
 </li>
 </ul>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="no">s</span>, <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A2"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"A2"</span><span class="op">)</span></pre></div>
 <ul>
-<li>statistic: -0.8188</li>
-<li>parameter: 117.9216</li>
-<li>p.value: 0.4145</li>
+<li>statistic: 0.105</li>
+<li>parameter: 117.5104</li>
+<li>p.value: 0.9166</li>
 <li>conf.int:
-<ul>
-<li>-2.471</li>
-<li>1.0253</li>
-</ul>
+<ol style="list-style-type: decimal">
+<li>-1.751</li>
+<li>1.947</li>
+</ol>
 </li>
 <li>estimate:
-<ul>
-<li>9.1143</li>
-<li>9.8372</li>
-</ul>
+<ol style="list-style-type: decimal">
+<li>7.9336</li>
+<li>7.8356</li>
+</ol>
 </li>
 <li>null.value: 0</li>
-<li>stderr: 0.8828</li>
+<li>stderr: 0.9337</li>
 <li>alternative: two.sided</li>
 <li>method: Welch Two Sample t-test</li>
 <li>data.name: y by time</li>
 <li>n:
-<ul>
+<ol style="list-style-type: decimal">
 <li>60</li>
 <li>60</li>
-</ul>
+</ol>
 </li>
 </ul>
 <p>Get a specific result from a specific analysis.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="kw">study</span> <span class="kw">=</span> <span class="no">s</span>,
-           <span class="kw">result</span> <span class="kw">=</span> <span class="st">"p.value"</span>,
-           <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="st">"A2"</span>,
-           <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>,
-           <span class="kw">return</span> <span class="kw">=</span> <span class="st">"value"</span>)
-<span class="co">#&gt; [1] 0.414</span></pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span>study <span class="op">=</span> <span class="va">s</span>, 
+           result <span class="op">=</span> <span class="st">"p.value"</span>, 
+           analysis_id <span class="op">=</span> <span class="st">"A2"</span>, 
+           digits <span class="op">=</span> <span class="fl">3</span>,
+           return <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.917</span></pre></div>
 <p>Set <code>return</code> to “char” if you want to keep trailing zeros (this returns the number as a character string).</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/get_result.html">get_result</a></span>(<span class="kw">study</span> <span class="kw">=</span> <span class="no">s</span>,
-           <span class="kw">result</span> <span class="kw">=</span> <span class="st">"parameter"</span>,
-           <span class="kw">analysis_id</span> <span class="kw">=</span> <span class="fl">1</span>,
-           <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">5</span>,
-           <span class="kw">return</span> <span class="kw">=</span> <span class="st">"char"</span>)
-<span class="co">#&gt; [1] "117.75700"</span></pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span>study <span class="op">=</span> <span class="va">s</span>, 
+           result <span class="op">=</span> <span class="st">"parameter"</span>, 
+           analysis_id <span class="op">=</span> <span class="fl">1</span>, 
+           digits <span class="op">=</span> <span class="fl">5</span>,
+           return <span class="op">=</span> <span class="st">"char"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "117.11800"</span></pre></div>
 <div id="linked-values" class="section level3">
 <h3 class="hasAnchor">
 <a href="#linked-values" class="anchor"></a>Linked values</h3>
 <p>You can display the value as a link if you set <code>return</code> to “html”. You can use the shorthand function <code>get_html</code> if you only have one study object loaded. The digits default to the global option, so you can set that as shown.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>)
-<span class="fu"><a href="../reference/get_html.html">get_html</a></span>(<span class="st">"p.value"</span>)
-<span class="co">#&gt; [1] "&lt;a href='#analysis_1' title='Analysis 1 Result p.value'&gt;0.003&lt;/a&gt;"</span></pre></body></html></div>
-<p>You’ll probably want to use <code><a href="../reference/get_html.html">get_html()</a></code> inline most of the time like below. The links go to a section at the end of this document that is created with <a href="#Appendix"><code><a href="../reference/make_script.html">make_script()</a></code></a>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="../reference/get_html.html">get_html</a></span><span class="op">(</span><span class="st">"p.value"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "&lt;a href='#analysis_1' title='Analysis 1 Result p.value'&gt;0.013&lt;/a&gt;"</span></pre></div>
+<p>You’ll probably want to use <code><a href="../reference/get_html.html">get_html()</a></code> inline most of the time like below. The links go to a section at the end of this document that is created with <a href="#Appendix"><code>make_script()</code></a>.</p>
 <div class="example">
-<p>For hypothesis 1, dogs were happier than cats (t = <a href="#analysis_1" title="Analysis 1 Result statistic">3.08</a>, df = <a href="#analysis_1" title="Analysis 1 Result parameter">117.8</a>, p = <a href="#analysis_1" title="Analysis 1 Result p.value">0.003</a>, 95% CI = [<a href="#analysis_1" title="Analysis 1 Result conf.int[1]">0.94</a>, <a href="#analysis_1" title="Analysis 1 Result conf.int[2]">4.31</a>]).</p>
-<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="#analysis_2" title="Analysis 2 Result statistic">-0.82</a>, df = <a href="#analysis_2" title="Analysis 2 Result parameter">117.9</a>, p = <a href="#analysis_2" title="Analysis 2 Result p.value">0.414</a>, 95% CI = [<a href="#analysis_2" title="Analysis 2 Result conf.int[1]">-2.47</a>, <a href="#analysis_2" title="Analysis 2 Result conf.int[2]">1.03</a>]).</p>
+<p>For hypothesis 1, dogs were happier than cats (t = <a href="#analysis_1" title="Analysis 1 Result statistic">2.53</a>, df = <a href="#analysis_1" title="Analysis 1 Result parameter">117.1</a>, p = <a href="#analysis_1" title="Analysis 1 Result p.value">0.013</a>, 95% CI = [<a href="#analysis_1" title="Analysis 1 Result conf.int[1]">0.50</a>, <a href="#analysis_1" title="Analysis 1 Result conf.int[2]">4.10</a>]).</p>
+<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="#analysis_2" title="Analysis 2 Result statistic">0.10</a>, df = <a href="#analysis_2" title="Analysis 2 Result parameter">117.5</a>, p = <a href="#analysis_2" title="Analysis 2 Result p.value">0.917</a>, 95% CI = [<a href="#analysis_2" title="Analysis 2 Result conf.int[1]">-1.75</a>, <a href="#analysis_2" title="Analysis 2 Result conf.int[2]">1.95</a>]).</p>
 </div>
 </div>
 <div id="external-analysis-file" class="section level3">
 <h3 class="hasAnchor">
 <a href="#external-analysis-file" class="anchor"></a>External analysis file</h3>
 <p>You can also display the value as a link to an external analysis file created with <code>make_script</code>. For the shorthand function, set the analysis link with <code><a href="../reference/scienceverse_options.html">scienceverse_options()</a></code> as shown.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># create the analysis .Rmd and .html file, </span>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="co"># create the analysis .Rmd and .html file, </span>
 <span class="co"># or you can do this outside this script</span>
-<span class="fu"><a href="../reference/make_script.html">make_script</a></span>(<span class="no">s</span>, <span class="st">"analysis.Rmd"</span>)
-<span class="kw pkg">rmarkdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">render</a></span>(<span class="st">"analysis.Rmd"</span>, <span class="kw">quiet</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/make_script.html">make_script</a></span><span class="op">(</span><span class="va">s</span>, <span class="st">"analysis.Rmd"</span><span class="op">)</span>
+<span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">render</a></span><span class="op">(</span><span class="st">"analysis.Rmd"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
 
-<span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span>(<span class="kw">analysis_link</span> <span class="kw">=</span> <span class="st">"analysis.html"</span>)
-<span class="fu"><a href="../reference/get_html.html">get_html</a></span>(<span class="st">"p.value"</span>)
-<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.003&lt;/a&gt;"</span></pre></body></html></div>
+<span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span><span class="op">(</span>analysis_link <span class="op">=</span> <span class="st">"analysis.html"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/get_html.html">get_html</a></span><span class="op">(</span><span class="st">"p.value"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "&lt;a href='analysis.html#analysis_1' title='Analysis 1 Result p.value'&gt;0.013&lt;/a&gt;"</span></pre></div>
 <p>Here the inline links now go to an external file:</p>
 <div class="example">
-<p>For hypothesis 1, dogs were happier than cats (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">3.08</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">117.8</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.003</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">0.94</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">4.31</a>]).</p>
-<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">-0.82</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">117.9</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.414</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">-2.47</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">1.03</a>]).</p>
+<p>For hypothesis 1, dogs were happier than cats (t = <a href="analysis.html#analysis_1" title="Analysis 1 Result statistic">2.53</a>, df = <a href="analysis.html#analysis_1" title="Analysis 1 Result parameter">117.1</a>, p = <a href="analysis.html#analysis_1" title="Analysis 1 Result p.value">0.013</a>, 95% CI = [<a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[1]">0.50</a>, <a href="analysis.html#analysis_1" title="Analysis 1 Result conf.int[2]">4.10</a>]).</p>
+<p>For hypothesis 2, the subjects were not happier in the morning than at night (t = <a href="analysis.html#analysis_2" title="Analysis 2 Result statistic">0.10</a>, df = <a href="analysis.html#analysis_2" title="Analysis 2 Result parameter">117.5</a>, p = <a href="analysis.html#analysis_2" title="Analysis 2 Result p.value">0.917</a>, 95% CI = [<a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[1]">-1.75</a>, <a href="analysis.html#analysis_2" title="Analysis 2 Result conf.int[2]">1.95</a>]).</p>
 </div>
 </div>
 </div>
@@ -318,7 +334,8 @@
 <h2 class="hasAnchor">
 <a href="#Appendix" class="anchor"></a>Inline Script</h2>
 <p>Add the script inline at the end with the function <a href="../reference/make_script.html"><code>make_script</code></a>. Set <code>header</code> to <code>FALSE</code> to omit the YAML header. Set <code>header_lvl</code> to change the default starting header level of 2.This function will save the data and codebooks in a folder called “data”. Set the argument <code>data_path</code> to NULL to include the actual data in the text of the script. For large datasets, you’ll want to leave it as the default “data” folder (or set a custom folder name).</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/make_script.html">make_script</a></span>(<span class="no">s</span>, <span class="kw">header_lvl</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">header</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="fu"><a href="../reference/make_script.html">make_script</a></span><span class="op">(</span><span class="va">s</span>, header_lvl <span class="op">=</span> <span class="fl">3</span>, header <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <div id="data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h3>
@@ -357,32 +374,32 @@
 <div id="analysis_1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis_1" class="anchor"></a>Analysis 1: A1</h3>
-<pre class="{r}"><code><a href="../reference/t_test.html">    scienceverse::t_test(y ~ pet, dat)</a></code></pre>
+<pre class="{r}"><code><a href="../reference/t_test.html">scienceverse::t_test(y ~ pet, dat)</a></code></pre>
 <div id="stored-results" class="section level4">
 <h4 class="hasAnchor">
 <a href="#stored-results" class="anchor"></a>Stored Results</h4>
 <ul>
-<li>statistic: <code>3.0784</code>
+<li>statistic: <code>2.5266</code>
 </li>
-<li>parameter: <code>117.757</code>
+<li>parameter: <code>117.118</code>
 </li>
-<li>p.value: <code>0.0026</code>
+<li>p.value: <code>0.0129</code>
 </li>
 <li>conf.int:
-<ul>
-<li><code>0.9353</code></li>
-<li><code>4.3087</code></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><code>0.4967</code></li>
+<li><code>4.0989</code></li>
+</ol>
 </li>
 <li>estimate:
-<ul>
-<li><code>10.7868</code></li>
-<li><code>8.1647</code></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><code>9.0335</code></li>
+<li><code>6.7357</code></li>
+</ol>
 </li>
 <li>null.value: <code>0</code>
 </li>
-<li>stderr: <code>0.8517</code>
+<li>stderr: <code>0.9094</code>
 </li>
 <li>alternative: <code>two.sided</code>
 </li>
@@ -391,10 +408,10 @@
 <li>data.name: <code>y by pet</code>
 </li>
 <li>n:
-<ul>
+<ol style="list-style-type: decimal">
 <li><code>60</code></li>
 <li><code>60</code></li>
-</ul>
+</ol>
 </li>
 </ul>
 </div>
@@ -402,32 +419,32 @@
 <div id="analysis_2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis_2" class="anchor"></a>Analysis 2: A2</h3>
-<pre class="{r}"><code><a href="../reference/t_test.html">    scienceverse::t_test(y ~ time, dat)</a></code></pre>
+<pre class="{r}"><code><a href="../reference/t_test.html">scienceverse::t_test(y ~ time, dat)</a></code></pre>
 <div id="stored-results-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#stored-results-1" class="anchor"></a>Stored Results</h4>
 <ul>
-<li>statistic: <code>-0.8188</code>
+<li>statistic: <code>0.105</code>
 </li>
-<li>parameter: <code>117.9216</code>
+<li>parameter: <code>117.5104</code>
 </li>
-<li>p.value: <code>0.4145</code>
+<li>p.value: <code>0.9166</code>
 </li>
 <li>conf.int:
-<ul>
-<li><code>-2.471</code></li>
-<li><code>1.0253</code></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><code>-1.751</code></li>
+<li><code>1.947</code></li>
+</ol>
 </li>
 <li>estimate:
-<ul>
-<li><code>9.1143</code></li>
-<li><code>9.8372</code></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><code>7.9336</code></li>
+<li><code>7.8356</code></li>
+</ol>
 </li>
 <li>null.value: <code>0</code>
 </li>
-<li>stderr: <code>0.8828</code>
+<li>stderr: <code>0.9337</code>
 </li>
 <li>alternative: <code>two.sided</code>
 </li>
@@ -436,10 +453,10 @@
 <li>data.name: <code>y by time</code>
 </li>
 <li>n:
-<ul>
+<ol style="list-style-type: decimal">
 <li><code>60</code></li>
 <li><code>60</code></li>
-</ul>
+</ol>
 </li>
 </ul>
 </div>
@@ -462,7 +479,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Create a new study object or load a study from the JSON meta-study file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>study</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Demo Study"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>study</span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Demo Study"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,8 +162,9 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>study</span>(<span class='st'>"Demo Study"</span>)
-<span class='fu'><a href='study_to_json.html'>study_to_json</a></span>(<span class='no'>s</span>)</div><div class='output co'>#&gt; {
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>study</span><span class='op'>(</span><span class='st'>"Demo Study"</span><span class='op'>)</span>
+<span class='fu'><a href='study_to_json.html'>study_to_json</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {
 #&gt;     "name": "Demo Study",
 #&gt;     "info": [],
 #&gt;     "authors": [],
@@ -189,7 +190,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

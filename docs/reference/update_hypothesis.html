@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Update a hypothesis</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_hypothesis</span>(<span class='no'>study</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>new_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>update_hypothesis</span><span class='op'>(</span><span class='va'>study</span>, id <span class='op'>=</span> <span class='fl'>1</span>, description <span class='op'>=</span> <span class='cn'>NULL</span>, new_id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,9 +169,10 @@
     <p>A study object with class scivrs_study</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>, <span class='st'>"My hypothesis"</span>)
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>update_hypothesis</span>(<span class='no'>s</span>, <span class='fl'>1</span>, <span class='st'>"Better description"</span>, <span class='st'>"H1a"</span>)
-<span class='no'>s</span></div><div class='output co'>#&gt; Demo Study
+    <pre class="examples"><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span><span class='op'>(</span><span class='st'>"H1"</span>, <span class='st'>"My hypothesis"</span><span class='op'>)</span>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>update_hypothesis</span><span class='op'>(</span><span class='va'>s</span>, <span class='fl'>1</span>, <span class='st'>"Better description"</span>, <span class='st'>"H1a"</span><span class='op'>)</span>
+<span class='va'>s</span>
+</div><div class='output co'>#&gt; Demo Study
 #&gt; ----------
 #&gt; 
 #&gt; * Hypotheses: H1a
@@ -198,7 +199,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

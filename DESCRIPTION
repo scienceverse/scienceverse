@@ -1,7 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9015
-Date: 2020-10-03
+Version: 0.0.0.9016
+Date: 2020-10-17
 Authors@R: c(
   person(  given = "Lisa",
            family = "DeBruine",

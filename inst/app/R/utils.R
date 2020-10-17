@@ -1,5 +1,9 @@
 ## Functions ----
 
+# https://github.com/daattali/advanced-shiny/tree/master/reactive-trigger
+# instantiate a reactive trigger with myTrigger <- makeReactiveTrigger()
+# call myTrigger$depend() in any reactive code that should re-run when the trigger is fired
+# call myTrigger$trigger() to set off the trigger
 makeReactiveTrigger <- function() {
   rv <- reactiveValues(a = 0)
   list(
@@ -69,16 +73,68 @@ make_data_list <- function(data) {
     HTML()
 }
 
-make_section_list <- function(study, section) {
+make_hyp_list <- function(h) {
+  tbl <- sapply(h, function(x) {
+    crit <- sapply(x$criteria, `[[`, "id") %>%
+      paste0(collapse = ", ")
+
+    list(
+      id = x$id,
+      criteria = crit,
+      corroboration = if_nowt(x$corroboration$evaluation),
+      falsification = if_nowt(x$falsification$evaluation)
+    )
+  })
+
+  if (length(tbl) == 0) return(data.frame())
+
+  t(tbl) %>% as.data.frame()
+}
+
+make_ana_list <- function(s) {
+  if (length(s$analyses) == 0) return(data.frame())
+
+  tbl <- sapply(s$analyses, function(x) {
+    code <- output_custom_code(s, x$id) %>%
+      strsplit("\n") %>%`[[`(1)
+    if (length(code) > 4) code <- c(code[1:3], "...")
+    code <- paste(code, collapse = "\n") %>%
+      paste0("<pre><code>", ., "</code></pre>")
+
+    res <- nested_list(x$results) %>%
+      markdown::renderMarkdown(text = .) %>%
+      HTML()
+
+    list(
+      id = x$id,
+      code = code
+    )
+  })
+
+  t(tbl) %>% as.data.frame()
+}
+
+make_section_list <- function(study, section, extra = NULL) {
   sec <- study[[section]]
   if (length(sec) == 0) return("")
 
   mapply(function(x, i) {
-    sprintf("1. [<a class='section_edit' section='%s' section_idx='%d'>edit</a>] [<a class='section_delete' section='%s' section_idx='%d'>delete</a>] %s\n\n",
-            section, i, section, i, x$id)
+    ex <- ifelse(is.function(extra), extra(x), "")
+    sprintf("1. [<a class='section_edit' section='%s' section_idx='%d'>edit</a>] [<a class='section_delete' section='%s' section_idx='%d'>delete</a>] %s %s\n\n",
+            section, i, section, i, x$id, ex)
   }, sec, 1:length(sec)) %>%
     paste0(collapse = "\n") %>%
     markdown::renderMarkdown(text = .) %>%
     HTML()
 }
 
+make_crit_list <- function(criteria) {
+  crit <- do.call(dplyr::bind_rows, criteria)
+  if (is.null(crit) | nrow(crit) == 0) return(data.frame())
+
+  crit$conclusion <- NULL
+
+  crit$delete <- sprintf("<button class='delete' idx='%d'><i class='fa fa-times'></i></button>",
+                         1:nrow(crit))
+  as.data.frame(crit)
+}

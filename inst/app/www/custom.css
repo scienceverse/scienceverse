@@ -1,4 +1,10 @@
-.warning { border: 1px solid red; }
+.warning { border: 1px solid red; background-color: #FF9999 !important; }
 textarea { width: 100%; }
 .shiny-notification { border-color: red !important; }
 #var_list button.selected { background-color: blue; }
+code {
+  background-color: #EDF0F5;
+  background-color: hsla(218, 94%, 20%, .05);
+  color: #032763;
+}
+

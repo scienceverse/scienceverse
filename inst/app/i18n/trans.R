@@ -8,6 +8,7 @@ trans_labels <- list(
   updateSelectInput = c(),
   updateNumericInput = c(),
   updateCheckboxInput = c(),
+  updateCheckboxGroupInput = c(),
   updateActionButton = c()
 )
 
@@ -52,6 +53,12 @@ checkboxInput <- function(inputId, label, ...) {
   if (!is.null(label))
     trans_labels$updateCheckboxInput[inputId] <<- label
   shiny::checkboxInput(inputId, label, ...)
+}
+
+checkboxGroupInput<- function(inputId, label, ...) {
+  if (!is.null(label))
+    trans_labels$updateCheckboxGroupInput[inputId] <<- label
+  shiny::checkboxGroupInput(inputId, label, ...)
 }
 
 actionButton <- function(inputId, label, ...) {

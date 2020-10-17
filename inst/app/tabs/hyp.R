@@ -2,14 +2,18 @@
 hyp_tab <- tabItem(
   tabName = "hyp_tab",
   h3("Hypotheses"),
-  uiOutput("hypotheses_list", class="section_list"),
+  dataTableOutput("hyp_table"),
+  actionButton("hyp_add", "Add Hypothesis", icon("plus")),
+  actionButton("hyp_delete", "Delete", icon("trash")),
+  actionButton("hyp_clear", "Clear", icon("times")),
+
   box(width = 12,
       textInput("hyp_id", "Hypothesis ID", "", "100%"),
-      textAreaInput("hyp_description", "Hypothesis Description", "", "100%")
+      textAreaInput("hyp_desc", "Hypothesis Description", "", "100%")
   ),
 
   ## . criteria ----
-  box(width = 12,
+  box(width = 12, collapsible = TRUE,
       title = "Criteria",
       fluidRow(
         column(width = 3, textInput("crit_id", "id", "", placeholder = "Criterion ID")),
@@ -19,16 +23,15 @@ hyp_tab <- tabItem(
         column(width = 2, textInput("crit_comparator", "comparator", "", NULL, "Comparator"))
       ),
       textOutput("criteria_warning"),
-      actionButton("add_criterion", "Add Criterion", icon("plus")),
-      tableOutput("criteria_table")
+      actionButton("crit_add", "Add Criterion", icon("plus")),
+      dataTableOutput("crit_table")
   ),
   ## . evaluation ----
-  box(width = 12, title = "Evaluation",
+  box(width = 12, collapsible = TRUE,
+      title = "Evaluation",
       p("What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"),
 
       textInput("eval_cor_eval", "Corroboration Evaluation", "", "100%"),
       textInput("eval_fal_eval", "Falsification Evaluation", "", "100%")
-  ),
-
-  actionButton("add_hypothesis", "Add Hypothesis", icon("plus"))
+  )
 )

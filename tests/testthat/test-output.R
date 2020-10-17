@@ -156,10 +156,10 @@ test_that("analyses with results", {
     strsplit("\n") %>% `[[`(1)
   scienceverse_options(verbose = TRUE)
 
-  expect_equal(op[[14]], "  * mean of x: `5.5`")
-  expect_equal(op[[15]], "  * mean of y: `6.5`")
-  expect_equal(op[[16]], "* null.value: `0`")
-  expect_equal(op[[20]], "* data.name: `1:10 and 2:11`")
+  expect_equal(op[[16]], "    * mean of x: `5.5`")
+  expect_equal(op[[17]], "    * mean of y: `6.5`")
+  expect_equal(op[[19]], "    * difference in means: `0`")
+  expect_equal(op[[23]], "* data.name: `1:10 and 2:11`")
 
   expect_equal(op_T, op)
   expect_equal(op_F, op_T[1:length(op_F)])

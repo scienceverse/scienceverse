@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   codebook: codebook.html
@@ -10,5 +10,5 @@ articles:
   functions: functions.html
   meta: meta.html
   sim: sim.html
-last_built: 2020-09-30T19:24Z
+last_built: 2020-10-17T17:55Z
 

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Convert scivrs_author list to CRediT JATS format</p>
     </div>
 
-    <pre class="usage"><span class='fu'>author_jats</span>(<span class='no'>author</span>)</pre>
+    <pre class="usage"><span class='fu'>author_jats</span><span class='op'>(</span><span class='va'>author</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,20 +157,27 @@
     <p>string in JATS format (see https://jats4r.org/credit-taxonomy)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ld</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='author.html'>author</a></span>(
-  <span class='kw'>orcid</span> <span class='kw'>=</span> <span class='st'>"0000-0002-7523-5539"</span>,
-  <span class='kw'>surname</span> <span class='kw'>=</span> <span class='st'>"DeBruine"</span>, <span class='kw'>given</span> <span class='kw'>=</span> <span class='st'>"Lisa M."</span>,
-  <span class='kw'>roles</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"Conceptualization"</span>, <span class='st'>"Methodology"</span>)
-)
-<span class='fu'>author_jats</span>(<span class='no'>ld</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>()</div><div class='output co'>#&gt; &lt;contrib-group&gt;
+    <pre class="examples"><div class='input'><span class='va'>ld</span> <span class='op'>&lt;-</span> <span class='fu'><a href='author.html'>author</a></span><span class='op'>(</span>
+  orcid <span class='op'>=</span> <span class='st'>"0000-0002-7523-5539"</span>,
+  surname <span class='op'>=</span> <span class='st'>"DeBruine"</span>, given <span class='op'>=</span> <span class='st'>"Lisa M."</span>,
+  roles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Conceptualization"</span>, <span class='st'>"Methodology"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'>author_jats</span><span class='op'>(</span><span class='va'>ld</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;contrib-group&gt;
 #&gt; &lt;contrib&gt;
 #&gt;   &lt;contrib-id authenticated="true" contrib-id-type="orcid"&gt;https://orcid.org/0000-0002-7523-5539&lt;/contrib-id&gt;
 #&gt;   &lt;string-name&gt;
 #&gt;     &lt;surname&gt;DeBruine&lt;/surname&gt;
 #&gt;     &lt;given-names&gt;Lisa M.&lt;/given-names&gt;
 #&gt;   &lt;/string-name&gt;
-#&gt;   &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Conceptualization" &gt;Conceptualization&lt;/role&gt;
-#&gt;   &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Methodology" &gt;Methodology&lt;/role&gt;
+#&gt;   &lt;role vocab="credit"
+#&gt;       vocab-identifier="http://credit.niso.org/"
+#&gt;       vocab-term="Conceptualization"
+#&gt;       vocab-term-identifier="http://credit.niso.org/contributor-roles/conceptualization/"&gt;Conceptualization&lt;/role&gt;
+#&gt;   &lt;role vocab="credit"
+#&gt;       vocab-identifier="http://credit.niso.org/"
+#&gt;       vocab-term="Methodology"
+#&gt;       vocab-term-identifier="http://credit.niso.org/contributor-roles/methodology/"&gt;Methodology&lt;/role&gt;
 #&gt; &lt;/contrib&gt;
 #&gt; &lt;/contrib-group&gt;</div></pre>
   </div>
@@ -188,7 +195,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

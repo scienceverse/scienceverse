@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Get Codebook</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_codebook</span>(<span class='no'>study</span>, <span class='kw'>data_id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>as_json</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_codebook</span><span class='op'>(</span><span class='va'>study</span>, data_id <span class='op'>=</span> <span class='fl'>1</span>, as_json <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +165,10 @@
     <p>a list with class codebook</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"test"</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>x set to dataType int</span><span></span></div><div class='input'><span class='no'>cb</span> <span class='kw'>&lt;-</span> <span class='fu'>get_codebook</span>(<span class='no'>s</span>, <span class='st'>"test"</span>)</div></span></pre>
+    <pre class="examples"><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_data.html'>add_data</a></span><span class='op'>(</span><span class='st'>"test"</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>x set to dataType int</span><span></span></div><div class='input'><span class='va'>cb</span> <span class='op'>&lt;-</span> <span class='fu'>get_codebook</span><span class='op'>(</span><span class='va'>s</span>, <span class='st'>"test"</span><span class='op'>)</span>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -181,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

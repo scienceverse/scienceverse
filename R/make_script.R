@@ -93,7 +93,7 @@ make_script <- function(study, path = NULL,
       if ("results" %in% names(a)) {
         prefix <- ifelse(use_rmarkdown, "", "# ")
         quote <- ifelse(use_rmarkdown, "`", "")
-        res <- faux::nested_list(a$results, prefix, quote)
+        res <- nested_list(a$results, prefix, quote)
         ana <- sprintf("%s%s# Stored Results\n\n%s\n\n",
                        ana, h, res)
       }

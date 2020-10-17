@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,9 +141,9 @@
     <p>Run the analyses on the data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>study_analyse</span>(<span class='no'>study</span>)
+    <pre class="usage"><span class='fu'>study_analyse</span><span class='op'>(</span><span class='va'>study</span><span class='op'>)</span>
 
-<span class='fu'>study_analyze</span>(<span class='no'>study</span>)</pre>
+<span class='fu'>study_analyze</span><span class='op'>(</span><span class='va'>study</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,17 +160,18 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span>(<span class='st'>"H1"</span>, <span class='st'>"Petal width and length will be positively correlated."</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>dat</span>$<span class='no'>Petal.Width</span>, <span class='no'>dat</span>$<span class='no'>Petal.Length</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"sig"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span>(<span class='st'>"pos"</span>, <span class='st'>"estimate"</span>, <span class='st'>"&gt;"</span>, <span class='fl'>0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"corroboration"</span>, <span class='st'>"sig &amp; pos"</span>,
-           <span class='st'>"Petal width is significantly and positively correlated to length"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_eval.html'>add_eval</a></span>(<span class='st'>"falsification"</span>, <span class='st'>"sig &amp; !pos"</span>,
-           <span class='st'>"Petal width is significantly and negatively correlated to length"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"dat"</span>, <span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>study_analyse</span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Hypothesis H1: Petal width and length will be positively correlated.</span>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_hypothesis.html'>add_hypothesis</a></span><span class='op'>(</span><span class='st'>"H1"</span>, <span class='st'>"Petal width and length will be positively correlated."</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span><span class='op'>(</span><span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>$</span><span class='va'>Petal.Width</span>, <span class='va'>dat</span><span class='op'>$</span><span class='va'>Petal.Length</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span><span class='op'>(</span><span class='st'>"sig"</span>, <span class='st'>"p.value"</span>, <span class='st'>"&lt;"</span>, <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_criterion.html'>add_criterion</a></span><span class='op'>(</span><span class='st'>"pos"</span>, <span class='st'>"estimate"</span>, <span class='st'>"&gt;"</span>, <span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span><span class='op'>(</span><span class='st'>"corroboration"</span>, <span class='st'>"sig &amp; pos"</span>,
+           <span class='st'>"Petal width is significantly and positively correlated to length"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_eval.html'>add_eval</a></span><span class='op'>(</span><span class='st'>"falsification"</span>, <span class='st'>"sig &amp; !pos"</span>,
+           <span class='st'>"Petal width is significantly and negatively correlated to length"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_data.html'>add_data</a></span><span class='op'>(</span><span class='st'>"dat"</span>, <span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>study_analyse</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Hypothesis H1: Petal width and length will be positively correlated.</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Criterion sig:</span>
 #&gt; <span class='message'>* p.value &lt; 0.05 is TRUE</span>
@@ -182,7 +183,8 @@
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Conclusion: corroborate</span>
 #&gt; <span class='message'>* Corroborate (sig &amp; pos): TRUE</span>
-#&gt; <span class='message'>* Falsify (sig &amp; !pos): FALSE</span><span></span></div><div class='input'><span class='no'>s</span></div><div class='output co'>#&gt; Demo Study
+#&gt; <span class='message'>* Falsify (sig &amp; !pos): FALSE</span><span></span></div><div class='input'><span class='va'>s</span>
+</div><div class='output co'>#&gt; Demo Study
 #&gt; ----------
 #&gt; 
 #&gt; * Hypotheses: H1
@@ -218,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Convert a study object to a JSON string</p>
     </div>
 
-    <pre class="usage"><span class='fu'>study_to_json</span>(<span class='no'>study</span>, <span class='kw'>data_values</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>study_to_json</span><span class='op'>(</span><span class='va'>study</span>, data_values <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,7 +162,8 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>study_to_json</span>()</div><div class='output co'>#&gt; {
+<span class='fu'><a href='study.html'>study</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>study_to_json</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {
 #&gt;     "name": "Demo Study",
 #&gt;     "info": [],
 #&gt;     "authors": [],
@@ -188,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

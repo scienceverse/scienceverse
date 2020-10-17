@@ -3,6 +3,8 @@ aut_tab <- tabItem(
   tabName = "aut_tab",
   h3("Authors"),
   uiOutput("author_list"),
+  actionButton("aut_add", "Add Author", icon("plus")),
+  actionButton("aut_clear", "Clear", icon("times")),
   actionButton("author_reorder", "Reorder Authors", icon("sort")),
 
   box(width=12,
@@ -31,10 +33,9 @@ aut_tab <- tabItem(
                textInput("author_info_value", NULL, "",
                          "100%", "Custom Info Value")),
         column(width = 3,
-               actionButton("add_author_info", "Add Custom Info", icon("plus")))
+               actionButton("author_info_add", "Add Custom Info", icon("plus")))
       )
   ),
-  actionButton("add_author", "Add Author", icon("user-plus")),
 
   # . . credit ----
   h4("CRediT"),

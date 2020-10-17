@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -141,16 +141,16 @@
     <p>Make a script with all analyses</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_script</span>(
-  <span class='no'>study</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data_path</span> <span class='kw'>=</span> <span class='st'>"data"</span>,
-  <span class='kw'>data_format</span> <span class='kw'>=</span> <span class='st'>"tsv"</span>,
-  <span class='kw'>show_codebook</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>header_lvl</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>make_script</span><span class='op'>(</span>
+  <span class='va'>study</span>,
+  path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data_path <span class='op'>=</span> <span class='st'>"data"</span>,
+  data_format <span class='op'>=</span> <span class='st'>"tsv"</span>,
+  show_codebook <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  use_rmarkdown <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  header_lvl <span class='op'>=</span> <span class='fl'>2</span>,
+  header <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,15 +194,17 @@
     <p>Text of the script if path is NULL</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_data.html'>add_data</a></span>(<span class='st'>"my_cars"</span>, <span class='no'>mtcars</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span>(<span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span>(<span class='no'>my_cars</span>$<span class='no'>mpg</span>, <span class='no'>my_cars</span>$<span class='no'>wt</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>mpg set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>cyl set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>disp set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>hp set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>drat set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>wt set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>qsec set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>vs set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>am set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>gear set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>carb set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>The study has no hypotheses.</span><span></span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='study.html'>study</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_data.html'>add_data</a></span><span class='op'>(</span><span class='st'>"my_cars"</span>, <span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_analysis.html'>add_analysis</a></span><span class='op'>(</span><span class='st'>"A1"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>my_cars</span><span class='op'>$</span><span class='va'>mpg</span>, <span class='va'>my_cars</span><span class='op'>$</span><span class='va'>wt</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='study_analyse.html'>study_analyse</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>mpg set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>cyl set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>disp set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>hp set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>drat set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>wt set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>qsec set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>vs set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>am set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>gear set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>carb set to dataType int</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>The study has no hypotheses.</span><span></span></div><div class='input'>
 <span class='co'># get Rmd text output</span>
-<span class='fu'>make_script</span>(<span class='no'>s</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>()</div><div class='output co'>#&gt; ---
+<span class='fu'>make_script</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ---
 #&gt; title: "Demo Study"
 #&gt; author: ""
-#&gt; date: "30/09/2020"
+#&gt; date: "17/10/2020"
 #&gt; output:
 #&gt;   html_document:
 #&gt;     toc: true
@@ -238,26 +240,31 @@
 #&gt; ## Analysis 1: A1 {#analysis_1}
 #&gt; 
 #&gt; ```{r}
-#&gt;     cor.test(my_cars$mpg, my_cars$wt)
+#&gt; cor.test(my_cars$mpg, my_cars$wt)
 #&gt; ```
 #&gt; 
 #&gt; ### Stored Results
 #&gt; 
-#&gt; * statistic: `-9.55904414697211`
-#&gt; * parameter: `30`
+#&gt; * statistic: 
+#&gt;     * t: `-9.55904414697211`
+#&gt; * parameter: 
+#&gt;     * df: `30`
 #&gt; * p.value: `1.29395870135052e-10`
-#&gt; * estimate: `-0.867659376517228`
-#&gt; * null.value: `0`
+#&gt; * estimate: 
+#&gt;     * cor: `-0.867659376517228`
+#&gt; * null.value: 
+#&gt;     * correlation: `0`
 #&gt; * alternative: `two.sided`
 #&gt; * method: `Pearson's product-moment correlation`
 #&gt; * data.name: `my_cars$mpg and my_cars$wt`
 #&gt; * conf.int: 
-#&gt;   * `-0.933826413284994`
-#&gt;   * `-0.744087196460113`
+#&gt;     1. `-0.933826413284994`
+#&gt;     2. `-0.744087196460113`
 #&gt; </div><div class='input'><span class='co'># get R text output</span>
-<span class='fu'>make_script</span>(<span class='no'>s</span>, <span class='kw'>use_rmarkdown</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>()</div><div class='output co'>#&gt; # Code for Demo Study
+<span class='fu'>make_script</span><span class='op'>(</span><span class='va'>s</span>, use_rmarkdown <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # Code for Demo Study
 #&gt; # Authors: 
-#&gt; # Created 30/09/2020
+#&gt; # Created 17/10/2020
 #&gt; 
 #&gt; 
 #&gt; 
@@ -284,21 +291,25 @@
 #&gt; 
 #&gt; ## Analysis 1: A1
 #&gt; 
-#&gt;     cor.test(my_cars$mpg, my_cars$wt)
+#&gt; cor.test(my_cars$mpg, my_cars$wt)
 #&gt; 
 #&gt; ### Stored Results
 #&gt; 
-#&gt; # * statistic: -9.55904414697211
-#&gt; # * parameter: 30
+#&gt; # * statistic: 
+#&gt; #     * t: -9.55904414697211
+#&gt; # * parameter: 
+#&gt; #     * df: 30
 #&gt; # * p.value: 1.29395870135052e-10
-#&gt; # * estimate: -0.867659376517228
-#&gt; # * null.value: 0
+#&gt; # * estimate: 
+#&gt; #     * cor: -0.867659376517228
+#&gt; # * null.value: 
+#&gt; #     * correlation: 0
 #&gt; # * alternative: two.sided
 #&gt; # * method: Pearson's product-moment correlation
 #&gt; # * data.name: my_cars$mpg and my_cars$wt
 #&gt; # * conf.int: 
-#&gt; #   * -0.933826413284994
-#&gt; #   * -0.744087196460113
+#&gt; #     1. -0.933826413284994
+#&gt; #     2. -0.744087196460113
 #&gt; </div><div class='input'>
 </div></span></pre>
   </div>
@@ -316,7 +327,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

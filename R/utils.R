@@ -324,7 +324,7 @@ print.scivrs_study <- function(x, ...) {
 #' @export
 #'
 print.scivrs_results <- function(x, ...) {
-  cat(faux::nested_list(x))
+  cat(nested_list(x))
 }
 
 #' Print Author List
@@ -335,7 +335,7 @@ print.scivrs_results <- function(x, ...) {
 #' @export
 #'
 print.scivrs_author <- function(x, ...) {
-  cat(faux::nested_list(x))
+  cat(nested_list(x))
 }
 
 #' Print Authors List
@@ -346,7 +346,7 @@ print.scivrs_author <- function(x, ...) {
 #' @export
 #'
 print.scivrs_authors <- function(x, ...) {
-  cat(faux::nested_list(x))
+  cat(nested_list(x))
 }
 
 #' Less scary green messages
@@ -367,3 +367,122 @@ message <- function (..., domain = NULL, appendLF = TRUE) {
     base::message(..., domain = domain, appendLF = appendLF)
   }
 }
+
+
+#' Output a nested list in RMarkdown list format
+#'
+#' @param x The list
+#' @param pre Text to prefix to each line (e.g., if you want all lines indented 4 spaces to start, use "    ")
+#' @param quote Text to quote values with (e.g., use "`" to make sure values are not parsed as markdown
+#'
+#' @return A character string
+#' @export
+#'
+#' @examples
+#' x <- list(
+#'   a = list(a1 = "Named", a2 = "List"),
+#'   b = list("Unnamed", "List"),
+#'   c = c(c1 = "Named", c2 = "Vector"),
+#'   d = c("Unnamed", "Vector"),
+#'   e = list(e1 = list("A", "B", "C"),
+#'            e2 = list(a = "A", b = "B"),
+#'            e3 = c("A", "B", "C"),
+#'            e4 = 100),
+#'   f = "not a list or vector"
+#' )
+#' nested_list(x)
+nested_list <- function(x, pre = "", quote = "") {
+  txt <- c()
+
+  if (is.function(x)) {
+    fnc <- x %>%
+      jsonlite::toJSON() %>%
+      jsonlite::fromJSON()
+
+    txt <- c("```r", fnc, "```") %>%
+      paste0(pre, "    ", .)
+  } else if (!is.null(x) & !is.atomic(x) & !is.vector(x) & !is.list(x)) {
+    # not a displayable type
+    txt <- class(x)[1] %>% paste0("{", ., "}")
+  } else if (is.null(x) | length(x) == 0) {
+    txt <- "{empty}"
+  } else if (length(x) == 1 &
+             is.null(names(x)) &
+             !is.list(x)) { # single-item unnamed vector
+    txt <- paste0(quote, x, quote)
+  } else { # x is a list, named vector, or vector length > 1
+    # handle named, unnamed, or partially named
+    list_names <- names(x)
+    if (is.null(list_names)) {
+      bullet <- paste0(1:length(x), ". ")
+    } else {
+      blanks <- grep("^$", list_names)
+      list_names[blanks] <- paste0("{", blanks, "}")
+      bullet <- paste0("* ", list_names, ": ")
+    }
+
+    pre2 <- paste0(pre, "    ")
+    txt <- lapply(seq_along(x), function(i) {
+      item <- x[[i]]
+      sub <- nested_list(item, pre2, quote)
+      lbreak <- ifelse(length(item) > 1 | (length(names(item)) > 0), "\n", "")
+      if (grepl("\n", sub)) lbreak <- "\n"
+      paste0(pre, bullet[i], lbreak, sub)
+    })
+  }
+
+  list_txt <- paste(txt, collapse = "\n")
+  class(list_txt) <- c("nested_list", "character")
+
+  list_txt
+}
+
+#' Print Nested List
+#'
+#' @param x The nested_list string
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.nested_list <- function(x, ...) {
+  cat(x)
+}
+
+
+
+#' Replace values if NULL, NA or empty
+#'
+#' @param x vector or list to test
+#' @param replace value to replace with
+#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws()
+#'
+#' @return vector or list with replaced values
+#' @export
+#'
+#' @examples
+#' if_nowt(NULL)
+#' if_nowt(NA)
+#' if_nowt("   ")
+#' if_nowt(c(1, 2, NA), replace = 0)
+#' if_nowt(list(NULL, NA, " "))
+#' if_nowt(list(NULL, NA, " "), test_for = "null")
+#' if_nowt(list(NULL, NA, " "), test_for = "na")
+#' if_nowt(list(NULL, NA, " "), test_for = "trim")
+if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim")) {
+  if (length(x) > 1) {
+    if (is.list(x)) {
+      y <- lapply(x, if_nowt, replace = replace, test_for = test_for)
+    } else {
+      y <- sapply(x, if_nowt, replace = replace, test_for = test_for)
+    }
+    return(y)
+  }
+  if ("null" %in% test_for &
+      isTRUE(is.null(x))) return(replace)
+  if ("na" %in% test_for &
+      isTRUE(is.na(x))) return(replace)
+  if ("trim" %in% test_for &
+      isTRUE(trimws(x) == "")) return(replace)
+  return(x)
+}
+

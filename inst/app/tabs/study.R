@@ -14,7 +14,7 @@ study_tab <- tabItem(
   box(width = 12,
       textInput("custom_info_name", "Custom Info Name", "", "100%"),
       textAreaInput("custom_info_value", "Custom Info Value", "", "100%"),
-      actionButton("add_custom_info", "Add Custom Info")
+      actionButton("custom_info_add", "Add Custom Info", icon("plus"))
   )
 )
 

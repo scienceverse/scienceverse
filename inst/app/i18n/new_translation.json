@@ -237,22 +237,79 @@
       "nl": "Nederlands"
     },
     {
+      "en": "Add Factor"
+    },
+    {
       "en": "Clear"
+    },
+    {
+      "en": "Data Description"
+    },
+    {
+      "en": "Data Format"
     },
     {
       "en": "Data Type"
     },
     {
+      "en": "Delete"
+    },
+    {
       "en": "Description"
+    },
+    {
+      "en": "DV"
+    },
+    {
+      "en": "DV Description"
+    },
+    {
+      "en": "Factor description"
+    },
+    {
+      "en": "Factor name"
+    },
+    {
+      "en": "Factor type"
+    },
+    {
+      "en": "ID"
+    },
+    {
+      "en": "ID Description"
+    },
+    {
+      "en": "Levels"
+    },
+    {
+      "en": "Load Demo"
     },
     {
       "en": "Load Demo Study"
     },
     {
+      "en": "mu"
+    },
+    {
+      "en": "n"
+    },
+    {
       "en": "Name"
     },
     {
+      "en": "Parameters describe"
+    },
+    {
+      "en": "r"
+    },
+    {
       "en": "Required Info"
+    },
+    {
+      "en": "sd"
+    },
+    {
+      "en": "Simulate Data"
     },
     {
       "en": "This section is under construction and quite buggy"

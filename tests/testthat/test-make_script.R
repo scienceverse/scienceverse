@@ -221,8 +221,8 @@ test_that("stored results", {
   quoteres <- c("* a: `1`",
                 "* b: `b`",
                 "* c: ",
-                "  * `1`",
-                "  * `2`")
+                "    1. `1`",
+                "    2. `2`")
 
   expect_equal(x[21:25], quoteres)
 
@@ -230,7 +230,7 @@ test_that("stored results", {
   quoteres <- c("# * a: 1",
                 "# * b: b",
                 "# * c: ",
-                "#   * 1",
-                "#   * 2")
+                "#     1. 1",
+                "#     2. 2")
   expect_equal(x[13:17], quoteres)
 })

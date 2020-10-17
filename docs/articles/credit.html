@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -96,19 +96,21 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">scienceverse</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ************</span>
 <span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span>
 <span class="co">#&gt; http://scienceverse.github.io/</span>
 <span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span>
-<span class="co">#&gt; ************</span></pre></body></html></div>
+<span class="co">#&gt; ************</span></pre></div>
 <div id="credit" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credit" class="anchor"></a>CRediT</h2>
 <p>Scienceverse supports the <a href="https://casrai.org/credit/">CRediT taxonomy</a> for authorship roles.</p>
 <p>Use the function <code><a href="../reference/credit_roles.html">credit_roles()</a></code> to view a list of possible roles and their abbreviations. Set <code>display</code> to <code>"names"</code> or <code>"abbr"</code> to just list the names or abbreviations.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span>()
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1/con] Conceptualization: Ideas; formulation or evolution of overarching research goals and aims.</span>
 <span class="co">#&gt; [2/dat] Data curation: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.</span>
 <span class="co">#&gt; [3/ana] Formal analysis: Application of statistical, mathematical, computational, or other formal techniques to analyse or synthesize study data.</span>
@@ -122,48 +124,51 @@
 <span class="co">#&gt; [11/val] Validation: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.</span>
 <span class="co">#&gt; [12/vis] Visualization: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.</span>
 <span class="co">#&gt; [13/dra] Writing - original draft: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).</span>
-<span class="co">#&gt; [14/edi] Writing - review &amp; editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.</span></pre></body></html></div>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span>(<span class="kw">display</span> <span class="kw">=</span> <span class="st">"names"</span>)
+<span class="co">#&gt; [14/edi] Writing - review &amp; editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "Conceptualization"          "Data curation"             </span>
 <span class="co">#&gt;  [3] "Formal analysis"            "Funding acquisition"       </span>
 <span class="co">#&gt;  [5] "Investigation"              "Methodology"               </span>
 <span class="co">#&gt;  [7] "Project administration"     "Resources"                 </span>
 <span class="co">#&gt;  [9] "Software"                   "Supervision"               </span>
 <span class="co">#&gt; [11] "Validation"                 "Visualization"             </span>
-<span class="co">#&gt; [13] "Writing - original draft"   "Writing - review &amp; editing"</span></pre></body></html></div>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span>(<span class="kw">display</span> <span class="kw">=</span> <span class="st">"abbr"</span>)
+<span class="co">#&gt; [13] "Writing - original draft"   "Writing - review &amp; editing"</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"abbr"</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "con" "dat" "ana" "fun" "inv" "met" "adm" "res" "sof" "sup" "val" "vis"</span>
-<span class="co">#&gt; [13] "dra" "edi"</span></pre></body></html></div>
+<span class="co">#&gt; [13] "dra" "edi"</span></pre></div>
 </div>
 <div id="orcid" class="section level2">
 <h2 class="hasAnchor">
 <a href="#orcid" class="anchor"></a>ORCiD</h2>
 <p>Scienceverse supports recording and searching for <a href="https://orcid.org/">ORCiDs</a>. Every researcher should have an ORCiD to link their papers and avoid problems with name changes.</p>
 <p>You can use the <code><a href="../reference/get_orcid.html">get_orcid()</a></code> function to search for an ORCiD quickly, although you might need to go to their website for more advanced search if they have a common name and you get multiple hits. This function requires a web connection.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">ldb_orcid</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span>(<span class="st">"DeBruine"</span>, <span class="st">"Lisa"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">ldb_orcid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"DeBruine"</span>, <span class="st">"Lisa"</span><span class="op">)</span></pre></div>
 </div>
 <div id="adding-an-author-to-a-study" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-an-author-to-a-study" class="anchor"></a>Adding an author to a study</h2>
 <p>You can add authors to a study object with the <code><a href="../reference/add_author.html">add_author()</a></code> function. Authors must have a <code>surname</code>, and you can optionally add a <code>given</code> name, <code>orcid</code> and <code>roles</code> (using the names, abbreviations, or indices above). You can also make up any other category of information, such as <code>email</code> or <code>affiliation</code>.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># set up an empty study</span>
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span>(<span class="st">"Demo"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="co"># set up an empty study</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> 
 
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span>(<span class="no">s</span>,
-                <span class="kw">surname</span> <span class="kw">=</span> <span class="st">"DeBruine"</span>,
-                <span class="kw">given</span> <span class="kw">=</span> <span class="st">"Lisa M."</span>,
-                <span class="kw">orcid</span> <span class="kw">=</span> <span class="no">ldb_orcid</span>,
-                <span class="kw">roles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"con"</span>, <span class="st">"sof"</span>, <span class="st">"edi"</span>),
-                <span class="kw">email</span> <span class="kw">=</span> <span class="st">"debruine@gmail.com"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_author.html">add_author</a></span>(<span class="kw">surname</span> <span class="kw">=</span> <span class="st">"Lakens"</span>,
-             <span class="kw">given</span> <span class="kw">=</span> <span class="st">"Daniel"</span>,
-             <span class="kw">orcid</span> <span class="kw">=</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span>(<span class="st">"Lakens"</span>, <span class="st">"Daniel"</span>),
-             <span class="kw">roles</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">14</span>))
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span><span class="va">s</span>, 
+                surname <span class="op">=</span> <span class="st">"DeBruine"</span>,
+                given <span class="op">=</span> <span class="st">"Lisa M."</span>,
+                orcid <span class="op">=</span> <span class="va">ldb_orcid</span>, 
+                roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"sof"</span>, <span class="st">"edi"</span><span class="op">)</span>,
+                email <span class="op">=</span> <span class="st">"debruine@gmail.com"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span>surname <span class="op">=</span> <span class="st">"Lakens"</span>,
+             given <span class="op">=</span> <span class="st">"Daniel"</span>,
+             orcid <span class="op">=</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"Lakens"</span>, <span class="st">"Daniel"</span><span class="op">)</span>,
+             roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">s</span>$<span class="no">authors</span></pre></body></html></div>
-<ul>
-<li>1:
-<ul>
+<span class="va">s</span><span class="op">$</span><span class="va">authors</span></pre></div>
+<ol style="list-style-type: decimal">
+<li><ul>
 <li>orcid: 0000-0002-7523-5539</li>
 <li>name:
 <ul>
@@ -172,18 +177,16 @@
 </ul>
 </li>
 <li>roles:
-<ul>
+<ol style="list-style-type: decimal">
 <li>Conceptualization</li>
 <li>Software</li>
 <li>Writing - review &amp; editing</li>
-</ul>
+</ol>
 </li>
 <li>email: <a href="mailto:debruine@gmail.com" class="email">debruine@gmail.com</a>
 </li>
-</ul>
-</li>
-<li>2:
-<ul>
+</ul></li>
+<li><ul>
 <li>orcid: 0000-0002-0247-239X</li>
 <li>name:
 <ul>
@@ -192,21 +195,21 @@
 </ul>
 </li>
 <li>roles:
-<ul>
+<ol style="list-style-type: decimal">
 <li>Conceptualization</li>
 <li>Writing - original draft</li>
 <li>Writing - review &amp; editing</li>
-</ul>
+</ol>
 </li>
-</ul>
-</li>
-</ul>
+</ul></li>
+</ol>
 </div>
 <div id="credit-format" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credit-format" class="anchor"></a>CRediT format</h2>
 <p>You can use the <code><a href="../reference/author_jats.html">author_jats()</a></code> function to format a study’s author list in the machine-readable JATS format requested by CRediT.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">jats</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/author_jats.html">author_jats</a></span>(<span class="no">s</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="va">jats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/author_jats.html">author_jats</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></pre></div>
 <p>The output of <code><a href="../reference/author_jats.html">author_jats()</a></code> looks like this in the source code of a webpage:</p>
 <pre>
 &lt;contrib-group&gt;
@@ -216,9 +219,18 @@
     &lt;surname&gt;DeBruine&lt;/surname&gt;
     &lt;given-names&gt;Lisa M.&lt;/given-names&gt;
   &lt;/string-name&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Conceptualization" &gt;Conceptualization&lt;/role&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Software" &gt;Software&lt;/role&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing" &gt;Writing - review &amp; editing&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Conceptualization"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/conceptualization/"&gt;Conceptualization&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Software"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/software/"&gt;Software&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Writing - review &amp; editing"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/writing-review-editing/"&gt;Writing - review &amp; editing&lt;/role&gt;
 &lt;/contrib&gt;
 &lt;contrib&gt;
   &lt;contrib-id authenticated="true" contrib-id-type="orcid"&gt;https://orcid.org/0000-0002-0247-239X&lt;/contrib-id&gt;
@@ -226,9 +238,18 @@
     &lt;surname&gt;Lakens&lt;/surname&gt;
     &lt;given-names&gt;Daniel&lt;/given-names&gt;
   &lt;/string-name&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Conceptualization" &gt;Conceptualization&lt;/role&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft" &gt;Writing - original draft&lt;/role&gt;
-  &lt;role content-type="https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing" &gt;Writing - review &amp; editing&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Conceptualization"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/conceptualization/"&gt;Conceptualization&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Writing - original draft"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/writing-original-draft/"&gt;Writing - original draft&lt;/role&gt;
+  &lt;role vocab="credit"
+      vocab-identifier="http://credit.niso.org/"
+      vocab-term="Writing - review &amp; editing"
+      vocab-term-identifier="http://credit.niso.org/contributor-roles/writing-review-editing/"&gt;Writing - review &amp; editing&lt;/role&gt;
 &lt;/contrib&gt;
 &lt;/contrib-group&gt;
 </pre>
@@ -250,7 +271,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

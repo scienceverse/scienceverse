@@ -240,7 +240,7 @@ output_analyses <- function(study, header_lvl = 2,
 
       # show each analysis results if available
       if (length(a$results) > 0 & results) {
-        txt <- paste0(txt, faux::nested_list(a$results, quote = "`"), "\n\n")
+        txt <- paste0(txt, nested_list(a$results, quote = "`"), "\n\n")
       }
     }
   }
@@ -273,7 +273,7 @@ output_info <- function(study, header_lvl = 2,
   }
 
   if (length(study$info) > 0) {
-    txt <- paste0(txt, faux::nested_list(study$info), "\n\n")
+    txt <- paste0(txt, nested_list(study$info), "\n\n")
   }
 
   if ("authors" %in% names(study)) {
@@ -292,7 +292,7 @@ output_info <- function(study, header_lvl = 2,
       a$name <- NULL
       a$roles <- NULL
       if (length(a) > 0) {
-        txt <- sprintf("%s\n%s\n", txt, faux::nested_list(a, pre = "  "))
+        txt <- sprintf("%s\n%s\n", txt, nested_list(a, pre = "  "))
       }
     }
     txt <- paste0(txt, "\n\n")
