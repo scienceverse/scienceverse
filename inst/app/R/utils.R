@@ -91,6 +91,28 @@ make_hyp_list <- function(h) {
   t(tbl) %>% as.data.frame()
 }
 
+make_dat_list <- function(d) {
+  if (length(d) == 0) return(data.frame())
+
+  tbl <- sapply(d, function(x) {
+    cols <- ""
+    if (!is.null(x$codebook$variableMeasured)) {
+      cols <- x$codebook$variableMeasured %>%
+        sapply(`[[`, "name") %>%
+        paste(collapse = ", ")
+    } else if (is.data.frame(x$data)) {
+      cols <- names(x$data) %>%
+        paste(collapse = ", ")
+    }
+    list(
+      id = x$id,
+      columns = cols
+    )
+  })
+
+  t(tbl) %>% as.data.frame()
+}
+
 make_ana_list <- function(s) {
   if (length(s$analyses) == 0) return(data.frame())
 

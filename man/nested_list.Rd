@@ -29,7 +29,8 @@ x <- list(
            e2 = list(a = "A", b = "B"),
            e3 = c("A", "B", "C"),
            e4 = 100),
-  f = "not a list or vector"
+  f = "single item vector",
+  g = list()
 )
 nested_list(x)
 }

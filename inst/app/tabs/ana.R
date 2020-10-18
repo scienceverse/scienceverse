@@ -2,13 +2,15 @@
 ana_tab <- tabItem(
   tabName = "ana_tab",
   h3("Analyses"),
-  #uiOutput("analyses_list", class="section_list"),
   dataTableOutput("ana_table"),
   actionButton("ana_add", "Add Analysis", icon("plus")),
   actionButton("ana_delete", "Delete", icon("trash")),
   actionButton("ana_clear", "Clear", icon("times")),
+  actionButton("study_analyse", "Run All Analyses",
+               style = "float: right;"),
 
-  box(width = 12,
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Required Info",
       textInput("ana_id", "Analysis ID", "", "100%"),
       textAreaInput("ana_code", "Analysis Code", "", "100%"),
   ),
@@ -21,5 +23,9 @@ ana_tab <- tabItem(
         column(width = 4, actionButton("add_return", "Add Return Value"))
       ),
       tableOutput("ana_return_list")
+  ),
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Results",
+      uiOutput("ana_results")
   )
 )

@@ -1,5 +1,5 @@
 test_that("make_func", {
-  make_func("myfunc", "t.test(rnorm(100))", "", environment())
+  make_func("myfunc", "t.test(rnorm(100))", environment())
   myfunc2 <- function() { t.test(rnorm(100)) }
   expect_equal(myfunc, myfunc2)
 
@@ -11,7 +11,7 @@ test_that("study env", {
   s <- study()
   e <- attr(s, "env")
 
-  make_func("myfunc", "t.test(rnorm(100))", "", e)
+  make_func("myfunc", "t.test(rnorm(100))", e)
   myfunc2 <- function() { t.test(rnorm(100)) }
   expect_equal(e$myfunc, myfunc2)
 
@@ -20,44 +20,27 @@ test_that("study env", {
 })
 
 test_that("unnamed return list", {
-  code <- "{
-    a <- 1
-    b <- 2
-    c <- 3
-  }"
-  make_func("myfunc", code, list("a", "b", "c"), environment())
-  x <- myfunc()
-  expect_equal(x, list("a" = 1, "b" = 2, "c" = 3))
-
-  remove(myfunc)
+  r <- list("a", "b", "c")
+  ret <- c("# return values",
+           "list(",
+           "    `a` = a,",
+           "    `b` = b,",
+           "    `c` = c",
+           ")")
+  expect_equal(make_return(r), ret)
 })
 
 test_that("named return list", {
-  code <- "{
-    a <- 1
-    b <- 2
-    c <- 3
-    d <- list(e = 4, f = 5)
-  }"
-  make_func("myfunc", code, list(a = "a", b = "b", e = "d$e", g = "c/2"), environment())
-  x <- myfunc()
-  expect_equal(x, list("a" = 1, "b" = 2, "e" = 4, "g" = 1.5))
-
-  remove(myfunc)
+  r <- list(a = 1, b = 2, c = 3)
+  ret <- c("# return values",
+           "list(",
+           "    `a` = 1,",
+           "    `b` = 2,",
+           "    `c` = 3",
+           ")")
+  expect_equal(make_return(r), ret)
 })
 
-test_that("return vector", {
-  code <- "{
-    a <- 1
-    b <- 2
-    c <- 3
-  }"
-  make_func("myfunc", code, c("a", "b", "c"), environment())
-  x <- myfunc()
-  expect_equal(x, list("a" = 1, "b" = 2, "c" = 3))
-
-  remove(myfunc)
-})
 
 test_that("code from match.call", {
   get_func <- function(x) { match.call()$x }
@@ -65,7 +48,7 @@ test_that("code from match.call", {
     dat <- iris
     t.test(dat$Sepal.Width)
   }) %>% utils::capture.output()
-  make_func("myfunc", code, "", environment())
+  make_func("myfunc", code, environment())
   x <- myfunc()
   dat <- iris
   y <- t.test(dat$Sepal.Width)
@@ -74,7 +57,7 @@ test_that("code from match.call", {
 })
 
 test_that("bad function names", {
-  make_func("my *BAD* func", "t.test(rnorm(100))", "", environment())
+  make_func("my *BAD* func", "t.test(rnorm(100))", environment())
   expect_true(exists("my_BAD_func"))
   remove(my_BAD_func)
 })

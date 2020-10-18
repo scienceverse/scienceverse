@@ -17,26 +17,16 @@
 #'   output_custom_code()
 output_custom_code <- function(study, analysis_id = 1, prefix = "") {
   a_id <- get_idx(study, analysis_id, "analyses")
-  analysis <- study$analyses[[a_id]]
-
-  if (is.function(analysis$code)) {
-    analysis$code <- analysis$code %>%
-      jsonlite::toJSON() %>%
-      jsonlite::fromJSON() %>%
-      as.list()
-
-    end <- length(analysis$code)-1
-    analysis$code <- analysis$code[3:end]
-  }
+  code <- study$analyses[[a_id]]$code
 
   ## strip minimum leading space
-  strip_space <- analysis$code %>%
+  strip_space <- code %>%
     sub("^( *).*$", "\\1", .) %>%
     nchar() %>% min() %>% rep(" ", .) %>%
     paste(collapse = "") %>%
     paste0("^", .)
 
-  analysis$code %>%
+  code %>%
     gsub(strip_space, "", .) %>%
     paste(collapse= paste0("\n", prefix)) %>%
     paste0(prefix, .)

@@ -27,40 +27,42 @@ add_analysis <- function(study, id = NULL, code = "", return = "", type = c("fun
   if (type == "file") {
     if (file.exists(code)) {
       # make function from .R file
-      code <- readLines(code)
+      codeText <- readLines(code)
     } else {
       stop("The file ", code, " was not found.")
     }
   } else if (type == "text") {
-    code <- code
+    codeText <- code
   } else {
     code_call <- match.call()$code
     if (is.language(code_call)) {
-      code <- utils::capture.output(code_call)
+      codeText <- utils::capture.output(code_call)
     } else if (isTRUE(code == "")) {
       # handles empty code
-      code <- code
+      codeText <- code
     } else {
       stop("The code was not a function.")
     }
   }
+
+  # add return list
+  codeText <- c(codeText, make_return(return))
 
   # get study environment
   env <- attr(study, "env")
 
   # create function
   func <- paste0("analysis_", id)
-  make_func(func, code, return, env)
+  make_func(func, codeText, env)
 
   if (!methods::existsFunction(func, where = env)) {
     stop("The function ", func, " is not defined")
   }
 
-  code <- methods::getFunction(func, where = env)
-
   analysis <- list(
     id = id,
-    code = code
+    code = codeText,
+    func = methods::getFunction(func, where = env)
   )
   analysis <- c(analysis, list(...))
 
@@ -104,38 +106,41 @@ update_analysis <- function(study, id, code = NULL,
   if (type == "file") {
     if (file.exists(code)) {
       # make function from .R file
-      code <- readLines(code)
+      codeText <- readLines(code)
     } else {
       stop("The file ", code, " was not found.")
     }
   } else if (type == "text") {
-    code <- code
+    codeText <- code
   } else {
     code_call <- match.call()$code
     if (is.language(code_call)) {
-      code <- utils::capture.output(code_call)
+      codeText <- utils::capture.output(code_call)
     } else if (isTRUE(code == "")) {
       # handles empty code
-      code <- code
+      codeText <- code
     } else {
-      code <- output_custom_code(study, id)
+      codeText <- output_custom_code(study, id)
     }
   }
 
-  if (!is.null(code) | isTRUE(return != "")) {
+  # add return list
+  codeText <- c(codeText, make_return(return))
+
+  if (!is.null(codeText)) {
     # get study environment
     env <- attr(study, "env")
 
     # create function
     func <- paste0("analysis_", study$analyses[[idx]]$id)
-    make_func(func, code, return, env)
+    make_func(func, codeText, env)
 
     if (!methods::existsFunction(func, where = env)) {
       stop("The function ", func, " is not defined")
     }
 
-    code <- methods::getFunction(func, where = env)
-    study$analyses[[idx]]$code <- code
+    study$analyses[[idx]]$code <- codeText
+    study$analyses[[idx]]$func <- methods::getFunction(func, where = env)
   }
 
   ## merge ... extras
@@ -145,4 +150,50 @@ update_analysis <- function(study, id, code = NULL,
   }
 
   invisible(study)
+}
+
+#' Make a function
+#'
+#' @param func the function name
+#' @param code the function body (as character, vector, or list)
+#' @param envir the environment in which to define the function
+#'
+#' @return creates a function
+#' @keywords internal
+#'
+make_func <- function(func, code, envir = .GlobalEnv) {
+  p <- paste0(
+    fix_id(func),
+    " <- function() {\n  ",
+    paste(code, collapse = "\n  ") %>% trimws(),
+    "\n}"
+  )
+
+  tryCatch(eval(parse(text = p), envir = envir),
+           error = function(e) {
+             stop("The function ", func, " has errors.")
+           })
+}
+
+#' Make return list
+#'
+#' @param return a vector of names of objects to return from the function
+#'
+#' @return character string of return list
+#' @keywords internal
+#'
+make_return <- function(return) {
+  if (return[1] == "" & length(return) > 0) {
+    return(NULL)
+  }
+
+  if (is.null(names(return))) {
+    names(return) <- return
+  }
+
+  paste0('    `', names(return), '` = ', return) %>%
+    paste0(collapse = ",\n") %>%
+    paste0("# return values\nlist(\n", ., "\n)") %>%
+    strsplit("\n") %>%
+    `[[`(1)
 }

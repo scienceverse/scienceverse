@@ -38,13 +38,12 @@ ui <- dashboardPage(
       menuItem("Summaries", tabName = "output_tab")
     ),
     actionButton("demo", "Load Demo Study"),
-    actionButton("study_analyse", "Analyse Data"),
     actionButton("reset_study", "Reset Study"),
 
     selectInput("lang", "Change language",
                 choices = c(English = "en", Dutch = "nl"),
                 selected = "en"),
-    p("Most of the phrases have not been translated; this is just a proof of concept.")
+    p("Most of the phrases have not been translated; this is just a proof of concept.", style="margin: 0 1em;")
   ),
   dashboardBody(
     shinyjs::useShinyjs(),
@@ -64,30 +63,6 @@ ui <- dashboardPage(
   )
 )
 
-## save translations ----
-is_local <- Sys.getenv('SHINY_PORT') == ""
-if (is_local) {
-  all_text <- c(trans_text, trans_labels) %>%
-    unname() %>%
-    unlist() %>%
-    unique() %>%
-    sort()
-
-  j <- jsonlite::read_json("i18n/translation.json")
-  cur_text <- sapply(j$translation, "[[", "en")
-  new_text <- setdiff(all_text, cur_text) %>%
-    lapply(function(x) { list("en" = x) })
-
-  if (length(new_text)) {
-    j$translation <- c(j$translation, new_text)
-
-    # save to new_translation so user can choose to update
-    jsonlite::toJSON(j, auto_unbox = TRUE) %>%
-      jsonlite::prettify(2) %>%
-      write("i18n/new_translation.json")
-  }
-}
-
 
 ## server ----
 server <- function(input, output, session) {
@@ -96,7 +71,7 @@ server <- function(input, output, session) {
   ## . . create translator ----
   i18n <- reactive({
     selected <- input$lang
-    if (length(selected) > 0 && selected %in% translator$languages) {
+    if (length(selected) > 0 && selected %in% translator$get_languages()) {
       translator$set_translation_language(selected)
     }
     translator
@@ -106,27 +81,44 @@ server <- function(input, output, session) {
   observeEvent(input$lang, {
     # text changes (h3, h4, p)
     for (h in trans_text) {
+      suppressWarnings(tt <- i18n()$t(h))
+
       js <- sprintf("$('*[en=\"%s\"]').text(\"%s\");",
-                    gsub("'", "\\\\'", h),
-                    i18n()$t(h))
+                    gsub("'", "\\\\'", h), tt)
       shinyjs::runjs(js)
     }
 
     # input label changes
     for (func in names(trans_labels)) {
       for (nm in names(trans_labels[[func]])) {
+        l <- trans_labels[[func]][[nm]]
+        tl <- suppressWarnings(
+          i18n()$t(l)
+        )
+
         args <- list(
           session = session,
           inputId = nm,
-          label = i18n()$t(trans_labels[[func]][[nm]])
+          label = tl
         )
         do.call(func, args)
       }
     }
   })
 
+  # constants ----
+  dt_options <- list(
+    info = FALSE,
+    lengthChange = FALSE,
+    paging = FALSE,
+    ordering = FALSE,
+    searching = FALSE,
+    pageLength = 500
+  )
+
   # reactive Vals ----
   hyp_clear <- makeReactiveTrigger()
+  dat_clear <- makeReactiveTrigger()
   ana_clear <- makeReactiveTrigger()
   my_study <- reactiveVal( study(name = "", description = "") )
   criteria <- reactiveVal(list())
@@ -154,6 +146,7 @@ server <- function(input, output, session) {
 
   # on startup ----
   shinyjs::hide("hyp_delete")
+  shinyjs::hide("dat_delete")
   shinyjs::hide("ana_delete")
   shinyjs::hide("study_analyse")
 
@@ -212,15 +205,13 @@ server <- function(input, output, session) {
 
     if (length(s$analyses) == 0) {
       i18n()$t("No analyses have been specified") %>%
-        sprintf("alert('%s')", .) %>%
-        runjs()
+        shinyjs::alert()
     } else {
       tryCatch(s <- study_analyse(s),
                error = function(e) {
-                 js <- sprintf('alert("%s");', e$message)
-                 runjs(js)
+                 shinyjs::alert(e$message)
       })
-      updateTabItems(session, "tabs", "output_tab")
+      updateTabItems(session, "tabs", "ana_tab")
       my_study(s)
     }
   })
@@ -314,8 +305,7 @@ server <- function(input, output, session) {
     } else {
       i18n()$t("%d ORCiDs found") %>%
         sprintf(n) %>%
-        sprintf('alert("%s");', .) %>%
-        runjs()
+        shinyjs::alert()
     }
   })
 
@@ -414,8 +404,7 @@ server <- function(input, output, session) {
     ord <- strsplit(input$author_order, ",")[[1]] %>% as.integer()
     if (length(unique(ord)) != length(ord)) {
       i18n()$t("Each author must have a unique order") %>%
-        sprintf('alert("%s");', .) %>%
-        runjs()
+        shinyjs::alert()
     } else {
       a <- authors()
       authors(a[ord])
@@ -570,16 +559,13 @@ server <- function(input, output, session) {
                  "", input$hyp_id)
         },
         message = function(e) {
-          sprintf('alert("%s");', e$message) %>%
-            runjs()
+          shinyjs::alert(e$message)
         },
         warning = function(e) {
-          sprintf('alert("%s");', e$message) %>%
-            runjs()
+          shinyjs::alert(e$message)
         },
         error = function(e) {
-          sprintf('alert("%s");', e$message) %>%
-            runjs()
+          shinyjs::alert(e$message)
           return(FALSE)
         }
       )
@@ -591,16 +577,13 @@ server <- function(input, output, session) {
                  "", input$hyp_id)
         },
         message = function(e) {
-          sprintf('alert("%s");', e$message) %>%
-            runjs()
+          shinyjs::alert(e$message)
         },
         warning = function(e) {
-          sprintf('alert("%s");', e$message) %>%
-            runjs()
+          shinyjs::alert(e$message)
         },
         error = function(e) {
-          sprintf('alert("%s");', e$warning) %>%
-            runjs()
+          shinyjs::alert(e$message)
           return(FALSE)
         }
       )
@@ -623,13 +606,7 @@ server <- function(input, output, session) {
       style = 'bootstrap',
       class = 'table-bordered table-condensed',
       rownames = FALSE,
-      options = list(
-        lengthChange = FALSE,
-        paging = FALSE,
-        ordering = FALSE,
-        searching = FALSE,
-        pageLength = 100
-      )
+      options = dt_options
   )
 
   # . . hyp_clear ----
@@ -764,13 +741,7 @@ server <- function(input, output, session) {
       style = 'bootstrap',
       class = 'table-bordered table-condensed',
       rownames = FALSE,
-      options = list(
-        lengthChange = FALSE,
-        paging = FALSE,
-        ordering = FALSE,
-        searching = FALSE,
-        pageLength = 100
-      )
+      options = dt_options
   )
 
   # . . criteria_warning ----
@@ -820,15 +791,13 @@ server <- function(input, output, session) {
       s, input$ana_id, input$ana_code,
       return = r, type = "text")},
              error = function(e) {
-               js <- sprintf('alert("%s");', e$message)
-               runjs(js)
+               shinyjs::alert(e$message)
                return(FALSE)
              })
 
     # reset inputs
     if (!isFALSE(s)) {
       my_study(s)
-
       shinyjs::show("study_analyse")
       shinyjs::click("ana_clear")
     }
@@ -856,13 +825,7 @@ server <- function(input, output, session) {
       style = 'bootstrap',
       class = 'table-bordered table-condensed',
       rownames = FALSE,
-      options = list(
-        lengthChange = FALSE,
-        paging = FALSE,
-        ordering = FALSE,
-        searching = FALSE,
-        pageLength = 100
-      )
+      options = dt_options
   )
 
 
@@ -894,9 +857,21 @@ server <- function(input, output, session) {
     code <- output_custom_code(s, idx)
     updateTextAreaInput(session, "ana_code", value = code)
     updateActionButton(session, "ana_add", i18n()$t("Update Analysis"))
-
   })
 
+  ## . . ana_results ----
+  output$ana_results <- renderUI({
+    if (is_nowt(input$ana_id)) return()
+
+    s <- my_study()
+    a_ids <- sapply(s$analyses, `[[`, "id")
+    idx <- match(input$ana_id, a_ids)
+
+    s$analyses[[idx]]$results %>%
+      nested_list() %>%
+      markdown::renderMarkdown(text = .) %>%
+      HTML()
+  })
 
   ## . . ana_delete ----
   observeEvent(input$ana_delete, {
@@ -905,6 +880,9 @@ server <- function(input, output, session) {
 
     s <- my_study()
     s$analyses[[idx]] <- NULL
+    if (length(s$analyses) == 0) {
+      shinyjs::hide("study_analyse")
+    }
     my_study(s)
     shinyjs::click("ana_clear")
   }, ignoreNULL = TRUE)
@@ -961,23 +939,35 @@ server <- function(input, output, session) {
     }
   })
 
-  # . . dat_table ----
-  output$dat_table <- renderDT(
+  # . . data_table ----
+  output$data_table <- renderDT(
     loaded_data(), rownames = FALSE,
     style = 'bootstrap',
     class = 'table-bordered table-condensed'
   )
 
-  # . . data_list ----
-  output$data_list <- renderUI({
-    make_section_list(my_study(), "data")
-  })
+  # . . dat_table ----
+  output$dat_table <- renderDT({
+    dat_clear$depend()
+    d <- my_study()$data
+    make_dat_list(d)
+  },  escape = TRUE,
+      selection = "single",
+      style = 'bootstrap',
+      class = 'table-bordered table-condensed',
+      rownames = FALSE,
+      options = dt_options
+  )
 
-  # . . data_edit ----
-  observeEvent(input$data_edit, {
-    #shinyjs::click("dat_clear")
+  # . . dat_edit ----
+  observeEvent(input$dat_table_rows_selected, {
+    idx <- input$dat_table_rows_selected
+    if (length(idx) == 0) {
+      shinyjs::click("dat_clear")
+      return()
+    }
+
     s <- my_study()
-    idx <- as.integer(input$data_edit)
     d <- s$data[[idx]]
     desc <- if_nowt(d$description)
 
@@ -987,6 +977,7 @@ server <- function(input, output, session) {
     cb(get_codebook(s, data_id = idx))
 
     updateActionButton(session, "dat_add", i18n()$t("Update Data"))
+    shinyjs::show("dat_delete")
   }, ignoreNULL = TRUE)
 
   # . . codebook_json ----
@@ -996,18 +987,27 @@ server <- function(input, output, session) {
       jsonlite::prettify(4)
   })
 
-  # . . data_delete ----
-  observeEvent(input$data_delete, {
-    section_delete("data", input$data_delete)
+  ## . . dat_delete ----
+  observeEvent(input$dat_delete, {
+    idx <- input$dat_table_rows_selected[1]
+    if (length(idx) == 0) return()
+
+    s <- my_study()
+    s$data[[idx]] <- NULL
+    my_study(s)
+    shinyjs::click("dat_clear")
   }, ignoreNULL = TRUE)
 
   # . . dat_clear ----
   observeEvent(input$dat_clear, {
+    shinyjs::hide("dat_delete")
     updateActionButton(session, "dat_add", i18n()$t("Add Data"))
     loaded_data(data.frame())
     cb(codebook(loaded_data(), "", return = "list"))
     c("dat_id", "dat_desc", "dat_file", "var_name", "var_desc", "var_type") %>%
       lapply(shinyjs::reset)
+
+    dat_clear$trigger() # fix interface jitter
   }, ignoreNULL = TRUE)
 
   # . . cb() ----
@@ -1250,8 +1250,7 @@ server <- function(input, output, session) {
     } else {
       "All inputs for n must be integers" %>%
         i18n()$t() %>%
-        sprintf("alert('%s')", .) %>%
-        shinyjs::runjs()
+        shinyjs::alert()
       shinyjs::addClass("n", "warning")
     }
   })
@@ -1289,8 +1288,7 @@ server <- function(input, output, session) {
     } else {
       "All inputs for mu must be numbers" %>%
         i18n()$t() %>%
-        sprintf("alert('%s')", .) %>%
-        shinyjs::runjs()
+        shinyjs::alert()
       shinyjs::addClass("mu", "warning")
     }
   })
@@ -1329,8 +1327,7 @@ server <- function(input, output, session) {
     } else {
       "All inputs for sd must be positive numbers" %>%
         i18n()$t() %>%
-        sprintf("alert('%s')", .) %>%
-        shinyjs::runjs()
+        shinyjs::alert()
       shinyjs::addClass("sd", "warning")
     }
   })
@@ -1393,8 +1390,7 @@ server <- function(input, output, session) {
     } else {
       "All inputs for r must be numbers between -1 and 1" %>%
         i18n()$t() %>%
-        sprintf("alert('%s')", .) %>%
-        shinyjs::runjs()
+        shinyjs::alert()
       shinyjs::addClass("r", "warning")
     }
   })
@@ -1519,13 +1515,7 @@ server <- function(input, output, session) {
   }, style = 'bootstrap',
      class = 'table-bordered table-condensed',
      rownames = FALSE,
-     options = list(
-        lengthChange = FALSE,
-        paging = FALSE,
-        ordering = FALSE,
-        searching = FALSE,
-        pageLength = 500
-     )
+     options = dt_options
   )
 
   # . . factor_add ----
@@ -1650,9 +1640,7 @@ server <- function(input, output, session) {
       s <- study(input$load_json$datapath)
       update_from_study(s)
     }, error = function(e) {
-      message(e)
-      sprintf("alert('%s')", e) %>%
-        shinyjs::runjs()
+      shinyjs::alert(e$message)
     })
   })
 
@@ -1692,7 +1680,9 @@ server <- function(input, output, session) {
     update_from_study(s)
   })
 
+  save_trans(trans_text, trans_labels)
 
 } # end server()
 
 shinyApp(ui, server)
+

@@ -18,9 +18,11 @@ test_that("defaults", {
 
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
-  expect_equal(s$analyses[[1]]$code, function() {
+  expect_equal(s$analyses[[1]]$func, function() {
     t.test(rnorm(100))
   })
+  expect_equal(s$analyses[[1]]$code, "t.test(rnorm(100))")
+
 })
 
 # as text ----
@@ -29,9 +31,10 @@ test_that("as text", {
     add_analysis(NULL, "t.test(rnorm(100))", type = "text")
   expect_equal(length(s$analyses), 1)
   expect_equal(s$analyses[[1]]$id, 1)
-  expect_equal(s$analyses[[1]]$code, function() {
+  expect_equal(s$analyses[[1]]$func, function() {
     t.test(rnorm(100))
   })
+  expect_equal(s$analyses[[1]]$code, "t.test(rnorm(100))")
 })
 
 # custom function ----
@@ -42,11 +45,24 @@ test_that("custom function", {
       b <- 2
     }
 
+    # return values
     list(
       "a" = a,
       "b" = b
     )
   }
+
+  ct <- c(
+    "{",
+    "    a <- 1",
+    "    b <- 2",
+    "}",
+    "# return values",
+    "list(",
+    "    `a` = a,",
+    "    `b` = b",
+    ")"
+  )
 
   s2 <- study() %>%
     add_analysis(NULL, t.test(rnorm(100))) %>%
@@ -56,7 +72,8 @@ test_that("custom function", {
   }, c("a", "b"))
   expect_equal(length(s2$analyses), 2)
   expect_equal(s2$analyses[[2]]$id, "a2")
-  expect_equal(s2$analyses[[2]]$code, myfunc)
+  expect_equal(s2$analyses[[2]]$func, myfunc)
+  expect_equal(s2$analyses[[2]]$code, ct)
 
   expect_message(s3 <- add_analysis(s2, "a3 with spaces", a <- 1), "id \"a3 with spaces\" changed to \"a3_with_spaces\"")
   expect_equal(s3$analyses[[3]]$id, "a3_with_spaces")
@@ -65,23 +82,25 @@ test_that("custom function", {
 # function with undefined data ----
 test_that("undefined data", {
   s <- study() %>%
-    add_analysis("A1", {
-      t.test(dat$a, dat$b)
-    })
+    add_analysis("A1", t.test(dat$a, dat$b))
 
-  func <- function() {{ t.test(dat$a, dat$b) }}
-  expect_equal(s$analyses[[1]]$code, func)
+  func <- function() { t.test(dat$a, dat$b) }
+  expect_equal(s$analyses[[1]]$func, func)
 })
 
 # add from file ----
 test_that("add from file", {
   #testthat::skip("only works in testthat")
+  f <- "input-data/custom_code.R"
   s <- study() %>%
-    add_analysis(NULL, "input-data/custom_code.R", type = "file")
+    add_analysis(NULL, f, type = "file")
+
+  txt <- readLines(f)
 
   func <- function() { answer <- a + b }
 
-  expect_equal(s$analyses[[1]]$code, func)
+  expect_equal(s$analyses[[1]]$func, func)
+  expect_equal(s$analyses[[1]]$code, txt)
 })
 
 
@@ -98,20 +117,20 @@ test_that("return", {
   s <- study() %>%
     add_analysis("A1", { a = 1; b = 2 }, list("a", "b"))
 
-  res <- s$analyses[[1]]$code()
+  res <- s$analyses[[1]]$func()
   expect_equal(res, list(a = 1, b = 2))
 
   code <- output_custom_code(s)
-  expect_equal(code, "{\n    a = 1\n    b = 2\n}\nlist(a = a, b = b)")
+  expect_equal(code, "{\n    a = 1\n    b = 2\n}\n# return values\nlist(\n    `a` = a,\n    `b` = b\n)")
 
   s <- study() %>%
     add_analysis("A1", { a = 1; b = 2 }, list(a1 = "a", a2 = "b"))
 
-  res <- s$analyses[[1]]$code()
+  res <- s$analyses[[1]]$func()
   expect_equal(res, list(a1 = 1, a2 = 2))
 
   code <- output_custom_code(s)
-  expect_equal(code, "{\n    a = 1\n    b = 2\n}\nlist(a1 = a, a2 = b)")
+  expect_equal(code, "{\n    a = 1\n    b = 2\n}\n# return values\nlist(\n    `a1` = a,\n    `a2` = b\n)")
 
 })
 
@@ -131,7 +150,7 @@ test_that("update_analysis", {
 
   expect_equal(s$analyses[[1]]$id, "ANA1")
   expect_equal(s$analyses[[1]]$description, "20 rnorm")
-  expect_equal(s$analyses[[1]]$code, function() { rnorm(20) })
+  expect_equal(s$analyses[[1]]$func, function() { rnorm(20) })
 
   s <- study() %>%
     add_analysis("A1", rnorm(10), description = "10 random numbers") %>%
@@ -139,7 +158,7 @@ test_that("update_analysis", {
 
   expect_equal(s$analyses[[1]]$id, "A1")
   expect_equal(s$analyses[[1]]$description, "10 random numbers")
-  expect_equal(s$analyses[[1]]$code, function() { rnorm(20) })
+  expect_equal(s$analyses[[1]]$func, function() { rnorm(20) })
   code <- output_custom_code(s) %>% trimws()
   expect_equal(code, "rnorm(20)")
 
@@ -159,7 +178,7 @@ test_that("update_analysis", {
   env2 <- attr(s2, "env")
 
   expect_equal(env1, env2)
-  expect_equal(s2$analyses[[2]]$code, function() {t.test(i$Petal.Width)})
+  expect_equal(s2$analyses[[2]]$func, function() {t.test(i$Petal.Width)})
 
   # change returns
   s <- study() %>%

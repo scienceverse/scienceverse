@@ -53,5 +53,5 @@ test_that("analyses", {
   s <- study() %>% add_analysis("A1", t.test(rnorm(100)))
   j <- study_to_json(s)
 
-  expect_equal(grep("\"code\"\\: \"    t\\.test\\(rnorm\\(100\\)\\)\"", j), 1)
+  expect_equal(grep("\"code\"\\: \"t\\.test\\(rnorm\\(100\\)\\)\"", j), 1)
 })

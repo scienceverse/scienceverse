@@ -199,47 +199,6 @@ get_env_name <- function(f) {
   attached[vapply(envs, function(env) exists(f, env, inherits = FALSE), logical(1))]
 }
 
-#' Make a function
-#'
-#' @param func the function name
-#' @param code the function body
-#' @param return a list of names of objects to return from the function (if blank, defaults to last value from the code, which should be a named list)
-#' @param envir the environment in which to define the function
-#'
-#' @return creates a function
-#' @keywords internal
-#'
-make_func <- function(func, code, return = "", envir = .GlobalEnv) {
-  if (return[1] != "" & length(return) > 0) {
-    if (is.null(names(return))) {
-      names(return) <- return
-    }
-    for (r in 1:length(return)) {
-      key <- names(return)[r]
-      var <-  return[r]
-      return[r] <- paste0('  "', key, '" = ', var)
-    }
-    return = paste0(
-      "\n\n  # return values\n  list(\n    ",
-      paste(return, collapse = ",\n    "),
-      "\n  )"
-    )
-  }
-
-  p <- paste0(
-    fix_id(func),
-    " <- function() {\n  ",
-    paste(code, collapse = "\n  ") %>% trimws(),
-    return,
-    "\n}"
-  )
-
-  tryCatch(eval(parse(text = p), envir = envir),
-           error = function(e) {
-             stop("The function ", func, " has errors.")
-           })
-}
-
 
 #' Load Params
 #'
@@ -388,7 +347,8 @@ message <- function (..., domain = NULL, appendLF = TRUE) {
 #'            e2 = list(a = "A", b = "B"),
 #'            e3 = c("A", "B", "C"),
 #'            e4 = 100),
-#'   f = "not a list or vector"
+#'   f = "single item vector",
+#'   g = list()
 #' )
 #' nested_list(x)
 nested_list <- function(x, pre = "", quote = "") {
@@ -400,7 +360,7 @@ nested_list <- function(x, pre = "", quote = "") {
       jsonlite::fromJSON()
 
     txt <- c("```r", fnc, "```") %>%
-      paste0(pre, "    ", .)
+      paste0(pre, .)
   } else if (!is.null(x) & !is.atomic(x) & !is.vector(x) & !is.list(x)) {
     # not a displayable type
     txt <- class(x)[1] %>% paste0("{", ., "}")
@@ -425,6 +385,7 @@ nested_list <- function(x, pre = "", quote = "") {
     txt <- lapply(seq_along(x), function(i) {
       item <- x[[i]]
       sub <- nested_list(item, pre2, quote)
+      # add line break unless item is unnamed and length = 1
       lbreak <- ifelse(length(item) > 1 | (length(names(item)) > 0), "\n", "")
       if (grepl("\n", sub)) lbreak <- "\n"
       paste0(pre, bullet[i], lbreak, sub)
@@ -448,13 +409,53 @@ print.nested_list <- function(x, ...) {
   cat(x)
 }
 
+#' Check if values are NULL, NA or empty
+#'
+#' @param x vector or list to test
+#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)
+#'
+#' @return vector or list of logical values
+#' @export
+#'
+#' @examples
+#' x <- list(NULL, NA, " ", list())
+#' is_nowt(x)
+#' is_nowt(x, test_for = "null")
+#' is_nowt(x, test_for = "na")
+#' is_nowt(x, test_for = "trim")
+#' is_nowt(x, test_for = "empty")
+#'
+is_nowt <- function(x, test_for = c("null", "na", "trim", "empty")) {
+  # only handles atomic vectors and lists
+  if (!is.atomic(x) & !is.list(x)) return(FALSE)
+
+  if (length(x) > 1) {
+    args <- list(X = x, FUN = is_nowt,
+                 test_for = test_for)
+    func <- ifelse(is.list(x), lapply, sapply)
+    y <- do.call(func, args)
+    return(y)
+  }
+
+  nowt <- FALSE
+  if ("null" %in% test_for)
+    nowt <- nowt | isTRUE(is.null(x))
+  if ("na" %in% test_for)
+    nowt <- nowt | isTRUE(is.na(x))
+  if ("trim" %in% test_for)
+    nowt <- nowt | isTRUE(trimws(x) == "")
+  if ("empty" %in% test_for)
+    nowt <- nowt | (is.list(x) & length(x) == 0)
+
+  return(nowt)
+}
 
 
 #' Replace values if NULL, NA or empty
 #'
 #' @param x vector or list to test
 #' @param replace value to replace with
-#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws()
+#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)
 #'
 #' @return vector or list with replaced values
 #' @export
@@ -464,25 +465,26 @@ print.nested_list <- function(x, ...) {
 #' if_nowt(NA)
 #' if_nowt("   ")
 #' if_nowt(c(1, 2, NA), replace = 0)
-#' if_nowt(list(NULL, NA, " "))
-#' if_nowt(list(NULL, NA, " "), test_for = "null")
-#' if_nowt(list(NULL, NA, " "), test_for = "na")
-#' if_nowt(list(NULL, NA, " "), test_for = "trim")
-if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim")) {
+#' x <- list(NULL, NA, " ", list())
+#' if_nowt(x)
+#' if_nowt(x, test_for = "null")
+#' if_nowt(x, test_for = "na")
+#' if_nowt(x, test_for = "trim")
+#' if_nowt(x, test_for = "empty")
+if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim", "empty")) {
   if (length(x) > 1) {
-    if (is.list(x)) {
-      y <- lapply(x, if_nowt, replace = replace, test_for = test_for)
-    } else {
-      y <- sapply(x, if_nowt, replace = replace, test_for = test_for)
-    }
+    args <- list(X = x, FUN = if_nowt,
+                 replace = replace,
+                 test_for = test_for)
+    func <- ifelse(is.list(x), lapply, sapply)
+    y <- do.call(func, args)
     return(y)
   }
-  if ("null" %in% test_for &
-      isTRUE(is.null(x))) return(replace)
-  if ("na" %in% test_for &
-      isTRUE(is.na(x))) return(replace)
-  if ("trim" %in% test_for &
-      isTRUE(trimws(x) == "")) return(replace)
-  return(x)
+
+  if (is_nowt(x, test_for)) {
+    return(replace)
+  } else {
+    return(x)
+  }
 }
 

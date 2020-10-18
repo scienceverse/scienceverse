@@ -7,7 +7,8 @@ aut_tab <- tabItem(
   actionButton("aut_clear", "Clear", icon("times")),
   actionButton("author_reorder", "Reorder Authors", icon("sort")),
 
-  box(width=12,
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Required Info",
       hidden(
         numericInput("author_n", "Author Number", value = 1, min = 1)
       ),
@@ -16,14 +17,20 @@ aut_tab <- tabItem(
               textInput("given", "Given Name(s) including initials")),
         column(width = 6,
                textInput("surname", "Last Name(s)"))
-      ),
+      )
+  ),
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Recommended Info",
       fluidRow(
         column(width = 9, textInput("orcid", "ORCiD")),
         column(width = 3, actionButton("get_orcid", "Look up ORCiD", icon("orcid")))
       ),
       checkboxGroupInput("roles", "Contributor Roles",
                          inline = TRUE,
-                         choices = credit_roles("names")),
+                         choices = credit_roles("names"))
+  ),
+  box(width = 12, collapsible = TRUE, collapsed = TRUE,
+      title = "Custom Info",
       uiOutput("author_info_list", class="section_list"),
       fluidRow(
         column(width = 3,
@@ -38,13 +45,18 @@ aut_tab <- tabItem(
   ),
 
   # . . credit ----
-  h4("CRediT"),
-  tabsetPanel(type = "tabs",
-              tabPanel("Contributor Roles", uiOutput("credit_roles")),
-              tabPanel("JATS Format",
-                       p(HTML("CRediT in JATS 1.2 format as described at <a href='https://jats4r.org/credit-taxonomy'>https://jats4r.org/credit-taxonomy</a>")),
-                       downloadButton("download_jats", "Download"),
-                       verbatimTextOutput("jats_text")))
+  box(width = 12, collapsible = TRUE, collapsed = TRUE,
+    title = "CRediT",
+    tabsetPanel(type = "tabs",
+      tabPanel("Contributor Roles",
+               uiOutput("credit_roles")),
+      tabPanel("JATS Format",
+        downloadButton("download_jats", "Download"),
+        HTML("CRediT in JATS 1.2 format as described at <a href='https://jats4r.org/credit-taxonomy'>https://jats4r.org/credit-taxonomy</a>"),
+        verbatimTextOutput("jats_text")
+      )
+    )
+  )
 )
 
 ### met_tab ----

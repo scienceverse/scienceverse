@@ -7,7 +7,8 @@ hyp_tab <- tabItem(
   actionButton("hyp_delete", "Delete", icon("trash")),
   actionButton("hyp_clear", "Clear", icon("times")),
 
-  box(width = 12,
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Required Info",
       textInput("hyp_id", "Hypothesis ID", "", "100%"),
       textAreaInput("hyp_desc", "Hypothesis Description", "", "100%")
   ),

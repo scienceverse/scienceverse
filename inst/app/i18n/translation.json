@@ -6,6 +6,14 @@
   ],
   "translation": [
     {
+      "en": "Delete",
+      "nl": "Verwijder"
+    },
+    {
+      "en": "Clear",
+      "nl": "Ruim Op"
+    },
+    {
       "en": "Change language",
       "nl": "Verander de taal"
     },
@@ -79,7 +87,11 @@
     },
     {
       "en": "Add Hypothesis",
-      "nl": "Toevoegen"
+      "nl": "Hypothese toegevoen"
+    },
+    {
+      "en": "Update Hypothesis",
+      "nl": "Hypothese bijwerken"
     },
     {
       "en": "Hypothesis ID",

@@ -4,14 +4,14 @@
 \alias{if_nowt}
 \title{Replace values if NULL, NA or empty}
 \usage{
-if_nowt(x, replace = "", test_for = c("null", "na", "trim"))
+if_nowt(x, replace = "", test_for = c("null", "na", "trim", "empty"))
 }
 \arguments{
 \item{x}{vector or list to test}
 
 \item{replace}{value to replace with}
 
-\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws()}
+\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)}
 }
 \value{
 vector or list with replaced values
@@ -24,8 +24,10 @@ if_nowt(NULL)
 if_nowt(NA)
 if_nowt("   ")
 if_nowt(c(1, 2, NA), replace = 0)
-if_nowt(list(NULL, NA, " "))
-if_nowt(list(NULL, NA, " "), test_for = "null")
-if_nowt(list(NULL, NA, " "), test_for = "na")
-if_nowt(list(NULL, NA, " "), test_for = "trim")
+x <- list(NULL, NA, " ", list())
+if_nowt(x)
+if_nowt(x, test_for = "null")
+if_nowt(x, test_for = "na")
+if_nowt(x, test_for = "trim")
+if_nowt(x, test_for = "empty")
 }

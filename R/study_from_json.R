@@ -6,7 +6,7 @@
 #'
 study_from_json <- function(filename) {
   if (!file.exists(filename)) {
-    stop("The file ", filename, "does not exist.")
+    stop("The file ", filename, " does not exist.")
   }
 
   #load from json file
@@ -20,16 +20,11 @@ study_from_json <- function(filename) {
   n_analyses <- length(study$analyses)
   if (n_analyses > 0) {
     for (i in 1:n_analyses) {
-      code <- study$analyses[[i]]$code
+      code <- study$analyses[[i]]$code %>% unlist()
+      study$analyses[[i]]$code <- code
       func <- paste0("analysis_", study$analyses[[i]]$id)
       if (!is.null(code) && length(code)) {
-        # handle custom code from string
-        #c <- paste(func, "<- function() {\n", paste(code, collapse = "\n"), "\n}")
-        #eval(parse(text = c), envir = env)
-
-        make_func(func, paste(code, collapse = "\n"), "", env)
-
-        #if (scienceverse_options("verbose")) message("Loaded custom function: ", func)
+        make_func(func, code, env)
       }
       # check the function exists
       if (!exists(func, envir = env)) {
@@ -38,9 +33,7 @@ study_from_json <- function(filename) {
         stop("The function ", func, " in analysis ", i, " is not a function")
       } else {
         # load the function as code
-        #func_env <- get_env_name(func)
-        code <- methods::getFunction(func, where = env)
-        study$analyses[[i]]$code <- code
+        study$analyses[[i]]$func <- methods::getFunction(func, where = env)
       }
     }
   }

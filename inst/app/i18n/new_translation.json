@@ -6,6 +6,14 @@
   ],
   "translation": [
     {
+      "en": "Delete",
+      "nl": "Verwijder"
+    },
+    {
+      "en": "Clear",
+      "nl": "Ruim Op"
+    },
+    {
       "en": "Change language",
       "nl": "Verander de taal"
     },
@@ -79,7 +87,11 @@
     },
     {
       "en": "Add Hypothesis",
-      "nl": "Toevoegen"
+      "nl": "Hypothese toegevoen"
+    },
+    {
+      "en": "Update Hypothesis",
+      "nl": "Hypothese bijwerken"
     },
     {
       "en": "Hypothesis ID",
@@ -240,9 +252,6 @@
       "en": "Add Factor"
     },
     {
-      "en": "Clear"
-    },
-    {
       "en": "Data Description"
     },
     {
@@ -252,7 +261,7 @@
       "en": "Data Type"
     },
     {
-      "en": "Delete"
+      "en": "Delete Data"
     },
     {
       "en": "Description"
@@ -303,7 +312,7 @@
       "en": "r"
     },
     {
-      "en": "Required Info"
+      "en": "Run All Analyses"
     },
     {
       "en": "sd"
