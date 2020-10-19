@@ -18,7 +18,7 @@ source("i18n/trans.R")
 source("tabs/study.R")
 source("tabs/hyp.R")
 source("tabs/ana.R")
-source("tabs/dat.r")
+source("tabs/dat.R")
 source("tabs/others.R") # met, aut, output
 
 
