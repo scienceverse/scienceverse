@@ -1,0 +1,35 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "Kinship",
+    "schemaVersion": "Psych-DS 0.1.0",
+    "author": "Lisa DeBruine",
+    "description": "Data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB. https://osf.io/ewfhs/",
+    "license": "CC-BY 4.0",
+    "variableMeasured": [
+        {
+            "@type": "PropertyValue",
+            "name": "trust_self",
+            "description": "Number of trusting moves towards self-morphs",
+            "dataType": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "trust_other",
+            "description": "Number of trusting moves towards self-morphs",
+            "dataType": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "recip_self",
+            "description": "Number of reciprocating moves towards other-morphs",
+            "dataType": "int"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "recip_other",
+            "description": "Number of reciprocating moves towards other-morphs",
+            "dataType": "int"
+        }
+    ]
+}
