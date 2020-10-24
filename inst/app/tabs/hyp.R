@@ -23,7 +23,7 @@ hyp_tab <- tabItem(
         column(width = 2, selectInput("crit_operator", "operator", c("<", "=", ">", "!="))),
         column(width = 2, textInput("crit_comparator", "comparator", "", NULL, "Comparator"))
       ),
-      textOutput("criteria_warning"),
+      textOutput("crit_warning"),
       actionButton("crit_add", "Add Criterion", icon("plus")),
       dataTableOutput("crit_table")
   ),

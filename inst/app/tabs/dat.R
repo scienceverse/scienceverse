@@ -5,6 +5,8 @@ dat_tab <- tabItem(
   dataTableOutput("dat_table"),
   actionButton("dat_add", "Add Data", icon("plus")),
   actionButton("dat_delete", "Delete Data", icon("trash")),
+  downloadButton("download_data", "Download Data"),
+  downloadButton("download_cb", "Download Codebook"),
   actionButton("dat_clear", "Clear", icon("times")),
 
   # general info ----
@@ -26,6 +28,11 @@ dat_tab <- tabItem(
       actionButton("sim_demo", "Load Demo"),
       actionButton("sim_clear", "Clear", icon("times")),
       fluidRow(
+        column(3, actionButton("factor_add", "Add Factor", icon("plus"))),
+        column(3, selectInput("factor_chooser", NULL,
+                              c("New Factor" = 0), selected = 0))
+      ),
+      fluidRow(
         column(3, textInput("factor_name", "Factor name", "")),
         column(3, textInput("factor_desc", "Factor description", "")),
         column(3, selectInput("factor_levels", "Levels", 2:10, 2)),
@@ -33,20 +40,15 @@ dat_tab <- tabItem(
       ),
       uiOutput("level_list_display"),
       fluidRow(
-        column(3, actionButton("factor_add", "Add Factor", icon("plus"))),
-        column(3, selectInput("factor_chooser", NULL,
-                              c("New Factor" = 0), selected = 0))
-      ),
-      fluidRow(
         column(3, textInput("n", "n", 100, "100%")),
         column(3, textInput("mu", "mu", 0, "100%")),
         column(3, textInput("sd", "sd", 1, "100%")),
         column(3, textInput("r", "r", 0, "100%"))
       ),
       fluidRow(
-        column(3, textInput("dv_name", "DV", "y", "100%", "DV name")),
+        column(3, textInput("dv_name", "DV Label", "y", "100%", "DV name")),
         column(3, textInput("dv_def", "DV Description", "value", "100%", "DV definition")),
-        column(3, textInput("id_name", "ID", "id", "100%", "ID name")),
+        column(3, textInput("id_name", "ID Label", "id", "100%", "ID name")),
         column(3, textInput("id_def", "ID Description", "Subject ID", "100%", "ID definition"))
       ),
 
@@ -60,7 +62,12 @@ dat_tab <- tabItem(
       ),
       tabsetPanel(type = "tabs",
                   tabPanel("Design Summary", dataTableOutput("design_summary")),
-                  tabPanel("Design Plot", plotOutput("sim_plot"))
+                  tabPanel("Design Plot",
+                           checkboxGroupInput("plot_geoms", NULL,
+                                              c("violin" = "violin",
+                                                "boxplot" = "box",
+                                                "mean ±SD" = "pointrangeSD"), selected = "pointrangeSD", inline = TRUE),
+                           plotOutput("sim_plot"))
       )
   ),
 
@@ -71,8 +78,7 @@ dat_tab <- tabItem(
       type = "tabs",
       # data table ----
       tabPanel("Data",
-        dataTableOutput("data_table"),
-        downloadButton("download_data", "Download Data")
+        dataTableOutput("data_table")
       ),
       # codebook ----
       tabPanel("Codebook",
@@ -89,7 +95,6 @@ dat_tab <- tabItem(
       ),
       # codebook JSON ----
       tabPanel("Codebook JSON",
-        downloadButton("download_cb", "Download"),
         verbatimTextOutput("codebook_json")
       )
     )

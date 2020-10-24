@@ -8,3 +8,6 @@ code {
   color: #032763;
 }
 
+#ana_code, #n, #mu, #sd, #r {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}

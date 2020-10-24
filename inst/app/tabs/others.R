@@ -2,15 +2,16 @@
 aut_tab <- tabItem(
   tabName = "aut_tab",
   h3("Authors"),
-  uiOutput("author_list"),
+  dataTableOutput("aut_table"),
   actionButton("aut_add", "Add Author", icon("plus")),
+  actionButton("aut_delete", "Delete Author", icon("trash")),
   actionButton("aut_clear", "Clear", icon("times")),
-  actionButton("author_reorder", "Reorder Authors", icon("sort")),
+  actionButton("aut_reorder", "Reorder Authors", icon("sort")),
 
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Required Info",
       hidden(
-        numericInput("author_n", "Author Number", value = 1, min = 1)
+        numericInput("aut_n", "Author Number", value = 1, min = 1)
       ),
       fluidRow(
         column(width = 6,
@@ -31,16 +32,16 @@ aut_tab <- tabItem(
   ),
   box(width = 12, collapsible = TRUE, collapsed = TRUE,
       title = "Custom Info",
-      uiOutput("author_info_list", class="section_list"),
+      uiOutput("aut_info_list", class="section_list"),
       fluidRow(
         column(width = 3,
-               textInput("author_info_name", NULL, "",
+               textInput("aut_info_name", NULL, "",
                          "100%", "Custom Info Name")),
         column(width = 6,
-               textInput("author_info_value", NULL, "",
+               textInput("aut_info_value", NULL, "",
                          "100%", "Custom Info Value")),
         column(width = 3,
-               actionButton("author_info_add", "Add Custom Info", icon("plus")))
+               actionButton("aut_info_add", "Add Custom Info", icon("plus")))
       )
   ),
 

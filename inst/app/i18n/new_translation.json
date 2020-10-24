@@ -249,6 +249,9 @@
       "nl": "Nederlands"
     },
     {
+      "en": "Add"
+    },
+    {
       "en": "Add Factor"
     },
     {
@@ -261,16 +264,19 @@
       "en": "Data Type"
     },
     {
+      "en": "Delete Author"
+    },
+    {
       "en": "Delete Data"
     },
     {
       "en": "Description"
     },
     {
-      "en": "DV"
+      "en": "DV Description"
     },
     {
-      "en": "DV Description"
+      "en": "DV Label"
     },
     {
       "en": "Factor description"
@@ -282,10 +288,10 @@
       "en": "Factor type"
     },
     {
-      "en": "ID"
+      "en": "ID Description"
     },
     {
-      "en": "ID Description"
+      "en": "ID Label"
     },
     {
       "en": "Levels"

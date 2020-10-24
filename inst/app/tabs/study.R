@@ -7,15 +7,15 @@ study_tab <- tabItem(
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Required Info",
       textInput("study_name", "Study Name", "", "100%"),
-      textAreaInput("study_description", "Study Description", "", "100%")
+      textAreaInput("study_desc", "Study Description", "", "100%")
   ),
 
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Custom Info",
       uiOutput("custom_info_list", class="section_list"),
-      textInput("custom_info_name", "Custom Info Name", "", "100%"),
-      textAreaInput("custom_info_value", "Custom Info Value", "", "100%"),
-      actionButton("custom_info_add", "Add Custom Info", icon("plus"))
+      dataTableOutput("custom_info_table"),
+      actionButton("custom_info_add", "Add", icon("plus")),
+      actionButton("custom_info_delete", "Delete", icon("trash"))
   )
 )
 

@@ -1,17 +1,19 @@
 ## app.R ##
-library(shiny)
-library(shinyjs)
-library(shinydashboard)
-library(DT)
-library(scienceverse)
-library(dplyr)
-library(tidyr)
-library(shiny.i18n)
+suppressPackageStartupMessages({
+  library(shiny)
+  library(shinyjs)
+  library(shinydashboard)
+  library(DT)
+  library(scienceverse)
+  library(dplyr)
+  library(tidyr)
+  library(shiny.i18n)
+})
+
 options("scipen" = 10,
         "digits" = 4,
         "DT.autoHideNavigation" = TRUE)
 source("R/utils.R")
-source("R/demo.R")
 source("i18n/trans.R")
 
 ## Interface Tab Items ----
@@ -69,6 +71,7 @@ server <- function(input, output, session) {
   ## translation ----
 
   ## . . create translator ----
+  debug_msg("creating translator")
   i18n <- reactive({
     selected <- input$lang
     if (length(selected) > 0 && selected %in% translator$get_languages()) {
@@ -77,8 +80,10 @@ server <- function(input, output, session) {
     translator
   })
 
-  # . . on language change ----
+  # . . lang ----
   observeEvent(input$lang, {
+    debug_msg("lang")
+
     # text changes (h3, h4, p)
     for (h in trans_text) {
       suppressWarnings(tt <- i18n()$t(h))
@@ -113,10 +118,35 @@ server <- function(input, output, session) {
     paging = FALSE,
     ordering = FALSE,
     searching = FALSE,
-    pageLength = 500
+    pageLength = 500,
+    keys = TRUE
+  )
+
+  table_tab_js <- c(
+    "table.on('key', function(e, datatable, key, cell, originalEvent){",
+    "  var targetName = originalEvent.target.localName;",
+    "  if(key == 13 && targetName == 'body'){",
+    "    $(cell.node()).trigger('dblclick.dt').find('input').select();",
+    "  }",
+    "});",
+    "table.on('keydown', function(e){",
+    "  if(e.target.localName == 'input' && [9,13,37,38,39,40].indexOf(e.keyCode) > -1){",
+    "    $(e.target).trigger('blur');",
+    "  }",
+    "});",
+    "table.on('key-focus', function(e, datatable, cell, originalEvent){",
+    "  var targetName = originalEvent.target.localName;",
+    "  var type = originalEvent.type;",
+    "  if(type == 'keydown' && targetName == 'input'){",
+    "    if([9,37,38,39,40].indexOf(originalEvent.keyCode) > -1){",
+    "      $(cell.node()).trigger('dblclick.dt').find('input').select();",
+    "    }",
+    "  }",
+    "});"
   )
 
   # reactive Vals ----
+  aut_clear <- makeReactiveTrigger()
   hyp_clear <- makeReactiveTrigger()
   dat_clear <- makeReactiveTrigger()
   ana_clear <- makeReactiveTrigger()
@@ -124,19 +154,22 @@ server <- function(input, output, session) {
   criteria <- reactiveVal(list())
   return_list <- reactiveVal(list())
   authors <- reactiveVal(list())
-  author_info <- reactiveVal(list())
+  aut_info <- reactiveVal(list())
   loaded_data <- reactiveVal(data.frame())
-  custom_info <- reactiveVal(list())
+  custom_info <- reactiveVal(data.frame())
+  custom_info_disp <- reactiveVal(data.frame())
   cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
-  level_list <- reactiveVal(list())
+  level_list <- reactiveVal(list(A1 = "A1 Description",
+                                 A2 = "A2 Description"))
+  level_list_disp <- reactiveVal(list(A1 = "A1 Description",
+                                      A2 = "A2 Description"))
+  design <- reactiveVal(faux::check_design(plot = FALSE))
   sim <- reactiveValues(
     w_cells = c("y"),
     b_cells = c("y"),
     cell_names = c("y"),
     within = list(),
     between = list(),
-    dv = list(y = "value"),
-    id = list(id = "id"),
     n = 100,
     mu = 0,
     sd = 1,
@@ -147,6 +180,10 @@ server <- function(input, output, session) {
   # on startup ----
   shinyjs::hide("hyp_delete")
   shinyjs::hide("dat_delete")
+  shinyjs::hide("aut_delete")
+  shinyjs::hide("aut_reorder")
+  shinyjs::hide("download_data")
+  shinyjs::hide("download_cb")
   shinyjs::hide("ana_delete")
   shinyjs::hide("study_analyse")
 
@@ -172,6 +209,7 @@ server <- function(input, output, session) {
   # actions ----
   # . . reset_study ----
   observeEvent(input$reset_study, {
+    debug_msg("reset_study")
     # reset all IDs from trans_labels
     trans_labels %>%
       unname() %>%
@@ -180,27 +218,28 @@ server <- function(input, output, session) {
       lapply(shinyjs::reset)
 
     # not sure why these aren't captured above
-    c("author_info_name", "author_info_value",
+    c("aut_info_name", "aut_info_value",
       "ana_return_name", "ana_return_object") %>%
       lapply(shinyjs::reset)
 
     criteria(list())
     return_list(list())
     authors(list())
-    author_info(list())
+    aut_info(list())
     loaded_data(data.frame())
-    custom_info (list())
+    custom_info(data.frame())
     cb(codebook(data.frame(), "", return = "list"))
     shinyjs::click("sim_clear")
     shinyjs::hide("study_analyse")
 
     s <- study(name = input$study_name,
-               description = input$study_description)
+               description = input$study_desc)
     my_study(s)
   })
 
   # . . study_analyse ----
   observeEvent(input$study_analyse, {
+    debug_msg("study_analyse")
     s <- my_study()
 
     if (length(s$analyses) == 0) {
@@ -218,74 +257,64 @@ server <- function(input, output, session) {
 
 
 
-
-
   # study ----
-  observe({
+
+  ## . . study_info ----
+  observeEvent(c(input$study_name, input$study_desc, custom_info_disp()), {
+    debug_msg("study_info")
     s <- my_study()
     s$name <- input$study_name
-    s$info <- c(list(description = input$study_description),
-                custom_info())
+    ci <- nlist(custom_info_disp()$name, custom_info_disp()$value)
+    s$info <- c(list(description = input$study_desc), ci)
 
     my_study(s)
   })
 
+  # . . custom_info ----
+  observeEvent(custom_info(), {
+    debug_msg("custom_info")
+    # always update tmp when original updates
+    custom_info() %>% custom_info_disp()
+  })
+
   # . . custom_info_add ----
-  observe({
-    buttonable("custom_info_add",
-               input$custom_info_value,
-               input$custom_info_name)
-  })
-
   observeEvent(input$custom_info_add, {
-    # check for blanks
-    v <- trimws(input$custom_info_value)
-    n <- trimws(input$custom_info_name)
-    if (n == "" | v == "") return(FALSE)
-
-    # add new info
-    ci <- custom_info()
-    ci[n] <- v
-    custom_info(ci)
-
-    # reset inputs
-    shinyjs::reset("custom_info_name")
-    shinyjs::reset("custom_info_value")
+    debug_msg("custom_info_add")
+    new <- data.frame(name = "[name]", value = "[value]")
+    custom_info_disp() %>%
+      dplyr::bind_rows(new) %>%
+      custom_info()
   })
 
-  # . . custom_info_list ----
-  output$custom_info_list <- renderUI({
-    ci <- custom_info()
-    if (length(ci) == 0) return("")
+  # . . custom_info_table ----
+  output$custom_info_table <- renderDT({
+    debug_msg("custom_info_table")
+    custom_info()
+  },  escape = TRUE,
+      extensions = "KeyTable",
+      callback = JS(table_tab_js),
+      editable = TRUE,
+      rownames = FALSE,
+      options = dt_options
+  )
 
-    section <- "custom_info"
-    mapply(function(x, i, n) {
-      sprintf("1. [<a class='section_edit' section='%s' section_idx='%d'>%s</a>] [<a class='section_delete' section='%s' section_idx='%d'>%s</a>] %s: %s\n\n",
-              section, i, i18n()$t("edit"),
-              section, i, i18n()$t("delete"),
-              n, x)
-    }, ci, 1:length(ci), names(ci)) %>%
-      paste0(collapse = "\n") %>%
-      markdown::renderMarkdown(text = .) %>%
-      HTML()
-  })
+  observeEvent(input$custom_info_table_cell_edit, {
+    debug_msg("custom_info_edit")
 
-  ## . . custom_info_edit ----
-  observeEvent(input$custom_info_edit, {
-    idx <- as.integer(input$custom_info_edit)
-    name <- names(custom_info())[[idx]]
-    value <- custom_info()[[idx]]
-
-    updateTextInput(session, "custom_info_name", value = name)
-    updateTextAreaInput(session, "custom_info_value", value = value)
+    # only update the display table so table doesn't refresh
+    cell <- input$custom_info_table_cell_edit
+    ci <- custom_info_disp()
+    ci[cell$row, cell$col+1] <- cell$value
+    custom_info_disp(ci)
   }, ignoreNULL = TRUE)
 
   ## . . custom_info_delete ----
   observeEvent(input$custom_info_delete, {
-    idx <- as.integer(input$custom_info_delete)
-    ci <- custom_info()
-    ci[[idx]] <- NULL
-    custom_info(ci)
+    debug_msg("custom_info_delete")
+    idx <- input$custom_info_table_rows_selected
+    if (length(idx) == 0) return()
+
+    custom_info_disp()[-idx, ] %>% custom_info()
   }, ignoreNULL = TRUE)
 
 
@@ -293,6 +322,8 @@ server <- function(input, output, session) {
 
   # . . get_orcid ----
   observeEvent(input$get_orcid, {
+    debug_msg("get_orcid")
+
     o <- tryCatch({
       get_orcid(input$surname, input$given)
     }, error = function(e) {
@@ -317,6 +348,8 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$aut_add, {
+    debug_msg("aut_add")
+
     problems <- FALSE
 
     # check orcid
@@ -351,31 +384,19 @@ server <- function(input, output, session) {
                 given = trimws(input$given),
                 orcid = orcid,
                 roles = input$roles)
-      a <- c(a, author_info())
+      a <- c(a, aut_info())
       aa <- authors()
-      aa[[input$author_n]] <- a
+      aa[[input$aut_n]] <- a
       authors(aa)
 
-      # reset values
-      updateTextInput(session, "author_n", value = length(aa)+1)
-      updateTextInput(session, "given", value = "",
-                      label = "Given Name(s) including initials" %>% i18n()$t())
-      updateTextInput(session, "surname", value = "",
-                      label = "Last Name(s)" %>% i18n()$t())
-      updateTextInput(session, "orcid", value = "",
-                      label = "ORCiD" %>% i18n()$t())
-      updateCheckboxGroupInput(session, "roles", selected = character(0))
-      author_info(list())
-      shinyjs::reset("author_info_name")
-      shinyjs::reset("author_info_value")
-      shinyjs::removeClass("given", "warning")
-      shinyjs::removeClass("surname", "warning")
-      shinyjs::removeClass("orcid", "warning")
+      shinyjs::click("aut_clear")
     }
   }, ignoreNULL = TRUE)
 
   # . . add_author ----
-  observe({
+  observeEvent(authors(), {
+    debug_msg("add_author")
+
     # update study$authors whenever authors() changes
     s <- my_study()
     s$authors <- list()
@@ -388,20 +409,33 @@ server <- function(input, output, session) {
     my_study(s)
   })
 
-  # . . author_list ----
-  output$author_list <- renderUI({
+  # . . aut_table ----
+  output$aut_table <- renderDT({
+    debug_msg("aut_table")
+
+    aut_clear$depend()
+
     a <- authors()
     if (length(a) > 1) {
-      shinyjs::show("author_reorder")
+      shinyjs::show("aut_reorder")
     } else {
-      shinyjs::hide("author_reorder")
+      shinyjs::hide("aut_reorder")
     }
-    make_author_list(a)
-  })
+    make_aut_list(a)
+  },  escape = F,
+      selection = "single",
 
-  # . . author_reorder ----
-  observeEvent(input$author_reorder, {
-    ord <- strsplit(input$author_order, ",")[[1]] %>% as.integer()
+
+      rownames = FALSE,
+      options = dt_options
+  )
+
+  # . . aut_reorder ----
+  observeEvent(input$aut_reorder, {
+    debug_msg("aut_reorder")
+    if (is.null(input$aut_order)) return()
+
+    ord <- strsplit(input$aut_order, ",")[[1]] %>% as.integer()
     if (length(unique(ord)) != length(ord)) {
       i18n()$t("Each author must have a unique order") %>%
         shinyjs::alert()
@@ -412,33 +446,37 @@ server <- function(input, output, session) {
   }, ignoreNULL = TRUE)
 
 
-  # . . author_info_add ----
+  # . . aut_info_add ----
   observe({
-    buttonable("author_info_add",
-               input$author_info_value,
-               input$author_info_name)
+    buttonable("aut_info_add",
+               input$aut_info_value,
+               input$aut_info_name)
   })
 
-  observeEvent(input$author_info_add, {
+  observeEvent(input$aut_info_add, {
+    debug_msg("aut_info_add")
+
     # check for blanks
-    v <- trimws(input$author_info_value)
-    n <- trimws(input$author_info_name)
+    v <- trimws(input$aut_info_value)
+    n <- trimws(input$aut_info_name)
     if (n == "" | v == "") return(FALSE)
 
     # add new info
-    ci <- author_info()
+    ci <- aut_info()
     ci[n] <- v
-    author_info(ci)
+    aut_info(ci)
 
     # reset inputs
-    shinyjs::reset("author_info_name")
-    shinyjs::reset("author_info_value")
+    shinyjs::reset("aut_info_name")
+    shinyjs::reset("aut_info_value")
   })
 
-  # . . author_info_list ----
-  output$author_info_list <- renderUI({
-    section <- "author_info"
-    info <- author_info()
+  # . . aut_info_list ----
+  output$aut_info_list <- renderUI({
+    debug_msg("aut_info_list")
+
+    section <- "aut_info"
+    info <- aut_info()
     if (length(info) == 0) return("")
 
     mapply(function(x, i, n) {
@@ -452,29 +490,35 @@ server <- function(input, output, session) {
       HTML()
   })
 
-  ## . . author_info_edit ----
-  observeEvent(input$author_info_edit, {
-    idx <- as.integer(input$author_info_edit)
-    name <- names(author_info())[[idx]]
-    value <- author_info()[[idx]]
+  ## . . aut_info_edit ----
+  observeEvent(input$aut_info_edit, {
+    debug_msg("aut_info_edit")
 
-    updateTextInput(session, "author_info_name", value = name)
-    updateTextAreaInput(session, "author_info_value", value = value)
+    idx <- as.integer(input$aut_info_edit)
+    name <- names(aut_info())[[idx]]
+    value <- aut_info()[[idx]]
+
+    updateTextInput(session, "aut_info_name", value = name)
+    updateTextAreaInput(session, "aut_info_value", value = value)
   }, ignoreNULL = TRUE)
 
-  ## . . author_info_delete ----
-  observeEvent(input$author_info_delete, {
-    idx <- as.integer(input$author_info_delete)
-    ci <- author_info()
+  ## . . aut_info_delete ----
+  observeEvent(input$aut_info_delete, {
+    debug_msg("aut_info_delete")
+
+    idx <- as.integer(input$aut_info_delete)
+    ci <- aut_info()
     ci[[idx]] <- NULL
-    author_info(ci)
+    aut_info(ci)
   }, ignoreNULL = TRUE)
 
-  # . . author_edit ----
-  observeEvent(input$author_edit, {
-    idx <- as.integer(input$author_edit)
+  ## . . aut_edit ----
+  observeEvent(input$aut_table_rows_selected, {
+    debug_msg("aut_edit")
+    idx <- input$aut_table_rows_selected
+
     a <- authors()[[idx]]
-    updateTextInput(session, "author_n", value = idx)
+    updateTextInput(session, "aut_n", value = idx)
     updateTextInput(session, "given", value = a$given,
                     label = "Given Name(s) including initials" %>% i18n()$t())
     updateTextInput(session, "surname", value = a$surname,
@@ -483,35 +527,71 @@ server <- function(input, output, session) {
                     value = ifelse(isFALSE(a$orcid), "", a$orcid),
                     label = "ORCiD" %>% i18n()$t())
     updateCheckboxGroupInput(session, "roles", selected = a$roles)
+    updateActionButton(session, "aut_add", i18n()$t("Update Author"))
 
     # update custom author info
-    shinyjs::reset("author_info_name")
-    shinyjs::reset("author_info_value")
+    shinyjs::reset("aut_info_name")
+    shinyjs::reset("aut_info_value")
     a$given <- NULL
     a$surname <- NULL
     a$orcid <- NULL
     a$roles <- NULL
-    author_info(a)
+    aut_info(a)
 
     shinyjs::removeClass("given", "warning")
     shinyjs::removeClass("surname", "warning")
     shinyjs::removeClass("orcid", "warning")
+    shinyjs::show("aut_delete")
   }, ignoreNULL = TRUE)
 
-  # . . author_delete ----
-  observeEvent(input$author_delete, {
+  ## . . aut_delete ----
+  observeEvent(input$aut_delete, {
+    debug_msg("aut_delete")
+
+    idx <- input$aut_table_rows_selected[1]
+    if (length(idx) == 0) return()
+
     a <- authors()
-    idx <- as.integer(input$author_delete)
-    a[idx] <- NULL
+    a[[idx]] <- NULL
     authors(a)
+
+    shinyjs::click("aut_clear")
+  }, ignoreNULL = TRUE)
+
+  # . . aut_clear ----
+  observeEvent(input$aut_clear, {
+    debug_msg("aut_clear")
+
+    updateActionButton(session, "aut_add", i18n()$t("Add Author"))
+    updateTextInput(session, "aut_n", value = length(authors())+1)
+    updateTextInput(session, "given", value = "",
+                    label = "Given Name(s) including initials" %>% i18n()$t())
+    updateTextInput(session, "surname", value = "",
+                    label = "Last Name(s)" %>% i18n()$t())
+    updateTextInput(session, "orcid", value = "",
+                    label = "ORCiD" %>% i18n()$t())
+    updateCheckboxGroupInput(session, "roles", selected = character(0))
+    aut_info(list())
+    shinyjs::reset("aut_info_name")
+    shinyjs::reset("aut_info_value")
+    shinyjs::removeClass("given", "warning")
+    shinyjs::removeClass("surname", "warning")
+    shinyjs::removeClass("orcid", "warning")
+    shinyjs::hide("aut_delete")
+
+    aut_clear$trigger() # fix interface jitter
   }, ignoreNULL = TRUE)
 
   # . . credit_roles ----
-  output$credit_roles <- renderUI( get_credit_roles() )
+  output$credit_roles <- renderUI({
+    debug_msg("credit_roles")
+    get_credit_roles()
+  })
 
   # . . jats_text  ----
   output$jats_text <- renderText({
-    author_jats(my_study())
+    debug_msg("jats_text")
+    aut_jats(my_study())
   })
 
   # . . download_jats ----
@@ -520,7 +600,7 @@ server <- function(input, output, session) {
       paste0(input$study_name, "_credit.xml")
     },
     content = function(file) {
-      j <- author_jats(my_study())
+      j <- aut_jats(my_study())
       write(j, file)
     }
   )
@@ -535,6 +615,8 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$hyp_add, {
+    debug_msg("hyp_add")
+
     s <- my_study() %>%
       add_hypothesis(input$hyp_id,
                      input$hyp_desc)
@@ -598,19 +680,23 @@ server <- function(input, output, session) {
 
   # . . hyp_table ----
   output$hyp_table <- renderDT({
+    debug_msg("hyp_table")
+
     hyp_clear$depend()
     h <- my_study()$hypotheses
     make_hyp_list(h)
   },  escape = 1:4,
       selection = "single",
-      style = 'bootstrap',
-      class = 'table-bordered table-condensed',
+
+
       rownames = FALSE,
       options = dt_options
   )
 
   # . . hyp_clear ----
   observeEvent(input$hyp_clear, {
+    debug_msg("hyp_clear")
+
     c("hyp_id", "hyp_desc", "crit_id", "crit_ana_id",
       "crit_result", "crit_operator", "crit_comparator",
       "eval_cor_eval", "eval_fal_eval") %>%
@@ -625,6 +711,7 @@ server <- function(input, output, session) {
 
   ## . . hyp_edit ----
   observeEvent(input$hyp_table_rows_selected, {
+    debug_msg("hyp_edit")
     idx <- input$hyp_table_rows_selected
     if (length(idx) == 0) {
       shinyjs::click("hyp_clear")
@@ -652,6 +739,8 @@ server <- function(input, output, session) {
 
   ## . . hyp_delete ----
   observeEvent(input$hyp_delete, {
+    debug_msg("hyp_delete")
+
     idx <- input$hyp_table_rows_selected[1]
     if (length(idx) == 0) return()
 
@@ -673,6 +762,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$crit_add, {
+    debug_msg("crit_add")
     crit <- criteria()
 
     # check and coerce comparator value
@@ -702,6 +792,8 @@ server <- function(input, output, session) {
 
   # . . crit_delete ----
   observeEvent(input$crit_delete, {
+    debug_msg("crit_delete")
+
     crit <- criteria()
     idx <- as.integer(input$crit_delete)
     crit[idx] <- NULL
@@ -710,6 +802,8 @@ server <- function(input, output, session) {
 
   # . . crit_id ----
   observeEvent(input$crit_id, {
+    debug_msg("crit_id")
+
     id <- input$crit_id
     newid <- id %>%
       gsub("^[^A-Za-z]", "", .) %>%
@@ -722,8 +816,9 @@ server <- function(input, output, session) {
     }
   })
 
-  ## . . edit selected criterion ----
+  ## . . crit_edit ----
   observeEvent(input$crit_table_rows_selected, {
+    debug_msg("crit_edit")
     crit <- criteria()
     cc <- crit[[input$crit_table_rows_selected]]
     updateTextInput(session, "crit_id", value = cc$id)
@@ -735,29 +830,32 @@ server <- function(input, output, session) {
 
   # . . crit_table ----
   output$crit_table <- renderDT({
+    debug_msg("crit_table")
     make_crit_list(criteria())
   },  escape = 1:5,
       selection = "single",
-      style = 'bootstrap',
-      class = 'table-bordered table-condensed',
+
+
       rownames = FALSE,
       options = dt_options
   )
 
-  # . . criteria_warning ----
-  output$criteria_warning <- renderText({
+  # . . crit_warning ----
+  output$crit_warning <- renderText({
+    debug_msg("crit_warning")
     s <- my_study()
     if (length(s$analyses) > 0) {
-      show("crit_add")
+      enable("crit_add")
       ""
     } else {
-      hide("crit_add")
+      disable("crit_add")
       i18n()$t("Add an analysis first to be able to add criteria.")
     }
   })
 
   # . . ana_return_list ----
   output$ana_return_list <- renderTable({
+    debug_msg("ana_return_list")
     r <- return_list()
     data.frame(
       name = names(r),
@@ -767,6 +865,8 @@ server <- function(input, output, session) {
 
   # . . add_return ----
   observeEvent(input$add_return, {
+    debug_msg("add_return")
+
     r <- return_list()
     r[[input$ana_return_name]] <- input$ana_return_object
     return_list(r)
@@ -782,6 +882,7 @@ server <- function(input, output, session) {
     buttonable("ana_add", input$ana_id, code)
   })
   observeEvent(input$ana_add, {
+    debug_msg("ana_add")
     # add analysis
     s <- my_study()
     r <- return_list()
@@ -805,6 +906,8 @@ server <- function(input, output, session) {
 
   ## . . ana_clear ----
   observeEvent(input$ana_clear, {
+    debug_msg("ana_clear")
+
     c("ana_id", "ana_code", "ana_return_name", "ana_return_object") %>%
       lapply(shinyjs::reset)
 
@@ -818,31 +921,20 @@ server <- function(input, output, session) {
 
   # . . ana_table ----
   output$ana_table <- renderDT({
+    debug_msg("ana_table")
     ana_clear$depend()
     make_ana_list(my_study())
   },  escape = FALSE,
       selection = "single",
-      style = 'bootstrap',
-      class = 'table-bordered table-condensed',
+
+
       rownames = FALSE,
       options = dt_options
   )
 
-
-  ## . . analyses_list ----
-  output$analyses_list <- renderUI({
-    s <- my_study()
-
-    # update crit dropdown
-    a <- sapply(s$analyses, "[[", "id")
-    updateSelectInput(session, "crit_ana_id", choices = a)
-
-    ## update analysis list
-    make_section_list(s, "analyses")
-  })
-
   ## . . ana_edit ----
   observeEvent(input$ana_table_rows_selected, {
+    debug_msg("ana_edit")
     idx <- input$ana_table_rows_selected
     if (length(idx) == 0) {
       shinyjs::click("ana_clear")
@@ -861,6 +953,7 @@ server <- function(input, output, session) {
 
   ## . . ana_results ----
   output$ana_results <- renderUI({
+    debug_msg("ana_results")
     if (is_nowt(input$ana_id)) return()
 
     s <- my_study()
@@ -875,6 +968,7 @@ server <- function(input, output, session) {
 
   ## . . ana_delete ----
   observeEvent(input$ana_delete, {
+    debug_msg("ana_delete")
     idx <- input$ana_table_rows_selected[1]
     if (length(idx) == 0) return()
 
@@ -895,6 +989,7 @@ server <- function(input, output, session) {
                input$dat_id)
   })
   observeEvent(input$dat_add, {
+    debug_msg("dat_add")
     data <- loaded_data()
     nm <- trimws(input$dat_id)
     if (nm == "" | nrow(data) == 0) return(FALSE)
@@ -915,6 +1010,7 @@ server <- function(input, output, session) {
 
   # . . dat_file ----
   observeEvent(input$dat_file, {
+    debug_msg("dat_file")
     req(input$dat_file)
 
     if (input$dat_id == "") {
@@ -940,27 +1036,25 @@ server <- function(input, output, session) {
   })
 
   # . . data_table ----
-  output$data_table <- renderDT(
-    loaded_data(), rownames = FALSE,
-    style = 'bootstrap',
-    class = 'table-bordered table-condensed'
-  )
+  output$data_table <- renderDT({
+    debug_msg("data_table")
+    loaded_data()
+  }, rownames = FALSE)
 
   # . . dat_table ----
   output$dat_table <- renderDT({
+    debug_msg("dat_table")
     dat_clear$depend()
     d <- my_study()$data
     make_dat_list(d)
-  },  escape = TRUE,
-      selection = "single",
-      style = 'bootstrap',
-      class = 'table-bordered table-condensed',
+  },  selection = "single",
       rownames = FALSE,
       options = dt_options
   )
 
   # . . dat_edit ----
   observeEvent(input$dat_table_rows_selected, {
+    debug_msg("dat_edit")
     idx <- input$dat_table_rows_selected
     if (length(idx) == 0) {
       shinyjs::click("dat_clear")
@@ -978,10 +1072,13 @@ server <- function(input, output, session) {
 
     updateActionButton(session, "dat_add", i18n()$t("Update Data"))
     shinyjs::show("dat_delete")
+    shinyjs::show("download_data")
+    shinyjs::show("download_cb")
   }, ignoreNULL = TRUE)
 
   # . . codebook_json ----
   output$codebook_json <- renderText({
+    debug_msg("codebook_json")
     cb() %>%
       jsonlite::toJSON(auto_unbox = TRUE) %>%
       jsonlite::prettify(4)
@@ -989,6 +1086,7 @@ server <- function(input, output, session) {
 
   ## . . dat_delete ----
   observeEvent(input$dat_delete, {
+    debug_msg("dat_delete")
     idx <- input$dat_table_rows_selected[1]
     if (length(idx) == 0) return()
 
@@ -1000,7 +1098,11 @@ server <- function(input, output, session) {
 
   # . . dat_clear ----
   observeEvent(input$dat_clear, {
+    debug_msg("dat_clear")
+
     shinyjs::hide("dat_delete")
+    shinyjs::hide("download_data")
+    shinyjs::hide("download_cb")
     updateActionButton(session, "dat_add", i18n()$t("Add Data"))
     loaded_data(data.frame())
     cb(codebook(loaded_data(), "", return = "list"))
@@ -1012,6 +1114,7 @@ server <- function(input, output, session) {
 
   # . . cb() ----
   reactive({
+    debug_msg("cb")
     cb <- tryCatch({
       get_codebook(my_study(), input$dat_id)
     }, error = function(e) {
@@ -1026,6 +1129,7 @@ server <- function(input, output, session) {
 
   # . . var_list ----
   output$var_list <- renderUI({
+    debug_msg("var_list")
     varnames <- names(loaded_data())
     if (length(varnames)==0) return("")
 
@@ -1036,6 +1140,7 @@ server <- function(input, output, session) {
 
   # . . var_selected ----
   observeEvent(input$var_selected, {
+    debug_msg("var_selected")
     v <- tryCatch({
         vm <- cb()$variableMeasured
         names(vm) <- sapply(vm, "[[", "name")
@@ -1059,6 +1164,8 @@ server <- function(input, output, session) {
 
   # . . var_update ----
   observeEvent(input$var_update, {
+    debug_msg("var_update")
+
     cb <- cb()
     vm <- cb$variableMeasured
 
@@ -1097,19 +1204,19 @@ server <- function(input, output, session) {
 
   # sim_data ----
   observeEvent(input$sim_data, {
+    debug_msg("sim_data")
+
     d <- tryCatch(faux::sim_design(
-      design = sim$design,
+      design = design(),
       empirical = (input$empirical == "TRUE"),
       long = (input$long == "TRUE")
     ), error = function(e) {
-      message(e)
-      #showNotification(e)
+      message(e$message)
       return(FALSE)
     })
 
     if (isFALSE(d)) return()
 
-    #des <- attr(d, "design")
     loaded_data(d)
 
     cb <- tryCatch({
@@ -1123,29 +1230,35 @@ server <- function(input, output, session) {
 
   ## . . sim_clear ----
   observeEvent(input$sim_clear, {
+    debug_msg("sim_clear")
+
     c("dv_name", "dv_def", "id_name", "id_def",
     "n", "mu", "sd", "r",
     "factor_name", "factor_desc", "factor_levels") %>%
       lapply(shinyjs::reset)
 
+    level_list(list(A1 = "A1 Description",
+                    A2 = "A2 Description"))
+
+    loaded_data(data.frame())
     sim$within <- list()
     sim$between = list()
     sim$vardesc = list(description = list())
-    level_list(list("A1" = "A1 Description",
-                    "A2" = "A2 Description"))
   }, ignoreNULL = TRUE)
 
   ## . . sim_demo ----
   observeEvent(input$sim_demo, {
+    debug_msg("sim_demo")
+
     loaded_data(data.frame())
     updateTextInput(session, "n", value = "50, 30")
     updateTextInput(session, "mu", value = "10, 15, 15, 20")
     updateTextInput(session, "sd", value = "5")
     updateTextInput(session, "r", value = "0.5")
     updateTextInput(session, "dv_name", value = "score")
-    updateTextInput(session, "dv_desc", value = "Test Score")
+    updateTextInput(session, "dv_def", value = "Test Score")
     updateTextInput(session, "id_name", value = "id")
-    updateTextInput(session, "id_desc", value = "Pet ID")
+    updateTextInput(session, "id_def", value = "Pet ID")
 
     sim$between <- list(pet = c(cat = "Kitty!", dog = "Woof!"))
     sim$within  <- list(time = c(am = "morning", pm = "night"))
@@ -1153,28 +1266,16 @@ server <- function(input, output, session) {
                                            time = "Time of Day"))
   }, ignoreNULL = TRUE)
 
-  # . . dv ----
-  observe({
-    dv <- list(input$dv_def)
-    names(dv) <- input$dv_name
-    sim$dv <- dv
-  })
-
-  # . . id ----
-  observe({
-    id <- list(input$id_def)
-    names(id) <- input$id_name
-    sim$id <- id
-  })
-
   # . . b_cells ----
   observe({
-    sim$b_cells <- faux:::cell_combos(sim$between, names(sim$dv))
+    debug_msg("b_cells")
+    sim$b_cells <- faux:::cell_combos(sim$between, input$dv_name)
   })
 
   # . . w_cells ----
   observe({
-    sim$w_cells <- faux:::cell_combos(sim$within, names(sim$dv))
+    debug_msg("w_cells")
+    sim$w_cells <- faux:::cell_combos(sim$within, input$dv_name)
     if (length(sim$w_cells) > 1) {
       shinyjs::show("r")
     } else {
@@ -1184,6 +1285,7 @@ server <- function(input, output, session) {
 
   # . . cell_names ----
   observe({
+    debug_msg("cell_names")
     # calculate cell combo names
     lb <- length(sim$b_cells)
     lw <- length(sim$w_cells)
@@ -1220,6 +1322,8 @@ server <- function(input, output, session) {
 
   # . . n ----
   observeEvent(c(input$n, sim$b_cells), {
+    debug_msg("n")
+
     spl <- strsplit(input$n, "(,|;| )")[[1]] %>%
       `[`(., grep(".+", .)) # get rid of blanks
     comp <- as.integer(spl)
@@ -1257,6 +1361,8 @@ server <- function(input, output, session) {
 
   # . . mu ----
   observeEvent(c(input$mu, sim$cell_names), {
+    debug_msg("mu")
+
     spl <- strsplit(input$mu, "(,|;| )")[[1]] %>%
       `[`(., grep(".+", .)) %>% # get rid of blanks
       `[`(., grep("[^-|\\.]$", .)) # remove "-", ".", "-."
@@ -1295,6 +1401,8 @@ server <- function(input, output, session) {
 
   # . . sd ----
   observeEvent(c(input$sd, sim$cell_names), {
+    debug_msg("sd")
+
     spl <- strsplit(input$sd, "(,|;| )")[[1]] %>%
       `[`(., grep("-?\\.?.+", .)) %>% # get rid of blanks
       `[`(., grep("[^\\.]$", .)) # remove "."
@@ -1334,6 +1442,8 @@ server <- function(input, output, session) {
 
   # . . r ----
   observeEvent(c(input$r, sim$w_cells, sim$b_cells), {
+    debug_msg("r")
+
     # return if no within factors
     if (length(sim$w_cells) < 2) return()
 
@@ -1385,8 +1495,6 @@ server <- function(input, output, session) {
         as.list() %>%
         lapply(function(x) { names(x) <- r_pairs; x })
       names(sim$r) <- sim$b_cells
-
-      message("r:\n", nested_list(sim$r))
     } else {
       "All inputs for r must be numbers between -1 and 1" %>%
         i18n()$t() %>%
@@ -1395,16 +1503,29 @@ server <- function(input, output, session) {
     }
   })
 
+  # . . level_list ----
+  observeEvent(level_list(), {
+    debug_msg("level_list")
+    # always update disp when original updates
+    level_list() %>% level_list_disp()
+  })
+
   # . . factor_levels ----
   observeEvent(input$factor_levels, {
-    ll <- level_list()
+    debug_msg("factor_levels")
+
+    ll <- level_list_disp()
 
     if (length(ll) < input$factor_levels) {
       start <- length(ll) + 1
       end <- input$factor_levels
       for (i in start:end) {
-        nm <- paste0(input$factor_name, i)
-        ll[nm] <- paste(input$factor_name, i, "Description")
+        if (input$factor_name == "") {
+          ll[i] <- ""
+        } else {
+          nm <- paste0(input$factor_name, i)
+          ll[nm] <- paste(input$factor_name, i, "Description")
+        }
       }
     }
     # truncate if needed
@@ -1412,28 +1533,37 @@ server <- function(input, output, session) {
     level_list(ll)
   })
 
+  # . . factor_name ----
   observeEvent(input$factor_name, {
+    debug_msg("factor_name")
+
     if (input$factor_name == "") {
       hide("level_list_display")
     } else {
       # change default-looking names
-      ll <- level_list()
+      ll <- level_list_disp()
+
       prefixes <- gsub("\\_?\\d+$", "", names(ll))
       descs <- gsub("\\_?\\d+ Description$", "", ll)
+
       if (unique(prefixes) %>% length() == 1 &
           unique(descs) %>% length() == 1) {
         n <- length(ll)
-        ll <- paste0(input$factor_name, 1:n, " Description")
+        ll <- paste0(input$factor_name, 1:n, " Description") %>%
+          as.list()
         names(ll) <- paste0(input$factor_name, 1:n)
         level_list(ll)
       }
+
       show("level_list_display")
     }
   })
 
   # . . level_list_display ----
   output$level_list_display <- renderUI({
-    ll <- level_list()
+    debug_msg("level_list_display")
+
+    ll <- level_list() # only trigger when ll changes
 
     x <- lapply(1:length(ll), function(i) {
       nm <- paste0("level_name_", i)
@@ -1448,8 +1578,11 @@ server <- function(input, output, session) {
   })
 
   # . . level_list_update ----
+  # changed via www/custom.js
   observeEvent(input$level_list_update, {
-    nm <- names(input)
+    debug_msg("level_list_update")
+
+    nm <- names(get0("input"))
     lnames <- grep("^level_name_\\d+", nm) %>% `[`(nm, .) %>% sort()
     ldescs <- grep("^level_desc_\\d+", nm) %>% `[`(nm, .)%>% sort()
 
@@ -1466,57 +1599,8 @@ server <- function(input, output, session) {
       }
     }, lnames, duplicated(ln))
 
-    level_list(ll)
+    level_list_disp(ll) # only update disp
   }, ignoreNULL = TRUE)
-
-
-
-  # . . design_summary ----
-  output$design_summary <- renderDT({
-    sim$design <- tryCatch(faux::check_design(
-      within = sim$within,
-      between = sim$between,
-      n = sim$n,
-      mu = sim$mu,
-      sd = sim$sd,
-      r = sim$r,
-      dv = sim$dv,
-      id = sim$id,
-      vardesc = sim$vardesc,
-      plot = FALSE
-    ), error = function(e) {
-      message(e)
-      return(faux::check_design(plot = FALSE))
-    })
-
-    w <- names(sim$design$within)
-    b <- names(sim$design$between)
-    p <- sim$design$params
-    # fix for problem with 1-factor params table in faux
-    if (names(p)[1] == ".") names(p)[1] <- c(w, b)[1]
-    vars <- length(w) + length(b)
-    if (vars > 1) {
-      # add [w] or [b] to var names
-      n <- names(p)[1:vars]
-      n[n %in% w] <- paste(n[n %in% w], "[w]")
-      n[n %in% b] <- paste(n[n %in% b], "[b]")
-      names(p)[1:vars] <- n
-    }
-    if (length(w) > 0) {
-      # add [r] to correlation columns
-      a <- vars+1
-      b <- vars+length(sim$w_cells)
-      n <- names(p)[a:b]
-      n <- paste(n, "[r]")
-      names(p)[a:b] <- n
-    }
-
-    p
-  }, style = 'bootstrap',
-     class = 'table-bordered table-condensed',
-     rownames = FALSE,
-     options = dt_options
-  )
 
   # . . factor_add ----
   observe({
@@ -1524,57 +1608,128 @@ server <- function(input, output, session) {
                input$factor_name)
   })
   observeEvent(input$factor_add, {
-    sim[[input$factor_type]][[input$factor_name]] <- level_list()
+    debug_msg("factor_add")
+
+    if (input$factor_chooser != "New Factor") {
+      # get rid of the old one
+      sim$within[[input$factor_chooser]] <- NULL
+      sim$between[[input$factor_chooser]] <- NULL
+    }
+
+    # update from displayed
+    sim[[input$factor_type]][[input$factor_name]] <- level_list_disp()
     sim$vardesc$description[[input$factor_name]] <-
       if_nowt(input$factor_desc, input$factor_name)
 
     # reset inputs
-    shinyjs::reset("factor_name")
-    shinyjs::reset("factor_desc")
-    shinyjs::reset("factor_levels")
+    nm <- names(get0("input"))
+    lnames <- grep("^level_name_\\d+", nm) %>% `[`(nm, .)
+    ldescs <- grep("^level_desc_\\d+", nm) %>% `[`(nm, .)
+    c(ldescs, lnames) %>%
+      lapply(function(id) updateTextInput(session, id, value = ""))
+
+    c("factor_name", "factor_desc", "factor_levels") %>%
+      lapply(shinyjs::reset)
+    list(A1 = "A1 Description",
+         A2 = "A2 Description") %>% level_list()
+
+
+    updateActionButton(session, "factor_add", i18n()$t("Add Factor"))
+    updateSelectInput(session, "factor_chooser", selected = "New Factor")
+  }, ignoreNULL = TRUE)
+
+  ## . . factor_chooser ----
+  observeEvent(input$factor_chooser, {
+    w <- names(design()$within)
+    b <- names(design()$between)
+    x <- input$factor_chooser
+    if (x %in% w ) {
+      to_edit <- design()$within[[x]]
+      updateSelectInput(session, "factor_type",
+                        selected = "within")
+    } else if (x %in% b) {
+      to_edit <- design()$between[[x]]
+      updateSelectInput(session, "factor_type",
+                        selected = "between")
+    } else {
+      updateActionButton(session, "factor_add", i18n()$t("Add Factor"))
+      return()
+    }
+
+    updateTextInput(session, "factor_name", value = x)
+    updateTextInput(session, "factor_desc",
+                    value = sim$vardesc$description[[x]])
+    updateSelectInput(session, "factor_levels",
+                      selected = length(to_edit))
+    level_list(to_edit)
+    updateActionButton(session, "factor_add", i18n()$t("Update Factor"))
   }, ignoreNULL = TRUE)
 
   ## . . sim_plot ----
   output$sim_plot <- renderPlot({
-    tryCatch(plot(sim$design),
-    error = function(e) {
-      message(e)
-      return(ggplot())
+    debug_msg("sim_plot")
+
+    g <- tryCatch({
+      plot(design(), geoms = input$plot_geoms)
+    }, error = function(e) {
+      message(e$message)
+      return(ggplot2::ggplot())
     })
+
+    g + ggplot2::theme(text = ggplot2::element_text(size = 16))
   })
 
-  # # . . level_table ----
-  # observeEvent(input$factor_levels, {
-  #   # get current list and remove extra rows
-  #   orig <- level_list() %>%
-  #     filter(row_number() <= input$factor_levels)
-  #
-  #   # add extra rows
-  #   to_add <- data.frame(
-  #     Name = paste0("level_", 1:input$factor_levels),
-  #     Description = paste("Level", 1:input$factor_levels)
-  #   ) %>%
-  #     filter(row_number() > nrow(orig))
-  #
-  #   bind_rows(orig, to_add) %>% level_list()
-  # })
-  #
-  # output$level_table <- renderDT(
-  #   level_list(), editable = TRUE,
-  #   server = TRUE, rownames = FALSE
-  # )
-  #
-  # observeEvent(input$level_table_cell_edit, {
-  #   level_list() %>%
-  #     editData(input$level_table_cell_edit,
-  #              'level_table', rownames = FALSE) %>%
-  #     level_list()
-  # }, ignoreNULL = TRUE)
+  ## . . design ----
+  observe({
+    debug_msg("design")
 
-  # outputs ----
+    dv_name <- if_nowt(input$dv_name, "y")
+    dv <- if_nowt(input$dv_def, dv_name)
+    names(dv) <- dv_name
+
+    id_name <- if_nowt(input$id_name, "id")
+    id <- if_nowt(input$id_def, id_name)
+    names(id) <- id_name
+
+    des <- tryCatch(faux::check_design(
+      within = sim$within,
+      between = sim$between,
+      n = sim$n,
+      mu = sim$mu,
+      sd = sim$sd,
+      r = sim$r,
+      dv = dv,
+      id = id,
+      vardesc = sim$vardesc,
+      plot = FALSE
+    ),
+    error = function(e) {
+      message(e$message)
+      return(FALSE)
+    })
+
+    if (!isFALSE(des)) design(des)
+  })
+
+  # . . design_summary ----
+  output$design_summary <- renderDT({
+    debug_msg("design_summary")
+
+    w <- names(design()$within)
+    b <- names(design()$between)
+    updateSelectInput(session, "factor_chooser", choices = c("New Factor", w, b))
+
+    design_summary(design())
+  },
+     selection = 'multiple',
+     rownames = FALSE,
+     options = dt_options
+  )
+
 
   # . . json_text  ----
   output$json_text <- renderText({
+    debug_msg("json_text")
     my_study() %>% study_to_json()
   })
 
@@ -1611,12 +1766,16 @@ server <- function(input, output, session) {
 
   ## . . human_readable ----
   output$human_readable <- renderUI({
+    debug_msg("human_readable")
+
     s <- my_study()
     lvl <- 3
-    i <- output_info(s, lvl, "html")
-    h <- output_hypotheses(s, lvl, "html")
-    a <- output_analyses(s, lvl, "html")
-    r <- output_results(s, lvl, "html")
+    capture.output({
+      i <- output_info(s, lvl, "html")
+      h <- output_hypotheses(s, lvl, "html")
+      a <- output_analyses(s, lvl, "html")
+      r <- output_results(s, lvl, "html")
+    })
 
     if (length(s$data) == 0) {
       ds <- "No data"
@@ -1634,7 +1793,7 @@ server <- function(input, output, session) {
   # inputs ----
   # . . load_json ----
   observeEvent(input$load_json, {
-    req(input$load_json)
+    debug_msg("load_json")
 
     tryCatch({
       s <- study(input$load_json$datapath)
@@ -1642,10 +1801,12 @@ server <- function(input, output, session) {
     }, error = function(e) {
       shinyjs::alert(e$message)
     })
-  })
+  }, ignoreNULL = TRUE)
 
   # . . update_from_study ----
   update_from_study <- function(study) {
+    debug_msg("update_from_study")
+
     my_study(study)
 
     a <- lapply(study$author, function(x) {
@@ -1655,16 +1816,20 @@ server <- function(input, output, session) {
       x
     })
     authors(a)
+    updateTextInput(session, "aut_n", value = length(a)+1)
 
     updateTextInput(session, "study_name",
                     value = study$name)
-    updateTextAreaInput(session, "study_description",
+    updateTextAreaInput(session, "study_desc",
                         value = study$info$description)
 
     # custom info
     ci <- study$info
     ci$description <- NULL
-    custom_info(ci)
+    data.frame(
+      name = names(ci),
+      value = as.character(ci)
+    ) %>% custom_info()
 
     # update crit dropdown
     a <- sapply(study$analyses, "[[", "id")
@@ -1676,10 +1841,13 @@ server <- function(input, output, session) {
 
   # . . demo ----
   observeEvent(input$demo, {
-    s <- kin_demo()
+    debug_msg("demo")
+    s <- scienceverse::study_demo
     update_from_study(s)
   })
 
+
+  # save_trans ----
   save_trans(trans_text, trans_labels)
 
 } # end server()

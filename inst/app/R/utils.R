@@ -27,50 +27,32 @@ get_credit_roles <- function() {
     HTML()
 }
 
-make_author_list <- function(authors) {
-  i <- 0
-  alist <- list()
-
-  for (a in authors) {
-    i <- i + 1
-    edit <- actionLink(paste0("author_edit_", i), "edit",
-                       class = "author_edit", data = i)
-    del <- actionLink(paste0("author_del_", i), "delete",
-                      class = "author_delete", data = i)
-
-    order_input <- sprintf("<select class='author_order'>", i)
-    for (j in 1:length(authors)) {
-      order_input <- sprintf("%s\n<option value='%d'%s>%d</option>",
-                             order_input, j,
-                             ifelse(j == i, " selected", ""), j)
-    }
-    order_input <- sprintf("%s\n</select>", order_input)
-
+make_aut_list <- function(authors) {
+  if (length(authors) == 0) return(data.frame())
+  tbl <- mapply(function(a, i) {
     olink <-  paste0(" <a href='https://orcid.org/",
                      a$orcid, "' target='_blank'>",
                      a$orcid, "</a>")
-    roles <- paste(":", paste(a$roles, collapse = ", "))
-    txt <- sprintf("<li>%s [%s] [%s] %s, %s%s%s </li>",
-                   order_input, edit, del, a$surname, a$given,
-                   ifelse(!isFALSE(a$orcid), olink, ""),
-                   ifelse(length(a$roles)>0, roles, ""))
 
-    alist[[i]] <- HTML(txt)
-  }
+    order_input <- sprintf("<select class='aut_order'>", i)
+    for (j in 1:length(authors)) {
+      order_input <- sprintf(
+        "%s\n<option value='%d'%s>%d</option>",
+        order_input, j,
+        ifelse(j == i, " selected", ""), j)
+    }
+    order_input <- sprintf("%s\n</select>", order_input)
 
-  do.call(tags$ul, alist)
-}
+    list(
+      order = order_input,
+      surname = a$surname,
+      given = a$given,
+      orcid = ifelse(!isFALSE(a$orcid), olink, ""),
+      roles = paste(a$roles, collapse = ", ")
+    )
+  }, authors, seq_along(authors))
 
-make_data_list <- function(data) {
-  if (length(data) == 0) return("")
-
-  mapply(function(d, i) {
-      sprintf("1. [<a class='data_edit' data='%s'>edit</a>] [<a class='data_delete' data='%s'>delete</a>] %s: %d rows, %d cols\n\n",
-              i, i, d$id, nrow(d$data), ncol(d$data))
-    }, data, 1:length(data)) %>%
-    paste0(collapse = "\n") %>%
-    markdown::renderMarkdown(text = .) %>%
-    HTML()
+  t(tbl) %>% as.data.frame()
 }
 
 make_hyp_list <- function(h) {
@@ -160,3 +142,36 @@ make_crit_list <- function(criteria) {
                          1:nrow(crit))
   as.data.frame(crit)
 }
+
+
+design_summary <- function(des) {
+  w <- names(des$within)
+  b <- names(des$between)
+  p <- des$params
+
+  # fix for problem with 1-factor params table in faux
+  if (names(p)[1] == ".") names(p)[1] <- c(w, b)[1]
+  vars <- length(w) + length(b)
+  if (vars > 1) {
+    # add [w] or [b] to var names
+    n <- names(p)[1:vars]
+    n[n %in% w] <- paste(n[n %in% w], "[w]")
+    n[n %in% b] <- paste(n[n %in% b], "[b]")
+    names(p)[1:vars] <- n
+  }
+  if (length(w) > 0) {
+    # add [r] to correlation columns
+    a <- vars+1
+    b <- ncol(p) - 3
+    n <- names(p)[a:b]
+    n <- paste(n, "[r]")
+    names(p)[a:b] <- n
+  }
+  p
+}
+
+debug_msg <- function(txt) {
+  is_local <- Sys.getenv('SHINY_PORT') == ""
+  if (is_local) message(txt)
+}
+
