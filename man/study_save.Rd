@@ -42,7 +42,7 @@ study() \%>\%
            "sig & !pos") \%>\%
   add_data("dat", iris) \%>\%
   study_analyse() \%>\%
-  study_report(template = "postreg")
+  study_save(format = "postreg")
 }
 
 }
