@@ -488,3 +488,37 @@ if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim", "empty")
   }
 }
 
+
+
+#' Make a Named List
+#'
+#' @param names a vector of the names
+#' @param values a vector of the values
+#'
+#' @return a named list
+#' @export
+#'
+#' @examples
+#' n <- LETTERS[1:3]
+#' val <- c("cat", "dog", "ferret")
+#' nlist(n, val)
+#'
+nlist <- function(names, values) {
+  # turn lists to vectors
+  if (is.list(names)) names <- unlist(names)
+  if (is.list(values)) values <- unlist(values)
+
+  # make sure vector
+  if (!is.atomic(names)) stop("names must be a vector")
+  if (!is.atomic(values)) stop("values must be a vector")
+
+  if (length(names) != length(values))
+    stop("Names and values must be the same length")
+  if (length(names) == 0) return(list())
+
+  # create named list
+  x <- as.list(values)
+  names(x) <- as.character(names)
+
+  x
+}
