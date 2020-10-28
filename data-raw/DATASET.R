@@ -128,12 +128,14 @@ study_demo <- study(name = "Kinship and Prosocial Behaviour (Demo)",
                code = t.test(kin$trust_self,
                              kin$trust_other,
                              paired = TRUE,
-                             conf.level = 0.975)) %>%
+                             conf.level = 0.975),
+               software = R.version.string) %>%
   add_analysis(id = "recip",
                code = t.test(kin$recip_self,
                              kin$recip_other,
                              paired = TRUE,
-                             conf.level = 0.975)) %>%
+                             conf.level = 0.975),
+               software = R.version.string) %>%
   add_criterion("t_lo", "conf.int[1]", ">", 0.0,
                 "trust", "self_pref") %>%
   add_criterion("t_hi", "conf.int[2]", ">", 0.2,
