@@ -1157,7 +1157,8 @@ server <- function(input, output, session) {
     d <- tryCatch(faux::sim_design(
       design = design(),
       empirical = (input$empirical == "TRUE"),
-      long = (input$long == "TRUE")
+      long = (input$long == "TRUE"),
+      plot = FALSE
     ), error = function(e) {
       message(e$message)
       return(FALSE)
