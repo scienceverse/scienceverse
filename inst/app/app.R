@@ -70,10 +70,79 @@ ui <- dashboardPage(
 
 ## server ----
 server <- function(input, output, session) {
-  ## translation ----
+  # reactiveVals ----
+  debug_msg("----reactiveVals----")
 
-  ## . . create translator ----
-  debug_msg("creating translator")
+  aut_clear <- makeReactiveTrigger()
+  hyp_clear <- makeReactiveTrigger()
+  dat_clear <- makeReactiveTrigger()
+  ana_clear <- makeReactiveTrigger()
+  my_study <- reactiveVal( study(name = "", description = "") )
+  criteria <- reactiveVal(list())
+  return_list <- reactiveVal(list())
+  authors <- reactiveVal(list())
+  loaded_data <- reactiveVal(data.frame())
+  cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
+  level_list <- reactiveVal(list(A1 = "A1 Description",
+                                 A2 = "A2 Description"))
+  level_list_disp <- reactiveVal(list(A1 = "A1 Description",
+                                      A2 = "A2 Description"))
+  design <- reactiveVal(faux::check_design(plot = FALSE))
+  sim <- reactiveValues(
+    w_cells = c("y"),
+    b_cells = c("y"),
+    cell_names = c("y"),
+    within = list(),
+    between = list(),
+    n = 100,
+    mu = 0,
+    sd = 1,
+    r = 0,
+    vardesc = list(description = list())
+  )
+
+  # custom info ----
+  debug_msg("----custom info----")
+  study_cinfo <- cinfoServer("study_info")
+  hyp_cinfo <- cinfoServer("hyp_info")
+  dat_cinfo <- cinfoServer("dat_info")
+  met_cinfo <- cinfoServer("met_info")
+  ana_cinfo <- cinfoServer("ana_info")
+  aut_cinfo <- cinfoServer("aut_info")
+
+  # on startup ----
+  shinyjs::hide("hyp_delete")
+  shinyjs::hide("dat_delete")
+  shinyjs::hide("aut_delete")
+  shinyjs::hide("aut_reorder")
+  shinyjs::hide("download_data")
+  shinyjs::hide("download_cb")
+  shinyjs::hide("ana_delete")
+  shinyjs::hide("study_analyse")
+
+  # functions ----
+  section_delete <- function(section, idx) {
+    s <- my_study()
+    idx <- as.integer(idx)
+    s[[section]][idx] <- NULL
+    my_study(s)
+  }
+
+  # disable/enable buttons depending on presence of inputs
+  buttonable <- function(button, ...) {
+    blanks <- list(...) %>% trimws() == ""
+
+    if (any(blanks)) {
+      shinyjs::disable(button)
+    } else {
+      shinyjs::enable(button)
+    }
+  }
+
+  ## translation ----
+  debug_msg("----translation ----")
+
+  ## . . i18n ----
   i18n <- reactive({
     selected <- input$lang
     if (length(selected) > 0 && selected %in% translator$get_languages()) {
@@ -113,73 +182,22 @@ server <- function(input, output, session) {
     }
   }, ignoreInit = TRUE)
 
-  # reactive Vals ----
-  aut_clear <- makeReactiveTrigger()
-  hyp_clear <- makeReactiveTrigger()
-  dat_clear <- makeReactiveTrigger()
-  ana_clear <- makeReactiveTrigger()
-  my_study <- reactiveVal( study(name = "", description = "") )
-  criteria <- reactiveVal(list())
-  return_list <- reactiveVal(list())
-  authors <- reactiveVal(list())
-  loaded_data <- reactiveVal(data.frame())
-  cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
-  level_list <- reactiveVal(list(A1 = "A1 Description",
-                                 A2 = "A2 Description"))
-  level_list_disp <- reactiveVal(list(A1 = "A1 Description",
-                                      A2 = "A2 Description"))
-  design <- reactiveVal(faux::check_design(plot = FALSE))
-  sim <- reactiveValues(
-    w_cells = c("y"),
-    b_cells = c("y"),
-    cell_names = c("y"),
-    within = list(),
-    between = list(),
-    n = 100,
-    mu = 0,
-    sd = 1,
-    r = 0,
-    vardesc = list(description = list())
-  )
 
-  # custom info ----
-  study_cinfo <- cinfoServer("study_info")
-  hyp_cinfo <- cinfoServer("hyp_info")
-  dat_cinfo <- cinfoServer("dat_info")
-  met_cinfo <- cinfoServer("met_info")
-  ana_cinfo <- cinfoServer("ana_info")
-  aut_cinfo <- cinfoServer("aut_info")
+  # study ----
 
-  # on startup ----
-  shinyjs::hide("hyp_delete")
-  shinyjs::hide("dat_delete")
-  shinyjs::hide("aut_delete")
-  shinyjs::hide("aut_reorder")
-  shinyjs::hide("download_data")
-  shinyjs::hide("download_cb")
-  shinyjs::hide("ana_delete")
-  shinyjs::hide("study_analyse")
-
-  # functions ----
-  section_delete <- function(section, idx) {
+  observeEvent(c(input$study_name,
+                 input$study_desc,
+                 study_cinfo$disp()), {
+    debug_msg("study_info")
     s <- my_study()
-    idx <- as.integer(idx)
-    s[[section]][idx] <- NULL
+    s$name <- input$study_name
+    ci <- study_cinfo$disp()
+    s$info <- c(list(description = input$study_desc),
+                dfnv(ci))
+
     my_study(s)
-  }
+  })
 
-  # disable/enable buttons depending on presence of inputs
-  buttonable <- function(button, ...) {
-    blanks <- list(...) %>% trimws() == ""
-
-    if (any(blanks)) {
-      shinyjs::disable(button)
-    } else {
-      shinyjs::enable(button)
-    }
-  }
-
-  # actions ----
   # . . reset_study ----
   observeEvent(input$reset_study, {
     debug_msg("reset_study")
@@ -227,28 +245,12 @@ server <- function(input, output, session) {
       tryCatch(s <- study_analyse(s),
                error = function(e) {
                  shinyjs::alert(e$message)
-      })
+               })
       updateTabItems(session, "tabs", "ana_tab")
       my_study(s)
     }
   })
 
-
-
-  # study ----
-
-  observeEvent(c(input$study_name,
-                 input$study_desc,
-                 study_cinfo$disp()), {
-    debug_msg("study_info")
-    s <- my_study()
-    s$name <- input$study_name
-    ci <- study_cinfo$disp()
-    s$info <- c(list(description = input$study_desc),
-                dfnv(ci))
-
-    my_study(s)
-  })
 
   # authors ----
   debug_msg("---authors---")
