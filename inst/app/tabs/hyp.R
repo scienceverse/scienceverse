@@ -34,5 +34,6 @@ hyp_tab <- tabItem(
 
       textInput("eval_cor_eval", "Corroboration Evaluation", "", "100%"),
       textInput("eval_fal_eval", "Falsification Evaluation", "", "100%")
-  )
+  ),
+  cinfo("hyp_info")
 )

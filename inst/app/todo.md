@@ -9,25 +9,21 @@
 ## Study Info
 
 
-
 ## Authors
 
 * Add custom info to editing author even if Author Update button not clicked ???
 * Upload Authors from csv or YAML
-* custom info list into table (?)
-* change add button to update when editing
 
 ## Hypotheses
 
 * add evaluation descriptions back??
-* custom info (?)
 
 ## Data
 
-* Custom info for data
-* Allow adding dataset without data (or turn off button)
-* Download data button to top?
-* include data checkbox doesn't do anything
+* Custom info not saving for data (in codebook??)
+* Open data box when loading data: 
+    if (nrow(d) > 0) shinyjs::runjs("openBox('dat_box');")
+* Download data button position?
 * update sim section when editing data with a design
 
 ### Simulate Data
@@ -57,7 +53,6 @@
 * Run analysis analysis-specific?
 * return tab: better example
 * if no code, don't prepend blank line to return code
-* custom info for analysis
 
 ## Summaries
 

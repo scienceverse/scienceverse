@@ -24,6 +24,7 @@ ana_tab <- tabItem(
       ),
       tableOutput("ana_return_list")
   ),
+  cinfo("ana_info"),
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Results",
       uiOutput("ana_results")

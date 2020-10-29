@@ -1,6 +1,9 @@
-.warning { border: 1px solid red; background-color: #FF9999 !important; }
 textarea { width: 100%; }
+
+.warning { border: 1px solid red; background-color: #FF9999 !important; }
+#met_text.warning { background-color: #f5ea9a !important; }
 .shiny-notification { border-color: red !important; }
+
 #var_list button.selected { background-color: blue; }
 code {
   background-color: #EDF0F5;
@@ -8,6 +11,15 @@ code {
   color: #032763;
 }
 
-#ana_code, #n, #mu, #sd, #r {
+#met_text, #ana_code, #n, #mu, #sd, #r {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+
+
+#roles label.checkbox-inline {
+  min-width: 14em;
+}
+
+#roles label.checkbox-inline:first-child {
+  margin-left: 10px;
 }

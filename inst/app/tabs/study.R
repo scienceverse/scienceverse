@@ -9,13 +9,6 @@ study_tab <- tabItem(
       textInput("study_name", "Study Name", "", "100%"),
       textAreaInput("study_desc", "Study Description", "", "100%")
   ),
-
-  box(width = 12, collapsible = TRUE, collapsed = FALSE,
-      title = "Custom Info",
-      uiOutput("custom_info_list", class="section_list"),
-      dataTableOutput("custom_info_table"),
-      actionButton("custom_info_add", "Add", icon("plus")),
-      actionButton("custom_info_delete", "Delete", icon("trash"))
-  )
+  cinfo("study_info")
 )
 

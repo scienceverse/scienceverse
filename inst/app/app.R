@@ -10,18 +10,20 @@ suppressPackageStartupMessages({
   library(shiny.i18n)
 })
 
-options("scipen" = 10,
-        "digits" = 4,
-        "DT.autoHideNavigation" = TRUE)
-source("R/utils.R")
+source("R/constants.R")
+source("R/funcs.R")
+source("R/modules/cinfo.R")
 source("i18n/trans.R")
+
 
 ## Interface Tab Items ----
 source("tabs/study.R")
 source("tabs/hyp.R")
 source("tabs/ana.R")
 source("tabs/dat.R")
-source("tabs/others.R") # met, aut, output
+source("tabs/met.R")
+source("tabs/aut.R")
+source("tabs/out.R")
 
 
 ## UI ----
@@ -34,10 +36,10 @@ ui <- dashboardPage(
       menuItem("Study Info", tabName = "study_tab"),
       menuItem("Authors", tabName = "aut_tab"),
       menuItem("Hypotheses", tabName = "hyp_tab"),
-      #menuItem("Methods", tabName = "met_tab"),
+      menuItem("Methods", tabName = "met_tab"),
       menuItem("Data", tabName = "dat_tab"),
       menuItem("Analysis", tabName = "ana_tab"),
-      menuItem("Summaries", tabName = "output_tab")
+      menuItem("Summaries", tabName = "out_tab")
     ),
     actionButton("demo", "Load Demo Study"),
     actionButton("reset_study", "Reset Study"),
@@ -57,10 +59,10 @@ ui <- dashboardPage(
       study_tab,
       aut_tab,
       hyp_tab,
-      #met_tab,
+      met_tab,
       dat_tab,
       ana_tab,
-      output_tab
+      out_tab
     )
   )
 )
@@ -111,40 +113,6 @@ server <- function(input, output, session) {
     }
   })
 
-  # constants ----
-  dt_options <- list(
-    info = FALSE,
-    lengthChange = FALSE,
-    paging = FALSE,
-    ordering = FALSE,
-    searching = FALSE,
-    pageLength = 500,
-    keys = TRUE
-  )
-
-  table_tab_js <- c(
-    "table.on('key', function(e, datatable, key, cell, originalEvent){",
-    "  var targetName = originalEvent.target.localName;",
-    "  if(key == 13 && targetName == 'body'){",
-    "    $(cell.node()).trigger('dblclick.dt').find('input').select();",
-    "  }",
-    "});",
-    "table.on('keydown', function(e){",
-    "  if(e.target.localName == 'input' && [9,13,37,38,39,40].indexOf(e.keyCode) > -1){",
-    "    $(e.target).trigger('blur');",
-    "  }",
-    "});",
-    "table.on('key-focus', function(e, datatable, cell, originalEvent){",
-    "  var targetName = originalEvent.target.localName;",
-    "  var type = originalEvent.type;",
-    "  if(type == 'keydown' && targetName == 'input'){",
-    "    if([9,37,38,39,40].indexOf(originalEvent.keyCode) > -1){",
-    "      $(cell.node()).trigger('dblclick.dt').find('input').select();",
-    "    }",
-    "  }",
-    "});"
-  )
-
   # reactive Vals ----
   aut_clear <- makeReactiveTrigger()
   hyp_clear <- makeReactiveTrigger()
@@ -154,10 +122,7 @@ server <- function(input, output, session) {
   criteria <- reactiveVal(list())
   return_list <- reactiveVal(list())
   authors <- reactiveVal(list())
-  aut_info <- reactiveVal(list())
   loaded_data <- reactiveVal(data.frame())
-  custom_info <- reactiveVal(data.frame())
-  custom_info_disp <- reactiveVal(data.frame())
   cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
   level_list <- reactiveVal(list(A1 = "A1 Description",
                                  A2 = "A2 Description"))
@@ -176,6 +141,14 @@ server <- function(input, output, session) {
     r = 0,
     vardesc = list(description = list())
   )
+
+  # custom info ----
+  study_cinfo <- cinfoServer("study_info")
+  hyp_cinfo <- cinfoServer("hyp_info")
+  dat_cinfo <- cinfoServer("dat_info")
+  met_cinfo <- cinfoServer("met_info")
+  ana_cinfo <- cinfoServer("ana_info")
+  aut_cinfo <- cinfoServer("aut_info")
 
   # on startup ----
   shinyjs::hide("hyp_delete")
@@ -218,18 +191,22 @@ server <- function(input, output, session) {
       lapply(shinyjs::reset)
 
     # not sure why these aren't captured above
-    c("aut_info_name", "aut_info_value",
-      "ana_return_name", "ana_return_object") %>%
+    c("ana_return_name", "ana_return_object") %>%
       lapply(shinyjs::reset)
 
     criteria(list())
     return_list(list())
     authors(list())
-    aut_info(list())
     loaded_data(data.frame())
-    custom_info(data.frame())
     cb(codebook(data.frame(), "", return = "list"))
+
+    study_cinfo$info(NULL)
     shinyjs::click("sim_clear")
+    shinyjs::click("aut_clear")
+    shinyjs::click("hyp_clear")
+    shinyjs::click("met_clear")
+    shinyjs::click("ana_clear")
+    shinyjs::click("dat_clear")
     shinyjs::hide("study_analyse")
 
     s <- study(name = input$study_name,
@@ -259,64 +236,16 @@ server <- function(input, output, session) {
 
   # study ----
 
-  ## . . study_info ----
-  observeEvent(c(input$study_name, input$study_desc, custom_info_disp()), {
+  observeEvent(c(input$study_name, input$study_desc, study_cinfo$disp()), {
     debug_msg("study_info")
     s <- my_study()
     s$name <- input$study_name
-    ci <- nlist(custom_info_disp()$name, custom_info_disp()$value)
-    s$info <- c(list(description = input$study_desc), ci)
+    ci <- study_cinfo$disp()
+    s$info <- c(list(description = input$study_desc),
+                dfnv(ci))
 
     my_study(s)
   })
-
-  # . . custom_info ----
-  observeEvent(custom_info(), {
-    debug_msg("custom_info")
-    # always update tmp when original updates
-    custom_info() %>% custom_info_disp()
-  })
-
-  # . . custom_info_add ----
-  observeEvent(input$custom_info_add, {
-    debug_msg("custom_info_add")
-    new <- data.frame(name = "[name]", value = "[value]")
-    custom_info_disp() %>%
-      dplyr::bind_rows(new) %>%
-      custom_info()
-  })
-
-  # . . custom_info_table ----
-  output$custom_info_table <- renderDT({
-    debug_msg("custom_info_table")
-    custom_info()
-  },  escape = TRUE,
-      extensions = "KeyTable",
-      callback = JS(table_tab_js),
-      editable = TRUE,
-      rownames = FALSE,
-      options = dt_options
-  )
-
-  observeEvent(input$custom_info_table_cell_edit, {
-    debug_msg("custom_info_edit")
-
-    # only update the display table so table doesn't refresh
-    cell <- input$custom_info_table_cell_edit
-    ci <- custom_info_disp()
-    ci[cell$row, cell$col+1] <- cell$value
-    custom_info_disp(ci)
-  }, ignoreNULL = TRUE)
-
-  ## . . custom_info_delete ----
-  observeEvent(input$custom_info_delete, {
-    debug_msg("custom_info_delete")
-    idx <- input$custom_info_table_rows_selected
-    if (length(idx) == 0) return()
-
-    custom_info_disp()[-idx, ] %>% custom_info()
-  }, ignoreNULL = TRUE)
-
 
   # authors ----
 
@@ -384,7 +313,7 @@ server <- function(input, output, session) {
                 given = trimws(input$given),
                 orcid = orcid,
                 roles = input$roles)
-      a <- c(a, aut_info())
+      a <- c(a, dfnv(aut_cinfo$disp()))
       aa <- authors()
       aa[[input$aut_n]] <- a
       authors(aa)
@@ -403,7 +332,10 @@ server <- function(input, output, session) {
     for (a in authors()) {
       s <- tryCatch(
         do.call(add_author, c(list(study = s), a)),
-        error = function(e) { message(e); return(s) }
+        error = function(e) {
+          debug_msg(e.message)
+          return(s)
+        }
       )
     }
     my_study(s)
@@ -424,93 +356,33 @@ server <- function(input, output, session) {
     make_aut_list(a)
   },  escape = F,
       selection = "single",
-
-
+      extensions = "RowReorder",
       rownames = FALSE,
-      options = dt_options
+      options = c(dt_options,
+                  list(rowReorder = TRUE,
+                       order = list(c(0 , 'asc'))
+                      )
+                  ),
+      callback = JS(c(
+        "table.on('row-reorder', function(e, details, changes) {",
+        "  var op = JSON.stringify(details);",
+        "  Shiny.onInputChange('aut_reorder', op);",
+        "});"))
   )
 
-  # . . aut_reorder ----
   observeEvent(input$aut_reorder, {
     debug_msg("aut_reorder")
-    if (is.null(input$aut_order)) return()
 
-    ord <- strsplit(input$aut_order, ",")[[1]] %>% as.integer()
-    if (length(unique(ord)) != length(ord)) {
-      i18n()$t("Each author must have a unique order") %>%
-        shinyjs::alert()
-    } else {
-      a <- authors()
-      authors(a[ord])
-    }
-  }, ignoreNULL = TRUE)
+    info <- input$aut_reorder
+    if (is.null(info) | class(info) != 'character') { return() }
 
+    info <- jsonlite::fromJSON(txt=info)
+    if (length(info) == 0) { return() }
 
-  # . . aut_info_add ----
-  observe({
-    buttonable("aut_info_add",
-               input$aut_info_value,
-               input$aut_info_name)
+    ord <- info[['oldPosition']] + 1
+    a <- authors()
+    authors(a[ord])
   })
-
-  observeEvent(input$aut_info_add, {
-    debug_msg("aut_info_add")
-
-    # check for blanks
-    v <- trimws(input$aut_info_value)
-    n <- trimws(input$aut_info_name)
-    if (n == "" | v == "") return(FALSE)
-
-    # add new info
-    ci <- aut_info()
-    ci[n] <- v
-    aut_info(ci)
-
-    # reset inputs
-    shinyjs::reset("aut_info_name")
-    shinyjs::reset("aut_info_value")
-  })
-
-  # . . aut_info_list ----
-  output$aut_info_list <- renderUI({
-    debug_msg("aut_info_list")
-
-    section <- "aut_info"
-    info <- aut_info()
-    if (length(info) == 0) return("")
-
-    mapply(function(x, i, n) {
-      sprintf("1. [<a class='section_edit' section='%s' section_idx='%d'>%s</a>] [<a class='section_delete' section='%s' section_idx='%d'>%s</a>] %s: %s\n\n",
-              section, i, i18n()$t("edit"),
-              section, i, i18n()$t("delete"),
-              n, x)
-    }, info, 1:length(info), names(info)) %>%
-      paste0(collapse = "\n") %>%
-      markdown::renderMarkdown(text = .) %>%
-      HTML()
-  })
-
-  ## . . aut_info_edit ----
-  observeEvent(input$aut_info_edit, {
-    debug_msg("aut_info_edit")
-
-    idx <- as.integer(input$aut_info_edit)
-    name <- names(aut_info())[[idx]]
-    value <- aut_info()[[idx]]
-
-    updateTextInput(session, "aut_info_name", value = name)
-    updateTextAreaInput(session, "aut_info_value", value = value)
-  }, ignoreNULL = TRUE)
-
-  ## . . aut_info_delete ----
-  observeEvent(input$aut_info_delete, {
-    debug_msg("aut_info_delete")
-
-    idx <- as.integer(input$aut_info_delete)
-    ci <- aut_info()
-    ci[[idx]] <- NULL
-    aut_info(ci)
-  }, ignoreNULL = TRUE)
 
   ## . . aut_edit ----
   observeEvent(input$aut_table_rows_selected, {
@@ -530,13 +402,13 @@ server <- function(input, output, session) {
     updateActionButton(session, "aut_add", i18n()$t("Update Author"))
 
     # update custom author info
-    shinyjs::reset("aut_info_name")
-    shinyjs::reset("aut_info_value")
     a$given <- NULL
     a$surname <- NULL
     a$orcid <- NULL
     a$roles <- NULL
-    aut_info(a)
+    nvdf(a) %>% aut_cinfo$info()
+
+    if (length(a) > 0) shinyjs::runjs("openBox('aut_info-box');")
 
     shinyjs::removeClass("given", "warning")
     shinyjs::removeClass("surname", "warning")
@@ -571,9 +443,7 @@ server <- function(input, output, session) {
     updateTextInput(session, "orcid", value = "",
                     label = "ORCiD" %>% i18n()$t())
     updateCheckboxGroupInput(session, "roles", selected = character(0))
-    aut_info(list())
-    shinyjs::reset("aut_info_name")
-    shinyjs::reset("aut_info_value")
+    aut_cinfo$info(NULL)
     shinyjs::removeClass("given", "warning")
     shinyjs::removeClass("surname", "warning")
     shinyjs::removeClass("orcid", "warning")
@@ -591,7 +461,7 @@ server <- function(input, output, session) {
   # . . jats_text  ----
   output$jats_text <- renderText({
     debug_msg("jats_text")
-    aut_jats(my_study())
+    author_jats(my_study())
   })
 
   # . . download_jats ----
@@ -617,21 +487,27 @@ server <- function(input, output, session) {
   observeEvent(input$hyp_add, {
     debug_msg("hyp_add")
 
-    s <- my_study() %>%
-      add_hypothesis(input$hyp_id,
-                     input$hyp_desc)
+    hyp <- list(
+      study = my_study(),
+      id = input$hyp_id,
+      description = input$hyp_desc
+    )
+    hyp <- c(hyp, dfnv(hyp_cinfo$disp()))
+
+    s <- tryCatch({
+      do.call(add_hypothesis, hyp)
+    },error = function(e) {
+      shinyjs::alert(e$message)
+      return(FALSE)
+    })
+
+    if (isFALSE(s)) return()
 
     # add criteria
     for (c in criteria()) {
-      s <- add_criterion(
-        study = s,
-        id = c$id,
-        result = c$result,
-        operator = c$operator,
-        comparator = c$comparator,
-        analysis_id = c$analysis_id,
-        hypothesis_id = input$hyp_id
-      )
+      c$study <- s
+      c$hypothesis_id <- input$hyp_id
+      s <- do.call(add_criterion, c)
     }
 
     # add evaluations if they exist
@@ -687,8 +563,6 @@ server <- function(input, output, session) {
     make_hyp_list(h)
   },  escape = 1:4,
       selection = "single",
-
-
       rownames = FALSE,
       options = dt_options
   )
@@ -701,6 +575,8 @@ server <- function(input, output, session) {
       "crit_result", "crit_operator", "crit_comparator",
       "eval_cor_eval", "eval_fal_eval") %>%
       lapply(shinyjs::reset)
+
+    hyp_cinfo$info(NULL)
 
     shinyjs::hide("hyp_delete")
     updateActionButton(session, "hyp_add", i18n()$t("Add Hypothesis"))
@@ -722,6 +598,7 @@ server <- function(input, output, session) {
     s <- my_study()
     h <- s$hypotheses[[idx]]
 
+    # update criteria
     crit <- h$criteria
     names(crit) <- sapply(crit, `[[`, "id")
     criteria(crit)
@@ -735,6 +612,15 @@ server <- function(input, output, session) {
     updateTextInput(session, "eval_fal_eval",
                     value = h$falsification$evaluation)
 
+    ## do something with h$conclusion ???
+
+    # hyp custom info
+    to_clear <- c("id", "description", "criteria",
+                   "corroboration", "falsification",
+                   "conclusion")
+    h[to_clear] <- NULL
+    nvdf(h) %>% hyp_cinfo$info()
+    if (length(h) > 0) shinyjs::runjs("openBox('hyp_info-box');")
   })
 
   ## . . hyp_delete ----
@@ -834,8 +720,6 @@ server <- function(input, output, session) {
     make_crit_list(criteria())
   },  escape = 1:5,
       selection = "single",
-
-
       rownames = FALSE,
       options = dt_options
   )
@@ -884,17 +768,24 @@ server <- function(input, output, session) {
   observeEvent(input$ana_add, {
     debug_msg("ana_add")
     # add analysis
-    s <- my_study()
     r <- return_list()
     if (length(r) == 0) r <- ""
 
-    s <- tryCatch({add_analysis(
-      s, input$ana_id, input$ana_code,
-      return = r, type = "text")},
-             error = function(e) {
-               shinyjs::alert(e$message)
-               return(FALSE)
-             })
+    ana <- list(
+      study = my_study(),
+      id = input$ana_id,
+      code = input$ana_code,
+      return = r,
+      type = "text"
+    )
+    ana <- c(ana, dfnv(ana_cinfo$disp()))
+
+    s <- tryCatch({
+      do.call(add_analysis, ana)
+    },error = function(e) {
+      shinyjs::alert(e$message)
+      return(FALSE)
+    })
 
     # reset inputs
     if (!isFALSE(s)) {
@@ -911,6 +802,8 @@ server <- function(input, output, session) {
     c("ana_id", "ana_code", "ana_return_name", "ana_return_object") %>%
       lapply(shinyjs::reset)
 
+    ana_cinfo$info(NULL)
+
     shinyjs::hide("ana_delete")
     updateActionButton(session, "ana_add", i18n()$t("Add Analysis"))
 
@@ -926,8 +819,6 @@ server <- function(input, output, session) {
     make_ana_list(my_study())
   },  escape = FALSE,
       selection = "single",
-
-
       rownames = FALSE,
       options = dt_options
   )
@@ -949,6 +840,12 @@ server <- function(input, output, session) {
     code <- output_custom_code(s, idx)
     updateTextAreaInput(session, "ana_code", value = code)
     updateActionButton(session, "ana_add", i18n()$t("Update Analysis"))
+
+    # ana custom info
+    to_clear <- c("id", "code", "func", "results")
+    a[to_clear] <- NULL
+    nvdf(a) %>% ana_cinfo$info()
+    if (length(a) > 0) shinyjs::runjs("openBox('ana_info-box');")
   })
 
   ## . . ana_results ----
@@ -992,14 +889,34 @@ server <- function(input, output, session) {
     debug_msg("dat_add")
     data <- loaded_data()
     nm <- trimws(input$dat_id)
-    if (nm == "" | nrow(data) == 0) return(FALSE)
 
-    s <- my_study() %>%
-      add_data(nm, data, design = attr(data, "design"),
-               description = input$data_desc)
+    dat <- list(
+      study = my_study(),
+      id = nm,
+      description = input$dat_desc
+    )
+
+    # add data and design
+    if (ncol(data) > 0 & nrow(data) > 0) {
+      dat$data <- data
+      des <- attr(data, "design")
+      if (!is.null(des)) dat$design <- des
+    }
+
+    # add custom info
+    dat <- c(dat, dfnv(dat_cinfo$disp()))
+
+    s <- tryCatch({
+      do.call(add_data, dat)
+    },error = function(e) {
+      shinyjs::alert(e$message)
+      return(FALSE)
+    })
+
+    if (isFALSE(s)) return()
 
     ## add codebook
-    idx <- match(input$dat_id, sapply(s$data, "[[", "id"))[1]
+    idx <- match(nm, sapply(s$data, "[[", "id"))[1]
     if (!is.na(idx)) s$data[[idx]]$codebook <- cb()
 
     my_study(s)
@@ -1047,7 +964,7 @@ server <- function(input, output, session) {
     dat_clear$depend()
     d <- my_study()$data
     make_dat_list(d)
-  },  selection = "single",
+  },  selection = 'single',
       rownames = FALSE,
       options = dt_options
   )
@@ -1068,18 +985,23 @@ server <- function(input, output, session) {
     updateTextInput(session, "dat_id", value = d$id)
     updateTextAreaInput(session, "dat_desc", value = desc)
     loaded_data(d$data)
+    if (nrow(d$data) > 0) shinyjs::runjs("openBox('dat_box');")
     cb(get_codebook(s, data_id = idx))
+
+    # dat custom info
+    to_clear <- c("@context", "@type", "name", "schemaVersion", "variableMeasured")
+    d$codebook[to_clear] <- NULL
+    nvdf(d$codebook) %>% dat_cinfo$info()
+    if (length(d$codebook) > 0) shinyjs::runjs("openBox('dat_info-box');")
 
     updateActionButton(session, "dat_add", i18n()$t("Update Data"))
     shinyjs::show("dat_delete")
-    shinyjs::show("download_data")
-    shinyjs::show("download_cb")
   }, ignoreNULL = TRUE)
 
   # . . codebook_json ----
   output$codebook_json <- renderText({
     debug_msg("codebook_json")
-    cb() %>%
+    cb()  %>%
       jsonlite::toJSON(auto_unbox = TRUE) %>%
       jsonlite::prettify(4)
   })
@@ -1101,13 +1023,13 @@ server <- function(input, output, session) {
     debug_msg("dat_clear")
 
     shinyjs::hide("dat_delete")
-    shinyjs::hide("download_data")
-    shinyjs::hide("download_cb")
     updateActionButton(session, "dat_add", i18n()$t("Add Data"))
     loaded_data(data.frame())
     cb(codebook(loaded_data(), "", return = "list"))
     c("dat_id", "dat_desc", "dat_file", "var_name", "var_desc", "var_type") %>%
       lapply(shinyjs::reset)
+
+    dat_cinfo$info(NULL)
 
     dat_clear$trigger() # fix interface jitter
   }, ignoreNULL = TRUE)
@@ -1179,6 +1101,17 @@ server <- function(input, output, session) {
     }
   })
 
+  # . . loaded_data ----
+  observeEvent(loaded_data(), {
+    if (nrow(loaded_data()) == 0) {
+      shinyjs::hide("download_data")
+      shinyjs::hide("download_cb")
+    } else {
+      shinyjs::show("download_data")
+      shinyjs::show("download_cb")
+    }
+  })
+
   # . . download_data ----
   output$download_data <- downloadHandler(
     filename = function() {
@@ -1218,6 +1151,7 @@ server <- function(input, output, session) {
     if (isFALSE(d)) return()
 
     loaded_data(d)
+    if (nrow(d) > 0) shinyjs::runjs("openBox('dat_box');")
 
     cb <- tryCatch({
       codebook(d, vardesc = sim$vardesc, return = "list")
@@ -1316,7 +1250,11 @@ server <- function(input, output, session) {
     updateTextInput(session, "sd", lab)
 
     ## r
-    lab <- paste0("r (", lr, ")")
+    if (lb == 1) {
+      lab <- paste0("r (", lr, ")")
+    } else {
+      lab <- paste0("r (", lr, " or ", lr*lb, ")")
+    }
     updateTextInput(session, "r", lab)
   })
 
@@ -1709,7 +1647,7 @@ server <- function(input, output, session) {
     })
 
     if (!isFALSE(des)) design(des)
-  })
+  }, priority = -1)
 
   # . . design_summary ----
   output$design_summary <- renderDT({
@@ -1727,10 +1665,138 @@ server <- function(input, output, session) {
   )
 
 
+
+  # methods ----
+
+  # . . met_file ----
+  observeEvent(input$met_file, {
+    debug_msg("met_file")
+
+    path <- input$met_file$datapath
+    ext <- tools::file_ext(path) %>% tolower()
+
+    txt <- tryCatch({
+      readLines(path) %>% paste(collapse = "\n")
+    }, error = function(e) {
+      shinyjs::alert(e$message)
+      return("")
+    })
+
+
+    updateTextAreaInput(session, "met_text", value = "")
+    if (ext == "json") {
+      updateRadioButtons(session, "met_type", selected = "json")
+    } else if (ext == "yml") {
+      updateRadioButtons(session, "met_type", selected = "yml")
+    } else {
+      updateRadioButtons(session, "met_type", selected = "text")
+    }
+    updateTextAreaInput(session, "met_text", value = txt)
+  }, ignoreNULL = TRUE)
+
+  # . . met_type ----
+  observeEvent(input$met_type, {
+    debug_msg("met_type")
+
+    if (trimws(input$met_text) == "") return()
+
+    if (input$met_type == "yaml") {
+      # message("try to convert from JSON to YAML")
+      tryCatch({
+        m <- jsonlite::fromJSON(input$met_text, TRUE)
+        y <- yaml::as.yaml(m)
+        updateTextAreaInput(session, "met_text", value = y)
+      })
+    } else if (input$met_type == "json") {
+      # message("try to convert from YAML to JSON")
+      tryCatch({
+        m <- yaml::yaml.load(input$met_text)
+        j <- jsonlite::toJSON(m, auto_unbox = TRUE) %>%
+          jsonlite::prettify(4) %>%
+          paste(collapse = "\n")
+        updateTextAreaInput(session, "met_text", value = j)
+      })
+    }
+  })
+
+  # . . met_text ----
+  observeEvent(input$met_text, {
+    debug_msg("met_text")
+
+    if (input$met_text == "") { return() }
+
+    tryCatch({
+      if (input$met_type == "json") {
+        err <- jsonlite::validate(input$met_text) %>%
+          attr("err")
+        if (!is.null(err)) stop(err, "")
+
+        m <- jsonlite::fromJSON(input$met_text, TRUE)
+        v <- "valid JSON"
+      } else if (input$met_type == "yaml") {
+        m <- yaml::yaml.load(input$met_text)
+        v <- "valid YAML"
+      } else {
+        m <- strsplit(input$met_text, "\n")[[1]]
+        v <- ""
+      }
+      shinyjs::removeClass('met_text', 'warning')
+      output$met_err <- renderText(v)
+
+      # update methods
+      s <- my_study()
+      s$methods[[1]] <- m
+      my_study(s)
+    }, error = function(e) {
+      output$met_err <- renderText(e$message)
+      shinyjs::addClass('met_text', 'warning')
+    })
+  })
+
+  # . . met_prettify ----
+  observeEvent(input$met_prettify, {
+    debug_msg("met_prettify")
+    if (input$met_type == "json") {
+      tryCatch({
+        txt <- input$met_text %>%
+          jsonlite::fromJSON(TRUE) %>%
+          jsonlite::toJSON(auto_unbox = TRUE) %>%
+          jsonlite::prettify(4) %>%
+          paste(collapse = "\n")
+
+        updateTextAreaInput(session, "met_text", value = txt)
+      }, error = function(e) {})
+    }
+  }, ignoreNULL = TRUE)
+
+  # . . met_drop_empty ----
+  observeEvent(input$met_drop_empty, {
+    s <- my_study()
+    m <- s$methods[[1]] %>%
+      drop_empty()
+    my_study(s)
+
+    if (input$met_type == "yaml") {
+      txt <- yaml::as.yaml(m)
+    } else if (input$met_type == "json") {
+      txt <- m %>%
+        jsonlite::toJSON(auto_unbox = TRUE) %>%
+        jsonlite::prettify(4) %>%
+        paste(collapse = "\n")
+    } else {
+      txt <- unlist(m) %>%
+        paste(collapse = "\n")
+    }
+
+    updateTextAreaInput(session, "met_text", value = txt)
+  }, ignoreNULL = TRUE)
+
+  # summary ----
   # . . json_text  ----
   output$json_text <- renderText({
     debug_msg("json_text")
-    my_study() %>% study_to_json()
+    my_study() %>%
+      study_to_json(data_values = input$dat_include)
   })
 
   # . . download_json ----
@@ -1739,7 +1805,8 @@ server <- function(input, output, session) {
       paste0(input$study_name, ".json")
     },
     content = function(file) {
-      j <- my_study() %>% study_to_json()
+      j <- my_study() %>%
+        study_to_json(data_values = input$dat_include)
       write(j, file)
     }
   )
@@ -1790,6 +1857,7 @@ server <- function(input, output, session) {
     paste(i, h, d, a, r, sep = "\n\n") %>% HTML()
   })
 
+
   # inputs ----
   # . . load_json ----
   observeEvent(input$load_json, {
@@ -1823,13 +1891,11 @@ server <- function(input, output, session) {
     updateTextAreaInput(session, "study_desc",
                         value = study$info$description)
 
-    # custom info
-    ci <- study$info
-    ci$description <- NULL
-    data.frame(
-      name = names(ci),
-      value = as.character(ci)
-    ) %>% custom_info()
+    # study custom info
+    si <- study$info
+    si$description <- NULL
+    nvdf(si) %>% study_cinfo$info()
+    if (length(si) > 0) shinyjs::runjs("openBox('study_info-box');")
 
     # update crit dropdown
     a <- sapply(study$analyses, "[[", "id")

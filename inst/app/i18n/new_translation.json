@@ -273,6 +273,9 @@
       "en": "Description"
     },
     {
+      "en": "Drop Empty Values"
+    },
+    {
       "en": "DV Description"
     },
     {
@@ -315,6 +318,9 @@
       "en": "Parameters describe"
     },
     {
+      "en": "Prettify"
+    },
+    {
       "en": "r"
     },
     {
@@ -334,6 +340,9 @@
     },
     {
       "en": "Update"
+    },
+    {
+      "en": "We are currently working on ways to input methods. For now, you can include methods as free text, JSON or YAML formats. If you use experimentum, download the project structure as a JSON file and upload it here."
     }
   ]
 }

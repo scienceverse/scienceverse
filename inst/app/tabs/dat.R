@@ -13,14 +13,14 @@ dat_tab <- tabItem(
   box(width=12, collapsible = TRUE, collapsed = F,
       title = "Required Info",
       textInput("dat_id", "Data ID", "", "100%"),
-      textAreaInput("dat_desc", "Data Description", "", "100%"),
-      checkboxInput("dat_data", "Include Data", value = TRUE)
+      textAreaInput("dat_desc", "Data Description", "", "100%")
   ),
   # upload tab ----
   box(width=12, collapsible = TRUE, collapsed = T,
       title = "Upload Data",
       fileInput("dat_file", NULL, width = "100%")
   ),
+  cinfo("dat_info"),
   # simulate tab ----
   box(width=12, collapsible = TRUE, collapsed = T,
       title = "Simulate Factorial Data",
@@ -72,7 +72,7 @@ dat_tab <- tabItem(
   ),
 
   # data tab ----
-  box(width=12, collapsible = TRUE, collapsed = T,
+  box(id="data_box", width=12, collapsible = TRUE, collapsed = T,
     title = "Data and Codebook",
     tabsetPanel(
       type = "tabs",
@@ -81,7 +81,7 @@ dat_tab <- tabItem(
         dataTableOutput("data_table")
       ),
       # codebook ----
-      tabPanel("Codebook",
+      tabPanel("Edit Codebook",
         h4("This section is under construction and quite buggy"),
         uiOutput("var_list"),
         hidden(textInput("var_name", "Name")),
