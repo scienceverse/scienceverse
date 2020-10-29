@@ -136,11 +136,7 @@ make_section_list <- function(study, section, extra = NULL) {
 make_crit_list <- function(criteria) {
   crit <- do.call(dplyr::bind_rows, criteria)
   if (is.null(crit) | nrow(crit) == 0) return(data.frame())
-
   crit$conclusion <- NULL
-
-  crit$delete <- sprintf("<button class='delete' idx='%d'><i class='fa fa-times'></i></button>",
-                         1:nrow(crit))
   as.data.frame(crit)
 }
 

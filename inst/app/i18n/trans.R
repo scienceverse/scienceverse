@@ -94,7 +94,7 @@ save_trans <- function(trans_text, trans_labels) {
         jsonlite::prettify(2) %>%
         write("i18n/new_translation.json")
 
-      message("saving ", length(new_text),
+      debug_msg("saving ", length(new_text),
               " new translations")
     }
   }

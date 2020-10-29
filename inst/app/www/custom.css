@@ -23,3 +23,8 @@ code {
 #roles label.checkbox-inline:first-child {
   margin-left: 10px;
 }
+
+/* override keytable style */
+table.dataTable tbody td.focus {
+  box-shadow: none !important;
+}

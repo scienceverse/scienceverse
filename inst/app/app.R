@@ -111,7 +111,7 @@ server <- function(input, output, session) {
         do.call(func, args)
       }
     }
-  })
+  }, ignoreInit = TRUE)
 
   # reactive Vals ----
   aut_clear <- makeReactiveTrigger()
@@ -183,6 +183,7 @@ server <- function(input, output, session) {
   # . . reset_study ----
   observeEvent(input$reset_study, {
     debug_msg("reset_study")
+
     # reset all IDs from trans_labels
     trans_labels %>%
       unname() %>%
@@ -236,7 +237,9 @@ server <- function(input, output, session) {
 
   # study ----
 
-  observeEvent(c(input$study_name, input$study_desc, study_cinfo$disp()), {
+  observeEvent(c(input$study_name,
+                 input$study_desc,
+                 study_cinfo$disp()), {
     debug_msg("study_info")
     s <- my_study()
     s$name <- input$study_name
@@ -339,7 +342,7 @@ server <- function(input, output, session) {
       )
     }
     my_study(s)
-  })
+  }, ignoreInit = TRUE)
 
   # . . aut_table ----
   output$aut_table <- renderDT({
@@ -680,9 +683,11 @@ server <- function(input, output, session) {
   observeEvent(input$crit_delete, {
     debug_msg("crit_delete")
 
+    idx <- input$crit_table_rows_selected[1]
+    if (length(idx) == 0) return()
+
     crit <- criteria()
-    idx <- as.integer(input$crit_delete)
-    crit[idx] <- NULL
+    crit[[idx]] <- NULL
     criteria(crit)
   }, ignoreNULL = TRUE)
 
@@ -700,7 +705,7 @@ server <- function(input, output, session) {
         showNotification()
       updateTextInput(session, "crit_id", value = newid)
     }
-  })
+  }, ignoreInit = TRUE)
 
   ## . . crit_edit ----
   observeEvent(input$crit_table_rows_selected, {
@@ -956,7 +961,8 @@ server <- function(input, output, session) {
   output$data_table <- renderDT({
     debug_msg("data_table")
     loaded_data()
-  }, rownames = FALSE)
+  }, rownames = FALSE,
+     selection = "none")
 
   # . . dat_table ----
   output$dat_table <- renderDT({
@@ -1295,7 +1301,7 @@ server <- function(input, output, session) {
         shinyjs::alert()
       shinyjs::addClass("n", "warning")
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . mu ----
   observeEvent(c(input$mu, sim$cell_names), {
@@ -1335,7 +1341,7 @@ server <- function(input, output, session) {
         shinyjs::alert()
       shinyjs::addClass("mu", "warning")
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . sd ----
   observeEvent(c(input$sd, sim$cell_names), {
@@ -1376,7 +1382,7 @@ server <- function(input, output, session) {
         shinyjs::alert()
       shinyjs::addClass("sd", "warning")
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . r ----
   observeEvent(c(input$r, sim$w_cells, sim$b_cells), {
@@ -1439,14 +1445,14 @@ server <- function(input, output, session) {
         shinyjs::alert()
       shinyjs::addClass("r", "warning")
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . level_list ----
   observeEvent(level_list(), {
     debug_msg("level_list")
     # always update disp when original updates
     level_list() %>% level_list_disp()
-  })
+  }, ignoreInit = TRUE)
 
   # . . factor_levels ----
   observeEvent(input$factor_levels, {
@@ -1469,7 +1475,7 @@ server <- function(input, output, session) {
     # truncate if needed
     ll <- ll[1:input$factor_levels]
     level_list(ll)
-  })
+  }, ignoreInit = TRUE)
 
   # . . factor_name ----
   observeEvent(input$factor_name, {
@@ -1495,7 +1501,7 @@ server <- function(input, output, session) {
 
       show("level_list_display")
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . level_list_display ----
   output$level_list_display <- renderUI({
@@ -1717,7 +1723,7 @@ server <- function(input, output, session) {
         updateTextAreaInput(session, "met_text", value = j)
       })
     }
-  })
+  }, ignoreInit = TRUE)
 
   # . . met_text ----
   observeEvent(input$met_text, {
@@ -1751,7 +1757,7 @@ server <- function(input, output, session) {
       output$met_err <- renderText(e$message)
       shinyjs::addClass('met_text', 'warning')
     })
-  })
+  }, ignoreInit = TRUE)
 
   # . . met_prettify ----
   observeEvent(input$met_prettify, {
@@ -1915,6 +1921,8 @@ server <- function(input, output, session) {
 
   # save_trans ----
   save_trans(trans_text, trans_labels)
+
+  debug_msg("server functions created")
 
 } # end server()
 

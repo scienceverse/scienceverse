@@ -25,6 +25,7 @@ hyp_tab <- tabItem(
       ),
       textOutput("crit_warning"),
       actionButton("crit_add", "Add Criterion", icon("plus")),
+      actionButton("crit_delete", "Delete Criterion", icon("trash")),
       dataTableOutput("crit_table")
   ),
   ## . evaluation ----
