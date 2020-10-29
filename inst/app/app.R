@@ -476,7 +476,7 @@ server <- function(input, output, session) {
       paste0(input$study_name, "_credit.xml")
     },
     content = function(file) {
-      j <- aut_jats(my_study())
+      j <- author_jats(my_study())
       write(j, file)
     }
   )
