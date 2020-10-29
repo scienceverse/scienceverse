@@ -152,7 +152,7 @@ study_demo <- study(name = "Kinship and Prosocial Behaviour (Demo)",
            description = "The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation.") %>%
   add_data(id = "kin",
            data = kin,
-           vardesc = desc,
+           vardesc = vardesc,
            url = "https://osf.io/ewfhs/") %>%
   study_analyse()
 

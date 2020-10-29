@@ -168,7 +168,7 @@ study <- study() %>%
 
   make_script(study, "test.R", data_path = NULL)
   make_script(study, "test.Rmd")
-  rmarkdown::render("test.Rmd", quiet = TRUE)
+  rmarkdown::render("test.Rmd", quiet = TRUE, intermediates_dir = tempdir())
 
   expect_true(file.exists("test.html"))
 
@@ -233,4 +233,6 @@ test_that("stored results", {
                 "#     1. 1",
                 "#     2. 2")
   expect_equal(x[13:17], quoteres)
+
+  if (dir.exists("data")) unlink("data", recursive = TRUE)
 })

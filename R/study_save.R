@@ -68,6 +68,7 @@ study_save <- function(study,
     options(knitr.duplicate.label = 'allow')
     rmarkdown::render(template,
                       output_file = filename,
+                      intermediates_dir = tempdir(),
                       quiet = TRUE,
                       envir = new.env(),
                       encoding = "UTF-8")
