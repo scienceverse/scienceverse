@@ -1,3 +1,14 @@
+# scienceverse 0.0.0.9017 (2020-10-28)
+
+* `scivrs_app()` updates
+* some new helper functions (behind the scenes)
+* `add_hypothesis()` now takes custom arguments
+* `study_demo` and `kin` data 
+
+# scienceverse 0.0.0.9016 (2020-10-17)
+
+* Still working on `scivrs_app()`
+
 # scienceverse 0.0.0.9015 (2020-10-03)
 
 * Lots of changes to `scivrs_app()` 

@@ -14,10 +14,11 @@ test_that("defaults", {
 
 test_that("set values", {
   s <- study() %>%
-    add_hypothesis("H1", "My test hypothesis")
+    add_hypothesis("H1", "My test hypothesis", credit = "Dr X")
 
   expect_equal(s$hypotheses[[1]]$id, "H1")
   expect_equal(s$hypotheses[[1]]$description, "My test hypothesis")
+  expect_equal(s$hypotheses[[1]]$credit, "Dr X")
 })
 
 test_that("multiple hypotheses", {

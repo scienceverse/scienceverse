@@ -1,7 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9016
-Date: 2020-10-17
+Version: 0.0.0.9017
+Date: 2020-10-28
 Authors@R: c(
   person(  given = "Lisa",
            family = "DeBruine",
@@ -28,6 +28,7 @@ Imports:
     jsonlite,
     stringr,
     rmarkdown,
+    markdown,
     rio,
     faux (>= 0.0.1.4),
     methods,
@@ -46,9 +47,11 @@ Suggests:
     zcurve,
     metafor,
     pwr,
-    markdown,
     htmltools,
     shiny,
+    shinydashboard,
+    shinyjs,
+    DT,
     shiny.i18n
 Remotes: 
     FBartos/zcurve

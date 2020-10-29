@@ -5,6 +5,8 @@
 #' @param study A study list object with class scivrs_study
 #' @param id The id for this hypothesis (index or character) if a hypothesis with this id already exists, it will overwrite it
 #' @param description The text description of the hypothesis
+#' @param ... further arguments to add
+#'
 #' @return A study object with class scivrs_study
 #' @examples
 #'
@@ -15,7 +17,7 @@
 #' @export
 #'
 add_hypothesis <- function(study, id = NULL,
-                           description = "Describe your hypothesis") {
+                           description = "Describe your hypothesis", ...) {
   idx <- get_idx(study, id, "hypotheses")
   id <- ifelse(is.null(id), idx , fix_id(id))
 
@@ -26,6 +28,8 @@ add_hypothesis <- function(study, id = NULL,
     corroboration = list(),
     falsification = list()
   )
+
+  hypothesis <- c(hypothesis, list(...))
 
   class(hypothesis) <- c("scivrs_hypothesis", "list")
 

@@ -114,8 +114,8 @@ get_res_value <- function(txt, results) {
   if (txt %in% bool_vals) return(as.logical(txt))
 
   # return numeric version if it is numeric
-  suppressWarnings(num <- as.numeric(txt))
-  if (!is.na(num)) return(num)
+  num <- utils::type.convert(txt, as.is = TRUE)
+  if (!is.character(num)) return(num)
 
   # probably a character so check the results list
   splitres <- stringr::str_split(txt, "(\\$|\\[+'?\"?|'?\"?\\]+)")
@@ -124,25 +124,24 @@ get_res_value <- function(txt, results) {
     # no index
     idx <- NULL
   } else {
-    idx <- splitres[[1]][2]
-
-    # convert to numeric if it is
-    suppressWarnings(n_idx <- as.numeric(idx))
-    if (!is.na(n_idx)) idx <- n_idx
+    idx <- splitres[[1]][2] %>%
+      utils::type.convert(as.is = TRUE)
   }
 
   if (res %in% names(results)) {
-    if (is.null(idx)) {
-      return(results[[res]])
-    } else if (is.numeric(idx) & length(results[[res]]) < idx) {
+    if (is.null(idx)) return(results[[res]])
+
+    if (is.numeric(idx) && length(results[[res]]) < idx) {
       warning(res, " does not have a numeric index ", idx)
       return(NULL)
-    } else if (is.character(idx) & !idx %in% names(results[[res]])) {
+    }
+
+    if (is.character(idx) && !idx %in% names(results[[res]])) {
       warning(res, " does not have a named index ", idx)
       return(NULL)
-    } else {
-      return(results[[res]][[idx]])
     }
+
+    return(results[[res]][[idx]])
   } else {
     # named result not found
     return(txt)

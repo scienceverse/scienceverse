@@ -4,7 +4,7 @@
 \alias{add_hypothesis}
 \title{Add a hypothesis}
 \usage{
-add_hypothesis(study, id = NULL, description = "Describe your hypothesis")
+add_hypothesis(study, id = NULL, description = "Describe your hypothesis", ...)
 }
 \arguments{
 \item{study}{A study list object with class scivrs_study}
@@ -12,6 +12,8 @@ add_hypothesis(study, id = NULL, description = "Describe your hypothesis")
 \item{id}{The id for this hypothesis (index or character) if a hypothesis with this id already exists, it will overwrite it}
 
 \item{description}{The text description of the hypothesis}
+
+\item{...}{further arguments to add}
 }
 \value{
 A study object with class scivrs_study

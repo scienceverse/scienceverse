@@ -10,5 +10,15 @@
 #' \dontrun{ scivrs_app() }
 #'
 scivrs_app <- function(...) {
-  shiny::runApp(appDir = system.file("app", package = "scienceverse"), ...)
+  pckgs <- c("shiny", "shinydashboard", "shinyjs",
+             "shiny.i18n", "DT", "dplyr", "tidyr")
+  names(pckgs) <- pckgs
+  req_pckgs <- sapply(pckgs, requireNamespace, quietly = TRUE)
+
+  if (all(req_pckgs)) {
+    shiny::runApp(appDir = system.file("app", package = "scienceverse"), ...)
+  } else {
+    warning("You need to install the following packages to run the app: ",
+            paste(names(req_pckgs[!req_pckgs]), collapse = ", "))
+  }
 }
