@@ -13,6 +13,7 @@
 
 * Add custom info to editing author even if Author Update button not clicked ???
 * Upload Authors from csv or YAML
+* check multiple ORCIDs
 
 ## Hypotheses
 

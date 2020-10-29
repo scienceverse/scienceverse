@@ -251,6 +251,7 @@ server <- function(input, output, session) {
   })
 
   # authors ----
+  debug_msg("---authors---")
 
   # . . get_orcid ----
   observeEvent(input$get_orcid, {
@@ -479,6 +480,7 @@ server <- function(input, output, session) {
   )
 
   # hypotheses ----
+  debug_msg("---hypotheses---")
 
   # . . hyp_add ----
   observe({
@@ -640,6 +642,7 @@ server <- function(input, output, session) {
   }, ignoreNULL = TRUE)
 
   # critera ----
+  debug_msg("---criteria---")
 
   # . . crit_add ----
   observe({
@@ -884,6 +887,7 @@ server <- function(input, output, session) {
   }, ignoreNULL = TRUE)
 
   # data ----
+  debug_msg("---data---")
 
   ## . . dat_add ----
   observe({
@@ -1141,7 +1145,10 @@ server <- function(input, output, session) {
     }
   )
 
-  # sim_data ----
+  # simulation ----
+  debug_msg("---simulation---")
+
+  #  . . sim_data ----
   observeEvent(input$sim_data, {
     debug_msg("sim_data")
 
@@ -1673,6 +1680,7 @@ server <- function(input, output, session) {
 
 
   # methods ----
+  debug_msg("---methods---")
 
   # . . met_file ----
   observeEvent(input$met_file, {
@@ -1798,6 +1806,8 @@ server <- function(input, output, session) {
   }, ignoreNULL = TRUE)
 
   # summary ----
+  debug_msg("---summary---")
+
   # . . json_text  ----
   output$json_text <- renderText({
     debug_msg("json_text")
