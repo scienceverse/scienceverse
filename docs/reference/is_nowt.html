@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a function — make_func • scienceverse</title>
+<title>Check if values are NULL, NA, blank after trimming, or an empty list — is_nowt • scienceverse</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make a function — make_func" />
-<meta property="og:description" content="Make a function" />
+<meta property="og:title" content="Check if values are NULL, NA, blank after trimming, or an empty list — is_nowt" />
+<meta property="og:description" content="Check if values are NULL, NA, blank after trimming, or an empty list" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -132,38 +132,98 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/add_analysis.R'><code>R/add_analysis.R</code></a></small>
-    <div class="hidden name"><code>make_func.Rd</code></div>
+    <h1>Check if values are NULL, NA, blank after trimming, or an empty list</h1>
+    <small class="dont-index">Source: <a href='https://github.com/scienceverse/scienceverse/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>is_nowt.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make a function</p>
+    <p>Check if values are NULL, NA, blank after trimming, or an empty list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_func</span><span class='op'>(</span><span class='va'>func</span>, <span class='va'>code</span>, envir <span class='op'>=</span> <span class='va'>.GlobalEnv</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span>, test_for <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"null"</span>, <span class='st'>"na"</span>, <span class='st'>"trim"</span>, <span class='st'>"empty"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>func</th>
-      <td><p>the function name</p></td>
+      <th>x</th>
+      <td><p>vector or list to test</p></td>
     </tr>
     <tr>
-      <th>code</th>
-      <td><p>the function body (as character, vector, or list)</p></td>
-    </tr>
-    <tr>
-      <th>envir</th>
-      <td><p>the environment in which to define the function</p></td>
+      <th>test_for</th>
+      <td><p>values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty strings after trimws(), "empty" replaces empty lists)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>creates a function</p>
+    <p>vector or list of logical values</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='cn'>NA</span>, <span class='st'>" "</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] TRUE
+#&gt; </div><div class='input'><span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span>, test_for <span class='op'>=</span> <span class='st'>"null"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] FALSE
+#&gt; </div><div class='input'><span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span>, test_for <span class='op'>=</span> <span class='st'>"na"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] FALSE
+#&gt; </div><div class='input'><span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span>, test_for <span class='op'>=</span> <span class='st'>"trim"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] TRUE
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] FALSE
+#&gt; </div><div class='input'><span class='fu'>is_nowt</span><span class='op'>(</span><span class='va'>x</span>, test_for <span class='op'>=</span> <span class='st'>"empty"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] FALSE
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] TRUE
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

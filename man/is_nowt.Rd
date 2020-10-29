@@ -2,20 +2,20 @@
 % Please edit documentation in R/utils.R
 \name{is_nowt}
 \alias{is_nowt}
-\title{Check if values are NULL, NA or empty}
+\title{Check if values are NULL, NA, blank after trimming, or an empty list}
 \usage{
 is_nowt(x, test_for = c("null", "na", "trim", "empty"))
 }
 \arguments{
 \item{x}{vector or list to test}
 
-\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)}
+\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty strings after trimws(), "empty" replaces empty lists)}
 }
 \value{
 vector or list of logical values
 }
 \description{
-Check if values are NULL, NA or empty
+Check if values are NULL, NA, blank after trimming, or an empty list
 }
 \examples{
 x <- list(NULL, NA, " ", list())

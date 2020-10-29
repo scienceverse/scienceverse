@@ -408,10 +408,10 @@ print.nested_list <- function(x, ...) {
   cat(x)
 }
 
-#' Check if values are NULL, NA or empty
+#' Check if values are NULL, NA, blank after trimming, or an empty list
 #'
 #' @param x vector or list to test
-#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)
+#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty strings after trimws(), "empty" replaces empty lists)
 #'
 #' @return vector or list of logical values
 #' @export
@@ -450,11 +450,11 @@ is_nowt <- function(x, test_for = c("null", "na", "trim", "empty")) {
 }
 
 
-#' Replace values if NULL, NA or empty
+#' Replace values if NULL, NA, blank after trimming, or an empty list
 #'
 #' @param x vector or list to test
 #' @param replace value to replace with
-#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)
+#' @param test_for values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty strings after trimws(), "empty" replaces empty lists)
 #'
 #' @return vector or list with replaced values
 #' @export
@@ -465,11 +465,11 @@ is_nowt <- function(x, test_for = c("null", "na", "trim", "empty")) {
 #' if_nowt("   ")
 #' if_nowt(c(1, 2, NA), replace = 0)
 #' x <- list(NULL, NA, " ", list())
-#' if_nowt(x)
-#' if_nowt(x, test_for = "null")
-#' if_nowt(x, test_for = "na")
-#' if_nowt(x, test_for = "trim")
-#' if_nowt(x, test_for = "empty")
+#' if_nowt(x) %>% str()
+#' if_nowt(x, test_for = "null") %>% str()
+#' if_nowt(x, test_for = "na") %>% str()
+#' if_nowt(x, test_for = "trim") %>% str()
+#' if_nowt(x, test_for = "empty") %>% str()
 if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim", "empty")) {
   if (length(x) > 1) {
     args <- list(X = x, FUN = if_nowt,
@@ -491,8 +491,10 @@ if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim", "empty")
 
 #' Make a Named List
 #'
-#' @param names a vector of the names
-#' @param values a vector of the values
+#' Convenience function for making a named list from a vector or list of names and a vector or list of values
+#'
+#' @param names a vector or list of the names
+#' @param values a vector or list of the values
 #'
 #' @return a named list
 #' @export
@@ -501,6 +503,8 @@ if_nowt <- function(x, replace = "", test_for = c("null", "na", "trim", "empty")
 #' n <- LETTERS[1:3]
 #' val <- c("cat", "dog", "ferret")
 #' nlist(n, val)
+#'
+#' nlist(list("A", "B"), 1:2)
 #'
 nlist <- function(names, values) {
   # turn lists to vectors

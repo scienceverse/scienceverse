@@ -30,6 +30,11 @@ reference:
       - make_script
       - make_data
       - eval_summary
+  - title: "Data"
+    contents:
+      - study_demo
+      - kin
+      - stroop
   - title: "Other Functions"
     contents:
       - author
@@ -43,7 +48,6 @@ reference:
       - get_orcid
       - get_power
       - get_result
-      - if_nowt
       - output_custom_code
       - output_info
       - output_hypotheses
@@ -51,6 +55,12 @@ reference:
       - output_results
       - t_test
       - scienceverse_options
+  - title: "Utilities"
+    contents:
+      - if_nowt
+      - is_nowt
+      - nested_list
+      - nlist
 articles:
   - title: "Articles"
     contents:

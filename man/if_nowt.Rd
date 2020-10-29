@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{if_nowt}
 \alias{if_nowt}
-\title{Replace values if NULL, NA or empty}
+\title{Replace values if NULL, NA, blank after trimming, or an empty list}
 \usage{
 if_nowt(x, replace = "", test_for = c("null", "na", "trim", "empty"))
 }
@@ -11,13 +11,13 @@ if_nowt(x, replace = "", test_for = c("null", "na", "trim", "empty"))
 
 \item{replace}{value to replace with}
 
-\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty string after trimws(), "empty" replaces empty lists)}
+\item{test_for}{values to test for ("null" replaces NULL values, "na", replaces NA values, "trim" replaces empty strings after trimws(), "empty" replaces empty lists)}
 }
 \value{
 vector or list with replaced values
 }
 \description{
-Replace values if NULL, NA or empty
+Replace values if NULL, NA, blank after trimming, or an empty list
 }
 \examples{
 if_nowt(NULL)
@@ -25,9 +25,9 @@ if_nowt(NA)
 if_nowt("   ")
 if_nowt(c(1, 2, NA), replace = 0)
 x <- list(NULL, NA, " ", list())
-if_nowt(x)
-if_nowt(x, test_for = "null")
-if_nowt(x, test_for = "na")
-if_nowt(x, test_for = "trim")
-if_nowt(x, test_for = "empty")
+if_nowt(x) \%>\% str()
+if_nowt(x, test_for = "null") \%>\% str()
+if_nowt(x, test_for = "na") \%>\% str()
+if_nowt(x, test_for = "trim") \%>\% str()
+if_nowt(x, test_for = "empty") \%>\% str()
 }

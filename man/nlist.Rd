@@ -7,19 +7,21 @@
 nlist(names, values)
 }
 \arguments{
-\item{names}{a vector of the names}
+\item{names}{a vector or list of the names}
 
-\item{values}{a vector of the values}
+\item{values}{a vector or list of the values}
 }
 \value{
 a named list
 }
 \description{
-Make a Named List
+Convenience function for making a named list from a vector or list of names and a vector or list of values
 }
 \examples{
 n <- LETTERS[1:3]
 val <- c("cat", "dog", "ferret")
 nlist(n, val)
+
+nlist(list("A", "B"), 1:2)
 
 }
