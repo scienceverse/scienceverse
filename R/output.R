@@ -65,12 +65,12 @@ output_hypotheses <- function(study, header_lvl = 2,
       txt <- paste0(txt, header, "## Criteria\n\n", sep = "")
       criteria <- study$hypotheses[[i]]$criteria
 
-      for (j in 1:length(criteria)) {
-        txt <- paste0(txt, "* `", criteria[[j]]$id, "` is confirmed if analysis `",
-            criteria[[j]]$analysis_id, "` yields `",
-            criteria[[j]]$result,
-            criteria[[j]]$operator,
-            criteria[[j]]$comparator,
+      for (j in criteria) {
+        txt <- paste0(txt, "* `", j$id, "` is confirmed if analysis `",
+            j$analysis_id, "` yields `",
+            j$result,
+            j$operator,
+            j$comparator,
             "`  \n",
             sep = ""
         )
