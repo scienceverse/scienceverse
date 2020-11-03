@@ -52,7 +52,7 @@ add_eval <- function(study, type, evaluation, description= "",
 
   criteria_missing <- setdiff(criteria_refs, criteria_ids)
   if (length(criteria_missing) > 0) {
-    if (scienceverse_options("verbose")) {
+    if (sv_opts("verbose")) {
       warning("Criteria `", paste(criteria_missing, collapse = "`, `"),
               "` have not been defined yet.")
     }

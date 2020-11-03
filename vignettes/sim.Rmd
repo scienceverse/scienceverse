@@ -16,11 +16,13 @@ set.seed(8675309)
 ```
 
 ```{r setup}
-library(scienceverse)
-library(faux)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
+suppressPackageStartupMessages({
+  library(scienceverse)
+  library(faux)
+  library(tidyr)
+  library(dplyr)
+  library(ggplot2)
+})
 ```
 
 First, I use the `sim_design()` function from faux to visualise the design for my proposed study. I'm simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.
@@ -76,14 +78,14 @@ t.test(cat_smug, dog_smug, mu = 0.2,
 
 ```{r}
 study <- study("Simple Simulation Demo")  %>%
-  add_hypothesis("Happy", "Dog owners will be happier than cat owners.") %>%
-  add_analysis("A1", {
+  add_hypothesis("happy", "Dog owners will be happier than cat owners.") %>%
+  add_analysis("happy_main", {
     dog_happy <- pet_data$happy[pet_data$pet == "dog"]
     cat_happy <- pet_data$happy[pet_data$pet == "cat"]
     t.test(dog_happy, cat_happy, mu = 0, alternative = "greater")
   }) %>%
   add_criterion("happy_c", "p.value", "<", 0.05) %>%
-  add_analysis("A2", {
+  add_analysis("happ_equiv", {
     dog_happy <- pet_data$happy[pet_data$pet == "dog"]
     cat_happy <- pet_data$happy[pet_data$pet == "cat"]
     t.test(dog_happy, cat_happy, mu = 0.2, alternative = "less")
@@ -97,14 +99,14 @@ Add a second hypothesis, with all associated analyses, criteria, and evaluation 
 
 ```{r}
 study <- study %>%
-  add_hypothesis("Smug", "Cat owners will be smugger than dog owners.") %>%
-  add_analysis("A3", {
+  add_hypothesis("smug", "Cat owners will be smugger than dog owners.") %>%
+  add_analysis("smug_main", {
     dog_smug <- pet_data$smug[pet_data$pet == "dog"]
     cat_smug <- pet_data$smug[pet_data$pet == "cat"]
     t.test(cat_smug, dog_smug, mu = 0, alternative = "greater")
   }) %>%
   add_criterion("smug_c", "p.value", "<", 0.05) %>%
-  add_analysis("A4", {
+  add_analysis("smug_equiv", {
     dog_smug <- pet_data$smug[pet_data$pet == "dog"]
     cat_smug <- pet_data$smug[pet_data$pet == "cat"]
     t.test(cat_smug, dog_smug, mu = 0.2, alternative = "less")
@@ -129,34 +131,26 @@ simstudy <- add_sim_data(
   study_analyse()
 ```
 
-You can also increase the number of replications in the simulation to calculate the power of your study. This is especially helpful for studies with complex analyses or evaluation criteria.
+
+Use the `study_power` function to run the analyses on each simulated dataset and return the percent of datasets that lead to each possible conclusion for each hypothesis. You can also increase the number of replications in the simulation to calculate the power of your study. This is especially helpful for studies with complex analyses or evaluation criteria.
 
 ```{r}
-simstudy <- add_sim_data(
-  study,
-  data_id = "pet_data",
-  between = list(pet = c("dog", "cat")),
-  within = list(emotion = c("happy", "smug")),
-  n = 30, # in each between-subject cell
-  mu = c(10, 5, 9, 6),
-  sd = 2,
-  rep = 1000
-)
+simstudy <- study_power(simstudy, rep = 1000)
 ```
 
-Use the `study_power` function to run the analyses on each simulated dataset and return the percent of datasets that lead to each possible conclusion for each hypothesis.
-
-```{r}
-simstudy <- study_power(simstudy)
-```
-
-Use the `get_power` function to get the results in a list format. Set `values` to `TRUE` to get the individual values for the criteria.
+Use the `get_power` function to get the results in a list format. Set `values` to `TRUE` to get the individual values for the analysis results.
 
 ```{r}
 power <- get_power(simstudy, values = TRUE)
 
-happy_c <- power$Happy$criteria$happy_c
-smug_c <- power$Smug$criteria$smug_c
+# get power for each hypothesis
+# corroboration, falsification, or inconclusive
+happy_power <- power$power$happy
+smug_power <- power$power$smug
+
+# get values for specific analysis results
+happy_c <- power$results$happy_main$p.value
+smug_c <- power$results$smug_main$p.value
 ```
 
 

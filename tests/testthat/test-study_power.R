@@ -43,18 +43,18 @@ test_that("basic", {
 
   p <- study_power$hypotheses[[1]]$power
 
-  expect_equal(names(p), c("corroboration", "falsification",
-                              "inconclusive", "criteria"))
+  expect_equal(names(p), c("corroboration",
+                           "falsification",
+                           "inconclusive"))
 
   expect_true(p$corroboration > 0.95)
   expect_true(p$falsification < 0.05)
   expect_true(p$inconclusive < 0.05)
-  expect_equal(names(p$criteria), c("C1", "C2"))
 
-  expect_true(is.numeric(p$criteria$C1))
-  expect_true(is.numeric(p$criteria$C2))
-  expect_equal(length(p$criteria$C1), 100)
-  expect_equal(length(p$criteria$C2), 100)
+  res <- study_power$analyses[[1]]$power
+
+  expect_true(is.numeric(res$p.value))
+  expect_equal(length(res$p.value), 100)
 })
 
 test_that("null", {
@@ -70,7 +70,9 @@ test_that("null", {
   expect_true(study$hypotheses[[1]]$power$corroboration < .15)
 })
 
-test_that("null", {
+test_that("accuracy", {
+  skip("Takes forever")
+
   study <- study() %>%
     add_hypothesis("H1") %>%
     add_analysis("A1", t.test(y~A, data = D1)) %>%
@@ -78,8 +80,20 @@ test_that("null", {
     add_eval("corroboration", "C1") %>%
     add_eval("falsification", "!C1")
 
-  for (d in seq(0, 1, 0.1)) {
-     add_sim_data(study, "D1", between = 2, n = 20, mu = c(0, d)) %>%
-      study_power(10)
-  }
+  power <- sapply(seq(0, 1, 0.1), function(d) {
+     p <- add_sim_data(study, "D1", between = 2, n = 20, mu = c(0, d)) %>%
+      study_power(100) %>%
+      get_power()
+
+     p$H1$corroboration
+  })
+
+  p2 <- lapply(seq(0, 1, 0.1), power.t.test, n = 20) %>%
+    sapply(`[[`, "power")
+
+  plot(power, p2)
+
+  max_diff <- abs(power-p2) %>% max()
+
+  expect_true(max_diff < .1)
 })

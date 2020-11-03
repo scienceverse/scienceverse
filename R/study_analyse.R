@@ -23,7 +23,7 @@
 study_analyse <- function(study) {
   analysis_n <- length(study$analyses)
   if (analysis_n == 0) {
-    if (scienceverse_options("verbose")) {
+    if (sv_opts("verbose")) {
       message("No analyses have been specified")
     }
     return(invisible(study))

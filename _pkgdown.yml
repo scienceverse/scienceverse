@@ -18,9 +18,11 @@ reference:
       - add_eval
       - add_data
       - add_sim_data
+      - add_method
       - update_hypothesis
       - update_analysis
       - update_criterion
+      - update_method
   - title: "Study Functions"
     desc: "Running analyses, generating reports, and saving data"
     contents:
@@ -51,6 +53,7 @@ reference:
       - output_custom_code
       - output_info
       - output_hypotheses
+      - output_data
       - output_analyses
       - output_results
       - t_test
@@ -68,6 +71,7 @@ articles:
       - extended
       - meta
       - sim
+      - power
       - codebook
       - credit
       - functions

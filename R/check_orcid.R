@@ -14,7 +14,7 @@ check_orcid <- function(orcid) {
   baseDigits <- gsub("[^0-9X]", "", orcid)
 
   if (nchar(baseDigits) != 16) {
-    if (scienceverse_options("verbose")) {
+    if (sv_opts("verbose")) {
       warning("The ORCiD ", orcid, " is not valid.")
     }
     return(FALSE)
@@ -36,7 +36,7 @@ check_orcid <- function(orcid) {
           substr(baseDigits, 13, 16),
           sep = "-")
   } else {
-    if (scienceverse_options("verbose")) {
+    if (sv_opts("verbose")) {
       warning("The ORCiD ", orcid, " is not valid.")
     }
     return(FALSE)
@@ -85,13 +85,11 @@ get_orcid <- function(family, given = "*") {
   })
   l <- xml2::as_list(xml)
 
-  if (scienceverse_options("verbose")) {
-    n <- length(l$search)
-    if (n == 0) {
-      message("No ORCID found for ", given, " ", family)
-    } else if (n > 1) {
-      message("Multiple (", n, ") ORCIDs found for ", given, " ", family)
-    }
+  n <- length(l$search)
+  if (n == 0) {
+    message("No ORCID found for ", given, " ", family)
+  } else if (n > 1) {
+    message("Multiple (", n, ") ORCIDs found for ", given, " ", family)
   }
 
   sapply(l$search, function(res) {

@@ -2,9 +2,12 @@
 % Please edit documentation in R/scienceverse_options.R
 \name{scienceverse_options}
 \alias{scienceverse_options}
+\alias{sv_opts}
 \title{Set/get global scienceverse options}
 \usage{
 scienceverse_options(...)
+
+sv_opts(...)
 }
 \arguments{
 \item{...}{One of four: (1) nothing, then returns all options as a list; (2) a name of an option element, then returns its value; (3) a name-value pair which sets the corresponding option to the new value (and returns nothing), (4) a list with option-value pairs which sets all the corresponding arguments.}

@@ -44,7 +44,7 @@ study_save <- function(study,
     if (substr(filename, 1, 1) != "/") {
       filename <- paste0(getwd(), "/", filename)
     }
-    if (scienceverse_options("verbose")) message("Saving to ", filename)
+    message("Saving to ", filename)
 
     study_to_json(study, data_values) %>%
       writeLines(filename)
@@ -58,7 +58,7 @@ study_save <- function(study,
     if (substr(filename, 1, 1) != "/") {
       filename <- paste0(getwd(), "/", filename)
     }
-    if (scienceverse_options("verbose")) message("Saving to ", filename)
+    message("Saving to ", filename)
 
     if (format == "prereg") {
       template <- system.file("rmarkdown", "prereg.Rmd", package = "scienceverse")

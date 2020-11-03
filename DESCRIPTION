@@ -34,7 +34,8 @@ Imports:
     methods,
     stats,
     utils,
-    xml2
+    xml2,
+    progress
 Suggests: 
     testthat (>= 2.1.0),
     knitr,

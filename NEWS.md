@@ -1,6 +1,7 @@
 # scienceverse 0.0.0.9018 (2020-11-03)
 
 * fixed bug in `study_power()` that produced errors for long (as opposed to wide) data with within-subject factors
+* changed the returned llist from `get_power()` to return all analysis results, even those that aren't used in hypothesis criteria
 * as always, more app updates
 
 # scienceverse 0.0.0.9017 (2020-10-28)

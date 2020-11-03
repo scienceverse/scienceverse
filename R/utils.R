@@ -317,12 +317,15 @@ print.scivrs_authors <- function(x, ...) {
 #' @keywords internal
 #'
 message <- function (..., domain = NULL, appendLF = TRUE) {
-  if (is.null(knitr::opts_knit$get('rmarkdown.pandoc.to'))) {
-    # not in knitr environment
-    base::message("\033[32m", ..., "\033[39m",
-                  domain = domain, appendLF = appendLF)
-  } else {
-    base::message(..., domain = domain, appendLF = appendLF)
+  #if (is.null(knitr::opts_knit$get('rmarkdown.pandoc.to'))) {
+  if (sv_opts("verbose")) {
+    if (interactive()) {
+      # not in knitr environment
+      base::message("\033[32m", ..., "\033[39m",
+                    domain = domain, appendLF = appendLF)
+    } else {
+      base::message(..., domain = domain, appendLF = appendLF)
+    }
   }
 }
 

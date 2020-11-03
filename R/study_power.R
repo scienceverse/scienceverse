@@ -28,7 +28,7 @@ study_power <- function(study, rep = 100) {
     stop("The argument `rep` needs to be a positive number.")
   }
 
-  if (length(study$hypotheses) == 0 && scienceverse_options("verbose")) {
+  if (length(study$hypotheses) == 0) {
     message("There are no hypotheses.")
   }
 
@@ -45,7 +45,7 @@ study_power <- function(study, rep = 100) {
     if (!"design" %in% class(d$design)) {
       if (is.null(d$data)) {
         warning("There is no data or design information for `", d$id, "`. Analyses that require this data are likely to fail.")
-      } else if (scienceverse_options("verbose")) {
+      } else {
         message("The data `", d$id, "` will not be simulated, but be used as is for each analysis.")
         # load static data
         assign(d$id, d$data, envir = env)
@@ -54,15 +54,19 @@ study_power <- function(study, rep = 100) {
       is_long = isTRUE(d$design$long)
 
       # simulate new data ----
+      message("Simulating Datasets...")
       simdata[[d$id]] <- faux::sim_data(d$design, long = is_long, rep = rep)
     }
   }
 
-  dataids <- names(simdata)
-
+  # run analyses ----
+  message("Running Analyses...")
+  pb <- progress::progress_bar$new(total = rep)
   results <- list()
+  dataids <- names(simdata)
   for (i in 1:rep) {
-    if (scienceverse_options("verbose") && interactive()) message(i, "...")
+    if (interactive()) { pb$tick() }
+
     # assign data ----
     for (id in dataids) {
       assign(id, simdata[[id]][["data"]][[i]], envir = env)
@@ -79,15 +83,26 @@ study_power <- function(study, rep = 100) {
     }
   }
 
+  # record all results ----
+  for (a in seq_along(study$analyses)) {
+    resnames <- names(results[[a]][[1]])
+    names(resnames) <- resnames
+    resvals <- lapply(resnames, function(x) {
+      sapply(results[[a]], `[[`, x)
+    })
+
+    study$analyses[[a]]$power <- resvals
+  }
+
+
   # evaluate each hypothesis ----
+  message("Evaluating Hypotheses...")
   for (i in 1:length(study$hypotheses)) {
     h <- study$hypotheses[[i]]
     # evaluate each criterion ----
     criteria_n <- length(h$criteria)
     if (criteria_n == 0) {
-      if (scienceverse_options("verbose")) {
-        message("Hypothesis ", h$id, " has no criteria")
-      }
+      message("Hypothesis ", h$id, " has no criteria")
     } else {
       criteria <- list()
       values <- list()
@@ -203,12 +218,10 @@ study_power <- function(study, rep = 100) {
     study$hypotheses[[i]][["power"]] <- list(
       corroboration = mean(conc == "c"),
       falsification = mean(conc == "f"),
-      inconclusive = mean(conc == "i"),
-      criteria = values
+      inconclusive = mean(conc == "i")
     )
 
-    if (scienceverse_options("verbose")) {
-      message(sprintf("Hypothesis %s
+    message(sprintf("Hypothesis %s
       corroboration: %03.1f%%
       falsification: %03.1f%%
       inconclusive:  %03.1f%%",
@@ -216,7 +229,6 @@ study_power <- function(study, rep = 100) {
                       round(100*mean(conc == "c"), 1),
                       round(100*mean(conc == "f"), 1),
                       round(100*mean(conc == "i"), 1)))
-    }
   }
   invisible(study)
 }
@@ -246,11 +258,14 @@ study_power <- function(study, rep = 100) {
 #'
 get_power <- function(study, values = FALSE) {
   power <- list()
-  for (h in study$hypotheses) {
-    power[[h$id]] <- h$power
-    if (!values) {
-      power[[h$id]]$criteria <- NULL
-    }
+
+  power$power <- lapply(study$hypotheses, `[[`, "power")
+  names(power$power) <- lapply(study$hypotheses, `[[`, "id")
+
+  if (values) {
+    power$results <- lapply(study$analyses, `[[`, "power")
+    names(power$results) <- lapply(study$analyses, `[[`, "id")
   }
+
   power
 }

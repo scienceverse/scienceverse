@@ -337,7 +337,7 @@ output_info <- function(study, header_lvl = 2,
 format_output <- function(txt, output = c("md", "html", "text")) {
   output <- match.arg(output)
   if (output == "md") {
-    if (scienceverse_options("verbose")) cat(txt)
+    if (sv_opts("verbose")) cat(txt)
     return(txt)
   } else if (output == "html") {
     html <- txt %>% # deal with headers > 6
@@ -345,7 +345,7 @@ format_output <- function(txt, output = c("md", "html", "text")) {
       gsub("\n#{7,}\\s*([^\n]*)\n", "\n**\\1**\n", .) %>%
       markdown::renderMarkdown(text = .)
 
-    if (scienceverse_options("verbose")) cat(html)
+    if (sv_opts("verbose")) cat(html)
     return(html)
   } else if (output == "text") {
     text <- txt %>%
@@ -353,7 +353,7 @@ format_output <- function(txt, output = c("md", "html", "text")) {
       gsub("\n#+\\s+", "\n", .) %>% # get rid of subsequent #
       gsub("\\{#\\S*\\}", "", .) # get rid of {#ID} tags
 
-    if (scienceverse_options("verbose")) cat(text)
+    if (sv_opts("verbose")) cat(text)
     return(text)
   }
 }

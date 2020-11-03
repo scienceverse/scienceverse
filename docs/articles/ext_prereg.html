@@ -371,7 +371,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Registration of Statistical Hypotheses</h1>
-<h4 class="date">17 October, 2020</h4>
+<h4 class="date">03 November, 2020</h4>
 
 </div>
 
@@ -402,29 +402,29 @@ summary {
 <div id="criteria" class="section level4">
 <h4>Criteria</h4>
 <ul>
-<li><code>t_lo</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>t_lo</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[1] &gt; 0</code><br />
 </li>
-<li><code>t_hi</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[2]&gt;0.2</code><br />
+<li><code>t_hi</code> is confirmed if analysis <code>trust</code> yields <code>conf.int[2] &gt; 0.2</code><br />
 </li>
-<li><code>r_lo</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>r_lo</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[1] &gt; 0</code><br />
 </li>
-<li><code>r_hi</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[2]&gt;0.2</code><br />
+<li><code>r_hi</code> is confirmed if analysis <code>recip</code> yields <code>conf.int[2] &gt; 0.2</code><br />
 </li>
-<li><code>ts_norm</code> is confirmed if analysis <code>norm</code> yields <code>ts&gt;0.05</code><br />
+<li><code>ts_norm</code> is confirmed if analysis <code>norm</code> yields <code>ts &gt; 0.05</code><br />
 </li>
-<li><code>to_norm</code> is confirmed if analysis <code>norm</code> yields <code>to&gt;0.05</code><br />
+<li><code>to_norm</code> is confirmed if analysis <code>norm</code> yields <code>to &gt; 0.05</code><br />
 </li>
-<li><code>rs_norm</code> is confirmed if analysis <code>norm</code> yields <code>rs&gt;0.05</code><br />
+<li><code>rs_norm</code> is confirmed if analysis <code>norm</code> yields <code>rs &gt; 0.05</code><br />
 </li>
-<li><code>ro_norm</code> is confirmed if analysis <code>norm</code> yields <code>ro&gt;0.05</code><br />
+<li><code>ro_norm</code> is confirmed if analysis <code>norm</code> yields <code>ro &gt; 0.05</code><br />
 </li>
-<li><code>t_lo_w</code> is confirmed if analysis <code>trust_wilcox</code> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>t_lo_w</code> is confirmed if analysis <code>trust_wilcox</code> yields <code>conf.int[1] &gt; 0</code><br />
 </li>
-<li><code>t_hi_w</code> is confirmed if analysis <code>trust_wilcox</code> yields <code>conf.int[2]&gt;0.2</code><br />
+<li><code>t_hi_w</code> is confirmed if analysis <code>trust_wilcox</code> yields <code>conf.int[2] &gt; 0.2</code><br />
 </li>
-<li><code>r_lo_w</code> is confirmed if analysis <code>recip_wilcox</code> yields <code>conf.int[1]&gt;0</code><br />
+<li><code>r_lo_w</code> is confirmed if analysis <code>recip_wilcox</code> yields <code>conf.int[1] &gt; 0</code><br />
 </li>
-<li><code>r_hi_w</code> is confirmed if analysis <code>recip_wilcox</code> yields <code>conf.int[2]&gt;0.2</code></li>
+<li><code>r_hi_w</code> is confirmed if analysis <code>recip_wilcox</code> yields <code>conf.int[2] &gt; 0.2</code></li>
 </ul>
 </div>
 <div id="evaluation" class="section level4">
@@ -467,17 +467,23 @@ summary {
     rs &lt;- shapiro.test(kin$recip_self)$p.value
     ro &lt;- shapiro.test(kin$recip_other)$p.value
 }
-list(ts = ts, to = to, rs = rs, ro = ro)</pre>
+# return values
+list(
+    `ts` = ts,
+    `to` = to,
+    `rs` = rs,
+    `ro` = ro
+)</pre>
 </div>
 <div id="trust_wilcox" class="section level3">
 <h3>Analysis 4: trust_wilcox</h3>
-<pre>wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, 
-    conf.level = 0.975, conf.int = TRUE)</pre>
+<pre>wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975, 
+    conf.int = TRUE)</pre>
 </div>
 <div id="recip_wilcox" class="section level3">
 <h3>Analysis 5: recip_wilcox</h3>
-<pre>wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, 
-    conf.level = 0.975, conf.int = TRUE)</pre>
+<pre>wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975, 
+    conf.int = TRUE)</pre>
 </div>
 </div>
 

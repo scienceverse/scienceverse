@@ -41,3 +41,7 @@ scienceverse_options <- function (...) {
             call. = FALSE)
   }
 }
+
+#' @rdname scienceverse_options
+#' @export
+sv_opts <- scienceverse_options

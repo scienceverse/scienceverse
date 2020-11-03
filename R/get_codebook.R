@@ -70,7 +70,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
 
   # set faux verbose options to same as scivrs opts
   faux_verbose <- faux::faux_options("verbose")
-  faux::faux_options("verbose" = scienceverse_options("verbose"))
+  faux::faux_options("verbose" = sv_opts("verbose"))
   on.exit({faux::faux_options("verbose" = faux_verbose)})
 
   if (is.null(name)) {

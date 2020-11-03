@@ -138,40 +138,46 @@
     "analyses": [
         {
             "id": "trust",
-            "code": "    t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
+            "code": "t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
             "software": "R version 4.0.2 (2020-06-22)"
         },
         {
             "id": "recip",
-            "code": "    t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
+            "code": "t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
             "software": "R version 4.0.2 (2020-06-22)"
         },
         {
             "id": "norm",
             "code": [
-                "    {",
-                "        ts <- shapiro.test(kin$trust_self)$p.value",
-                "        to <- shapiro.test(kin$trust_other)$p.value",
-                "        rs <- shapiro.test(kin$recip_self)$p.value",
-                "        ro <- shapiro.test(kin$recip_other)$p.value",
-                "    }",
-                "    list(ts = ts, to = to, rs = rs, ro = ro)"
+                "{",
+                "    ts <- shapiro.test(kin$trust_self)$p.value",
+                "    to <- shapiro.test(kin$trust_other)$p.value",
+                "    rs <- shapiro.test(kin$recip_self)$p.value",
+                "    ro <- shapiro.test(kin$recip_other)$p.value",
+                "}",
+                "# return values",
+                "list(",
+                "    `ts` = ts,",
+                "    `to` = to,",
+                "    `rs` = rs,",
+                "    `ro` = ro",
+                ")"
             ],
             "software": "R version 4.0.2 (2020-06-22)"
         },
         {
             "id": "trust_wilcox",
             "code": [
-                "    wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, ",
-                "        conf.level = 0.975, conf.int = TRUE)"
+                "wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975, ",
+                "    conf.int = TRUE)"
             ],
             "software": "R version 4.0.2 (2020-06-22)"
         },
         {
             "id": "recip_wilcox",
             "code": [
-                "    wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, ",
-                "        conf.level = 0.975, conf.int = TRUE)"
+                "wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975, ",
+                "    conf.int = TRUE)"
             ],
             "software": "R version 4.0.2 (2020-06-22)"
         }

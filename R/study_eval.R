@@ -9,9 +9,7 @@ study_eval <- function(study) {
   hypothesis_n <- length(study$hypotheses)
 
   if (hypothesis_n == 0) {
-    if (scienceverse_options("verbose")) {
-      message("The study has no hypotheses.")
-    }
+    message("The study has no hypotheses.")
     return(invisible(study))
   }
 
@@ -23,9 +21,7 @@ study_eval <- function(study) {
     # evaluate each criterion ----
     criteria_n <- length(h$criteria)
     if (criteria_n == 0) {
-      if (scienceverse_options("verbose")) {
-        message("Hypothesis ", h$id, " has no criteria")
-      }
+      message("Hypothesis ", h$id, " has no criteria")
     } else {
       criteria <- vector()
       for (j in 1:criteria_n) {
@@ -57,9 +53,7 @@ study_eval <- function(study) {
       names(replacement) <- names(criteria)
 
       if (is.null(h$corroboration$evaluation)) {
-        if (scienceverse_options("verbose")) {
-          message("Hypothesis ", h$id, " has no evaluation criteria for corroboration")
-        }
+        message("Hypothesis ", h$id, " has no evaluation criteria for corroboration")
         corrob <- FALSE
       } else {
         tryCatch({
@@ -87,9 +81,7 @@ study_eval <- function(study) {
         })
       }
       if (is.null(h$falsification$evaluation)) {
-        if (scienceverse_options("verbose")) {
-          message("Hypothesis ", h$id, " has no evaluation criteria for falsification")
-        }
+        message("Hypothesis ", h$id, " has no evaluation criteria for falsification")
         falsify <- FALSE
       } else {
         tryCatch({
@@ -130,10 +122,7 @@ study_eval <- function(study) {
     }
   }
 
-  if (scienceverse_options("verbose")) {
-    message(eval_summary(study))
-  }
-
+  message(eval_summary(study))
 
   invisible(study)
 }

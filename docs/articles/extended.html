@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
       </span>
     </div>
 
@@ -293,9 +293,9 @@
 <div class="sourceCode" id="cb31"><pre class="downlit">
 <span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span><span class="op">(</span><span class="va">study</span>, rep <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></pre></div>
 <pre><code>#&gt; Hypothesis self_pref
-#&gt;       corroboration: 54.0%
+#&gt;       corroboration: 49.0%
 #&gt;       falsification: 0.0%
-#&gt;       inconclusive:  46.0%</code></pre>
+#&gt;       inconclusive:  51.0%</code></pre>
 <p>You can access the values for each criterion for each simulation with the function <code>get_power</code> (set <code>values = TRUE</code>). This returns a list of hypotheses and their associated criteria that you can then plot or further assess.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit">
 <span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span><span class="op">(</span><span class="va">study</span>, values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -788,7 +788,13 @@ Criteria values for 100 simulated studies
     rs &lt;- shapiro.test(kin$recip_self)$p.value
     ro &lt;- shapiro.test(kin$recip_other)$p.value
 }
-list(ts = ts, to = to, rs = rs, ro = ro)</code></pre>
+# return values
+list(
+    `ts` = ts,
+    `to` = to,
+    `rs` = rs,
+    `ro` = ro
+)</code></pre>
 <div id="stored-results-2" class="section level4">
 <h4 class="hasAnchor">
 <a href="#stored-results-2" class="anchor"></a>Stored Results</h4>
@@ -807,8 +813,8 @@ list(ts = ts, to = to, rs = rs, ro = ro)</code></pre>
 <div id="analysis_4" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis_4" class="anchor"></a>Analysis 4: trust_wilcox</h3>
-<pre class="{r}"><code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, 
-    conf.level = 0.975, conf.int = TRUE)</a></code></pre>
+<pre class="{r}"><code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975, 
+    conf.int = TRUE)</a></code></pre>
 <div id="stored-results-3" class="section level4">
 <h4 class="hasAnchor">
 <a href="#stored-results-3" class="anchor"></a>Stored Results</h4>
@@ -852,8 +858,8 @@ list(ts = ts, to = to, rs = rs, ro = ro)</code></pre>
 <div id="analysis_5" class="section level3">
 <h3 class="hasAnchor">
 <a href="#analysis_5" class="anchor"></a>Analysis 5: recip_wilcox</h3>
-<pre class="{r}"><code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, 
-    conf.level = 0.975, conf.int = TRUE)</a></code></pre>
+<pre class="{r}"><code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975, 
+    conf.int = TRUE)</a></code></pre>
 <div id="stored-results-4" class="section level4">
 <h4 class="hasAnchor">
 <a href="#stored-results-4" class="anchor"></a>Stored Results</h4>
