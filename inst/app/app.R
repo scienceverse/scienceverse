@@ -12,6 +12,7 @@ suppressPackageStartupMessages({
 
 source("R/constants.R")
 source("R/funcs.R")
+source("R/modules/section.r")
 source("R/modules/cinfo.R")
 source("i18n/trans.R")
 
@@ -28,20 +29,27 @@ source("tabs/out.R")
 
 ## UI ----
 ui <- dashboardPage(
-  skin = "red",
+  skin = "black",
   dashboardHeader(title = "Scienceverse"),
   dashboardSidebar(
     sidebarMenu(
       id = "tabs",
-      menuItem("Study Info", tabName = "study_tab"),
-      menuItem("Authors", tabName = "aut_tab"),
-      menuItem("Hypotheses", tabName = "hyp_tab"),
-      menuItem("Methods", tabName = "met_tab"),
-      menuItem("Data", tabName = "dat_tab"),
-      menuItem("Analysis", tabName = "ana_tab"),
-      menuItem("Summaries", tabName = "out_tab")
+      menuItem("Study Info", tabName = "study_tab",
+               icon = icon("yin-yang")),
+      menuItem("Authors", tabName = "aut_tab",
+               icon = icon("user-graduate")),
+      menuItem("Hypotheses", tabName = "hyp_tab",
+               icon = icon("lightbulb")),
+      menuItem("Methods", tabName = "met_tab",
+               icon = icon("cog")),
+      menuItem("Data", tabName = "dat_tab",
+               icon = icon("database")),
+      menuItem("Analyses", tabName = "ana_tab",
+               icon = icon("chart-bar")),
+      menuItem("Summaries", tabName = "out_tab",
+               icon = icon("file"))
     ),
-    actionButton("demo", "Load Demo Study"),
+    actionButton("demo", "Demo Study"),
     actionButton("reset_study", "Reset Study"),
 
     selectInput("lang", "Change language",
@@ -73,11 +81,13 @@ server <- function(input, output, session) {
   # reactiveVals ----
   debug_msg("----reactiveVals----")
 
+  my_study <- reactiveVal( study(name = "", description = "") )
+
   aut_clear <- makeReactiveTrigger()
   hyp_clear <- makeReactiveTrigger()
   dat_clear <- makeReactiveTrigger()
   ana_clear <- makeReactiveTrigger()
-  my_study <- reactiveVal( study(name = "", description = "") )
+
   criteria <- reactiveVal(list())
   return_list <- reactiveVal(list())
   authors <- reactiveVal(list())
@@ -109,6 +119,11 @@ server <- function(input, output, session) {
   met_cinfo <- cinfoServer("met_info")
   ana_cinfo <- cinfoServer("ana_info")
   aut_cinfo <- cinfoServer("aut_info")
+
+  met_sec <- sectionServer(
+    "met_sec", "methods",
+    c("met_id", "met_desc", "met_text", "met_type")
+  )
 
   # on startup ----
   shinyjs::hide("hyp_delete")
@@ -1699,14 +1714,11 @@ server <- function(input, output, session) {
       return("")
     })
 
-
     updateTextAreaInput(session, "met_text", value = "")
     if (ext == "json") {
       updateRadioButtons(session, "met_type", selected = "json")
     } else if (ext == "yml") {
       updateRadioButtons(session, "met_type", selected = "yml")
-    } else {
-      updateRadioButtons(session, "met_type", selected = "text")
     }
     updateTextAreaInput(session, "met_text", value = txt)
   }, ignoreNULL = TRUE)
@@ -1830,6 +1842,56 @@ server <- function(input, output, session) {
     }
   )
 
+  # . . script_text  ----
+  output$script_text <- renderText({
+    debug_msg("script_text")
+    tryCatch({
+      make_script(
+        study = my_study(),
+        data_path = if (input$dat_embed) NULL else "data",
+        data_format = "csv",
+        use_rmarkdown = (input$script_ext == ".Rmd"),
+        header_lvl = input$script_header_lvl
+      )
+    }, error = function(e) {
+      return(e)
+    })
+  })
+
+  # . . download_script ----
+  output$download_script <- downloadHandler(
+    filename = function() {
+      sname <- gsub("[^A-Za-z0-9]", "_", input$study_name)
+      paste0(sname, "_script.zip")
+    },
+    content = function(file) {
+      sname <- gsub("[^A-Za-z0-9]", "_", input$study_name)
+      dname <- paste0(tempdir(), "/", sname)
+      fname <- paste0(dname, "/_script.Rmd")
+
+      sc <- tryCatch({
+        dir.create(dname)
+        on.exit(unlink(dname, TRUE))
+
+        make_script(
+          study = my_study(),
+          data_path = if (input$dat_embed) NULL else "data",
+          data_format = "csv",
+          use_rmarkdown = (input$script_ext == ".Rmd"),
+          header_lvl = input$script_header_lvl
+        )
+        return(TRUE)
+      }, error = function(e) {
+        shinyjs::alert(e)
+        return(FALSE)
+      })
+
+      if (sc) {
+        utils::zip(file, dname)
+      }
+    }
+  )
+
   # . . download_pre ----
   output$download_pre <- downloadHandler(
     filename = function() {
@@ -1851,7 +1913,7 @@ server <- function(input, output, session) {
   )
 
   ## . . human_readable ----
-  output$human_readable <- renderUI({
+  observeEvent(my_study(), {
     debug_msg("human_readable")
 
     s <- my_study()
@@ -1859,21 +1921,19 @@ server <- function(input, output, session) {
     capture.output({
       i <- output_info(s, lvl, "html")
       h <- output_hypotheses(s, lvl, "html")
+      d <- output_data(s, lvl, "html")
       a <- output_analyses(s, lvl, "html")
       r <- output_results(s, lvl, "html")
     })
 
-    if (length(s$data) == 0) {
-      ds <- "No data"
-    } else {
-      ds <- sapply(s$data, "[[", "id") %>%
-        paste("*", . ) %>%
-        paste(collapse = "\n")
-    }
-    d <- sprintf("<h%d>Data</h%d>\n\n%s",
-                 lvl, lvl, ds)
+    ia <- strsplit(i, "<h4>Authors</h4>")[[1]]
 
-    paste(i, h, d, a, r, sep = "\n\n") %>% HTML()
+    output$out_study <- renderUI(HTML(ia[1]))
+    output$out_aut <- renderUI(HTML(ia[2]))
+    output$out_hyp <- renderUI(HTML(h))
+    output$out_ana <- renderUI(HTML(a))
+    output$out_dat <- renderUI(HTML(d))
+    output$out_res <- renderUI(HTML(r))
   })
 
 

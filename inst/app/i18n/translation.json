@@ -6,6 +6,10 @@
   ],
   "translation": [
     {
+      "en": "Add",
+      "nl": "Toevoeg"
+    },
+    {
       "en": "Delete",
       "nl": "Verwijder"
     },
@@ -52,10 +56,6 @@
     {
       "en": "Reorder Authors",
       "nl": "Auteurs opnieuw ordenen"
-    },
-    {
-      "en": "Add an Author",
-      "nl": "Voeg een auteur toe"
     },
     {
       "en": "Author Number",

@@ -1,7 +1,7 @@
 ### hyp_tab ----
 hyp_tab <- tabItem(
   tabName = "hyp_tab",
-  h3("Hypotheses"),
+
   dataTableOutput("hyp_table"),
   actionButton("hyp_add", "Add Hypothesis", icon("plus")),
   actionButton("hyp_delete", "Delete", icon("trash")),

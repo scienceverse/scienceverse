@@ -1,7 +1,7 @@
 ### aut_tab ----
 aut_tab <- tabItem(
   tabName = "aut_tab",
-  h3("Authors"),
+
   dataTableOutput("aut_table"),
   actionButton("aut_add", "Add Author", icon("plus")),
   actionButton("aut_delete", "Delete Author", icon("trash")),

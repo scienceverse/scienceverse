@@ -1,7 +1,7 @@
 ### dat_tab ----
 dat_tab <- tabItem(
   tabName = "dat_tab",
-  h3("Data"),
+
   dataTableOutput("dat_table"),
   actionButton("dat_add", "Add Data", icon("plus")),
   actionButton("dat_delete", "Delete Data", icon("trash")),

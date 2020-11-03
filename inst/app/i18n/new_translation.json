@@ -6,6 +6,10 @@
   ],
   "translation": [
     {
+      "en": "Add",
+      "nl": "Toevoeg"
+    },
+    {
       "en": "Delete",
       "nl": "Verwijder"
     },
@@ -52,10 +56,6 @@
     {
       "en": "Reorder Authors",
       "nl": "Auteurs opnieuw ordenen"
-    },
-    {
-      "en": "Add an Author",
-      "nl": "Voeg een auteur toe"
     },
     {
       "en": "Author Number",
@@ -249,9 +249,6 @@
       "nl": "Nederlands"
     },
     {
-      "en": "Add"
-    },
-    {
       "en": "Add Factor"
     },
     {
@@ -273,6 +270,9 @@
       "en": "Delete Data"
     },
     {
+      "en": "Demo Study"
+    },
+    {
       "en": "Description"
     },
     {
@@ -283,6 +283,9 @@
     },
     {
       "en": "DV Label"
+    },
+    {
+      "en": "Embed Data"
     },
     {
       "en": "Factor description"
@@ -306,7 +309,10 @@
       "en": "Load Demo"
     },
     {
-      "en": "Load Demo Study"
+      "en": "Method Description"
+    },
+    {
+      "en": "Method ID"
     },
     {
       "en": "mu"
@@ -339,13 +345,16 @@
       "en": "This section is under construction and quite buggy"
     },
     {
-      "en": "This shiny app is under development and likely to have a lot of bugs."
+      "en": "This shiny app is under development; all materials created should be carefully checked."
+    },
+    {
+      "en": "Top Header Level"
     },
     {
       "en": "Update"
     },
     {
-      "en": "We are currently working on ways to input methods. For now, you can include methods as free text, JSON or YAML formats. If you use experimentum, download the project structure as a JSON file and upload it here."
+      "en": "We are currently working on ways to input methods and this section is very experimental. For now, you can include methods as a free text description and structured JSON or YAML formats. If you use experimentum, download the project structure as a JSON file and upload it under Manual List Entry."
     }
   ]
 }

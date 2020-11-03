@@ -1,7 +1,7 @@
 ### ana_tab ----
 ana_tab <- tabItem(
   tabName = "ana_tab",
-  h3("Analyses"),
+
   dataTableOutput("ana_table"),
   actionButton("ana_add", "Add Analysis", icon("plus")),
   actionButton("ana_delete", "Delete", icon("trash")),

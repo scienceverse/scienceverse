@@ -1,8 +1,7 @@
 ### study_tab ----
 study_tab <- tabItem(
   tabName = "study_tab",
-  h3("Study Info"),
-  p("This shiny app is under development and likely to have a lot of bugs."),
+  p("This shiny app is under development; all materials created should be carefully checked."),
   fileInput("load_json", "Load from JSON", width = "100%"),
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Required Info",

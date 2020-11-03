@@ -19,9 +19,14 @@
 
 * add evaluation descriptions back??
 
+## Methods
+
+* add methods
+
 ## Data
 
 * Custom info not saving for data (in codebook??)
+* description not saving
 * Open data box when loading data: 
     if (nrow(d) > 0) shinyjs::runjs("openBox('dat_box');")
 * Download data button position?
@@ -29,12 +34,12 @@
 
 ### Simulate Data
 
-* fix sim data on server (crashes) !!!!!!!!
 * reorder summary/plot tab, entry and buttons (?)
 * bold lines under each b_cell group (?)
 * add instructions tab (?)
 * Don't allow Add factor with duplicate level names
 * Don't allow Add factor with duplicate factor name (require select from factor_chooser)
+* levels don't hide on clear
 
 * glitch when:
     * save factor with 3 levels and custom names, 
@@ -59,7 +64,7 @@
 
 * human-readable in tabset?
 * better data summary
-* check pre and postreg download (not working on server)
+* methods?
 
 
 
