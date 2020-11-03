@@ -63,7 +63,7 @@ omnibus <- afex::aov_ez(id = "sub_id",
                         return = "afex_aov")
 ```
 
-{scienceverse} requires any numbers you use from an analysis to be returned as a named list, and we only care about the 3-way interaction for this study, so we'll use {broom} and {dplyr} to get just the values we want.
+{scienceverse} requires any numbers you use from an analysis to be returned as a named list, and we only care about the 3-way interaction for this study, so we'll use {dplyr} and {tidyr} to get just the values we want.
 
 ```{r}
 # get stats for 3-way interaction
@@ -72,7 +72,7 @@ ixn <- anova(omnibus)["C:A:B", ]
 # calculate group means
 means <- group_by(dat, A, B, C) %>%
   summarise(m = mean(score), .groups = "drop") %>%
-  unite("grp", A, B, C)
+  tidyr::unite("grp", A, B, C)
 
 m <- means$m
 names(m) <- means$grp
@@ -242,9 +242,7 @@ get_result(s, analysis_id = "C2")
 ```
 
 
-Add a hypothesis, specify criteria (here, just `p` < 0.05), and add evaluation criteria. You can add criteria for both "corroboration" and "falsification", but here we just have corroboration criteria.
-
-(Ignore the statistically dodgy criterion of p > 0.05 for the control condition. In practice, you'd do an equivalence test to show that the control condition has an effect smaller than the SESOI.)
+Add a hypothesis, specify criteria, and add evaluation rules You can add rules for both "corroboration" and "falsification", but here we just have corroboration rules.
 
 ```{r}
   
@@ -305,7 +303,7 @@ s <- s %>%
 
 ## Run power simulation
 
-Running `study_power()` returns a study object that has `rep` values stored for the analysis criteria and evaluations. `get_power()` returns the evaluation criteria for each hypothesis and, optionally, the criteria values.
+Running `study_power()` returns a study object that has `rep` values stored for the analysis criteria and evaluations. `get_power()` returns the evaluation for each hypothesis and, optionally, the results values for each analysis.
 
 ```{r}
 s <- study_power(s, rep = 100)
@@ -320,7 +318,7 @@ str(power$power)
 ```
 
 
-Plot the resulting values.
+## Plot the resulting values
 
 ```{r, fig.width = 9, fig.height = 4, out.width = "100%"}
 
