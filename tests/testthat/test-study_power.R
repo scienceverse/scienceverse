@@ -23,8 +23,6 @@ test_that("errors", {
   expect_error(study_power(s, "a"), err_txt, fixed = TRUE)
   expect_error(study_power(s, 0.2), err_txt, fixed = TRUE)
 
-  expect_error(study_power(s), "There are no hypotheses.", fixed = TRUE)
-
   s <- study() %>% add_hypothesis()
   expect_error(study_power(s), "There are no analyses", fixed = TRUE)
 })

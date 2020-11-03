@@ -16,7 +16,7 @@ output_results(
 
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
 
-\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
+\item{output}{whether the output should be markdown, html, or plain text (defaults to md)}
 
 \item{digits}{integer indicating the number of decimal places.}
 }

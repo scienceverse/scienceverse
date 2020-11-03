@@ -11,7 +11,7 @@ output_info(study, header_lvl = 2, output = c("md", "html", "text"))
 
 \item{header_lvl}{The starting header level for the section (defaults to 2)}
 
-\item{output}{whether the output should be markdow, html, or plain text (defaults to md)}
+\item{output}{whether the output should be markdown, html, or plain text (defaults to md)}
 }
 \value{
 character string with a human-readable summary of the study info

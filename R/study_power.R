@@ -28,8 +28,8 @@ study_power <- function(study, rep = 100) {
     stop("The argument `rep` needs to be a positive number.")
   }
 
-  if (length(study$hypotheses) == 0) {
-    stop("There are no hypotheses.")
+  if (length(study$hypotheses) == 0 && scienceverse_options("verbose")) {
+    message("There are no hypotheses.")
   }
 
   if (length(study$analyses) == 0) {
@@ -51,8 +51,10 @@ study_power <- function(study, rep = 100) {
         assign(d$id, d$data, envir = env)
       }
     } else {
+      is_long = isTRUE(d$design$long)
+
       # simulate new data ----
-      simdata[[d$id]] <- faux::sim_data(d$design, rep = rep)
+      simdata[[d$id]] <- faux::sim_data(d$design, long = is_long, rep = rep)
     }
   }
 
@@ -60,6 +62,7 @@ study_power <- function(study, rep = 100) {
 
   results <- list()
   for (i in 1:rep) {
+    if (scienceverse_options("verbose") && interactive()) message(i, "...")
     # assign data ----
     for (id in dataids) {
       assign(id, simdata[[id]][["data"]][[i]], envir = env)
@@ -68,7 +71,9 @@ study_power <- function(study, rep = 100) {
     # run analyses ----
     for (a in study$analyses) {
       func <- paste0("analysis_", a$id)
-      res <- do.call(func, list(), envir = env) %>% as.list()
+      suppressMessages(
+        res <- do.call(func, list(), envir = env) %>% as.list()
+      )
       class(res) <- "list"
       results[[a$id]][[i]] <- res
     }

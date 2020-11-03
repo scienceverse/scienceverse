@@ -42,6 +42,7 @@ add_sim_data <- function(study, data_id,
     within = within, between = between,
     n = n, mu = mu, sd = sd, r = r, dv = dv, id = id,
     plot = plot)
+  design$long <- long
 
   dat <- faux::sim_design(
     design = design,

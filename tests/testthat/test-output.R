@@ -235,3 +235,27 @@ test_that("results digits", {
 
 
 })
+
+
+# output_data ----
+test_that("data", {
+  s <- study()
+
+  scienceverse_options(verbose = FALSE)
+  op <- output_data(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
+
+  expect_equal(op[[1]], "## Data")
+  expect_equal(op[[3]], "No data")
+
+  s <- study() %>% add_data("iris", iris)
+
+  scienceverse_options(verbose = FALSE)
+  op <- output_data(s) %>% strsplit("\n") %>% `[[`(1)
+  scienceverse_options(verbose = TRUE)
+
+  expect_equal(op[[1]], "## Data")
+  expect_equal(op[[3]], "### iris")
+  expect_equal(op[[7]], "* Sepal.Length (float)")
+  expect_equal(op[[13]], "    * setosa")
+})

@@ -40,7 +40,7 @@ output_custom_code <- function(study, analysis_id = 1, prefix = "") {
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
 #'
 #' @return character string with a human-readable summary of the hypotheses
 #'
@@ -65,14 +65,15 @@ output_hypotheses <- function(study, header_lvl = 2,
       txt <- paste0(txt, header, "## Criteria\n\n", sep = "")
       criteria <- study$hypotheses[[i]]$criteria
 
-      for (j in criteria) {
-        txt <- paste0(txt, "* `", j$id, "` is confirmed if analysis `",
-            j$analysis_id, "` yields `",
-            j$result,
-            j$operator,
-            j$comparator,
-            "`  \n",
-            sep = ""
+      for (criterion in criteria) {
+        txt <- sprintf(
+          "%s* `%s` is confirmed if analysis `%s` yields `%s %s %s`  \n",
+          txt,
+          criterion$id,
+          criterion$analysis_id,
+          criterion$result,
+          criterion$operator,
+          criterion$comparator
         )
       }
 
@@ -102,7 +103,7 @@ output_hypotheses <- function(study, header_lvl = 2,
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
 #' @param digits integer indicating the number of decimal places.
 #'
 #' @return character string with a human-readable summary of the results
@@ -126,8 +127,7 @@ output_results <- function(study, header_lvl = 2,
       criteria <- h$criteria
       analysis_ids <- sapply(study$analyses, function(x) {x$id})
 
-      for (j in 1:length(criteria)) {
-        criterion <- h$criteria[[j]]
+      for (criterion in criteria) {
         analysis <- match(criterion$analysis_id, analysis_ids)
 
         # get result and comparator values from results
@@ -146,12 +146,12 @@ output_results <- function(study, header_lvl = 2,
 
         txt <- sprintf("%s* `%s` is confirmed if analysis [%s](#%s) yields %s %s %s\nThe result was %s = %s%s (<span style=\"color:%s;\">%s</span>)  \n",
                        txt,
-                       criteria[[j]]$id,
-                       criteria[[j]]$analysis_id,
-                       criteria[[j]]$analysis_id,
-                       criteria[[j]]$result,
-                       criteria[[j]]$operator,
-                       criteria[[j]]$comparator,
+                       criterion$id,
+                       criterion$analysis_id,
+                       criterion$analysis_id,
+                       criterion$result,
+                       criterion$operator,
+                       criterion$comparator,
                        criterion$result,
                        round_char(value, digits, TRUE),
                        comp_res,
@@ -239,13 +239,48 @@ output_analyses <- function(study, header_lvl = 2,
 }
 
 
+#' Output data
+#'
+#' Output data specified in the json file
+#'
+#' @param study A study list object with class scivrs_study
+#' @param header_lvl The starting header level for the section (defaults to 2)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
+#'
+#' @return character string with a human-readable summary of the data
+#'
+#' @export
+
+output_data <- function(study, header_lvl = 2,
+                        output = c("md", "html", "text")) {
+  header <- rep("#", header_lvl) %>% paste(collapse = "")
+
+  if (length(study$data) == 0) {
+    ds <- "No data\n\n"
+  } else {
+    ds <- sapply(study$data, function(d) {
+      cb <- scienceverse:::cb_vars(d$codebook)
+      desc <- if_nowt(d$codebook$description)
+
+      sprintf("%s# %s\n\n%s\n\n%s",
+              header, d$id, desc, cb)
+    }) %>%
+      paste0(collapse = "\n\n")
+  }
+
+  txt <- paste0(header, " Data\n\n", ds)
+
+  format_output(txt, output) %>% invisible()
+}
+
+
 #' Output study info
 #'
 #' Output study info specified in the json file
 #'
 #' @param study A study list object with class scivrs_study
 #' @param header_lvl The starting header level for the section (defaults to 2)
-#' @param output whether the output should be markdow, html, or plain text (defaults to md)
+#' @param output whether the output should be markdown, html, or plain text (defaults to md)
 #'
 #' @return character string with a human-readable summary of the study info
 #'

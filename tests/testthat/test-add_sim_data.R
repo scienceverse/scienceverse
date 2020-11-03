@@ -10,6 +10,7 @@ test_that("sim_data", {
 
   des <- s$data[[1]]$design
   cdes <- faux::check_design(2, 2, 10, 100, 10, 0.5, plot = FALSE)
+  cdes$long <- TRUE
 
   expect_equal(des, cdes)
 
