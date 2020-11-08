@@ -62,8 +62,9 @@ make_script <- function(study, path = NULL,
           paste(collapse = "\n")
         data <- sprintf("%s <- read.csv(text='%s')", d$id, x)
       } else {
-        data <- sprintf("%s <- read.csv('%s/%s_data.%s', sep='\\t')",
-                        d$id, data_path, d$id, data_format)
+        sep <- ifelse(data_format == "tsv", "\\t", ",")
+        data <- sprintf("%s <- read.csv('%s/%s_data.%s', sep='%s')",
+                        d$id, data_path, d$id, data_format, sep)
       }
 
       fmt <- ifelse(use_rmarkdown,

@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
 
 source("R/constants.R")
 source("R/funcs.R")
-source("R/modules/section.r")
+source("R/modules/section.R")
 source("R/modules/cinfo.R")
 source("i18n/trans.R")
 
@@ -24,6 +24,7 @@ source("tabs/ana.R")
 source("tabs/dat.R")
 source("tabs/met.R")
 source("tabs/aut.R")
+source("tabs/pre.R")
 source("tabs/out.R")
 
 
@@ -47,7 +48,9 @@ ui <- dashboardPage(
       menuItem("Analyses", tabName = "ana_tab",
                icon = icon("chart-bar")),
       menuItem("Summaries", tabName = "out_tab",
-               icon = icon("file"))
+               icon = icon("file")),
+      menuItem("Preregistration", tabName = "pre_tab",
+               icon = icon("plus"))
     ),
     actionButton("demo", "Demo Study"),
     actionButton("reset_study", "Reset Study"),
@@ -70,6 +73,7 @@ ui <- dashboardPage(
       met_tab,
       dat_tab,
       ana_tab,
+      pre_tab,
       out_tab
     )
   )
@@ -488,6 +492,7 @@ server <- function(input, output, session) {
   # . . download_jats ----
   output$download_jats <- downloadHandler(
     filename = function() {
+      debug_msg("download_jats")
       paste0(input$study_name, "_credit.xml")
     },
     content = function(file) {
@@ -1142,6 +1147,7 @@ server <- function(input, output, session) {
   # . . download_data ----
   output$download_data <- downloadHandler(
     filename = function() {
+      debug_msg("download_data")
       paste0("data_", input$dat_id, ".csv")
     },
     content = function(file) {
@@ -1152,6 +1158,7 @@ server <- function(input, output, session) {
   # . . download_cb ----
   output$download_cb <- downloadHandler(
     filename = function() {
+      debug_msg("download_cb")
       paste0("data_", input$dat_id, ".json")
     },
     content = function(file) {
@@ -1833,6 +1840,7 @@ server <- function(input, output, session) {
   # . . download_json ----
   output$download_json <- downloadHandler(
     filename = function() {
+      debug_msg("download_json")
       paste0(input$study_name, ".json")
     },
     content = function(file) {
@@ -1861,40 +1869,58 @@ server <- function(input, output, session) {
   # . . download_script ----
   output$download_script <- downloadHandler(
     filename = function() {
+      debug_msg("download_script")
       sname <- gsub("[^A-Za-z0-9]", "_", input$study_name)
-      paste0(sname, "_script.zip")
+      ext <- ifelse(input$dat_embed, input$script_ext, ".zip")
+      paste0(sname, "_script", ext)
     },
     content = function(file) {
-      sname <- gsub("[^A-Za-z0-9]", "_", input$study_name)
-      dname <- paste0(tempdir(), "/", sname)
-      fname <- paste0(dname, "/_script.Rmd")
+      # set up paths
+      sname <- gsub("[^A-Za-z0-9]+", "_", input$study_name)
+      dir_path <- file.path(tempdir(), sname)
 
-      sc <- tryCatch({
-        dir.create(dname)
-        on.exit(unlink(dname, TRUE))
+      if (dir.exists(dir_path)) unlink(dir_path, TRUE)
+      dir.create(dir_path)
+      #on.exit(unlink(dir_path, TRUE))
 
-        make_script(
-          study = my_study(),
-          data_path = if (input$dat_embed) NULL else "data",
-          data_format = "csv",
-          use_rmarkdown = (input$script_ext == ".Rmd"),
-          header_lvl = input$script_header_lvl
-        )
-        return(TRUE)
+      tryCatch({
+        if (input$dat_embed) {
+          make_script(
+            study = my_study(),
+            path = file,
+            data_path = NULL,
+            data_format = "csv",
+            use_rmarkdown = (input$script_ext == ".Rmd"),
+            header_lvl = input$script_header_lvl
+          )
+        } else {
+          # change wd to tempdir for zipping
+          my_wd<-getwd()
+          on.exit(setwd(my_wd))
+          setwd(dir_path)
+
+          make_script(
+            study = my_study(),
+            path = "_script",
+            data_path = "data",
+            data_format = "csv",
+            use_rmarkdown = (input$script_ext == ".Rmd"),
+            header_lvl = input$script_header_lvl
+          )
+
+          setwd(tempdir())
+          utils::zip(file, sname)
+        }
       }, error = function(e) {
         shinyjs::alert(e)
-        return(FALSE)
       })
-
-      if (sc) {
-        utils::zip(file, dname)
-      }
     }
   )
 
   # . . download_pre ----
   output$download_pre <- downloadHandler(
     filename = function() {
+      debug_msg("download_pre")
       paste0(input$study_name, "_prereg.html")
     },
     content = function(file) {
@@ -1905,6 +1931,7 @@ server <- function(input, output, session) {
   # . . download_post ----
   output$download_post <- downloadHandler(
     filename = function() {
+      debug_msg("download_post")
       paste0(input$study_name, "_postreg.html")
     },
     content = function(file) {
@@ -1989,6 +2016,22 @@ server <- function(input, output, session) {
     debug_msg("demo")
     s <- scienceverse::study_demo
     update_from_study(s)
+  })
+
+  # . . pre_sections ----
+  observeEvent(my_study(), {
+    debug_msg("pre_sections")
+    s <- my_study()
+
+    # TODO: make more fine grained
+    sec <- names(s)
+    hyp <- sapply(s$hypotheses, `[[`, "id") %>% paste("hypothesis:", .)
+    dat <- sapply(s$data, `[[`, "id") %>% paste("data:", .)
+    met <- sapply(s$methods, `[[`, "id") %>% paste("method:", .)
+    ana <- sapply(s$analyses, `[[`, "id") %>% paste("analysis:", .)
+    ch <- c(sec, hyp, dat, met, ana)
+
+    updateSelectInput(session, "pre_sections", choices = ch)
   })
 
 
