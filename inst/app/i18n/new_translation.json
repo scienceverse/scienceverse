@@ -249,7 +249,82 @@
       "nl": "Nederlands"
     },
     {
+      "en": ""
+    },
+    {
+      "en": "(1) Relevant sample sizes: e.g., single groups, multiple groups, and sample sizes (or sample ranges) found at each level of multilevel data. (2) Provide power analysis (e.g. power curves) for fixed-N designs. For sequential designs, indicate your <a5>stopping rule<90> such as the points at which you intend to be viewing your data and in any way analyzing them (e.g., t-tests and correlations, but even descriptively such as with histograms)."
+    },
+    {
+      "en": "(Institutional Review Board/Independent Ethics Committee/Ethical Review Board/Research Ethics Board) If the study will include humans or animals subjects, provide a brief overview of plans for the treatment of those subjects in accordance with established ethical guidelines. If appropriate institutional approval has been obtained for the study, provide the relevant identifier here. If the study will be exempt from ethical board review, provide reasoning here."
+    },
+    {
+      "en": "(See introduction I1)"
+    },
+    {
+      "en": "(See introduction I2)"
+    },
+    {
+      "en": "(See methods M10-14)"
+    },
+    {
+      "en": "(See methods M4)"
+    },
+    {
+      "en": "A1"
+    },
+    {
+      "en": "A2"
+    },
+    {
+      "en": "A3"
+    },
+    {
+      "en": "A4"
+    },
+    {
       "en": "Add Factor"
+    },
+    {
+      "en": "AP1"
+    },
+    {
+      "en": "AP2"
+    },
+    {
+      "en": "AP3"
+    },
+    {
+      "en": "AP4"
+    },
+    {
+      "en": "AP5"
+    },
+    {
+      "en": "AP6"
+    },
+    {
+      "en": "AP7"
+    },
+    {
+      "en": "AP8"
+    },
+    {
+      "en": "Background"
+    },
+    {
+      "en": "Code availability"
+    },
+    {
+      "en": "Conflict of Interest Statement"
+    },
+    {
+      "en": "Contributors, Affiliations, and Persistent IDs (recommend ORCID iD)"
+    },
+    {
+      "en": "Data accessibility statement and planned repository"
+    },
+    {
+      "en": "Data cleaning and screening"
     },
     {
       "en": "Data Description"
@@ -258,7 +333,13 @@
       "en": "Data Format"
     },
     {
+      "en": "Data preprocessing"
+    },
+    {
       "en": "Data Type"
+    },
+    {
+      "en": "Date of Preregistration"
     },
     {
       "en": "Delete Author"
@@ -273,7 +354,22 @@
       "en": "Demo Study"
     },
     {
+      "en": "Describe all criteria that will lead to the exclusion of a particpant's data (e.g. performance criteria, non-responding in physiological measures, incomplete data). Be as specific as possible."
+    },
+    {
+      "en": "Describe all criteria that will lead to the exclusion of a trial or item (e.g. statistical outliers, response time criteria). Be as specific as possible."
+    },
+    {
+      "en": "Describe all data manipulations that are performed in preparation of the main analyses, e.g. calculation of variables or scales, recoding, any data transformations, preprocessing steps for imaging or physiological data (or refer to publicly accessible standard lab procedure, cf. T12)."
+    },
+    {
+      "en": "Describe any exploratory analyses to be conducted with your data. Include here any planned analyses that are not confirmatory in the sense of being a direct test of one of the specified hypotheses."
+    },
+    {
       "en": "Description"
+    },
+    {
+      "en": "Drop Down Options: Registration prior to creation of data; Registration prior to any human observation of the data; Registration prior to accessing the data; Registration prior to analysis of the data; Other (please specify; might include if T1 longitudinal data as been analyzed, but T2 has not yet been analyzed)"
     },
     {
       "en": "Drop Empty Values"
@@ -288,6 +384,15 @@
       "en": "Embed Data"
     },
     {
+      "en": "Estimated duration of project"
+    },
+    {
+      "en": "Exploratory analyses"
+    },
+    {
+      "en": "Exploratory research questions"
+    },
+    {
       "en": "Factor description"
     },
     {
@@ -297,10 +402,76 @@
       "en": "Factor type"
     },
     {
+      "en": "For example, training of raters/participants or anything else not yet specified."
+    },
+    {
+      "en": "Hypothesis"
+    },
+    {
+      "en": "I1"
+    },
+    {
+      "en": "I2"
+    },
+    {
+      "en": "I3"
+    },
+    {
+      "en": "I4"
+    },
+    {
       "en": "ID Description"
     },
     {
       "en": "ID Label"
+    },
+    {
+      "en": "Identifier"
+    },
+    {
+      "en": "Identify any real or perceived conflicts of interest with this study execution. For example, any interests or activities that might be seen as influencing the research (e.g., financial interests in a test or procedure, funding by pharmaceutical companies for research)."
+    },
+    {
+      "en": "If applicable, describe how participants are assigned to conditions or treatments, how stimuli are assigned to conditions, and how presentation of tests, trials, etc. is randomized. Indicate the randomization technique and whether constraints were applied (pseudo-randomization). Indicate any type of balancing across participants (e.g., assignments of responses to hands, etc.)."
+    },
+    {
+      "en": "If planning exploratory analyses, provide rationale for them here.If multiple exploratory analyses, uniquely number them (E1, E2, ...) and refer to them in the same way in the registration document and in future publications."
+    },
+    {
+      "en": "If there is any additional information that you feel needs to be included in your preregistration, please enter it here. Literature cited, disclosures of any related work such as replications or work that uses the same data, or other context that will be helpful for future readers would be appropriate here."
+    },
+    {
+      "en": "Include best estimate for how long the project will take from preregistration submission to project completion."
+    },
+    {
+      "en": "Include terms specific to your topic, methodology, and population. Use natural language and avoid words used in the title or overly general terms. If you need help with keywords, try a keyword search using your proposed keywords in a search engine to check results."
+    },
+    {
+      "en": "Indicate (a) case deletions; (b) averaging across scale items (to handle missing items for some); (c) test of missingness (MAR, MCAR, MNAR assumptions; (d) imputation procedures (FIML vs. MI); (e) Intention to treat analysis and per protocol analysis (as appropriate)"
+    },
+    {
+      "en": "Indicate (a) methods of recruitment (e.g., subject pool advertisement, community events, crowdsourcing platforms, snowball sampling); (b) selection and inclusion/exclusion criteria (e.g., age, visual acuity, language facility); (c) details of any stratification sampling used; (d) planned participant characteristics (Gender, Race/Ethnicity, Sexual Orientation and Gender Identity, SES, education level, age, disability or health status, geographic location); (e) compensation amount and method (e.g., same payment to all, pay based on performance, lottery)."
+    },
+    {
+      "en": "Indicate all forms of masking and/or allocation concealment (e.g., administrators, data collectors, raters, confederates are unaware of condition to which participants were assigned)."
+    },
+    {
+      "en": "Indicate all steps related to data quality control, e.g., outlier treatment, identification of missing data, checks for normality, etc."
+    },
+    {
+      "en": "Indicate any special treatment for participants who drop out (e.g., they are deleted from the data file entirely; there is follow-up in a manner different from the main sample) or whether participants are replaced"
+    },
+    {
+      "en": "Indicate the type of study (e.g., experimental, observational, crossectional vs. longitudinal, single case, clinical trial) and planned study design (e.g., between vs. within subjects, factorial, repeated measures, etc.), number of factors and factor levels, etc.."
+    },
+    {
+      "en": "Inference criteria"
+    },
+    {
+      "en": "IRB Status"
+    },
+    {
+      "en": "Keywords"
     },
     {
       "en": "Levels"
@@ -309,10 +480,64 @@
       "en": "Load Demo"
     },
     {
+      "en": "M1"
+    },
+    {
+      "en": "M10"
+    },
+    {
+      "en": "M11"
+    },
+    {
+      "en": "M12"
+    },
+    {
+      "en": "M13"
+    },
+    {
+      "en": "M14"
+    },
+    {
+      "en": "M15"
+    },
+    {
+      "en": "M2"
+    },
+    {
+      "en": "M3"
+    },
+    {
+      "en": "M4"
+    },
+    {
+      "en": "M5"
+    },
+    {
+      "en": "M6"
+    },
+    {
+      "en": "M7"
+    },
+    {
+      "en": "M8"
+    },
+    {
+      "en": "M9"
+    },
+    {
+      "en": "Masking of participants and researchers"
+    },
+    {
+      "en": "Measured variables, manipulated variables, covariates"
+    },
+    {
       "en": "Method Description"
     },
     {
       "en": "Method ID"
+    },
+    {
+      "en": "Missing data"
     },
     {
       "en": "mu"
@@ -324,13 +549,73 @@
       "en": "Name"
     },
     {
+      "en": "O1"
+    },
+    {
+      "en": "Objectives and Research question(s)"
+    },
+    {
+      "en": "Objectives and Research questions"
+    },
+    {
+      "en": "Other information"
+    },
+    {
+      "en": "Outline objectives and research questions that inform the methodology and analyses (below)."
+    },
+    {
       "en": "Parameters describe"
+    },
+    {
+      "en": "Participant drop-out"
+    },
+    {
+      "en": "Participant recruitment"
+    },
+    {
+      "en": "Participants"
+    },
+    {
+      "en": "Please describe any relevant study materials. This could include, for example, stimulus materials used for experiments, questionnaires used for rating studies, training protocols for intervention studies, etc."
+    },
+    {
+      "en": "Please describe here any relevant information about how the study will be conducted, e.g., the number and timing of measurement time points for longitudinal research, the number of blocks or runs per session of an experiment, laboratory setting, the group size in group testing, the number of training sessions in interventional studies, questionnaire administration for online assessments, etc."
+    },
+    {
+      "en": "Post-data participant exclusions"
+    },
+    {
+      "en": "Post-data trial exclusions"
+    },
+    {
+      "en": "Power and precision"
+    },
+    {
+      "en": "Pplease specify the planned data availability level"
+    },
+    {
+      "en": "Ppre-existing data"
     },
     {
       "en": "Prettify"
     },
     {
+      "en": "Provide a brief overview that justifies the research hypotheses."
+    },
+    {
+      "en": "Provide hypothesis for predicted results. If multiple hypotheses, uniquely number them (e.g. H1, H2a, H2b,) and refer to them the same way at other points in the registration document and in the manuscript."
+    },
+    {
+      "en": "Provide in separate entries the full name of each contributor, each contributor's professional affiliation, and each contributor's persistent ID. See ORCID iD for an example of persistent ID (hyperlink: https://orcid.org/). Optional: include the intended contribution of each person listed (e.g. statistical analysis, data collection; see CRediT, hyperlink: https://casrai.org/credit/)"
+    },
+    {
       "en": "r"
+    },
+    {
+      "en": "Randomization of participants and/or experimental materials"
+    },
+    {
+      "en": "Reliability analysis"
     },
     {
       "en": "Run All Analyses"
@@ -339,22 +624,124 @@
       "en": "sd"
     },
     {
+      "en": "Sections"
+    },
+    {
       "en": "Simulate Data"
+    },
+    {
+      "en": "Specify the criteria used for inferences (e.g., p values, Bayes factors, effect size measures) and the thresholds for accepting or rejecting your hypotheses. If possible, define a smallest effect size of interest. If inference criteria differ between hypotheses, specify separately for each hypothesis and respective statistical model by explicitly referring to the numbers of the hypotheses. Describe which effect size measures will be reported and how they are calculated."
+    },
+    {
+      "en": "Specify the statistical model (e.g. t test, ANOVA, LMM) that will be used to test each of your hypotheses. Give all necessary information about model specification (e.g., variables, interactions, planned contrasts) and follow-up analyses. Include model selection criteria (e.g., fit indices), corrections for multiple testing, and tests for statistical violations, if applicable. Wherever unclear, describe how effect sizes will be calculated (e.g., for d-values, use the control SD or the pooled SD)"
+    },
+    {
+      "en": "Specify the type of scale reliability that will be estimated, whether it is internal consistency (e.g. Cronbachs alpha, omega), test-retest reliability, or some other form (e.g., a confirmatory factor analysis incorporating multiple factors as sources of variance). In a study involving measure development, researchers should specify criteria for removing items from measures a priori (e.g., largest factor loading magnitude, smallest drop in alpha-if-item removed)."
+    },
+    {
+      "en": "Standard lab practices"
+    },
+    {
+      "en": "Standard lab practices is a (timestamped) document, software package, or similar, which specifies standard pipelines, analytical decisions, etc. which always apply to certain types of research in a lab. Specify here and refer to at the appropriate positions in the remainder of the template. Drop Downs:\nWe plan to make the standard lab practices available (yes, no)\nIf \"yes\", please specificy the planned standard lab practices availability level:\n(Use same descriptors of data in T10)"
+    },
+    {
+      "en": "Statistical models"
+    },
+    {
+      "en": "Study Materials"
+    },
+    {
+      "en": "Study method"
+    },
+    {
+      "en": "Study Procedures"
+    },
+    {
+      "en": "T1"
+    },
+    {
+      "en": "T10"
+    },
+    {
+      "en": "T11"
+    },
+    {
+      "en": "T12"
+    },
+    {
+      "en": "T2"
+    },
+    {
+      "en": "T3"
+    },
+    {
+      "en": "T4"
+    },
+    {
+      "en": "T5"
+    },
+    {
+      "en": "T6"
+    },
+    {
+      "en": "T7"
+    },
+    {
+      "en": "T8"
+    },
+    {
+      "en": "T9"
+    },
+    {
+      "en": "The title should be focused and descriptive, using relevant key terms to reflect what will be done in the study. Use title case (hyperlink: https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)"
+    },
+    {
+      "en": "Theoretical background"
+    },
+    {
+      "en": "This is assigned by the system upon preregistration submission."
+    },
+    {
+      "en": "This is assigned by the system upon submission of original and subsequent revisions. Should be a persistent identifier, if not a DOI."
     },
     {
       "en": "This section is under construction and quite buggy"
     },
     {
+      "en": "This section shall be used to unambiguously clarify which variables are used to operationalize the hypotheses specified above (item I3). Please (a) list all measured variables, and (b) explicitly state the functional role of each variable (i.e., independent variable, dependent variable, covariate, mediator, moderator). It is important to (c) specify for each hypothesis how it is operationalized, i.e., which variables will be used to test the respective hypothesis and how the hyothesis will be operationally defined in terms of these variables. The description here shall be consistent with the statistical analysis plans specified under AP5 (below)."
+    },
+    {
       "en": "This shiny app is under development; all materials created should be carefully checked."
+    },
+    {
+      "en": "This unique identifier is assigned by the system upon submission."
+    },
+    {
+      "en": "Time point of registration"
+    },
+    {
+      "en": "Title"
     },
     {
       "en": "Top Header Level"
     },
     {
+      "en": "Type of study and study design"
+    },
+    {
       "en": "Update"
     },
     {
+      "en": "Versioning information"
+    },
+    {
       "en": "We are currently working on ways to input methods and this section is very experimental. For now, you can include methods as a free text description and structured JSON or YAML formats. If you use experimentum, download the project structure as a JSON file and upload it under Manual List Entry."
+    },
+    {
+      "en": "We plan to make the code available"
+    },
+    {
+      "en": "Will pre-existing data be used in the planned study? If yes, indicate if the data were previously published and specify the source of the data (e.g., DOI or APA style reference of original publication ). Specify your level of knowledge of the data (e.g., descriptive statistics from previous publications), whether or not this is relevant for the hypotheses of the present study, and how it is assured that you are unaware of results or statistical patterns in the data of relevance to the present hypotheses."
     }
   ]
 }

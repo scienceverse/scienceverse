@@ -44,6 +44,10 @@ h3.box-title,
 
 #shiny-tab-out_tab .box-body h3 { display: none; }
 
+.box-header {
+  background-color: var(--grey);
+}
+
 #shiny-tab-study_tab .box-header,
 .sidebar-menu>li.active>a[data-value=study_tab],
 .sidebar-menu>li:hover>a[data-value=study_tab] {
