@@ -24,6 +24,7 @@ dat_tab <- tabItem(
   # simulate tab ----
   box(width=12, collapsible = TRUE, collapsed = T,
       title = "Simulate Factorial Data",
+      HTML("<p>Scienceverse uses <a href='https://debruine.github.io/faux/' target='_blank'>faux</a> to simulate data with factorial designs.</p>"),
       actionButton("sim_data", "Simulate Data"),
       actionButton("sim_demo", "Load Demo"),
       actionButton("sim_clear", "Clear", icon("times")),
@@ -97,6 +98,7 @@ dat_tab <- tabItem(
       ),
       # codebook JSON ----
       tabPanel("Codebook JSON",
+        HTML("<p>The codebook uses <a href='https://psych-ds.github.io' target='_blank'>Psych-DS</a> format, which is currently in development.</p>"),
         verbatimTextOutput("codebook_json")
       )
     )

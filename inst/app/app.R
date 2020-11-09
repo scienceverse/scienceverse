@@ -124,10 +124,10 @@ server <- function(input, output, session) {
   ana_cinfo <- cinfoServer("ana_info")
   aut_cinfo <- cinfoServer("aut_info")
 
-  met_sec <- sectionServer(
-    "met_sec", "methods",
-    c("met_id", "met_desc", "met_text", "met_type")
-  )
+  # met_sec <- sectionServer(
+  #   "met_sec", "methods",
+  #   c("met_id", "met_desc", "met_text", "met_type")
+  # )
 
   # on startup ----
   shinyjs::hide("hyp_delete")
