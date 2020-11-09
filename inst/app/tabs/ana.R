@@ -6,17 +6,28 @@ ana_tab <- tabItem(
   actionButton("ana_add", "Add Analysis", icon("plus")),
   actionButton("ana_delete", "Delete", icon("trash")),
   actionButton("ana_clear", "Clear", icon("times")),
-  actionButton("study_analyse", "Run All Analyses",
+  actionButton("study_analyse", "Run All Analyses", icon("code"),
                style = "float: right;"),
 
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
       title = "Required Info",
-      textInput("ana_id", "Analysis ID", "", "100%"),
-      textAreaInput("ana_code", "Analysis Code", "", "100%"),
+      fluidRow(
+        column(width = 6,  textInput("ana_id", "Analysis ID", "", "100%")),
+        column(width = 6, selectInput("ana_lang", "Code Language", c(
+          "R" = "R", "Other Script" = "other",
+          "Constant Values" = "constant"
+        )))
+      ),
+      selectizeInput("ana_type", "Analysis Type", c("data cleaning/prep", "exclusions", "descriptives", "confirmatory analysis", "exploratory analysis", "other"), multiple = TRUE)
+  ),
+  box(width = 12, collapsible = TRUE, collapsed = FALSE,
+      title = "Analysis Code", id = "ana_code-box",
+      p("Code should return a named list so that you can access these values by name in the hypothesis criteria. Currently, this app only supports R code, so other languages will be saved as custom values."),
+      textAreaInput("ana_code", NULL, "", "100%")
   ),
   box(width = 12, collapsible = TRUE, collapsed = TRUE,
-      title = "Return",
-      p("If your code doesn't return a named list, add each object to be returned below. E.g., if your code creates two objects named `my_mean` and `my_sd`, you can refer to them in the criteria as `m` and `s` if you set name to `m` and `s` and object to `my_mean` and `my_sd`. You can also add a constant value (e.g., data from an archive paper or another software program)."),
+      title = "Constant Values", id = "ana_constant-box",
+      p("You can add constant values here instead of code above (e.g., data from an archive paper or another software program). They will be translated to R code."),
       fluidRow(
         column(width = 4, textInput("ana_return_name", NULL, "", placeholder = "name")),
         column(width = 4, textInput("ana_return_object", NULL, "", placeholder = "object/value")),
@@ -26,7 +37,7 @@ ana_tab <- tabItem(
   ),
   cinfo("ana_info"),
   box(width = 12, collapsible = TRUE, collapsed = FALSE,
-      title = "Results",
+      title = "Results", id = "ana_results-box",
       uiOutput("ana_results")
   )
 )

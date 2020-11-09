@@ -32,7 +32,11 @@ add_analysis <- function(study, id = NULL, code = "", return = "", type = c("fun
       stop("The file ", code, " was not found.")
     }
   } else if (type == "text") {
-    codeText <- code
+    # split code text at line breaks
+    # code may be a list, vector, or string
+    # all might have internal \n
+    codeText <- sapply(code, strsplit, split = "\n") %>%
+      unlist() %>% unname()
   } else {
     code_call <- match.call()$code
     if (is.language(code_call)) {
@@ -183,7 +187,7 @@ make_func <- function(func, code, envir = .GlobalEnv) {
 #' @keywords internal
 #'
 make_return <- function(return) {
-  if (return[1] == "" & length(return) > 0) {
+  if (length(return) == 0 || return[1] == "") {
     return(NULL)
   }
 

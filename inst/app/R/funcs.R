@@ -100,11 +100,12 @@ make_ana_list <- function(s) {
   if (length(s$analyses) == 0) return(data.frame())
 
   tbl <- sapply(s$analyses, function(x) {
-    code <- output_custom_code(s, x$id) %>%
-      strsplit("\n") %>%`[[`(1)
-    if (length(code) > 4) code <- c(code[1:3], "...")
-    code <- paste(code, collapse = "\n") %>%
-      paste0("<pre><code>", ., "</code></pre>")
+    code <- x$code
+    # if (length(code) > 4) code <- c(code[1:3], "...")
+    # code <- paste(code, collapse = "\n") %>%
+    #   paste0("<pre><code>", ., "</code></pre>")
+
+    code <- paste0("<code>", code[1], "</code>")
 
     res <- nested_list(x$results) %>%
       markdown::renderMarkdown(text = .) %>%

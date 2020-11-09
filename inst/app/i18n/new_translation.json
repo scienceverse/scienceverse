@@ -315,6 +315,12 @@
       "en": "Code availability"
     },
     {
+      "en": "Code Language"
+    },
+    {
+      "en": "Code should return a named list so that you can access these values by name in the hypothesis criteria. Currently, this app only supports R code, so other languages will be saved as custom values."
+    },
+    {
       "en": "Conflict of Interest Statement"
     },
     {
@@ -472,6 +478,9 @@
     },
     {
       "en": "Keywords"
+    },
+    {
+      "en": "Keywords (separate with semicolons)"
     },
     {
       "en": "Levels"
@@ -657,6 +666,9 @@
       "en": "Study Procedures"
     },
     {
+      "en": "Study Title"
+    },
+    {
       "en": "T1"
     },
     {
@@ -691,6 +703,9 @@
     },
     {
       "en": "T9"
+    },
+    {
+      "en": "The study name will be used for naming downloaded files, so should be relatively short. You can add a longer official title below."
     },
     {
       "en": "The title should be focused and descriptive, using relevant key terms to reflect what will be done in the study. Use title case (hyperlink: https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)"
@@ -742,6 +757,9 @@
     },
     {
       "en": "Will pre-existing data be used in the planned study? If yes, indicate if the data were previously published and specify the source of the data (e.g., DOI or APA style reference of original publication ). Specify your level of knowledge of the data (e.g., descriptive statistics from previous publications), whether or not this is relevant for the hypotheses of the present study, and how it is assured that you are unaware of results or statistical patterns in the data of relevance to the present hypotheses."
+    },
+    {
+      "en": "You can add constant values here instead of code above (e.g., data from an archive paper or another software program). They will be translated to R code."
     }
   ]
 }

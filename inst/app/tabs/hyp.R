@@ -33,8 +33,22 @@ hyp_tab <- tabItem(
       title = "Evaluation",
       p("What combination of criteria will corroborate or falsify your hypothesis? Use the criteria IDs above and any of the following symbols: ( ) & | !"),
 
-      textInput("eval_cor_eval", "Corroboration Evaluation", "", "100%"),
-      textInput("eval_fal_eval", "Falsification Evaluation", "", "100%")
+      fluidRow(
+        column(width = 6, textInput(
+          "eval_cor_eval",
+          "Corroboration Evaluation", "", "100%")),
+        column(width = 6, textInput(
+          "eval_fal_eval",
+          "Falsification Evaluation", "", "100%"))
+      ),
+      fluidRow(
+        column(width = 6, textAreaInput(
+          "eval_cor_desc",
+          "Corroboration Description", "")),
+        column(width = 6, textAreaInput(
+          "eval_fal_desc",
+          "Falsification Description", ""))
+      )
   ),
   cinfo("hyp_info")
 )

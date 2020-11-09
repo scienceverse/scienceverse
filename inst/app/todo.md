@@ -17,7 +17,6 @@
 
 ## Hypotheses
 
-* add evaluation descriptions back??
 
 ## Methods
 
@@ -27,8 +26,6 @@
 
 * Custom info not saving for data (in codebook??)
 * description not saving
-* Open data box when loading data: 
-    if (nrow(d) > 0) shinyjs::runjs("openBox('dat_box');")
 * Download data button position?
 * update sim section when editing data with a design
 
@@ -58,14 +55,19 @@
 
 * Run analysis analysis-specific?
 * return tab: better example
-* if no code, don't prepend blank line to return code
+* record analysis type
 
 ## Summaries
 
-* human-readable in tabset?
-* better data summary
 * methods?
 
+## Preregistration
+
+* more custom responses
+* link sections to categories
+* output JSON
+* human-readable output
+* download
 
 
 

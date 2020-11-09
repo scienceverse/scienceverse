@@ -39,17 +39,19 @@ dat_tab <- tabItem(
         column(3, selectInput("factor_type", "Factor type", c("between", "within")))
       ),
       uiOutput("level_list_display"),
-      fluidRow(
-        column(3, textInput("n", "n", 100, "100%")),
-        column(3, textInput("mu", "mu", 0, "100%")),
-        column(3, textInput("sd", "sd", 1, "100%")),
-        column(3, textInput("r", "r", 0, "100%"))
-      ),
+
       fluidRow(
         column(3, textInput("dv_name", "DV Label", "y", "100%", "DV name")),
         column(3, textInput("dv_def", "DV Description", "value", "100%", "DV definition")),
         column(3, textInput("id_name", "ID Label", "id", "100%", "ID name")),
         column(3, textInput("id_def", "ID Description", "Subject ID", "100%", "ID definition"))
+      ),
+
+      fluidRow(
+        column(3, textInput("n", "n", 100, "100%")),
+        column(3, textInput("mu", "mu", 0, "100%")),
+        column(3, textInput("sd", "sd", 1, "100%")),
+        column(3, textInput("r", "r", 0, "100%"))
       ),
 
       fluidRow(
@@ -72,7 +74,7 @@ dat_tab <- tabItem(
   ),
 
   # data tab ----
-  box(id="data_box", width=12, collapsible = TRUE, collapsed = T,
+  box(id="data-box", width=12, collapsible = TRUE, collapsed = T,
     title = "Data and Codebook",
     tabsetPanel(
       type = "tabs",

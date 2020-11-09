@@ -50,7 +50,7 @@ ui <- dashboardPage(
       menuItem("Summaries", tabName = "out_tab",
                icon = icon("file")),
       menuItem("Preregistration", tabName = "pre_tab",
-               icon = icon("plus"))
+               icon = icon("check-circle"))
     ),
     actionButton("demo", "Demo Study"),
     actionButton("reset_study", "Reset Study"),
@@ -97,10 +97,10 @@ server <- function(input, output, session) {
   authors <- reactiveVal(list())
   loaded_data <- reactiveVal(data.frame())
   cb <- reactiveVal(codebook(data.frame(), "", return = "list"))
-  level_list <- reactiveVal(list(A1 = "A1 Description",
-                                 A2 = "A2 Description"))
-  level_list_disp <- reactiveVal(list(A1 = "A1 Description",
-                                      A2 = "A2 Description"))
+  level_list <- reactiveVal(list(A1 = "",
+                                 A2 = ""))
+  level_list_disp <- reactiveVal(list(A1 = "",
+                                      A2 = ""))
   design <- reactiveVal(faux::check_design(plot = FALSE))
   sim <- reactiveValues(
     w_cells = c("y"),
@@ -205,14 +205,20 @@ server <- function(input, output, session) {
   # study ----
 
   observeEvent(c(input$study_name,
+                 input$study_title,
                  input$study_desc,
+                 input$study_keywords,
                  study_cinfo$disp()), {
     debug_msg("study_info")
     s <- my_study()
     s$name <- input$study_name
-    ci <- study_cinfo$disp()
-    s$info <- c(list(description = input$study_desc),
-                dfnv(ci))
+    ci <- study_cinfo$disp() %>% dfnv()
+    kw <- strsplit(input$study_keywords, "\\s*;\\s*")[[1]] %>%
+      trimws() %>% unique()
+    s$info <- c(list(title = input$study_title,
+                     description = input$study_desc,
+                     keywords = kw),
+                ci)
 
     my_study(s)
   })
@@ -265,7 +271,8 @@ server <- function(input, output, session) {
                error = function(e) {
                  shinyjs::alert(e$message)
                })
-      updateTabItems(session, "tabs", "ana_tab")
+      #updateTabItems(session, "tabs", "ana_tab")
+      shinyjs::runjs("openBox('ana_results-box');")
       my_study(s)
     }
   })
@@ -541,7 +548,7 @@ server <- function(input, output, session) {
     if (trimws(input$eval_cor_eval) != "") {
       s <- tryCatch({
         add_eval(s, "corroboration", input$eval_cor_eval,
-                 "", input$hyp_id)
+                 input$eval_cor_desc, input$hyp_id)
         },
         message = function(e) {
           shinyjs::alert(e$message)
@@ -559,7 +566,7 @@ server <- function(input, output, session) {
     if (trimws(input$eval_fal_eval) != "") {
       s <- tryCatch({
         add_eval(s, "falsification", input$eval_fal_eval,
-                 "", input$hyp_id)
+                 input$eval_fal_desc, input$hyp_id)
         },
         message = function(e) {
           shinyjs::alert(e$message)
@@ -638,6 +645,10 @@ server <- function(input, output, session) {
                     value = h$corroboration$evaluation)
     updateTextInput(session, "eval_fal_eval",
                     value = h$falsification$evaluation)
+    updateTextAreaInput(session, "eval_cor_desc",
+                    value = h$corroboration$description)
+    updateTextAreaInput(session, "eval_fal_desc",
+                    value = h$falsification$description)
 
     ## do something with h$conclusion ???
 
@@ -792,22 +803,26 @@ server <- function(input, output, session) {
   observe({
     # either return_list or ana_code need to be present
     r <- ifelse(return_list() %>% length == 0, "", "r")
-    code <- paste0(input$ana_code, r)
+    code <- ifelse(input$ana_lang == "constant", r, input$ana_code)
     buttonable("ana_add", input$ana_id, code)
   })
   observeEvent(input$ana_add, {
     debug_msg("ana_add")
     # add analysis
-    r <- return_list()
-    if (length(r) == 0) r <- ""
-
     ana <- list(
       study = my_study(),
       id = input$ana_id,
-      code = input$ana_code,
-      return = r,
       type = "text"
     )
+
+    if (input$ana_lang == "constant") {
+      ana$return <- return_list()
+    } else if (input$ana_lang == "R") {
+      ana$code <- input$ana_code
+    } else {
+      ana$code <- "# see custom_code"
+      ana$custom_code <- input$ana_code
+    }
     ana <- c(ana, dfnv(ana_cinfo$disp()))
 
     s <- tryCatch({
@@ -829,7 +844,7 @@ server <- function(input, output, session) {
   observeEvent(input$ana_clear, {
     debug_msg("ana_clear")
 
-    c("ana_id", "ana_code", "ana_return_name", "ana_return_object") %>%
+    c("ana_id", "ana_code", "ana_lang", "ana_return_name", "ana_return_object") %>%
       lapply(shinyjs::reset)
 
     ana_cinfo$info(NULL)
@@ -841,6 +856,17 @@ server <- function(input, output, session) {
 
     ana_clear$trigger() # fix interface jitter
   })
+
+  # . . ana_lang ----
+  observeEvent(input$ana_lang, {
+    if (input$ana_lang == "constant") {
+      shinyjs::runjs("openBox('ana_constant-box');")
+      shinyjs::runjs("closeBox('ana_code-box');")
+    } else {
+      shinyjs::runjs("closeBox('ana_constant-box');")
+      shinyjs::runjs("openBox('ana_code-box');")
+    }
+  }, ignoreNULL = TRUE)
 
   # . . ana_table ----
   output$ana_table <- renderDT({
@@ -867,12 +893,20 @@ server <- function(input, output, session) {
     a <- s$analyses[[idx]]
 
     updateTextInput(session, "ana_id", value = a$id)
-    code <- output_custom_code(s, idx)
+    if (is.null(a$custom_code)) {
+      code <- paste(a$code, collapse = "\n")
+      updateSelectInput(session, "ana_lang", selected = "R")
+    } else {
+      code <- paste(a$custom_code, collapse = "\n")
+      updateSelectInput(session, "ana_lang", selected = "other")
+    }
     updateTextAreaInput(session, "ana_code", value = code)
     updateActionButton(session, "ana_add", i18n()$t("Update Analysis"))
 
+    if (length(a$results) > 0) shinyjs::runjs("openBox('ana_results-box');")
+
     # ana custom info
-    to_clear <- c("id", "code", "func", "results")
+    to_clear <- c("id", "code", "func", "results", "custom_code")
     a[to_clear] <- NULL
     nvdf(a) %>% ana_cinfo$info()
     if (length(a) > 0) shinyjs::runjs("openBox('ana_info-box');")
@@ -883,7 +917,7 @@ server <- function(input, output, session) {
     debug_msg("ana_results")
     if (is_nowt(input$ana_id)) return()
 
-    s <- my_study()
+    s <- isolate(my_study())
     a_ids <- sapply(s$analyses, `[[`, "id")
     idx <- match(input$ana_id, a_ids)
 
@@ -1016,8 +1050,11 @@ server <- function(input, output, session) {
 
     updateTextInput(session, "dat_id", value = d$id)
     updateTextAreaInput(session, "dat_desc", value = desc)
+
+    # data and codebook
+    if (is.null(d$data)) d$data <- data.frame()
     loaded_data(d$data)
-    if (nrow(d$data) > 0) shinyjs::runjs("openBox('dat_box');")
+    if (nrow(loaded_data()) > 0) shinyjs::runjs("openBox('data-box');")
     cb(get_codebook(s, data_id = idx))
 
     # dat custom info
@@ -1058,6 +1095,7 @@ server <- function(input, output, session) {
     updateActionButton(session, "dat_add", i18n()$t("Add Data"))
     loaded_data(data.frame())
     cb(codebook(loaded_data(), "", return = "list"))
+
     c("dat_id", "dat_desc", "dat_file", "var_name", "var_desc", "var_type") %>%
       lapply(shinyjs::reset)
 
@@ -1189,7 +1227,7 @@ server <- function(input, output, session) {
     if (isFALSE(d)) return()
 
     loaded_data(d)
-    if (nrow(d) > 0) shinyjs::runjs("openBox('dat_box');")
+    if (nrow(d) > 0) shinyjs::runjs("openBox('data-box');")
 
     cb <- tryCatch({
       codebook(d, vardesc = sim$vardesc, return = "list")
@@ -1209,8 +1247,7 @@ server <- function(input, output, session) {
     "factor_name", "factor_desc", "factor_levels") %>%
       lapply(shinyjs::reset)
 
-    level_list(list(A1 = "A1 Description",
-                    A2 = "A2 Description"))
+    level_list(list(A1 = "", A2 = ""))
 
     loaded_data(data.frame())
     sim$within <- list()
@@ -1514,26 +1551,23 @@ server <- function(input, output, session) {
     debug_msg("factor_name")
 
     if (input$factor_name == "") {
-      hide("level_list_display")
+      shinyjs::hide("level_list_display")
     } else {
       # change default-looking names
       ll <- level_list_disp()
 
       prefixes <- gsub("\\_?\\d+$", "", names(ll))
-      descs <- gsub("\\_?\\d+ Description$", "", ll)
 
-      if (unique(prefixes) %>% length() == 1 &
-          unique(descs) %>% length() == 1) {
+      if (unique(prefixes) %>% length() == 1) {
         n <- length(ll)
-        ll <- paste0(input$factor_name, 1:n, " Description") %>%
-          as.list()
+        ll <- rep("", n)
         names(ll) <- paste0(input$factor_name, 1:n)
         level_list(ll)
       }
 
       show("level_list_display")
     }
-  }, ignoreInit = TRUE)
+  })
 
   # . . level_list_display ----
   output$level_list_display <- renderUI({
@@ -1546,7 +1580,8 @@ server <- function(input, output, session) {
       dc <- paste0("level_desc_", i)
       fluidRow(column(3, paste("Level", i)),
                column(3, textInput(nm, NULL, names(ll)[[i]])),
-               column(6, textInput(dc, NULL, ll[[i]])))
+               column(6, textInput(dc, NULL, ll[[i]],
+                                   placeholder = "Description")))
     })
     x$width = 12
 
@@ -1592,8 +1627,11 @@ server <- function(input, output, session) {
       sim$between[[input$factor_chooser]] <- NULL
     }
 
-    # update from displayed
-    sim[[input$factor_type]][[input$factor_name]] <- level_list_disp()
+    # update from displayed, copy names to blank desc
+    ll <- level_list_disp()
+    blanks <- grep("^\\s*$", ll)
+    ll[blanks] <- names(ll)[blanks]
+    sim[[input$factor_type]][[input$factor_name]] <- ll
     sim$vardesc$description[[input$factor_name]] <-
       if_nowt(input$factor_desc, input$factor_name)
 
@@ -1606,8 +1644,8 @@ server <- function(input, output, session) {
 
     c("factor_name", "factor_desc", "factor_levels") %>%
       lapply(shinyjs::reset)
-    list(A1 = "A1 Description",
-         A2 = "A2 Description") %>% level_list()
+    list(A1 = "",
+         A2 = "") %>% level_list()
 
 
     updateActionButton(session, "factor_add", i18n()$t("Add Factor"))
@@ -1994,12 +2032,18 @@ server <- function(input, output, session) {
 
     updateTextInput(session, "study_name",
                     value = study$name)
+    updateTextInput(session, "study_title",
+                    value = study$info$title)
     updateTextAreaInput(session, "study_desc",
                         value = study$info$description)
+    updateTextInput(session, "study_keywords",
+                    value = paste(study$info$keywords, sep = "; "))
 
     # study custom info
     si <- study$info
     si$description <- NULL
+    si$title <- NULL
+    si$keywords <- NULL
     nvdf(si) %>% study_cinfo$info()
     if (length(si) > 0) shinyjs::runjs("openBox('study_info-box');")
 
@@ -2018,6 +2062,7 @@ server <- function(input, output, session) {
     update_from_study(s)
   })
 
+  # pre ----
   # . . pre_sections ----
   observeEvent(my_study(), {
     debug_msg("pre_sections")
@@ -2025,11 +2070,18 @@ server <- function(input, output, session) {
 
     # TODO: make more fine grained
     sec <- names(s)
-    hyp <- sapply(s$hypotheses, `[[`, "id") %>% paste("hypothesis:", .)
-    dat <- sapply(s$data, `[[`, "id") %>% paste("data:", .)
-    met <- sapply(s$methods, `[[`, "id") %>% paste("method:", .)
-    ana <- sapply(s$analyses, `[[`, "id") %>% paste("analysis:", .)
-    ch <- c(sec, hyp, dat, met, ana)
+    hyp <- sapply(s$hypotheses, `[[`, "id")
+    aut <- lapply(s$authors, `[[`, "name") %>%
+      sapply(paste, collapse = " ")
+    dat <- sapply(s$data, `[[`, "id")
+    met <- sapply(s$methods, `[[`, "id")
+    ana <- sapply(s$analyses, `[[`, "id")
+    ch <- list("Hypotheses" = c("All hypotheses" = "hypotheses", hyp),
+                "Authors" = c("All authors" = "authors", aut),
+                "Data" = c("All data" = "data", dat),
+                "Methods" = c("All methods" = "methods", met),
+                "Analyses" = c("All analyses" = "analyses", ana)
+    )
 
     updateSelectInput(session, "pre_sections", choices = ch)
   })

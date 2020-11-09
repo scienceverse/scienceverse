@@ -110,8 +110,10 @@ roxyDesc(data, dataname, title, desc, vardesc)
 
 ## study_demo ----
 
-study_demo <- study(name = "Kinship and Prosocial Behaviour (Demo)",
+study_demo <- study(name = "kingames",
+           title = "Kinship and Prosocial Behaviour (Demo)",
            description = "A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB.",
+           keywords = c("kin recognition", "faces", "economic games", "reanalysis"),
            year = 2020) %>%
   add_author(orcid = "0000-0002-7523-5539",
              surname = "DeBruine",
@@ -128,17 +130,19 @@ study_demo <- study(name = "Kinship and Prosocial Behaviour (Demo)",
   add_method(id = "game", description = "In the experiment, 24 subjects played 16 rounds of a trust game in sessions with one to four players at individual computer stations. Subjects played with what were ostensibly 16
 different playing partners online at other universities, but in fact played against programmed choices associated with displayed facial morphs. The subjects’ choices were scored as trusting or not trusting when playing P1 (six rounds), and unselfish or selfish when playing P2 (six rounds). In the remaining four rounds, subjects were assigned the P2 role, but P1 was pro- grammed to make a non-trusting move and terminate the game; these rounds generated no choice data, but were included to provide realism. Orthogonal to the above distinctions was the resemblance cue, with half of the rounds played against self morphs and half against non-self morphs. Thus, each subject could make 0, 1, 2 or 3 prosocial decisions in each of four con- ditions: trusting self morphs and non-self morphs as P1, and responding unselfishly to trusting self morphs and non-self morphs as P2.") %>%
   add_analysis(id = "trust",
-               code = t.test(kin$trust_self,
-                             kin$trust_other,
-                             paired = TRUE,
-                             conf.level = 0.975),
-               software = R.version.string) %>%
+               code = "t.test(kin$trust_self,
+       kin$trust_other,
+       paired = TRUE,
+       conf.level = 0.975)",
+               software = R.version.string,
+               type = "text") %>%
   add_analysis(id = "recip",
-               code = t.test(kin$recip_self,
-                             kin$recip_other,
-                             paired = TRUE,
-                             conf.level = 0.975),
-               software = R.version.string) %>%
+               code = "t.test(kin$recip_self,
+       kin$recip_other,
+       paired = TRUE,
+       conf.level = 0.975)",
+               software = R.version.string,
+               type = "text") %>%
   add_criterion("t_lo", "conf.int[1]", ">", 0.0,
                 "trust", "self_pref") %>%
   add_criterion("t_hi", "conf.int[2]", ">", 0.2,
