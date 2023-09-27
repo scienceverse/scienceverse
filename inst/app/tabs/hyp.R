@@ -16,6 +16,7 @@ hyp_tab <- tabItem(
   ## . criteria ----
   box(width = 12, collapsible = TRUE,
       title = "Criteria",
+      p("Criteria are logical values (true or false) that test your hypothesis from the results of analyses. For example, your hypothesis might just require that a p-value from one analysis be less than .05, or it might require several criteria be true (or false)."),
       fluidRow(
         column(width = 3, textInput("crit_id", "id", "", placeholder = "Criterion ID")),
         column(width = 3, selectInput("crit_ana_id", "analysis_id", c())),
