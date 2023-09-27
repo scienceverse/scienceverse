@@ -1991,7 +1991,7 @@ server <- function(input, output, session) {
       r <- output_results(s, lvl, "html")
     })
 
-    ia <- strsplit(i, "<h4>Authors</h4>")[[1]]
+    ia <- strsplit(i, "<h4.*>Authors</h4>")[[1]]
 
     output$out_study <- renderUI(HTML(ia[1]))
     output$out_aut <- renderUI(HTML(ia[2]))
