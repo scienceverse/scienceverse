@@ -1,3 +1,13 @@
+expect_equal <- function(object, expected, ...) {
+  if (is.function(object) & is.function(expected)) {
+    obj <- deparse(object)
+    exp <- deparse(expected)
+    eq <- all.equal(obj, exp)
+    expect_true(eq)
+  } else {
+    testthat::expect_equal(object, expected, ...)
+  }
+}
 test_that("make_func", {
   make_func("myfunc", "t.test(rnorm(100))", environment())
   myfunc2 <- function() { t.test(rnorm(100)) }

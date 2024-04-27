@@ -23,11 +23,11 @@ test_that("info", {
   op <- output_info(s, output = "html") %>% strsplit("\n") %>% `[[`(1)
   scienceverse_options(verbose = TRUE)
 
-  expect_equal(op[[1]], "<h2>Test Study</h2>")
-  expect_equal(op[[3]], "<p>This is my test study</p>")
-  expect_equal(op[[6]], "<li>other: Other info</li>")
-  expect_equal(op[[9]], "<h3>Authors</h3>")
-  expect_equal(op[[12]], "<li><strong>DeBruine, Lisa</strong> (<a href=\"https://orcid.org/0000-0002-7523-5539\">0000-0002-7523-5539</a>): Data curation, Formal analysis, Software</li>")
+  expect_equal(op[[1]], "<h2 id=\"test-study\">Test Study</h2>")
+  expect_equal(op[[2]], "<p>This is my test study</p>")
+  expect_equal(op[[4]], "<li>other: Other info</li>")
+  expect_equal(op[[6]], "<h3 id=\"authors\">Authors</h3>")
+  expect_equal(op[[8]], "<li><strong>DeBruine, Lisa</strong> (<a href=\"https://orcid.org/0000-0002-7523-5539\">0000-0002-7523-5539</a>): Data curation, Formal analysis, Software</li>")
 
   # plain text
   scienceverse_options(verbose = FALSE)

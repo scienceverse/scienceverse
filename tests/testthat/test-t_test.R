@@ -1,4 +1,5 @@
-dat <- faux::sim_design(between = 2, n = c(10, 20), plot = FALSE)
+dat <- faux::sim_design(between = list(A = c("A1", "A2")),
+                        n = c(10, 20), plot = FALSE)
 dat$y[1] <- NA # remove one A1
 dat$y[12] <- NA # remove 1 A2
 

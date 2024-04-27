@@ -15,7 +15,7 @@ test_that("from sim_data", {
 
   dat <- get_data(s, "test")
 
-  expect_equal(names(dat), c("id", "B", "A1", "A2"))
+  expect_equal(names(dat), c("id", "B1", "W1a", "W1b"))
   expect_equal(nrow(dat), 200)
 })
 

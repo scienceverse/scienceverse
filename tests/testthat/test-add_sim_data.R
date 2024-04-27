@@ -6,7 +6,7 @@ test_that("sim_data", {
 
   dat <- s$data[[1]]$data
 
-  expect_equal(names(dat), c("id", "B", "A", "y"))
+  expect_equal(names(dat), c("id", "B1", "W1", "y"))
 
   des <- s$data[[1]]$design
   cdes <- faux::check_design(2, 2, 10, 100, 10, 0.5, plot = FALSE)
@@ -14,12 +14,12 @@ test_that("sim_data", {
 
   expect_equal(des, cdes)
 
-  expect_equal(unlist(des$mu), c(B1.A1 = 100, B1.A2 = 100, B2.A1 = 100, B2.A2 = 100))
+  expect_equal(unlist(des$mu), c(B1a.W1a = 100, B1a.W1b = 100, B1b.W1a = 100, B1b.W1b = 100))
   expect_equal(unlist(des$sd) %>% sum(), 40)
-  expect_equal(unlist(des$n), c(B1 = 10, B2 = 10))
-  mat <- matrix(c(1.0, 0.5, 0.5, 1.0), 2, dimnames = list(c("A1", "A2"), c("A1", "A2")))
-  expect_equal(des$r$B1, mat)
-  expect_equal(des$r$B2, mat)
-  expect_equal(unlist(des$within), c(A.A1 = "A1", A.A2 = "A2"))
-  expect_equal(unlist(des$between), c(B.B1 = "B1", B.B2 = "B2"))
+  expect_equal(unlist(des$n), c(B1a = 10, B1b = 10))
+  mat <- matrix(c(1.0, 0.5, 0.5, 1.0), 2, dimnames = list(c("W1a", "W1b"), c("W1a", "W1b")))
+  expect_equal(des$r$B1a, mat)
+  expect_equal(des$r$B1b, mat)
+  expect_equal(unlist(des$within), c(W1.W1a = "W1a", W1.W1b = "W1b"))
+  expect_equal(unlist(des$between), c(B1.B1a = "B1a", B1.B1b = "B1b"))
 })

@@ -30,9 +30,9 @@ test_that("errors", {
 test_that("basic", {
   study <- study() %>%
     add_hypothesis("H1") %>%
-    add_analysis("A1", t.test(y~A, data = D1)) %>%
+    add_analysis("A1", t.test(y~B1, data = D1)) %>%
     add_criterion("C1", "p.value", "<", 0.05) %>%
-    add_analysis("A2", t.test(y~A, data = D2)) %>%
+    add_analysis("A2", t.test(y~B1, data = D2)) %>%
     add_criterion("C2", "p.value", "<", 0.05) %>%
     add_eval("corroboration", "C1 | C2") %>%
     add_eval("falsification", "!C1 & !C2") %>%
@@ -60,7 +60,7 @@ test_that("basic", {
 test_that("null", {
   study <- study() %>%
     add_hypothesis("H1") %>%
-    add_analysis("A1", t.test(y~A, data = D1)) %>%
+    add_analysis("A1", t.test(y~B1, data = D1)) %>%
     add_criterion("C1", "p.value", "<", 0.05) %>%
     add_eval("corroboration", "C1") %>%
     add_eval("falsification", "!C1") %>%
@@ -75,7 +75,7 @@ test_that("accuracy", {
 
   study <- study() %>%
     add_hypothesis("H1") %>%
-    add_analysis("A1", t.test(y~A, data = D1)) %>%
+    add_analysis("A1", t.test(y~B1, data = D1)) %>%
     add_criterion("C1", "p.value", "<", 0.05) %>%
     add_eval("corroboration", "C1") %>%
     add_eval("falsification", "!C1")
@@ -85,7 +85,7 @@ test_that("accuracy", {
       study_power(100) %>%
       get_power()
 
-     p$H1$corroboration
+     p$power$H1$corroboration
   })
 
   p2 <- lapply(seq(0, 1, 0.1), power.t.test, n = 20) %>%

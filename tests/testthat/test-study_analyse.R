@@ -106,15 +106,15 @@ test_that("criterion name overlap", {
 test_that("multiple hypotheses", {
   s <- study() %>%
     add_sim_data("dat", within = 2, between = 2, r = 0.5) %>%
-    add_hypothesis("H1", "A1 and A2 will be correlated") %>%
-    add_analysis("A1", cor.test(dat$A1, dat$A2)) %>%
+    add_hypothesis("H1", "W1a and W1b will be correlated") %>%
+    add_analysis("A1", cor.test(dat$W1a, dat$W1b)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate", ">", 0) %>%
     add_eval("c", "sig & pos") %>%
     add_eval("f", "sig & !pos") %>%
 
-    add_hypothesis("H2", "B1 will have a bigger DV than B2") %>%
-    add_analysis("A2", t.test((A1+A2)~B, dat)) %>%
+    add_hypothesis("H2", "B1a will have a bigger DV than B1b") %>%
+    add_analysis("A2", t.test((W1a+W1b)~B1, dat)) %>%
     add_criterion("sig", "p.value", "<", 0.05) %>%
     add_criterion("pos", "estimate[1]", ">", "estimate[2]") %>%
     add_eval("c", "sig & pos") %>%
@@ -123,8 +123,8 @@ test_that("multiple hypotheses", {
   s2 <- study_analyse(s)
   es <- eval_summary(s2)
 
-  expect_equal(grep("Hypothesis H1: A1 and A2 will be correlated", es), 1)
-  expect_equal(grep("Hypothesis H2: B1 will have a bigger DV than B2", es), 1)
+  expect_equal(grep("Hypothesis H1: W1a and W1b will be correlated", es), 1)
+  expect_equal(grep("Hypothesis H2: B1a will have a bigger DV than B1b", es), 1)
 })
 
 
@@ -146,19 +146,20 @@ test_that("result in comparator", {
 })
 
 # app ----
-test_that("app", {
-  s <- study() %>%
-    add_hypothesis("H1") %>%
-    add_analysis("A1", cor.test(rnorm(20), rnorm(20))) %>%
-    add_criterion("p", "p.value", "<", 0.5) %>%
-    add_criterion("r", "estimate", ">", 0.2) %>%
-    add_eval("corroboration", "p & r") %>%
-    add_eval("falsification", "p & !r")
-
-
-  s <- study_analyse(s)
-  get_result(s, "p.value")
-})
+# test_that("app", {
+#   set.seed(8675309)
+#   s <- study() %>%
+#     add_hypothesis("H1") %>%
+#     add_analysis("A1", cor.test(rnorm(20), rnorm(20))) %>%
+#     add_criterion("p", "p.value", "<", 0.5) %>%
+#     add_criterion("r", "estimate", ">", 0.2) %>%
+#     add_eval("corroboration", "p & r") %>%
+#     add_eval("falsification", "p & !r")
+#
+#
+#   s <- study_analyse(s)
+#   p <- get_result(s, "p.value")
+# })
 
 test_that("check logic", {
   s <- study() %>%

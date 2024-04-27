@@ -1,7 +1,7 @@
 Package: scienceverse
 Title: Machine-Readable Study Descriptions
-Version: 0.0.0.9019
-Date: 2023-09-27
+Version: 0.0.0.9020
+Date: 2024-04-27
 Authors@R: c(
   person(  given = "Lisa",
            family = "DeBruine",
@@ -30,7 +30,7 @@ Imports:
     rmarkdown,
     markdown,
     rio,
-    faux (>= 0.0.1.4),
+    faux (>= 1.1.0),
     methods,
     stats,
     utils,

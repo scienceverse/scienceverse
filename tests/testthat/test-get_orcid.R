@@ -7,15 +7,15 @@ test_that("get_orcid", {
 
   expect_message(get_orcid("DeBruinez", "Z"), "No ORCID found for Z DeBruinez", fixed = TRUE)
 
-  oid <- c("0000-0003-2234-4827", "0000-0002-7523-5539")
+  oid <- c("0000-0002-7523-5539", "0000-0003-2234-4827")
   expect_message(db <- get_orcid("DeBruine"), "Multiple (2) ORCIDs found for * DeBruine", fixed = TRUE)
-  expect_identical(oid, db)
+  expect_identical(oid, sort(db))
 
   skip("Takes too long")
-  expect_identical(oid[2], get_orcid("DeBruine", "L"))
-  expect_identical(oid[2], get_orcid("DeBruine", "Lisa"))
-  expect_identical(oid[2], get_orcid("DeBruine", "L M"))
-  expect_identical(oid[2], get_orcid("DeBruine", "Lisa M"))
+  expect_identical(oid[1], get_orcid("DeBruine", "L"))
+  expect_identical(oid[1], get_orcid("DeBruine", "Lisa"))
+  expect_identical(oid[1], get_orcid("DeBruine", "L M"))
+  expect_identical(oid[1], get_orcid("DeBruine", "Lisa M"))
 
   # wildcards
   oid <- "0000-0002-0247-239X"
@@ -23,5 +23,5 @@ test_that("get_orcid", {
 
   ## special characters
   oid <- "0000-0002-0459-880X"
-  get_orcid("Van Ertvelde", "Anaïs")
+  expect_identical(oid, get_orcid("Van Ertvelde", "Anaïs"))
 })

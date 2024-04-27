@@ -1,3 +1,14 @@
+expect_equal <- function(object, expected, ...) {
+  if (is.function(object) & is.function(expected)) {
+    obj <- deparse(object)
+    exp <- deparse(expected)
+    eq <- all.equal(obj, exp)
+    expect_true(eq)
+  } else {
+    testthat::expect_equal(object, expected, ...)
+  }
+}
+
 # errors ----
 test_that("errors", {
   s <- study()
@@ -10,6 +21,8 @@ test_that("errors", {
                "The code was not a function.",
                fixed = TRUE)
 })
+
+
 
 # defaults ----
 test_that("defaults", {

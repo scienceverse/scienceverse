@@ -55,7 +55,7 @@ study_power <- function(study, rep = 100) {
 
       # simulate new data ----
       message("Simulating Datasets...")
-      simdata[[d$id]] <- faux::sim_data(d$design, long = is_long, rep = rep)
+      simdata[[d$id]] <- faux:::sim_data(d$design, long = is_long, rep = rep)
     }
   }
 
