@@ -139,12 +139,12 @@
         {
             "id": "trust",
             "code": "t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
-            "software": "R version 4.0.2 (2020-06-22)"
+            "software": "R version 4.3.2 (2023-10-31)"
         },
         {
             "id": "recip",
             "code": "t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
-            "software": "R version 4.0.2 (2020-06-22)"
+            "software": "R version 4.3.2 (2023-10-31)"
         },
         {
             "id": "norm",
@@ -163,7 +163,7 @@
                 "    `ro` = ro",
                 ")"
             ],
-            "software": "R version 4.0.2 (2020-06-22)"
+            "software": "R version 4.3.2 (2023-10-31)"
         },
         {
             "id": "trust_wilcox",
@@ -171,7 +171,7 @@
                 "wilcox.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975, ",
                 "    conf.int = TRUE)"
             ],
-            "software": "R version 4.0.2 (2020-06-22)"
+            "software": "R version 4.3.2 (2023-10-31)"
         },
         {
             "id": "recip_wilcox",
@@ -179,7 +179,7 @@
                 "wilcox.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975, ",
                 "    conf.int = TRUE)"
             ],
-            "software": "R version 4.0.2 (2020-06-22)"
+            "software": "R version 4.3.2 (2023-10-31)"
         }
     ]
 }

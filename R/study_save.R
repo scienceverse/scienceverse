@@ -3,7 +3,7 @@
 #' Save the study framework to a JSON file
 #'
 #' @param study A study list object with class scivrs_study
-#' @param filename The name to save the file
+#' @param filename The name to save the file if NULL, will save as the study name
 #' @param format Save as a machine-readable "json" file, a human-readable "prereg" document (no results) or a "postreg" document (includes results)
 #' @param data_values Whether to include data values in the JSON file (defaults to TRUE)
 #' @return A study object with class scivrs_study
@@ -13,7 +13,7 @@
 #' @examples
 #'
 #' \dontrun{
-#' study() %>%
+#' study("iris") %>%
 #'   add_hypothesis("H1", "Petal width and length will be positively correlated.") %>%
 #'   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) %>%
 #'   add_criterion("sig", "p.value", "<", 0.05) %>%
@@ -30,11 +30,21 @@
 #' }
 #'
 study_save <- function(study,
-                       filename = "study",
+                       filename = NULL,
                        format = c("json", "prereg", "postreg"),
                        data_values = TRUE) {
-
   format <- match.arg(format)
+
+  if (!"scivrs_study" %in% class(study)) {
+    if (is.list(study)) {
+      studies <- lapply(study, study_save, format = format, data_values = data_values)
+      invisible(studies)
+    } else {
+      stop("The study argument needs to be a scivrs_study object or a list of them.")
+    }
+  }
+
+  if (is.null(filename)) filename <- gsub("\\s+", "_", tolower(study$name))
 
   if (format == "json") {
     if (!length(grep("\\.json$", filename))) {

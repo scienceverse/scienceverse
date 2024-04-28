@@ -36,7 +36,7 @@ add_sim_data(
 
 \item{sd}{the standard deviations of the variables}
 
-\item{r}{the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix}
+\item{r}{the correlations among the variables (can be a single number, full correlation matrix as a matrix or vector, or a vector of the upper right triangle of the correlation matrix}
 
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 

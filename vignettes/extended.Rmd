@@ -203,12 +203,12 @@ You can access the values for each criterion for each simulation with the functi
 ```{r fig.cap = "Criteria values for 100 simulated studies"}
 power <- get_power(study, values = TRUE)
 
-as_tibble(power$self_pref$criteria) %>%
-  pivot_longer(t_lo:r_hi,
-               names_to = "criteria",
-               values_to = "value") %>%
-  ggplot(aes(value, color = criteria)) +
-  geom_density()
+# as_tibble(power$self_pref$criteria) %>%
+#   pivot_longer(t_lo:r_hi,
+#                names_to = "criteria",
+#                values_to = "value") %>%
+#   ggplot(aes(value, color = criteria)) +
+#   geom_density()
 ```
 
 

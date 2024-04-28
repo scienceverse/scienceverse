@@ -327,6 +327,9 @@
       "en": "Contributors, Affiliations, and Persistent IDs (recommend ORCID iD)"
     },
     {
+      "en": "Criteria are logical values (true or false) that test your hypothesis from the results of analyses. For example, your hypothesis might just require that a p-value from one analysis be less than .05, or it might require several criteria be true (or false)."
+    },
+    {
       "en": "Data accessibility statement and planned repository"
     },
     {
@@ -616,6 +619,9 @@
     },
     {
       "en": "Provide in separate entries the full name of each contributor, each contributor's professional affiliation, and each contributor's persistent ID. See ORCID iD for an example of persistent ID (hyperlink: https://orcid.org/). Optional: include the intended contribution of each person listed (e.g. statistical analysis, data collection; see CRediT, hyperlink: https://casrai.org/credit/)"
+    },
+    {
+      "en": "Quit & Return Study"
     },
     {
       "en": "r"

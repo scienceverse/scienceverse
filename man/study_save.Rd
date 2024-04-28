@@ -6,7 +6,7 @@
 \usage{
 study_save(
   study,
-  filename = "study",
+  filename = NULL,
   format = c("json", "prereg", "postreg"),
   data_values = TRUE
 )
@@ -14,7 +14,7 @@ study_save(
 \arguments{
 \item{study}{A study list object with class scivrs_study}
 
-\item{filename}{The name to save the file}
+\item{filename}{The name to save the file if NULL, will save as the study name}
 
 \item{format}{Save as a machine-readable "json" file, a human-readable "prereg" document (no results) or a "postreg" document (includes results)}
 
@@ -29,7 +29,7 @@ Save the study framework to a JSON file
 \examples{
 
 \dontrun{
-study() \%>\%
+study("iris") \%>\%
   add_hypothesis("H1", "Petal width and length will be positively correlated.") \%>\%
   add_analysis("A1", cor.test(dat$Petal.Width, dat$Petal.Length)) \%>\%
   add_criterion("sig", "p.value", "<", 0.05) \%>\%

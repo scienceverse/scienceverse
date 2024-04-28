@@ -1,3 +1,8 @@
+# scienceverse 0.0.0.9020 (2024-04-28)
+
+* `scivrs_app()` now takes an optional `study` argument to load a study object and returns the edited study object
+* `study_from_xml()` loads a study object from a Grobid-encoded xml file.
+
 # scienceverse 0.0.0.9018 (2020-11-03)
 
 * fixed bug in `study_power()` that produced errors for long (as opposed to wide) data with within-subject factors

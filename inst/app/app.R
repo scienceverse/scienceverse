@@ -54,6 +54,7 @@ ui <- dashboardPage(
     ),
     actionButton("demo", "Demo Study"),
     actionButton("reset_study", "Reset Study"),
+    actionButton("return_study", "Quit & Return Study"),
 
     selectInput("lang", "Change language",
                 choices = c(English = "en", Dutch = "nl"),
@@ -139,6 +140,7 @@ server <- function(input, output, session) {
   shinyjs::hide("ana_delete")
   shinyjs::hide("study_analyse")
 
+
   # functions ----
   section_delete <- function(section, idx) {
     s <- my_study()
@@ -221,6 +223,13 @@ server <- function(input, output, session) {
                 ci)
 
     my_study(s)
+  })
+
+  # . . return_study ----
+  observeEvent(input$return_study, {
+    debug_msg("return_study")
+
+    stopApp(my_study())
   })
 
   # . . reset_study ----
@@ -2091,6 +2100,10 @@ server <- function(input, output, session) {
   save_trans(trans_text, trans_labels)
 
   debug_msg("server functions created")
+
+  if (!is.null(.app.study.)) {
+    update_from_study( .app.study. )
+  }
 
 } # end server()
 

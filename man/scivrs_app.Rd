@@ -4,15 +4,20 @@
 \alias{scivrs_app}
 \title{Launch Shiny App}
 \usage{
-scivrs_app(...)
+scivrs_app(study = NULL, ...)
 }
 \arguments{
+\item{study}{optional study to load}
+
 \item{...}{arguments to pass to shiny::runApp}
+}
+\value{
+A study object created or edited by the app
 }
 \description{
 Create a meta-study file interactively in a shiny app that runs locally in RStudio or your web browser (recommended). It does not connect to the web at all, so your data are completely private.
 }
 \examples{
-\dontrun{ scivrs_app() }
+\dontrun{ s <- scivrs_app() }
 
 }

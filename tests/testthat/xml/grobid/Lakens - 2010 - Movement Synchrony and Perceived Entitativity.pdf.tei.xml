@@ -1,0 +1,1312 @@
+<?xml version="1.0" encoding="UTF-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Movement synchrony and perceived entitativity</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Elsevier BV</publisher>
+				<availability status="unknown"><p>Copyright Elsevier BV</p>
+				</availability>
+				<date type="published" when="2010-03-31">31 March 2010</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName coords="1,42.52,203.65,68.06,9.98"><forename type="first">Daniël</forename><surname>Lakens</surname></persName>
+							<email>d.lakens@tue.nl</email>
+							<affiliation key="aff0">
+								<note type="raw_affiliation">Department of Social and Organizational Psychology, Utrecht University, Heidelberglaan 1, 3584 CS Utrecht, The Netherlands</note>
+								<orgName type="department">Department of Social and Organizational Psychology</orgName>
+								<orgName type="institution">Utrecht University</orgName>
+								<address>
+									<addrLine>Heidelberglaan 1</addrLine>
+									<postCode>3584 CS</postCode>
+									<settlement>Utrecht</settlement>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<note type="raw_affiliation">Human Technology Interaction Group, IPO 1.24, PO Box 513, 5600 MB Eindhoven, The Netherlands.</note>
+								<orgName type="department">Human Technology Interaction Group</orgName>
+								<address>
+									<addrLine>IPO 1.24</addrLine>
+									<postBox>PO Box 513</postBox>
+									<postCode>5600 MB</postCode>
+									<settlement>Eindhoven</settlement>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Movement synchrony and perceived entitativity</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Journal of Experimental Social Psychology</title>
+						<title level="j" type="abbrev">Journal of Experimental Social Psychology</title>
+						<idno type="ISSN">0022-1031</idno>
+						<imprint>
+							<publisher>Elsevier BV</publisher>
+							<biblScope unit="volume">46</biblScope>
+							<biblScope unit="issue">5</biblScope>
+							<biblScope unit="page" from="701" to="708"/>
+							<date type="published" when="2010-03-31">31 March 2010</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">065EA3743F09B8052C42702530D13FF1</idno>
+					<idno type="DOI">10.1016/j.jesp.2010.03.015</idno>
+					<note type="submission">Received 9 February 2009 Revised 23 March 2010</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-04-20T15:05+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>Movement synchrony Entitativity Entrainment Rapport Rhythmic behavior</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p><s coords="1,207.10,274.51,302.52,6.78">Movement synchrony has been theoretically linked to the emergence of a social unit.</s><s coords="1,512.74,274.51,49.80,6.78;1,207.10,284.03,355.40,6.78;1,207.10,293.61,200.26,6.78">To empirically investigate whether similar movement rhythms are an antecedent of perceived entitativity, movement rhythms were experimentally manipulated in four studies.</s><s coords="1,409.56,293.61,153.00,6.78;1,207.10,303.19,355.41,6.78;1,207.10,312.72,355.46,6.78;1,207.10,322.30,157.96,6.78">Using this novel approach, stick figures waving in synchrony were found to be rated higher on entitativity than stick figures waving in different rhythms (Study 1), and this effect was extended to interactional synchrony, where different movements are performed in the same rhythm (Study 2).</s><s coords="1,367.89,322.30,194.68,6.78;1,207.10,331.88,355.43,6.78;1,207.10,341.46,183.64,6.78">Objective differences in movement rhythms are linearly related to ratings of perceived entitativity, and this relationship is partially mediated by the subjectively perceived similarity of movement rhythms (Study 3).</s><s coords="1,393.17,341.46,169.37,6.78;1,207.10,350.99,204.62,6.78">These results also held for entitativity judgments for videotaped individuals waving rhythmically (Study 4).</s><s coords="1,415.11,350.99,147.44,6.78;1,207.10,360.57,355.46,6.78;1,207.10,370.15,120.02,6.78">These results support the hypothesis that movement rhythms are an important source of information which observers use to infer the extent to which individuals are a social unit.</s></p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<facsimile>
+		<surface n="1" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="2" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="3" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="4" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="5" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="6" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="7" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+		<surface n="8" ulx="0.0" uly="0.0" lrx="595.276" lry="793.701"/>
+	</facsimile>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="1,42.52,416.22,50.61,7.53">Introduction</head><p><s coords="1,54.14,437.14,202.66,7.53">Many movements people make are rhythmic in nature.</s><s coords="1,258.23,437.14,35.34,7.53;1,42.52,447.63,251.07,7.53;1,42.52,458.06,164.57,7.53">When we walk, talk, clap our hands, jump up and down, make love, dance or rock our children, we do so rhythmically.</s><s coords="1,210.83,458.06,82.79,7.53;1,42.52,468.55,251.03,7.53;1,42.52,478.98,251.07,7.53;1,42.52,489.47,59.53,7.53">Individual movement rhythms of people engaged in social interaction often display signs of coordination (for an overview, see <ref type="bibr" coords="1,186.12,478.98,107.47,7.53;1,42.52,489.47,55.56,7.53" target="#b27">Marsh, Richardson, Baron, &amp; Schmidt, 2006)</ref>.</s><s coords="1,104.88,489.47,188.73,7.53;1,42.52,499.90,251.08,7.53;1,42.52,510.39,228.02,7.53">For instance, synchronous clapping rhythms tend to emerge when individuals in an audience applaud after a good performance <ref type="bibr" coords="1,81.01,510.39,185.57,7.53" target="#b32">(Neda, Ravasz, Brechet, Vicsek, &amp; Barabasi, 2000)</ref>.</s><s coords="1,273.49,510.39,20.11,7.53;1,42.52,520.82,251.07,7.53;1,42.52,531.31,251.08,7.53;1,42.52,541.74,54.37,7.53">Similarly, coordinated walking rhythms are sometimes observed when people walk side by side (van Ulzen, Lamoth, <ref type="bibr" coords="1,214.41,531.31,79.19,7.53;1,42.52,541.74,50.39,7.53" target="#b40">Daffertshofer, Semin, &amp; Beek, 2008)</ref>.</s><s coords="1,99.38,541.74,194.21,7.53;1,42.52,552.23,251.09,7.53;1,42.52,562.66,251.07,7.53;1,42.52,573.15,251.04,7.53;1,42.52,583.58,251.12,7.53;1,42.52,594.06,251.07,7.53;1,42.52,604.50,201.77,7.53">Moving in synchrony, or performing movements in a temporally related manner, seems to be a robust human tendency <ref type="bibr" coords="1,42.52,562.66,51.18,7.53" target="#b15">(Davis, 1982;</ref><ref type="bibr" coords="1,97.28,562.66,196.30,7.53" target="#b33">Newtson, Hairfield, Bloomingdale, &amp; Cutino, 1987)</ref> which is observed for movements as diverse as body sway <ref type="bibr" coords="1,255.22,573.15,38.33,7.53;1,42.52,583.58,125.27,7.53" target="#b38">(Shockley, Baker, Richardson, &amp; Fowler, 2007)</ref>, moving back and forth in rocking chairs <ref type="bibr" coords="1,67.29,594.06,226.29,7.53" target="#b36">(Richardson, Marsh, Isenhower, Goodman, &amp; Schmidt, 2007)</ref> and moving fingers up and down <ref type="bibr" coords="1,167.81,604.50,72.52,7.53" target="#b34">(Oullier et al., 2008)</ref>.</s></p><p><s coords="1,54.14,614.98,239.42,7.53;1,42.52,625.42,251.09,7.53;1,42.52,635.90,107.78,7.53">Movement synchrony is speculated to lead to the emergence of a social unit <ref type="bibr" coords="1,90.93,625.42,58.18,7.53" target="#b10">(Condon, 1980;</ref><ref type="bibr" coords="1,151.54,625.42,47.04,7.53" target="#b15">Davis, 1982;</ref><ref type="bibr" coords="1,200.97,625.42,55.12,7.53" target="#b22">Kendon, 1990;</ref><ref type="bibr" coords="1,258.51,625.42,35.10,7.53;1,42.52,635.90,21.99,7.53" target="#b24">LaFrance, 1982;</ref><ref type="bibr" coords="1,67.07,635.90,79.23,7.53" target="#b33">Newtson et al., 1987)</ref>.</s><s coords="1,152.90,635.90,140.69,7.53;1,42.52,646.33,251.12,7.53;1,42.52,656.82,251.04,7.53;1,42.52,667.25,251.09,7.53;1,42.52,677.74,191.86,7.53">Some qualitative illustrations of how groups emerge when individual movement rhythms synchronize can be found in the literature (e.g., <ref type="bibr" coords="1,185.04,656.82,54.79,7.53" target="#b31">McNeill, 1995)</ref>, but there is an apparent lack of empirical work on the relationship between movement synchrony and the perception of unity.</s><s coords="1,236.97,677.74,56.66,7.53;1,311.53,416.22,251.04,7.53;1,311.53,426.70,251.08,7.53;1,311.53,437.14,251.07,7.53;1,311.53,447.62,213.28,7.53">This is surpris-ing since temporally coordinated actions are a fundamental feature of connectedness and mutual responsiveness in social interaction <ref type="bibr" coords="1,311.53,437.14,164.51,7.53" target="#b1">(Bernieri, Davis, Rosenthal, &amp; Knee, 1994;</ref><ref type="bibr" coords="1,479.95,437.14,82.64,7.53;1,311.53,447.62,21.99,7.53" target="#b2">Bernieri &amp; Rosenthal, 1991;</ref><ref type="bibr" coords="1,335.56,447.62,46.70,7.53" target="#b15">Davis, 1982;</ref><ref type="bibr" coords="1,384.32,447.62,136.52,7.53" target="#b28">Marsh, Richardson, &amp; Schmidt, 2009)</ref>.</s><s coords="1,526.90,447.62,35.70,7.53;1,311.53,458.06,251.05,7.53;1,311.53,468.54,251.09,7.53;1,311.53,478.98,251.08,7.53;1,311.53,489.46,251.08,7.53;1,311.53,499.89,43.96,7.53">Entitativity research, which investigates the factors that influence the degree to which a group of individuals is perceived as a meaningful unit <ref type="bibr" coords="1,329.21,478.98,64.73,7.53" target="#b6">(Campbell, 1958;</ref><ref type="bibr" coords="1,396.22,478.98,105.48,7.53" target="#b18">Hamilton &amp; Sherman, 1996)</ref> has not investigated movement synchrony as a possible antecedent of perceived entitativity.</s><s coords="1,357.56,499.89,205.08,7.53;1,311.53,510.38,251.08,7.53;1,311.53,520.81,251.03,7.53;1,311.53,531.30,73.66,7.53">Recently however, more dynamic views on entitativity <ref type="bibr" coords="1,311.53,510.38,99.75,7.53" target="#b3">(Brewer, Hong, &amp; Li, 2004)</ref> have highlighted the importance of dynamic and temporal signs of coordination between individuals as a cue for entitativity.</s><s coords="1,388.17,531.30,174.40,7.53;1,311.53,541.73,251.01,7.53;1,311.53,552.22,251.09,7.53;1,311.53,562.65,37.08,7.53">As <ref type="bibr" coords="1,400.19,531.30,139.92,7.53">Marsh and colleagues (2009, p. 323)</ref> summarize: ''Presumably, the pull to such a coordinated state tells us something about the most minimal socioemotional connectedness of a pair."</s><s coords="1,351.21,562.65,195.04,7.53">Moving in synchrony should therefore signal unity.</s><s coords="1,548.78,562.65,13.80,7.53;1,311.53,573.14,251.09,7.53;1,311.53,583.57,251.02,7.53;1,311.53,594.06,251.04,7.53;1,311.53,604.49,28.63,7.53">The current studies take a novel approach to the empirical investigation of the relationship between movement synchrony en perceived entitativity by manipulating the movement rhythms of stimuli.</s><s coords="1,341.97,604.49,220.64,7.53;1,311.53,614.98,251.00,7.53;1,311.53,625.41,251.04,7.53;1,311.53,635.90,116.31,7.53">By measuring the extent to which the stimuli are perceived to be a unit, these studies are the first to provide clear empirical support for the assumption that moving in synchrony leads to the perception of a social unit.</s></p><p><s coords="1,323.15,646.33,239.44,7.53;1,311.53,656.82,251.01,7.53;1,311.53,667.25,201.21,7.53">Being perceived as a group has important consequences for how group-relevant information is processed <ref type="bibr" coords="1,472.81,656.82,89.73,7.53;1,311.53,667.25,47.38,7.53" target="#b19">(Hamilton, Sherman, &amp; Lickel, 1998;</ref><ref type="bibr" coords="1,360.79,667.25,147.94,7.53" target="#b29">McConnell, Sherman, &amp; Hamilton, 1997)</ref>.</s><s coords="1,514.60,667.25,48.02,7.53;1,311.53,677.74,251.06,7.53;1,311.53,688.17,251.07,7.53;1,311.53,698.66,251.01,7.53;1,311.53,709.09,251.08,7.53;1,311.53,719.58,113.28,7.53">For example, people remember fewer individual differences within highly entitative groups <ref type="bibr" coords="1,364.13,688.17,121.53,7.53" target="#b4">(Brewer, Weber, &amp; Carini, 1995)</ref> and trait inferences of individual group members in highly entitative groups are abstracted and generalized over other group members <ref type="bibr" coords="1,522.64,709.09,39.96,7.53;1,311.53,719.58,109.30,7.53" target="#b14">(Crawford, Sherman, &amp; Hamilton, 2002)</ref>.</s><s coords="1,428.43,719.58,134.12,7.53;2,32.71,67.96,251.10,7.53;2,32.71,78.39,251.12,7.53;2,32.71,88.88,54.91,7.53">Previous studies have investigated how other perceptual characteristics such as proximity, similarity of body color and common fate influence the perceived entitativity of individuals.</s><s coords="2,91.56,88.88,192.22,7.53;2,32.71,99.31,251.09,7.53;2,32.71,109.80,251.10,7.53;2,32.71,120.23,251.04,7.53"><ref type="bibr" coords="2,91.56,88.88,147.08,7.53" target="#b16">Dasgupta, Banaji, and Abelson (1999)</ref> found that computer-generated humanoid creatures are seen as more homogenous in their behavior, and less likely to engage in positive behaviors towards out-group members, if the creatures were similar (vs.</s><s coords="2,32.71,130.71,90.77,7.53">different) in body color.</s><s coords="2,126.20,130.71,157.59,7.53;2,32.71,141.15,251.01,7.53;2,32.71,151.63,251.08,7.53;2,32.71,162.07,9.71,7.53">McGarty and colleagues found that color, proximity and group size influence how entitative individuals are judged to be <ref type="bibr" coords="2,83.11,151.63,200.68,7.53;2,32.71,162.07,6.47,7.53">(McGarty, Haslam, Hutchinson, &amp; Grace, 1995, Study 2)</ref>.</s><s coords="2,44.56,162.07,239.22,7.53;2,32.71,172.55,251.11,7.53;2,32.71,182.98,56.07,7.53">Finally, a recent set of studies manipulated the color and movement direction of artificially created humanoid creatures <ref type="bibr" coords="2,249.89,172.55,33.93,7.53;2,32.71,182.98,52.10,7.53" target="#b20">(Ip, Chiu, &amp; Wan, 2006)</ref>.</s><s coords="2,92.30,182.98,191.48,7.53;2,32.71,193.47,251.07,7.53;2,32.71,203.90,73.96,7.53">Walking in the same direction lead to inferences about a shared goal, and having the same color lead to inferences about shared traits.</s><s coords="2,109.30,203.90,163.37,7.53">Both factors influenced entitativity ratings.</s></p><p><s coords="2,44.33,214.39,239.44,7.53;2,32.71,224.88,251.10,7.53;2,32.71,235.31,234.00,7.53">Influenced by Gestalt psychologists, <ref type="bibr" coords="2,177.79,214.39,61.99,7.53" target="#b6">Campbell (1958)</ref> argued that people have developed the ability to effortlessly perceive the extent to which middle-sized physical entities form a social aggregate.</s><s coords="2,268.26,235.31,15.50,7.53;2,32.71,245.80,251.02,7.53;2,32.71,256.23,251.08,7.53;2,32.71,266.72,85.95,7.53">Previous studies have shown that movement synchrony can be perceived directly from videotaped interactions <ref type="bibr" coords="2,220.87,256.23,62.92,7.53" target="#b0">(Bernieri, 1988;</ref><ref type="bibr" coords="2,32.71,266.72,81.95,7.53" target="#b33">Newtson et al., 1987)</ref>.</s><s coords="2,122.17,266.72,161.58,7.53;2,32.71,277.15,251.07,7.53;2,32.71,287.64,251.10,7.53">However, movement rhythms have never been experimentally manipulated to investigate whether differences in movement rhythms lead to differences in perceived unity.</s><s coords="2,32.71,298.07,251.08,7.53;2,32.71,308.56,251.04,7.53;2,32.71,318.99,251.08,7.53;2,32.71,329.48,176.15,7.53">Doing so provides support for the assumption that temporal coordination is a rudimentary basis for judgments regarding the extent to which individuals are a social unit <ref type="bibr" coords="2,159.70,318.99,124.09,7.53" target="#b5">(Burgoon, Stern, &amp; Dillman, 1995;</ref><ref type="bibr" coords="2,32.71,329.48,172.18,7.53">Marsh, Johnston, Richardson, &amp; Schmidt, 2009)</ref>.</s><s coords="2,210.73,329.48,73.05,7.53;2,32.71,339.91,251.11,7.53;2,32.71,350.40,251.06,7.53;2,32.71,360.83,251.09,7.53;2,32.71,371.32,108.76,7.53">According the coreconfigurations model by <ref type="bibr" coords="2,125.58,339.91,57.94,7.53" target="#b7">Caporael (1997)</ref>, dyads are a core-configuration of a group because dyads afford finely coordinated body movement, which allows humans to accomplish basic life tasks such as infant survival and mating.</s><s coords="2,142.86,371.32,140.95,7.53;2,32.71,381.75,251.08,7.53;2,32.71,392.24,251.09,7.53;2,32.71,402.67,251.07,7.53;2,32.71,413.15,149.41,7.53">Given that shared movement rhythms are ubiquitous in social interaction, and the proposed theoretical significance of movement synchrony for social behavior, the question whether movement synchrony is an antecedent of perceived entitativity deserves empirical investigation.</s></p><p><s coords="2,44.34,423.59,239.42,7.53;2,32.71,434.07,251.07,7.53;2,32.71,444.51,198.82,7.53">Movement synchrony can function as a much more dynamic visual signal to determine whether individuals are an entity than more static features such as skin color <ref type="bibr" coords="2,154.26,444.51,73.31,7.53" target="#b3">(Brewer et al., 2004)</ref>.</s><s coords="2,233.35,444.51,50.42,7.53;2,32.71,454.99,251.04,7.53;2,32.71,465.42,251.01,7.53;2,32.71,475.91,251.08,7.53;2,32.71,486.34,251.07,7.53;2,32.71,496.83,164.70,7.53">After all, people cannot dynamically change the color of their skin depending on the skin color of their interaction partner, but people can and do change their movement rhythm in response to that of other individuals when walking, sitting in rocking chairs or when applauding (e.g., <ref type="bibr" coords="2,51.48,496.83,62.76,7.53" target="#b32">Neda et al., 2000;</ref><ref type="bibr" coords="2,115.48,496.83,77.96,7.53" target="#b40">van Ulzen et al., 2008)</ref>.</s><s coords="2,198.65,496.83,85.12,7.53;2,32.71,507.26,251.06,7.53;2,32.71,517.75,251.05,7.53;2,32.71,528.18,251.04,7.53;2,32.71,538.67,251.09,7.53;2,32.71,549.10,251.11,7.53;2,32.71,559.59,34.00,7.53">If people are indeed extremely effective in analyzing the entitativity of middle-sized entities <ref type="bibr" coords="2,50.57,517.75,64.88,7.53" target="#b6">(Campbell, 1958)</ref>, people should be especially sensitive to information provided by such a dynamic and universal aspect of social interaction as movement rhythm, and their entitativity judgments should be based on the perceived similarity of movement rhythms.</s><s coords="2,69.05,559.59,214.74,7.53;2,32.71,570.08,229.71,7.53">In the current studies, I focus on how temporally coordinated movements function as a cue for perceived entitativity.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="2,32.71,601.43,94.23,7.53">Overview of the studies</head><p><s coords="2,44.34,622.35,239.46,7.53;2,32.71,632.84,251.09,7.53;2,32.71,643.27,85.38,7.53">The goal of the current set of studies is to empirically investigate whether temporally coordinated movements will influence perceived entitativity.</s><s coords="2,122.74,643.27,161.06,7.53;2,32.71,653.76,251.12,7.53;2,32.71,664.19,251.07,7.53;2,32.71,674.68,251.08,7.53;2,32.71,685.11,251.12,7.53;2,32.71,695.60,184.65,7.53">To prevent the possibility that previous knowledge of group members would influence the entitativity judgments, moving gif images of rhythmically waving stick figures were used as stimuli in the first three studies, following previous studies which successfully used humanoid stimuli in entitativity research <ref type="bibr" coords="2,67.81,695.60,87.75,7.53" target="#b16">(Dasgupta et al., 1999;</ref><ref type="bibr" coords="2,158.68,695.60,54.71,7.53" target="#b20">Ip et al., 2006)</ref>.</s><s coords="2,220.54,695.60,63.23,7.53;2,32.71,706.03,251.09,7.53;2,32.71,716.51,251.07,7.53;2,32.71,726.95,117.70,7.53">Study 1 was designed to answer the question whether stick figures moving in synchrony would differ in perceived entitativity from stick figures moving in a different rhythm.</s><s coords="2,154.03,726.95,129.75,7.53;2,32.71,737.43,251.13,7.53;2,32.71,747.87,251.11,7.53;2,301.72,67.95,251.07,7.53;2,301.72,78.38,118.44,7.53">Stick figure dyads which differed in movement rhythm, body color and size were rated on entitativity, with the expectation that stick figures moving in synchrony would be rated higher on entitativity compared to stick figures moving in a different rhythm.</s><s coords="2,424.00,78.38,128.79,7.53;2,301.72,88.86,251.04,7.53;2,301.72,99.30,251.09,7.53;2,301.72,109.78,229.77,7.53">Study 2 tested the more general hypothesis that interactional synchrony (where individuals move in the same rhythm, but not necessarily by performing identical movements) would also influence perceived entitativity.</s><s coords="2,537.10,109.78,15.67,7.53;2,301.72,120.22,251.05,7.53;2,301.72,130.70,251.09,7.53;2,301.72,141.13,251.01,7.53;2,301.72,151.62,251.06,7.53;2,301.72,162.05,119.74,7.53">This study aimed to show that even when stick figures perform dissimilar waving movements and never share a perceptually identical posture, dyads that perform these movements in a temporally coordinated fashion are perceived as more entitative than dyads that do not wave in synchrony.</s><s coords="2,424.23,162.05,128.58,7.53;2,301.72,172.54,251.01,7.53;2,301.72,182.97,251.06,7.53;2,301.72,193.46,77.82,7.53">Study 3 investigated the relationship between movement synchrony and perceived entitativity in greater detail by creating seven dyads with increasingly different movement rhythms.</s><s coords="2,382.68,193.46,170.13,7.53;2,301.72,203.89,251.02,7.55;2,301.72,214.39,45.31,7.53">Both entitativity <ref type="bibr" coords="2,448.61,193.46,65.69,7.53" target="#b6">(Campbell, 1958)</ref> as movement synchrony <ref type="bibr" coords="2,370.43,203.89,57.31,7.53" target="#b0">(Bernieri, 1988</ref>) are argued to be continuous dimensions.</s><s coords="2,349.40,214.39,203.34,7.53;2,301.72,224.88,251.11,7.53;2,301.72,235.31,218.07,7.53">A linear relationship between rhythm and entitativity would support the idea that that the more similar movement rhythms are, the more dyads will be perceived as a unit.</s><s coords="2,522.64,235.31,30.08,7.53;2,301.72,245.80,251.10,7.53;2,301.72,256.23,251.08,7.53;2,301.72,266.72,251.08,7.53;2,301.72,277.15,43.96,7.53">In addition, the subjectively perceived similarity of movement rhythms should mediate the hypothesized relationship between the manipulated objective differences in movement rhythm and perceived entitativity.</s><s coords="2,348.21,277.15,204.55,7.53;2,301.72,287.64,251.02,7.53;2,301.72,298.07,251.06,7.53;2,301.72,308.56,251.02,7.53;2,301.72,318.99,251.02,7.53;2,301.72,329.48,179.80,7.53">Finally, Study 4 used videos of two confederates waving in synchrony or waving in a different rhythm, while either performing identical waving movements or performing different waving movements, to extend the observations regarding the relationship between movement synchrony and perceived entitativity from artificial humanoid stimuli to real people.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="2,301.72,355.05,29.77,7.53">Study 1</head><p><s coords="2,313.34,375.97,239.38,7.53;2,301.72,386.40,199.74,7.53">The goal of this study was to determine whether synchronized movement rhythms influence perceived entitativity.</s><s coords="2,504.45,386.40,48.33,7.53;2,301.72,396.89,230.41,7.53">Each participant was asked to rate one stick figure dyad on entitativity.</s><s coords="2,535.06,396.89,17.72,7.53;2,301.72,407.32,251.06,7.53;2,301.72,417.81,43.93,7.53">Each stick figure could differ on the dimensions movement rhythm, color and size.</s><s coords="2,348.43,417.81,204.33,7.53;2,301.72,428.24,251.05,7.53;2,301.72,438.72,108.85,7.53">Having a similar body color has been shown to influence entitativity judgments <ref type="bibr" coords="2,417.26,428.24,94.21,7.53" target="#b16">(Dasgupta et al., 1999;</ref><ref type="bibr" coords="2,516.81,428.24,35.96,7.53;2,301.72,438.72,21.81,7.53" target="#b20">Ip et al., 2006;</ref><ref type="bibr" coords="2,326.66,438.72,79.91,7.53" target="#b30">McGarty et al., 1995)</ref>.</s><s coords="2,413.74,438.72,139.04,7.53;2,301.72,449.16,251.07,7.53;2,301.72,459.64,251.06,7.53;2,301.72,470.08,169.84,7.53">No effects of height were predicted, but finding similar effects for height as for movement rhythm and color would be an indication that any form of perceptual similarity would have influenced the judgments.</s><s coords="2,473.83,470.08,78.95,7.53;2,301.72,480.56,251.04,7.53;2,301.72,491.00,251.02,7.53;2,301.72,501.48,251.06,7.53;2,301.72,511.91,131.68,7.53">If movement rhythm is an especially important determinant of entitativity, stick figure dyads moving in synchrony should be rated higher on entitativity compared to stick figure dyads that are of the same size or color (but differ in movement rhythm).</s><s coords="2,436.87,511.91,115.90,7.53;2,301.72,522.40,251.01,7.53;2,301.72,532.83,251.03,7.53;2,301.72,543.32,97.06,7.53">In addition, previous research suggests that the more dimensions the two stick figures have in common, the higher entitativity ratings for these stick figures will be <ref type="bibr" coords="2,313.40,543.32,81.38,7.53" target="#b30">(McGarty et al., 1995)</ref>.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="2,301.72,567.13,27.53,7.53">Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="2,301.72,588.05,42.84,7.53">Participants</head><p><s coords="2,313.34,598.54,239.39,7.53;2,301.72,608.97,251.04,7.53;2,301.72,619.46,251.00,7.53">One hundred fifty-nine students from the VU University Amsterdam (115 women, mean age 21) participated in this study, administered as a filler task between two unrelated experiments.</s><s coords="2,301.72,629.89,251.05,7.53;2,301.72,640.38,251.06,7.53;2,301.72,650.81,251.05,7.84;2,301.72,661.30,46.30,7.53">Participants were randomly assigned to one of eight conditions of the 2 (movement rhythm: similar vs. dissimilar) x 2 (color: similar vs. dissimilar) Â 2 (size: similar vs. different) between participant design.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="2,301.72,685.11,35.94,7.53">Procedure</head><p><s coords="2,313.34,695.60,239.45,7.53;2,301.72,706.03,251.03,7.53;2,301.72,716.52,178.27,7.53">Each participant read the instructions on a computer screen, explaining they would see two stick figures, and would be asked seven questions about this stick figure dyad.</s><s coords="2,484.04,716.52,68.74,7.53;2,301.72,726.95,251.07,7.53;2,301.72,737.44,251.07,7.53;2,301.72,747.87,110.54,7.53">Participants rated only one stick figure dyad on entitativity to prevent demand characteristics which could arise by exposing participants to the different experimental conditions.</s><s coords="2,415.50,747.87,137.26,7.53;3,42.52,67.96,251.08,7.53;3,42.52,78.39,229.19,7.53">All possible combinations of colors, rhythms and sizes were randomized between participants, as was the position of each stick figure on the screen (left or right).</s></p><p><s coords="3,54.14,88.88,239.48,7.53;3,42.52,99.31,251.10,7.53">The stick figures were presented on the screen for five seconds before the first question appeared underneath the stick figures.</s><s coords="3,42.52,109.80,251.07,7.53;3,42.52,120.23,251.09,7.53;3,42.52,130.71,251.12,7.53;3,42.52,141.15,160.14,7.53">Stick figures had either the same or different body color (blue or grey with identical hue, saturation and intensity), size (one stick figure scaled to 110% the size of the other), and movement rhythm (either seven or three frames per second).</s><s coords="3,205.34,141.15,88.25,7.53;3,42.52,151.63,251.10,7.53;3,42.52,162.07,135.83,7.53">Since each waving motion consisted of four frames, this means stick figures completed one wave in either 571 or 1333 ms.</s><s coords="3,181.02,162.07,112.58,7.53;3,42.52,172.55,251.09,7.53;3,42.52,182.98,251.07,7.53;3,42.52,193.47,251.05,7.53;3,42.52,203.90,251.08,7.53;3,42.52,214.39,22.23,7.53">Participants filled out a entitativity scale <ref type="bibr" coords="3,92.24,172.55,125.54,7.53" target="#b35">(Postmes, Brooke, &amp; Jetten, 2008</ref>) consisting of four items (i.e., ''I feel the individuals are a unit", ''I experience a feeling of togetherness when observing the individuals", ''I have the feeling the individuals can work together", ''I feel these people are like one").</s><s coords="3,68.37,214.39,225.20,7.53;3,42.52,224.41,251.10,8.29;3,42.52,235.31,39.36,7.53">The items formed a strong scale in all four studies (with Cronbach's a ranging from .83 to .87) and were therefore always combined.</s><s coords="3,88.33,235.31,205.30,7.53;3,42.52,245.80,251.09,7.53;3,42.52,256.23,165.43,7.53">Finally, participants answered three manipulation checks concerning the extent to which the two stick figures were similar in movement rhythm, size and color.</s><s coords="3,209.87,256.23,83.73,7.53;3,42.52,266.72,251.11,7.53">All questions were answered on seven point Likert scales (1 = not at all, 7 = very much).</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="3,42.52,298.07,25.13,7.53">Results</head><p><s coords="3,54.14,318.99,239.48,7.53;3,42.52,329.48,251.05,7.53;3,42.52,339.91,183.06,7.53">The manipulation checks confirmed that the judged similarity of movement rhythm, size and color differed significantly based on whether stick figures had a similar (M = 6.35,</s><s coords="3,227.96,339.91,65.64,7.53;3,42.52,350.40,62.59,7.53">SD = 1.08) vs. different (M = 1.74,</s><s coords="3,108.23,350.40,119.01,7.53">SD = 1.13) color, t(157) = 26.31,</s><s coords="3,230.34,350.40,30.95,7.53">p &lt; .001,</s><s coords="3,264.36,350.40,29.22,7.53;3,42.52,360.83,107.49,7.53">Cohen's d = 4.20, similar (M = 6.54,</s><s coords="3,156.70,360.83,136.86,7.53;3,42.52,371.32,113.68,7.53">SD = 0.97) vs. different (M = 2.58, SD = 1.32) size, t(157) = 21.58,</s><s coords="3,158.80,371.32,31.01,7.53">p &lt; .001,</s><s coords="3,192.41,371.32,101.18,7.53;3,42.52,381.75,251.10,7.53">Cohen's d = 3.45, and most importantly similar (M = 5.83, SD = 1.70) vs. different (M = 1.65,</s><s coords="3,42.52,392.24,179.73,7.53">SD = 0.84) movement rhythm, t(157) = 19.89,</s><s coords="3,227.79,392.24,31.01,7.53">p &lt; .001,</s><s coords="3,264.42,392.24,29.22,7.53;3,42.52,402.67,31.21,7.53">Cohen's d = 3.17.</s></p><p><s coords="3,54.14,413.16,239.46,7.53;3,42.52,423.59,251.11,7.84;3,42.52,434.08,251.08,7.84;3,42.52,444.51,251.10,7.53;3,42.52,455.00,251.04,7.53;3,42.52,465.43,251.07,7.53">The average entitativity ratings were analyzed with a 2 (movement rhythm: similar vs. dissimilar) Â 2 (color: similar vs. dissimilar) Â 2 (size: similar vs. different) between participants ANOVA, which revealed that stick figures moving in the same rhythms were rated higher on entitativity (M = 4.86, SD = 1.14) than stick figures moving in a different rhythm (M = 3.55, SD = 1.34),</s><s coords="3,42.52,475.92,64.27,7.53">F(1, 151) = 40.63,</s><s coords="3,109.81,475.92,30.95,7.53">p &lt; .001,</s><s coords="3,143.77,475.08,8.03,8.69;3,148.71,480.18,2.94,4.90;3,154.26,475.92,19.98,7.53">g 2 p = .21.</s><s coords="3,177.28,475.92,116.33,7.53;3,42.52,486.35,216.67,7.53">The main effects for color and size did not reach significance, F(1, 151) = 2.26, p = .14,</s><s coords="3,263.34,485.51,7.98,8.69;3,268.21,490.61,2.94,4.90;3,273.83,486.35,19.75,7.53">g 2 p = .02,</s><s coords="3,42.52,496.84,87.33,7.53">and F &lt; 1, respectively.</s><s coords="3,133.28,496.84,160.31,7.53;3,42.52,507.27,182.80,7.53">Furthermore, a significant interaction between rhythm and size, F(1, 151) = 3.92, p &lt; .05,</s><s coords="3,228.30,506.43,7.98,8.69;3,233.18,511.59,2.94,4.90;3,238.79,507.27,19.75,7.53">g 2 p = .03,</s><s coords="3,261.47,507.27,32.10,7.53;3,42.52,517.76,251.07,7.53;3,42.52,528.19,251.06,7.53;3,42.52,538.68,251.06,7.53;3,42.52,549.11,114.06,7.53">revealed differences in perceived entitativity due to movement rhythm were stronger for stick figure dyads of the same size (M = 5.09, SD = 1.23 for same rhythm, M = 3.32, SD = 1.37 for different rhythm), t(77) = 6.00, p &lt; .001,</s><s coords="3,159.08,549.11,134.52,7.53;3,42.52,559.60,251.10,7.53;3,42.52,570.08,200.26,7.53">compared to when the stick figures differed in size (M = 4.64, SD = 1.01 for same rhythm, M = 3.77, SD = 1.29 for different rhythm), t(78) = 3.32, p &lt; .001.</s></p><p><s coords="3,54.14,580.52,239.46,7.53;3,42.52,591.00,105.47,7.53">Finally, a marginally significant interaction between color and size, F(1, 151) = 2.82, p = .10,</s><s coords="3,149.61,590.16,7.98,8.69;3,154.49,595.27,2.94,4.90;3,160.10,591.01,19.75,7.53">g 2 p = .03,</s><s coords="3,181.47,591.01,112.11,7.53;3,42.52,601.44,251.10,7.53;3,42.52,611.92,251.06,7.53;3,42.52,622.36,228.30,7.53">revealed that whereas the color of the stick figures did not influence perceived entitativity ratings for stick figures with different sizes (M = 4.22, SD = 1.18 for same color, M = 4.15, SD = 1.30 for different color), t(78) = 0.28, p = .78,</s><s coords="3,272.46,622.36,21.13,7.53;3,42.52,632.84,251.09,7.53;3,42.52,643.28,251.06,7.53;3,42.52,653.76,251.08,7.53">when stick figures had the same size, stick figures of the same color were seen as more entitative (M = 4.63, SD = 1.48) than stick figure dyads with different body colors (M = 3.68, SD = 1.53), t(77) = 2.83, p = .01.</s><s coords="3,42.52,664.19,213.52,7.53">No other interactions reached statistical significance.</s><s coords="3,261.06,664.19,32.53,7.53;3,42.52,674.68,251.08,7.53;3,42.52,685.11,251.06,7.53;3,42.52,695.60,78.57,7.53">Separate t-tests revealed that stick figures were not judged to be more similar in color or in size as a function of waving in the same or a different rhythm (all p's &gt; .60),</s><s coords="3,122.63,695.60,171.01,7.53;3,42.52,706.03,251.10,7.53;3,42.52,716.52,151.54,7.53">indicating that moving in a similar or different rhythm influenced entitativity ratings, but not perceived similarity of general characteristics as size or color.</s><s coords="3,195.81,716.52,97.79,7.53;3,42.52,726.95,251.08,7.53;3,42.52,737.44,251.05,7.53;3,42.52,747.87,251.07,7.53;3,311.53,67.95,251.04,7.53;3,311.53,78.38,30.95,7.53">An ANOVA with perceived entitativity as dependent variable and the number of similar dimensions as single factor showed that in line with previous research <ref type="bibr" coords="3,42.52,747.87,84.43,7.53" target="#b30">(McGarty et al., 1995)</ref>, entitativity ratings were lower the more dimensions the two stick figures differed on, F(3, 155) = 8.72, p &lt; .001,</s><s coords="3,344.47,77.55,7.98,8.69;3,349.34,82.65,2.94,4.90;3,354.95,78.39,19.98,7.53">g 2 p = .14.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="3,311.53,99.31,37.56,7.53">Discussion</head><p><s coords="3,323.15,120.23,239.41,7.53;3,311.53,130.71,198.49,7.53">This study supports the hypothesis that movement synchrony is an important antecedent of perceived entitativity.</s><s coords="3,514.37,130.71,48.23,7.53;3,311.53,141.15,251.00,7.53;3,311.53,151.63,172.30,7.53">Stick figures waving in synchrony were rated higher on entitativity compared to stick figures waving in a dissimilar rhythm.</s><s coords="3,485.85,151.63,76.74,7.53;3,311.53,162.07,251.03,7.53;3,311.53,172.55,251.02,7.53;3,311.53,182.98,251.09,7.53">This is to my knowledge the first empirical evidence that clearly establishes the relationship between entitativity and movement synchrony by experimentally manipulating the movement rhythms of stimuli.</s><s coords="3,311.53,193.47,251.05,7.53;3,311.53,203.90,251.05,7.53;3,311.53,214.39,251.05,7.53;3,311.53,224.88,105.49,7.53">Compared to similarity of color, which has previously been shown to influence perceived entitativity <ref type="bibr" coords="3,443.11,203.90,86.22,7.53" target="#b16">(Dasgupta et al., 1999;</ref><ref type="bibr" coords="3,531.94,203.90,30.63,7.53;3,311.53,214.39,21.81,7.53" target="#b20">Ip et al., 2006;</ref><ref type="bibr" coords="3,335.62,214.39,77.18,7.53" target="#b30">McGarty et al., 1995)</ref>, movement rhythm had a strong influence on entitativity ratings.</s><s coords="3,419.86,224.88,142.73,7.53;3,311.53,235.31,251.07,7.53;3,311.53,245.80,196.50,7.53">It is important to note that the effect sizes of the manipulation checks were smaller for the factor movement rhythm than for the factors size and color.</s><s coords="3,512.16,245.80,50.41,7.53;3,311.53,256.23,251.05,7.53;3,311.53,266.72,223.52,7.53">The effect of movement rhythm on perceived entitativity can thus not be explained by differences in the strength of the manipulation.</s><s coords="3,537.61,266.72,24.97,7.53;3,311.53,277.15,251.05,7.53;3,311.53,287.64,251.05,7.53;3,311.53,298.07,204.22,7.53">Participants were just as aware of the similarity or difference of the factors size and color, but based their entitativity judgments primarily on the movement rhythm of the stick figures.</s><s coords="3,518.73,298.07,43.88,7.53;3,311.53,308.56,251.02,7.53;3,311.53,318.99,251.07,7.53;3,311.53,329.48,225.70,7.53">In addition, the lack of effects for similarity of color or size shows that the effects are not an effect of general similarity, but specific to the temporal coordination of the movements of the stick figures.</s><s coords="3,540.84,329.48,21.72,7.53;3,311.53,339.91,251.10,7.53;3,311.53,350.40,251.06,7.53;3,311.53,360.83,251.07,7.53;3,311.53,371.32,109.81,7.53">These results do not necessarily imply that shared movement rhythms will always contribute more to perceived entitativity than body color, especially in real life where color is more indicative of group membership (e.g., ethnicity).</s><s coords="3,424.40,371.32,138.16,7.53;3,311.53,381.75,251.07,7.53;3,311.53,392.24,251.06,7.53;3,311.53,402.67,251.04,7.53">However, it could be that there is a general tendency that similarity on dynamic factors, such as movement rhythm, will lead to a stronger perception of unity than similarity on static factors, such as skin color (see <ref type="bibr" coords="3,486.99,402.67,71.61,7.53" target="#b3">Brewer et al., 2004)</ref>.</s></p><p><s coords="3,323.15,413.15,239.45,7.53;3,311.53,423.59,251.11,7.53;3,311.53,434.07,94.37,7.53">Although the interpretation of the results of Study 1 has focused on similar movement rhythms, there is an alternative explanation for the observed effects.</s><s coords="3,409.49,434.07,153.14,7.53;3,311.53,444.51,251.07,7.53;3,311.53,454.99,232.96,7.53">Previous research on posture similarity <ref type="bibr" coords="3,311.53,444.51,62.79,7.53" target="#b25">(LaFrance, 1985)</ref> has shown that dyads mirror arm postures more in a cooperative than in a competitive interaction setting.</s><s coords="3,548.78,454.99,13.80,7.53;3,311.53,465.42,251.06,7.53;3,311.53,475.91,251.08,7.53;3,311.53,486.34,17.55,7.53">The rhythmically moving stick figure stimuli used in Study 1 did not only move in the same rhythm, but also shared the same arm posture.</s><s coords="3,331.94,486.34,230.67,7.53;3,311.53,496.83,193.50,7.53">One could argue that stick figures moving in a more similar rhythm also share the same posture more often.</s><s coords="3,508.98,496.83,53.59,7.53;3,311.53,507.26,251.07,7.53;3,311.53,517.75,251.04,7.53;3,311.53,528.18,251.02,7.53;3,311.53,538.67,178.47,7.53">To be able to exclude the influence of a shared posture on the perceived entitativity of synchronously moving stick figures the next study manipulated the rhythm of stick figures standing in different postures and moving their arms in different ways.</s></p><p><s coords="3,323.15,549.10,239.42,7.53;3,311.53,559.59,251.11,7.53;3,311.53,570.08,160.64,7.53">Controlling for this alternative explanation simultaneously allows the investigation of a broader conceptualization of movement synchrony, namely interactional synchrony.</s><s coords="3,474.41,570.08,88.19,7.53;3,311.53,580.51,251.07,7.53;3,311.53,591.00,241.06,7.53">Researchers have made a distinction between movement synchrony and mirroring or imitation <ref type="bibr" coords="3,336.36,591.00,59.35,7.53" target="#b0">(Bernieri, 1988;</ref><ref type="bibr" coords="3,398.15,591.00,79.02,7.53" target="#b5">Burgoon et al., 1995;</ref><ref type="bibr" coords="3,479.62,591.00,69.00,7.53" target="#b27">Marsh et al., 2006)</ref>.</s><s coords="3,555.08,591.00,7.50,7.53;3,311.53,601.43,251.07,7.53;3,311.53,611.92,251.05,7.53;3,311.53,622.35,251.05,7.53;3,311.53,632.84,45.02,7.53">In interactional synchrony researchers investigate how body movements and behaviors such as speech become coordinated during social interactions <ref type="bibr" coords="3,383.70,622.35,59.80,7.53" target="#b0">(Bernieri, 1988;</ref><ref type="bibr" coords="3,446.45,622.35,59.12,7.53" target="#b8">Cappella, 1996;</ref><ref type="bibr" coords="3,508.47,622.35,49.56,7.53;3,311.53,632.84,41.02,7.53" target="#b11">Condon &amp; Ogston, 1966)</ref>.</s><s coords="3,359.43,632.84,203.21,7.53;3,311.53,643.27,251.07,7.53;3,311.53,653.76,251.08,7.53;3,311.53,664.19,251.10,7.53;3,311.53,674.68,46.32,7.53">In this view, any simultaneous change in movement, speech, or interaction distance (for example, when one speaker lowers her arm, the interaction partner raises his arm) is an indication of a coupling between individuals <ref type="bibr" coords="3,466.29,664.19,59.20,7.53" target="#b21">(Kendon, 1970;</ref><ref type="bibr" coords="3,529.06,664.19,33.57,7.53;3,311.53,674.68,42.32,7.53" target="#b33">Newtson et al., 1987)</ref>.</s><s coords="3,360.06,674.68,202.54,7.53;3,311.53,685.11,98.34,7.53">Notably, there is no reason why the performed movements should be identical.</s><s coords="3,411.76,685.11,150.85,7.53;3,311.53,695.59,251.01,7.53;3,311.53,706.03,251.07,7.53;3,311.53,716.51,25.47,7.53">In this regard, movement synchrony differs from recent imitation research <ref type="bibr" coords="3,456.66,695.59,105.88,7.53" target="#b9">(Chartrand &amp; Bargh, 1999)</ref> which investigates when and why people imitate identical movements.</s><s coords="3,340.78,716.51,221.82,7.53;3,311.53,726.95,251.08,7.53;3,311.53,737.43,251.08,7.53;3,311.53,747.86,159.88,7.53">From an interactional synchrony perspective, one would predict that the influence of movement synchrony on perceived entitativity will also apply in situations where individuals perform different movements in the same rhythm.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="4,32.71,68.75,158.55,7.53">Study 2: different rhythmic movements</head><p><s coords="4,44.33,89.67,239.45,7.53;4,32.71,100.10,251.08,7.53;4,32.71,110.59,251.07,7.53;4,32.71,121.02,251.09,7.53;4,32.71,131.51,251.07,7.53;4,32.71,141.94,30.40,7.53">To test whether movement synchrony of different body movements will influence perceived entitativity, a new stick figure dyad was created where one stick figure was similar to that used in Study 1, but the second stick figure was mirror imaged and waved the other hand, which was pointed downwards instead of upwards (see Fig. <ref type="figure" coords="4,49.15,141.94,6.98,7.53" target="#fig_0">1a</ref>).</s><s coords="4,66.56,141.94,217.21,7.53;4,32.71,152.43,251.07,7.53;4,32.71,162.86,152.79,7.53">Thus, both stick figures never shared the same posture, and though both stick figures waved an arm, the rhythmic movements were performed in different ways.</s><s coords="4,187.36,162.86,96.44,7.53;4,32.71,173.35,251.05,7.53;4,32.71,183.84,156.54,7.53">In one condition, the stick figure dyad moved in the same rhythm, in the other condition, the stick figures moved in a different rhythm.</s><s coords="4,191.39,183.84,92.37,7.53;4,32.71,194.27,251.07,7.53;4,32.71,204.75,251.06,7.53;4,32.71,215.19,188.11,7.53">It was predicted from an interactional synchrony perspective that the stick figure dyad moving in the same rhythm would be perceived as more entitative than the stick figure dyad waving in a different rhythm.</s><s coords="4,222.74,215.19,61.00,7.53;4,32.71,225.67,251.07,7.53;4,32.71,236.11,251.07,7.53;4,32.71,246.59,251.11,7.53;4,32.71,257.02,169.70,7.53">If this difference in entitativity ratings is observed, it must be due to the shared movement rhythm, and not merely the perceptual similarity of the stimuli, since the stick figure dyads no longer performed the same waving movement, nor did they share body postures.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="4,32.71,290.36,27.53,7.53;4,32.71,311.28,42.93,7.53">Method Participants</head><p><s coords="4,44.33,321.71,239.47,7.53;4,32.71,332.20,251.07,7.53;4,32.71,342.63,23.85,7.53">Forty-two students (30 women, mean age 22) at Utrecht University participated in this study for a monetary reward or course credit.</s><s coords="4,59.53,342.63,224.29,7.53;4,32.71,353.12,251.09,7.53;4,32.71,363.55,74.30,7.53">Participants were randomly assigned to one of two conditions (movement rhythm: similar vs. dissimilar) of the between participants design.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="4,301.72,67.95,35.94,7.53">Procedure</head><p><s coords="4,313.34,78.38,239.40,7.53;4,301.72,88.87,251.07,7.53;4,301.72,99.30,251.06,7.53;4,301.72,109.79,125.98,7.53">The procedure was identical to Study 1. Participants were presented with one stick figure dyad (the stick figures were all black and had the same size, see Fig. <ref type="figure" coords="4,418.28,99.30,8.00,7.53" target="#fig_0">1a</ref>) which either waved in the same rhythm or in a different rhythm.</s><s coords="4,430.69,109.79,122.10,7.53;4,301.72,120.22,251.05,7.53;4,301.72,130.71,229.16,7.53">Participants filled out the entitativity questionnaire and a manipulation check concerning the extent to which the stick figures moved in the same rhythm.</s><s coords="4,534.04,130.71,18.74,7.53;4,301.72,141.14,251.08,7.53;4,301.72,151.63,80.81,7.53">After answering the questions, participants were debriefed and thanked for their cooperation.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="4,301.72,173.91,25.13,7.53">Results</head><p><s coords="4,313.34,194.83,239.39,7.53;4,301.72,205.32,251.11,7.53;4,301.72,215.75,251.07,7.53;4,301.72,226.24,84.19,7.53">The manipulation check confirmed that stick figures moving in the same rhythm were judged to have a more similar movement rhythm (M = 5.62, SD = 2.01) than stick figures moving in a different rhythm (M = 1.48,</s><s coords="4,389.25,226.24,121.91,7.53">SD = 0.75), t(40) = 8.84, p &lt; .001.</s><s coords="4,514.54,226.24,38.26,7.53;4,301.72,236.67,251.04,7.53;4,301.72,247.16,107.21,7.53">The entitativity ratings for the stick figure dyad were analyzed with an independent samples t-test.</s><s coords="4,412.21,247.16,140.53,7.53;4,301.72,257.59,251.04,7.53;4,301.72,268.08,251.07,7.53;4,301.72,278.51,155.24,7.53">As expected, stick figures moving in the same rhythm were seen as more entitative (M = 3.18, SD = 1.23) compared to stick figures moving in a different rhythm (M = 2.46, SD = 1.04), t(40) = 2.03, p &lt; .05,</s><s coords="4,459.60,278.51,58.30,7.53">Cohen's d = .65.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="4,301.72,300.79,37.56,7.53">Discussion</head><p><s coords="4,313.34,321.71,239.45,7.53;4,301.72,332.19,251.04,7.53;4,301.72,342.63,251.05,7.53;4,301.72,353.11,46.23,7.53">The perceived entitativity of stick figure dyads was influenced by the similarity of their movement rhythms, even when they had different body postures and performed different waving movements.</s><s coords="4,351.21,353.11,201.55,7.53;4,301.72,363.55,251.01,7.53;5,42.52,67.96,251.04,7.53">This result extends the findings of Study 1 to interactional synchrony, where coordinated movement rhythms do not have to be identical <ref type="bibr" coords="5,136.63,67.96,96.65,7.53" target="#b11">(Condon &amp; Ogston, 1966;</ref><ref type="bibr" coords="5,236.07,67.96,53.51,7.53" target="#b21">Kendon, 1970)</ref>.</s><s coords="5,42.52,78.39,251.09,7.53;5,42.52,88.88,164.06,7.53">In addition, this study shows that the results of Study 1 were not merely due to a shared body posture.</s><s coords="5,210.04,88.88,83.59,7.53;5,42.52,99.31,251.09,7.53;5,42.52,109.80,135.97,7.53">Movement synchrony influences perceived entitativity regardless of whether individuals perform identical movements.</s><s coords="5,183.85,109.80,109.72,7.53;5,42.52,120.23,251.09,7.53;5,42.52,130.71,138.78,7.53">The first two studies have shown that the similarity of movement rhythms will influence judgments of perceived entitativity.</s><s coords="5,184.81,130.71,108.76,7.53;5,42.52,141.15,251.05,7.53;5,42.52,151.63,251.07,7.53;5,42.52,162.07,116.74,7.53">Note that participants rated the entitativity of only one stick figure dyad, and thus were not able to compare synchronized stick figures with stick figures waving in a different rhythm.</s><s coords="5,162.87,162.07,130.68,7.53;5,42.52,172.55,251.07,7.53;5,42.52,182.98,159.64,7.53">These results suggest that people have an intuitive understanding of the extent to which movement rhythms are synchronous or not.</s><s coords="5,207.26,182.98,86.35,7.53;5,42.52,193.47,251.09,7.53;5,42.52,203.90,251.06,7.53;5,42.52,214.39,251.11,7.53;5,42.52,224.88,125.52,7.53">The goal of the next study is to investigate if people intuitively distinguish between different degrees of similarity of movement rhythms, and if these differences in similarity of movement rhythms are linearly related to perceived entitativity.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="5,42.52,256.23,29.83,7.53">Study 3</head><p><s coords="5,54.14,277.15,239.47,7.53;5,42.52,287.64,251.11,7.53;5,42.52,298.07,195.71,7.53">Perfect movement synchrony seems to be limited to situations where people intentionally coordinate their movement rhythms, such as military parades <ref type="bibr" coords="5,176.88,298.07,57.35,7.53" target="#b31">(McNeill, 1995)</ref>.</s><s coords="5,241.34,298.07,52.32,7.53;5,42.52,308.56,251.04,7.53;5,42.52,318.99,251.10,7.53;5,42.52,329.48,174.79,7.53">Unintentional entrainment between individuals is often characterized by a sequence of synchronized and asynchronous movement rhythms <ref type="bibr" coords="5,42.52,329.48,75.52,7.53" target="#b32">(Neda et al., 2000;</ref><ref type="bibr" coords="5,122.45,329.48,90.88,7.53" target="#b40">van Ulzen et al., 2008)</ref>.</s><s coords="5,221.84,329.48,71.80,7.53;5,42.52,339.91,251.04,7.53;5,42.52,350.40,251.05,7.53;5,42.52,360.83,251.11,7.53;5,42.52,371.32,142.47,7.53">In other instances when people unintentionally adapt their movement rhythms to each other, the end result is not perfect synchrony, but an increase in coordination between the individual movement rhythms <ref type="bibr" coords="5,78.80,371.32,102.19,7.53" target="#b37">(Schmidt &amp; O'Brien, 1997)</ref>.</s><s coords="5,189.30,371.32,104.30,7.53;5,42.52,381.75,251.11,7.53;5,42.52,392.24,251.11,7.53;5,42.52,402.67,87.43,7.53">The stimuli used in Study 1 and 2 consisted of perfectly synchronized stick figures, which were seen as more entitative compared to stick figures waving in a different rhythm.</s><s coords="5,134.19,402.67,159.38,7.53;5,42.52,413.16,251.06,7.53;5,42.52,423.59,251.10,7.53;5,42.52,434.07,157.95,7.53">Given that rhythmic movements in real life interactions are often not perfectly synchronized, the question arises if movement rhythms need to be perfectly synchronized to influence perceived entitativity.</s></p><p><s coords="5,54.14,444.51,239.48,7.53;5,42.52,454.99,251.09,7.53;5,42.52,465.43,251.11,7.53;5,42.52,475.91,120.23,7.53">The relationship between perceived entitativity and similarity of movement rhythms would have more widespread implications if perceived entitativity and differences in movement rhythm were linearly related.</s><s coords="5,168.03,475.91,125.57,7.53;5,42.52,486.34,251.03,7.53;5,42.52,496.83,17.39,7.53">In that case, the more similar movement rhythms are, the more individuals will be seen as a unit.</s><s coords="5,64.23,496.83,229.36,7.53;5,42.52,507.26,135.33,7.53">Movement synchrony can be accurately rated on a ninepoint Likert scale <ref type="bibr" coords="5,114.86,507.26,58.98,7.53" target="#b0">(Bernieri, 1988)</ref>.</s><s coords="5,181.87,507.26,111.72,7.53;5,42.52,517.75,185.39,7.53">Entitativity has been argued to be a continuous variable <ref type="bibr" coords="5,158.79,517.75,65.12,7.53" target="#b6">(Campbell, 1958)</ref>.</s><s coords="5,232.55,517.75,61.06,7.53;5,42.52,528.18,223.57,7.53">Therefore these two dimensions could hypothetically be linearly related.</s><s coords="5,270.08,528.18,23.50,7.53;5,42.52,538.67,251.06,7.53;5,42.52,549.10,251.07,7.53;5,42.52,559.59,251.07,7.53;5,42.52,570.08,251.06,7.53;5,42.52,580.51,200.16,7.53">If this hypothesis is confirmed, it would mean that observers can infer the entitativity of group members in any situation where group members perform rhythmic movements, and rate groups higher on entitativity if their movement rhythms are more alike, irrespective of whether perfect synchrony is present.</s><s coords="5,247.34,580.51,46.22,7.53;5,42.52,591.00,251.08,7.53;5,42.52,601.43,251.10,7.53;5,42.52,611.92,170.38,7.53">The goal of the current study is to investigate this hypothesized linear relationship between the degree of movement synchrony and extent to which groups are perceived as an entity.</s><s coords="5,216.28,611.92,77.30,7.53;5,42.52,622.35,251.04,7.53">In order to test this hypothesis, seven different pairs of stick figures were created.</s><s coords="5,42.52,632.84,251.08,7.53;5,42.52,643.27,168.19,7.53">One pair waved in perfect synchrony, the other six pairs had increasingly different movement rhythms.</s><s coords="5,215.76,643.27,77.85,7.53;5,42.52,653.76,251.07,7.53;5,42.52,664.19,251.07,7.53;5,42.52,674.68,79.18,7.53">I expected a linear relationship between the entitativity ratings of the seven different pairs of waving stick figures and the difference in their movement rhythms.</s><s coords="5,126.19,674.68,167.36,7.53;5,42.52,685.11,251.08,7.53;5,42.52,695.60,251.08,7.53;5,42.52,706.03,251.11,7.53;5,42.52,716.51,141.28,7.53">Furthermore, the seven different levels of similarity of the movement rhythms make it possible to test whether the perceived similarity of movement rhythms mediates the effect of the manipulated difference of the movement rhythms on perceived entitativity.</s><s coords="5,190.08,716.51,103.54,7.53;5,42.52,726.95,251.05,7.53;5,42.52,737.43,251.07,7.53;5,42.52,747.87,78.44,7.53">Observing this mediation would confirm the assumption that seeing people move in the same rhythm increases the extent to which individuals are judged to be a unit.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="5,311.53,67.95,27.53,7.53;5,311.53,88.86,42.84,7.53">Method Participants</head><p><s coords="5,323.15,99.30,239.42,7.53;5,311.53,109.78,128.95,7.53">A total of 179 students at Utrecht University (125 women, mean age 21) participated in this study.</s><s coords="5,443.11,109.78,119.46,7.53;5,311.53,120.22,218.82,7.53">Participants were randomly assigned to one of the seven movement rhythm conditions.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="5,311.53,143.01,35.94,7.53">Procedure</head><p><s coords="5,323.15,153.49,239.42,7.53;5,311.53,163.93,251.04,7.53;5,311.53,174.41,32.34,7.53">The procedure was identical to Study 2. One stick figure always waved once every 720 ms (with each frame duration being 180 ms).</s><s coords="5,346.22,174.41,216.37,7.53;5,311.53,184.85,251.09,7.53;5,311.53,195.33,68.62,7.53">Each individual wave of the second stick figure was completed in <ref type="bibr" coords="5,347.58,184.85,16.10,7.53">720,</ref><ref type="bibr" coords="5,366.18,184.85,16.10,7.53">960,</ref><ref type="bibr" coords="5,384.71,184.85,20.78,7.53">1200,</ref><ref type="bibr" coords="5,407.96,184.85,20.78,7.53">1400,</ref><ref type="bibr" coords="5,431.20,184.85,20.78,7.53">1600,</ref><ref type="bibr" coords="5,454.44,184.85,18.91,7.53">2080</ref> or 2560 ms, depending on the condition.</s><s coords="5,384.60,195.33,177.98,7.53;5,311.53,205.76,251.03,7.53;5,311.53,216.25,232.71,7.53">This resulted in seven conditions where the movement rhythm between the two stick figures differed 0, 240, 480, 680, 880, 1360 or 1840 ms for each waving movement.</s><s coords="5,547.24,216.25,15.33,7.53;5,311.53,226.68,251.11,7.53;5,311.53,237.17,251.06,7.53;5,311.53,247.66,251.03,7.53;5,311.53,258.09,92.19,7.53">Five seconds after the stick figures appeared on the screen, participants filled out the entitativity questionnaire, and subsequently indicated to which extent they thought the two stick figures were waving in the same rhythm.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="5,311.53,280.88,25.13,7.53">Results</head><p><s coords="5,323.15,301.80,239.46,7.53;5,311.53,312.29,251.06,7.53;5,311.53,322.72,148.13,7.53">An ANOVA on the perceived entitativity ratings of the stick figures with condition as the single factor revealed a significant effect of condition, F(6, 172) = 5.80, p &lt; .001,</s><s coords="5,463.29,321.89,7.98,8.69;5,468.17,327.00,2.94,4.90;5,473.78,322.73,19.98,7.53">g 2 p = .17.</s><s coords="5,497.37,322.73,65.25,7.53;5,311.53,333.22,251.07,7.53;5,311.53,343.65,251.08,7.53;5,311.53,354.14,186.02,7.53">A linear contrast was the only statistically significant fit for the data, supporting the hypothesis that similarity of movement rhythm and perceived entitativity are linearly related, F(1, 178) = 26.71,</s><s coords="5,500.26,354.14,30.95,7.53">p &lt; .001,</s><s coords="5,533.88,354.14,28.71,7.53;5,311.53,364.57,160.96,7.53">(for the quadratic term, F(1, 178) = 1.25, p = .265).</s><s coords="5,476.22,364.57,86.34,7.53;5,311.53,375.06,251.02,7.53;5,311.53,385.49,251.05,7.53;5,311.53,395.98,182.76,7.53">Further analyses were performed to investigate whether the effect of the difference in movement rhythm on entitativity judgments is mediated by the perceived similarity of the movement rhythms.</s><s coords="5,497.36,395.98,65.18,7.53;5,311.53,406.41,251.00,7.53;5,311.53,416.90,251.04,7.53;5,311.53,427.33,136.09,7.84">The difference in movement rhythm between the two stick figures (ranging from 0 to 1840 ms) significantly predicted the perceived entitativity of the stick figures, b = À.36, t = À5.20,</s><s coords="5,450.14,427.33,29.08,7.53">p &lt; .001</s><s coords="5,481.78,427.33,80.82,7.53;5,311.53,437.82,21.54,7.53">(see Table <ref type="table" coords="5,522.48,427.33,4.77,7.53" target="#tab_0">1</ref> for averages).</s><s coords="5,335.85,437.82,226.73,7.53;5,311.53,448.25,251.08,7.53;5,311.53,458.74,202.31,7.84">The objective difference in movement rhythm between the two stick figures significantly predicted the subjectively perceived difference in movement rhythms, b = À.60, t = À10.00,</s><s coords="5,515.79,458.74,31.03,7.53">p &lt; .001.</s><s coords="5,548.79,458.74,13.80,7.53;5,311.53,469.17,251.10,7.53;5,311.53,479.66,153.01,7.53">The perceived difference in movement rhythms in turn significantly predicted perceived entitativity, b = .39,</s><s coords="5,468.00,479.66,63.97,7.53">t = 5.57, p &lt; .001.</s><s coords="5,535.41,479.66,27.18,7.53;5,311.53,490.09,251.06,7.53;5,311.53,500.58,251.09,7.53;5,311.53,511.01,251.04,7.84">Finally, adding perceived similarity of movement rhythm to the equation reduced the effect of difference in movement rhythm between the two stick figures on perceived entitativity, b = À.21, t = À2.41,</s><s coords="5,311.53,521.50,31.04,7.53">p = .017,</s><s coords="5,350.53,521.50,212.08,7.53;5,311.53,531.93,36.57,7.84">which the SOBEL test indicated was significant, z = À4.83,</s><s coords="5,350.76,531.93,31.03,7.53">p &lt; .001.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="5,311.53,554.72,37.56,7.53">Discussion</head><p><s coords="5,323.15,575.64,239.45,7.53;5,311.53,586.13,201.03,7.53">This study confirms that the less similar movement rhythms are the lower stick figure dyads are rated on entitativity.</s><s coords="5,515.05,586.13,47.53,7.53;5,311.53,596.56,251.05,7.53;5,311.53,607.05,78.62,7.53">This relation is partially mediated by the subjectively perceived similarity of the movement rhythms.</s><s coords="5,394.07,607.05,168.49,7.53;5,311.53,617.48,251.08,7.53;5,311.53,627.97,130.26,7.53">In other words, the less observers judge a stick figure dyad to move in the same rhythm, the less the stick figure dyad is judged to be a unit.</s><s coords="5,445.89,627.97,116.75,7.53;6,32.71,67.96,251.04,7.53;6,32.71,78.39,85.29,7.53">Thus, similarity of movement rhythms influences perceived entitativity by degree, and not in an all or nothing manner.</s><s coords="6,120.47,78.39,163.32,7.53;6,32.71,88.88,251.06,7.53;6,32.71,99.31,251.08,7.53;6,32.71,109.80,44.05,7.53">This linear relationship means that the difference in movement rhythm between two groups needs to be substantial if one wants to observe significant differences in perceived entitativity.</s><s coords="6,79.65,109.80,204.11,7.53;6,32.71,120.23,251.02,7.53;6,32.71,130.71,210.18,7.53">This might be one possible factor contributing to the lack of empirical studies investigating the affective consequences of movement synchrony, and deserves further attention.</s><s coords="6,244.79,130.71,38.98,7.53;6,32.71,141.15,251.10,7.53;6,32.71,151.63,251.08,7.53;6,32.71,162.07,251.07,7.53;6,32.71,172.55,232.53,7.53">In the current study, both perceived similarity of the movement rhythms and perceived entitativity of the stick figures started to differ significantly from the perfectly synchronized stick figure dyad when one stick figure moved more than twice as fast as the other.</s><s coords="6,268.09,172.55,15.67,7.53;6,32.71,182.98,251.09,7.53;6,32.71,193.47,251.09,7.53;6,32.71,203.90,28.21,7.53">This finding might have important consequences for studies interested in the experienced psychological consequences of moving in synchrony.</s><s coords="6,63.72,203.90,220.03,7.53;6,32.71,214.39,251.13,7.53;6,32.71,224.88,251.07,7.53;6,32.71,235.31,73.65,7.53">If the difference in movement rhythm is not perceived to be substantially different, there might not be noticeable psychological consequences, irrespective of any objective differences in movement rhythm.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,259.75,29.77,7.53">Study 4</head><p><s coords="6,44.33,280.67,239.43,7.53;6,32.71,291.10,251.04,7.53;6,32.71,301.59,131.56,7.53">Although the use of stick figures in the first three studies is useful in terms of experimental control, these findings should be shown to generalize to real people.</s><s coords="6,166.44,301.59,117.32,7.53;6,32.71,312.02,251.03,7.53;6,32.71,322.50,187.68,7.53">In the current study video clips of rhythmically moving confederates waving in synchrony or in a different rhythm were used as stimulus material.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,345.12,27.53,7.53;6,32.71,366.04,42.93,7.53">Method Participants</head><p><s coords="6,44.33,376.53,239.42,7.53;6,32.71,386.96,251.04,7.53;6,32.71,397.45,251.07,7.53;6,32.71,407.94,175.24,7.84">Eighty-one students at Utrecht University (58 women, mean age 21) participated in the current study and were randomly assigned to one of the four conditions of the 2 (movement rhythm: similar vs. dissimilar) Â 2 (posture: same vs.</s><s coords="6,211.80,407.94,72.00,7.53;6,32.71,418.37,70.67,7.53">different) between participant design.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,441.05,35.94,7.53">Procedure</head><p><s coords="6,44.33,451.48,239.46,7.53;6,32.71,461.97,161.57,7.53">The procedure was identical to studies 1 to 3, but the stick figure stimuli were replaced by movie clips.</s><s coords="6,197.51,461.97,86.23,7.53;6,32.71,472.40,174.76,7.53">Four movie clips were created where two women waved their hand.</s><s coords="6,210.15,472.40,73.65,7.53;6,32.71,482.89,251.08,7.53">One woman waved her left hand pointing upwards once every 833 ms in all four clips.</s><s coords="6,32.71,493.32,251.12,7.53;6,32.71,503.81,182.68,7.53">In the different movement rhythm conditions, the second woman waved her hand once every 500 ms (see Fig. <ref type="figure" coords="6,200.92,503.81,7.24,7.53" target="#fig_0">1b</ref>).</s><s coords="6,217.59,503.81,66.24,7.53;6,32.71,514.24,251.02,7.53;6,32.71,524.73,251.02,7.53;6,32.71,535.16,33.80,7.53">Her hand pointed upwards in the same posture condition, or downwards in the different posture condition (comparable to the stick figure used in Study 2).</s><s coords="6,68.99,535.16,214.83,7.53;6,32.71,545.65,251.05,7.53;6,32.71,556.08,251.09,7.53;6,32.71,566.56,251.06,7.53;6,32.71,577.05,216.50,7.53">In addition to the entitativity questionnaire, participants were asked to which extent the individuals had the same goal, psychological traits, or habits <ref type="bibr" coords="6,131.98,556.08,54.47,7.53" target="#b20">(Ip et al., 2006)</ref>, and questions to control for a general increase of perceived similarity (how similar the individuals were dressed, and how similar their length was).</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,599.67,25.13,7.53">Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,620.59,71.23,7.53">Manipulation check</head><p><s coords="6,44.33,631.08,239.50,7.84;6,32.71,641.51,251.06,7.53;6,32.71,652.00,251.05,7.53;6,32.71,662.43,134.45,7.53">A 2 (movement rhythm: similar vs. dissimilar) Â 2 (posture: similar vs. different) ANOVA on the extent to which the two individuals moved in the same rhythm revealed only a main effect of movement rhythm, F(1, 77) = 99.80,</s><s coords="6,169.17,662.43,30.95,7.53">p &lt; .001,</s><s coords="6,202.17,661.60,7.98,8.69;6,207.04,666.70,2.94,4.90;6,212.66,662.44,19.84,7.53">g 2 p = .56,</s><s coords="6,234.54,662.44,49.26,7.53;6,32.71,672.93,251.08,7.53;6,32.71,683.36,251.06,7.53;6,32.71,693.85,164.41,7.53">with individuals in the same movement conditions moving in a more similar rhythm (M = 5.63, SD = 1.50) than individuals in the different movement conditions (M = 2.23, SD = 1.61).</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,32.71,716.52,68.04,7.53">Entitativity ratings</head><p><s coords="6,44.33,726.95,239.46,7.53;6,32.71,737.44,251.08,7.84;6,32.71,747.87,251.11,7.53;6,301.72,67.95,93.50,7.53">The average entitativity ratings were analyzed with a 2 (movement rhythm: similar vs. dissimilar) Â 2 (posture: similar vs. different) ANOVA, which revealed a significant effect of movement rhythm, F(1, 77) = 13.68,</s><s coords="6,398.89,67.95,30.95,7.53">p &lt; .001,</s><s coords="6,433.53,67.12,7.98,8.69;6,438.41,72.22,2.94,4.90;6,444.02,67.96,19.98,7.53">g 2 p = .15.</s><s coords="6,467.66,67.96,85.08,7.53;6,301.72,78.39,251.08,7.53;6,301.72,88.88,251.04,7.53;6,301.72,99.31,39.32,7.53">Individuals moving in synchrony were seen as more entitative (M = 3.57, SD = 1.09) compared to individuals moving in a different rhythm (M = 2.79, SD = 0.81).</s><s coords="6,346.00,99.31,206.76,7.53;6,301.72,109.80,26.36,7.53">Neither the main effect for posture, F(1, 77) = 1.96, p = .17,</s><s coords="6,330.41,108.95,8.03,8.69;6,335.34,114.06,2.94,4.90;6,340.89,109.80,19.80,7.53">g 2 p = .02,</s><s coords="6,363.06,109.80,189.68,7.53;6,301.72,120.23,183.23,7.53">nor the interaction of movement rhythm and posture reached significance, F(1, 77) = 1.05, p = .29,</s><s coords="6,487.62,119.39,7.98,8.69;6,492.49,124.49,2.94,4.90;6,498.10,120.23,19.83,7.53">g 2 p = .01.</s><s coords="6,313.34,130.72,239.42,7.53;6,301.72,141.15,251.08,7.53;6,301.72,151.63,96.49,7.53">Previous studies have shown entitativity judgments can depend on inferences about shared goals or shared psychological characteristics <ref type="bibr" coords="6,335.17,151.63,59.08,7.53" target="#b20">(Ip et al., 2006)</ref>.</s><s coords="6,401.84,151.63,150.96,7.53;6,301.72,162.07,251.05,7.53;6,301.72,172.55,251.01,7.53;6,301.72,182.99,29.33,7.53">However, the individuals in the movie clips were not judged differently in the extent to which had the same goals or psychological traits (all main effects and interactions p &gt; .05).</s><s coords="6,333.58,182.99,219.20,7.53;6,301.72,193.47,251.06,7.53;6,301.72,203.90,251.10,7.53;6,301.72,214.39,251.02,7.53;6,301.72,224.88,115.73,7.53">In addition, no effects were observed for filler items measuring general similarity, such as the extent to which the two individuals had the same habits <ref type="bibr" coords="6,407.90,203.90,54.08,7.53" target="#b20">(Ip et al., 2006)</ref>, were dressed similarly or the extent to which they had the same length (for all main effects and interactions, p &gt; .05).</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,301.72,250.11,37.56,7.53">Discussion</head><p><s coords="6,313.34,271.03,239.45,7.53;6,301.72,281.52,251.07,7.53;6,301.72,291.95,106.91,7.53">Rhythmically waving people are seen as more entitative when their movements are synchronized, compared to when their movements are not synchronized.</s><s coords="6,410.73,291.95,142.06,7.53;6,301.72,302.44,251.05,7.53;6,301.72,312.92,251.08,7.53;6,301.72,323.36,251.04,7.53;6,301.72,333.84,69.71,7.53">Regardless of whether the individuals waved with the same hand (and thus shared postures) or not, the temporal coordination of their movements influenced perceived entitativity, thereby extending the results from Studies 1 and 2 to real individuals.</s><s coords="6,373.49,333.84,179.28,7.53;6,301.72,344.27,251.04,7.53;6,301.72,354.76,251.06,7.53;6,301.72,365.19,251.03,7.53;6,301.72,375.68,188.95,7.53">In addition to the finding that similar or dissimilar colors were less predictive of perceived entitativity in Study 1, the current study reveals that waving while having different body postures does not reduce entitativity judgments -what matters is whether the movements are synchronized or not.</s></p><p><s coords="6,313.34,386.11,239.43,7.53;6,301.72,396.60,251.03,7.53;6,301.72,407.03,251.03,7.53">A possible reason why no effects were observed on judgments of the extent to which the two individuals shared goals or traits could be the artificial context of rhythmically waving confederates.</s><s coords="6,301.72,417.52,251.02,7.53;6,301.72,427.95,251.06,7.53;6,301.72,438.44,60.33,7.53">People can synchronize both intentionally and unintentionally, and the way people synchronize might be important for the inferences observers draw.</s><s coords="6,364.76,438.44,188.04,7.53;6,301.72,448.87,251.02,7.53;6,301.72,459.36,251.09,7.53;6,301.72,469.79,251.04,7.53;6,301.72,480.28,251.05,7.53;6,301.72,490.71,23.98,7.53">For example, intentionally synchronized clapping after a good performance might have the goal to convince the performer to play an encore, whereas the unintentionally synchronized movements of interacting dyads might be an indication of a shared psychological state such as rapport <ref type="bibr" coords="6,491.24,480.28,61.53,7.53;6,301.72,490.71,19.99,7.53" target="#b1">(Bernieri et al., 1994)</ref>.</s><s coords="6,328.02,490.71,224.73,7.53;6,301.72,501.20,251.07,7.53;6,301.72,511.63,251.01,7.53;6,301.72,522.12,50.39,7.53">Future studies investigating the specific attributions people make when observing rhythmic behavior should aim to provide information about the context in which the movement synchrony has emerged.</s></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head coords="6,301.72,549.10,74.43,7.53">General discussion</head><p><s coords="6,313.34,570.08,239.49,7.53;6,301.72,580.51,140.60,7.53">Four studies investigated the relationship between movement synchrony and perceived entitativity.</s><s coords="6,444.52,580.51,108.24,7.53;6,301.72,591.00,251.01,7.53;6,301.72,601.43,251.06,7.53">These results provide empirical support for the assumption that observers infer the entitativity of dyads from the temporal coordination of their movements.</s><s coords="6,301.72,611.92,251.02,7.53;6,301.72,622.35,251.07,7.53;6,301.72,632.84,36.98,7.53">When stick figures move in synchrony, they are rated higher in entitativity compared to stick figures moving in a different rhythm (Study 1).</s><s coords="6,341.35,632.84,211.41,7.53;6,301.72,643.27,251.07,7.53;6,301.72,653.76,251.08,7.53;6,301.72,664.19,251.07,7.53;6,301.72,674.68,81.81,7.53">Having a similar or different movement rhythm proved to be a stronger predictor of perceived entitativity than body color, which previous studies have indicated to be an important antecedent of perceived entitativity <ref type="bibr" coords="6,409.94,664.19,85.77,7.53" target="#b16">(Dasgupta et al., 1999;</ref><ref type="bibr" coords="6,498.16,664.19,54.63,7.53" target="#b20">Ip et al., 2006;</ref><ref type="bibr" coords="6,301.72,674.68,77.81,7.53" target="#b30">McGarty et al., 1995)</ref>.</s><s coords="6,386.02,674.68,166.74,7.53;6,301.72,685.11,251.07,7.53;6,301.72,695.60,25.47,7.53">The results in Study 1 are not due to shared body posture and generalize to non-identical rhythmic movements.</s><s coords="6,329.16,695.60,223.58,7.53;6,301.72,706.03,251.08,7.53;6,301.72,716.52,251.07,7.53;6,301.72,726.95,251.06,7.53;6,301.72,737.44,72.92,7.53">In line with predictions from an interactional synchrony account, even stick figures with different postures and performing different waving movements are rated higher on entitativity when moving in synchrony compared to when they move in different rhythms (Study 2).</s><s coords="6,377.91,737.44,174.89,7.53;6,301.72,747.87,233.74,7.53">There is a strong linear relationship between differences in movement rhythm and perceived entitativity.</s><s coords="6,538.97,747.87,13.80,7.53;7,42.52,67.96,251.05,7.53;7,42.52,78.39,44.05,7.53">The less similar movement rhythms are, the lower dyads are rated on entitativity.</s><s coords="7,88.72,78.39,204.88,7.53;7,42.52,88.88,251.08,7.53;7,42.52,99.31,207.39,7.53">This effect of difference in movement rhythms on perceived entitativity is partially mediated by the subjectively perceived similarity of the movement rhythms (Study 3).</s><s coords="7,252.84,99.31,40.72,7.53;7,42.52,109.80,251.07,7.53;7,42.52,120.23,251.10,7.53;7,42.52,130.71,251.05,7.53;7,42.52,141.15,14.23,7.53">Movement rhythms are a dynamic source of information which people use to infer the entitativity of groups of rhythmically moving individuals irrespective of whether perfect movement synchrony is present.</s><s coords="7,61.62,141.15,231.99,7.53;7,42.52,151.63,251.11,7.53;7,42.52,162.07,129.55,7.53">Finally, these findings were not limited to artificial stick figures, but also applied when video clips of rhythmically waving confederates were used (Study 4).</s></p><p><s coords="7,54.14,172.55,239.46,7.53;7,42.52,182.98,251.04,7.53;7,42.52,193.47,251.04,7.53;7,42.52,203.90,23.81,7.53">Together these studies provide empirical support for the relationship between movement rhythms and the emergence of a social unit <ref type="bibr" coords="7,76.65,193.47,58.46,7.53" target="#b10">(Condon, 1980;</ref><ref type="bibr" coords="7,137.93,193.47,47.33,7.53" target="#b15">Davis, 1982;</ref><ref type="bibr" coords="7,188.05,193.47,55.40,7.53" target="#b21">Kendon, 1970;</ref><ref type="bibr" coords="7,246.27,193.47,47.29,7.53;7,42.52,203.90,19.85,7.53" target="#b27">Marsh et al., 2006)</ref>.</s><s coords="7,69.79,203.90,223.83,7.53;7,42.52,214.39,251.07,7.53;7,42.52,224.88,26.24,7.53">People are attentive to differences in movement rhythms and translate these proportionally to judgments of perceived entitativity.</s><s coords="7,71.60,224.88,221.98,7.53;7,42.52,235.31,251.11,7.53;7,42.52,245.80,251.08,7.53;7,42.52,256.23,46.04,7.53">These results are especially interesting given the fact that similar movement rhythms seem to emerge automatically <ref type="bibr" coords="7,42.52,245.80,103.32,7.53" target="#b37">(Schmidt &amp; O'Brien, 1997)</ref> and unintentionally (e.g., <ref type="bibr" coords="7,251.60,245.80,42.00,7.53;7,42.52,256.23,42.07,7.53" target="#b36">Richardson et al., 2007)</ref>.</s><s coords="7,90.77,256.23,202.84,7.53;7,42.52,266.72,159.68,7.53">It almost seems as if people's automatic behavior prepares them to become part of a social unit.</s><s coords="7,204.26,266.72,89.33,7.53;7,42.52,277.15,251.10,7.53;7,42.52,287.64,251.10,7.53;7,42.52,298.07,229.07,7.53">Indeed, <ref type="bibr" coords="7,233.91,266.72,59.67,7.53" target="#b17">Freeman (2000)</ref> argues how synchronizing with others through dance and music might have functioned to establish trust and predictability among individuals which facilitated the formation of social groups.</s><s coords="7,274.44,298.07,19.12,7.53;7,42.52,308.56,251.04,7.53;7,42.52,318.99,251.12,7.53;7,42.52,329.48,251.05,7.53;7,42.52,339.91,251.10,7.53">A recent analysis of the synchronous surfacing of male dolphins revealed that cooperative behavior correlated with synchronous movements <ref type="bibr" coords="7,89.80,329.48,128.29,7.53" target="#b13">(Connor, Smolker, &amp; Bejder, 2006)</ref>, adding support to the idea that movement synchrony has an evolutionary function.</s><s coords="7,42.52,350.40,251.09,7.53;7,42.52,360.83,251.07,7.53;7,42.52,371.32,140.71,7.53">In line with this idea, recent studies suggest that moving in synchrony fosters cooperation in social dilemma's <ref type="bibr" coords="7,231.53,360.83,62.06,7.53;7,42.52,371.32,43.76,7.53" target="#b41">(Wilmermuth &amp; Heath, 2009</ref>, but see <ref type="bibr" coords="7,123.31,371.32,55.96,7.53" target="#b23">Kurzban, 2001)</ref>.</s></p><p><s coords="7,54.14,381.75,239.45,7.53;7,42.52,392.24,251.09,7.53;7,42.52,402.67,118.98,7.53">An important question for future research is why observers use the extent which movement rhythms are similar as a cue to determine the entitativity of groups.</s><s coords="7,164.06,402.67,129.51,7.53;7,42.52,413.15,251.14,7.53;7,42.52,423.59,205.91,7.53">The current studies show that not perceptual similarity, but the temporal coordination of movements influences perceived entitativity (e.g., Study 2 and 4).</s><s coords="7,251.42,423.59,42.17,7.53;7,42.52,434.07,251.11,7.53;7,42.52,444.51,251.04,7.53;7,42.52,454.99,230.06,7.53">Theoretical work on movement synchrony suggests that shared movement rhythms lead to the experience of social unity through feelings of rapport <ref type="bibr" coords="7,75.57,454.99,61.73,7.53" target="#b0">(Bernieri, 1988;</ref><ref type="bibr" coords="7,142.07,454.99,61.84,7.53" target="#b24">LaFrance, 1982;</ref><ref type="bibr" coords="7,208.68,454.99,59.90,7.53" target="#b25">LaFrance, 1985)</ref>.</s><s coords="7,277.40,454.99,16.19,7.53;7,42.52,465.42,251.04,7.53;7,42.52,475.91,32.70,7.53">Two important factors of rapport are coordination and mutual attentiveness.</s><s coords="7,80.39,475.91,213.24,7.53;7,42.52,486.34,251.11,7.53;7,42.52,496.83,251.09,7.53;7,42.52,507.26,251.05,7.53;7,42.52,517.75,43.78,7.53">It is possible that when observers judge movement rhythms to be similar, and thus coordinated, they simultaneously infer a corresponding level of mutual attentiveness, which subsequently guides judgments about the entitativity of the observed individuals.</s><s coords="7,89.40,517.75,204.19,7.53;7,42.52,528.18,251.08,7.53;7,42.52,538.67,251.11,7.53;7,42.52,549.10,162.52,7.53">Although such a reasoning is in line with theoretical assumptions, more research is needed to detail the possible processes through which the perceived similarity of movement rhythms influences entitativity judgments.</s></p><p><s coords="7,54.14,559.59,239.47,7.53;7,42.52,570.08,251.08,7.53;7,42.52,580.51,44.05,7.53">Another interesting question that follows from this set of studies is how these findings relate to experienced instead of perceived entitativity.</s><s coords="7,91.39,580.51,202.19,7.53;7,42.52,591.00,251.10,7.53;7,42.52,601.43,251.07,7.53;7,42.52,611.92,251.09,7.53;7,42.52,622.35,251.08,7.53">Given the widespread theoretical assumption that moving in synchrony facilitates human bonding <ref type="bibr" coords="7,224.78,591.00,64.54,7.53;7,42.52,601.43,42.22,7.53" target="#b2">(Bernieri &amp; Rosenthal, 1991;</ref><ref type="bibr" coords="7,88.38,601.43,95.29,7.53" target="#b12">Condon &amp; Sander, 1974;</ref><ref type="bibr" coords="7,187.31,601.43,106.28,7.53;7,42.52,611.92,19.87,7.53" target="#b39">Tickle-Degnen &amp; Rosenthal, 1990)</ref>, investigating the affective consequences of movement synchrony might prove to be an interesting avenue for future research.</s><s coords="7,42.52,632.84,251.11,7.53;7,42.52,643.27,251.09,7.53;7,42.52,653.76,251.12,7.53;7,42.52,664.19,251.10,7.53;7,42.52,674.68,139.86,7.53">Studies that focus on the psychological consequences of movement synchrony should also take into account the differences between intentional and unintentional movement synchrony (e.g., <ref type="bibr" coords="7,261.52,653.76,28.10,7.53;7,42.52,664.19,58.84,7.53" target="#b36">Richardson et al., 2007)</ref>, and focus on specific shared psychological traits, such as rapport <ref type="bibr" coords="7,101.82,674.68,76.56,7.53" target="#b1">(Bernieri et al., 1994)</ref>.</s><s coords="7,184.25,674.68,109.37,7.53;7,42.52,685.11,251.06,7.53;7,42.52,695.59,251.08,7.53;7,42.52,706.03,251.04,7.53;7,42.52,716.51,251.12,7.53;7,42.52,726.95,251.12,7.53;7,42.52,737.43,55.51,7.53">Work on entitativity by Yzerbyt and colleagues (e.g., <ref type="bibr" coords="7,137.93,685.11,136.21,7.53" target="#b42">Yzerbyt, Corneille, &amp; Estrada, 2001)</ref> suggests that perceptual information can influence perceived entitativity, leading to inferences about a shared psychological essence, but also that movement synchrony might lead to inferences about a shared psychological essence, in turn influencing entitativity judgments.</s><s coords="7,101.42,737.43,192.17,7.53;7,42.52,747.86,251.06,7.53;7,311.53,67.94,251.02,7.53;7,311.53,78.38,62.23,7.53">Although the reviewed studies do not investigate movement synchrony specifically, they provide support for both these pathways for other perceptual antecedents of entitativity (e.g., skin color).</s></p><p><s coords="7,323.15,88.86,239.43,7.53;7,311.53,99.30,201.67,7.53">The current studies show that movement synchrony directly influences our perception of groups of individuals.</s><s coords="7,517.43,99.30,45.19,7.53;7,311.53,109.78,251.02,7.53;7,311.53,120.21,251.01,7.53;7,311.53,130.70,251.06,7.53;7,311.53,141.13,116.52,7.53">In addition, finding these effects while manipulating movement rhythms between participants supports the theoretical idea that people are very sensitive to the information in our social environment that rhythmic movements provide.</s><s coords="7,431.37,141.13,131.20,7.53;7,311.53,151.62,251.09,7.53;7,311.53,162.05,221.63,7.53">The scarcity of empirical research that has focused on rhythmic behaviors stands in strong contrast to the ubiquity of rhythmic behavior in social interactions.</s><s coords="7,535.57,162.05,27.03,7.53;7,311.53,172.54,251.05,7.53;7,311.53,182.97,251.02,7.53;7,311.53,193.46,38.07,7.53">A thorough understanding of social behavior requires a deeper insight into the role movement synchrony plays in social psychological processes.</s></p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0" coords="4,32.71,740.49,520.04,6.03;4,32.71,749.05,85.11,6.03;4,134.76,397.76,311.87,332.28"><head>Fig. 1 .</head><label>1</label><figDesc><div><p><s coords="4,32.71,740.49,18.28,6.03">Fig. 1.</s><s coords="4,54.14,740.49,116.24,6.03">Stimulus materials used in the studies.</s><s coords="4,172.06,740.49,380.69,6.03;4,32.71,749.05,85.11,6.03">(a) Waving stick figures used in Study 2. (b) Screenshot of the movie clip used in Study 4 with confederates in a similar posture waving in a similar rhythm.</s></p></div></figDesc><graphic coords="4,134.76,397.76,311.87,332.28" type="bitmap"/></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" coords="5,311.53,667.86,240.61,79.90"><head>Table 1</head><label>1</label><figDesc><div><p><s coords="5,311.53,676.42,229.53,6.03">Mean entitativity ratings and similarity of movement judgments for Study 3.</s></p></div></figDesc><table coords="5,320.03,690.71,232.10,57.05"><row><cell/><cell cols="7">Difference in rhythm between dyad members (ms)</cell></row><row><cell/><cell>0</cell><cell>240</cell><cell>480</cell><cell>680</cell><cell>880</cell><cell>1360</cell><cell>1840</cell></row><row><cell cols="2">Mean entitativity 4.29</cell><cell>4.45</cell><cell>4.64</cell><cell>3.89</cell><cell>3.28</cell><cell>3.14</cell><cell>2.98</cell></row><row><cell>(SD)</cell><cell cols="7">(1.51) (1.49) (1.46) (1.40) (1.51) (1.16) (1.35)</cell></row><row><cell>Mean similarity</cell><cell>5.47</cell><cell>5.86</cell><cell>5.95</cell><cell>1.76</cell><cell>2.03</cell><cell>1.81</cell><cell>2.06</cell></row><row><cell>(SD)</cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row></table><note coords="5,378.88,741.73,173.25,6.03"><p><s coords="5,378.88,741.73,173.25,6.03">(1.31) (1.77) (1.40) (1.23) (1.49) (1.12) (1.22)</s></p></note></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head coords="7,311.53,219.33,69.86,7.53">Acknowledgment</head><p>I would like to thank the <rs type="institution">Cratylus research group</rs> for helpful suggestions and comments throughout this research and <rs type="person">Petra Hopman</rs> for her help in the data collection of Study 1. Special thanks go to <rs type="person">Mariëlle Stel</rs>, <rs type="person">Kerry Marsh</rs>, <rs type="person">Martijn van Zomeren</rs>, <rs type="person">Henk Aarts</rs>, the editor and two anonymous reviewers for their detailed comments and criticisms of an earlier version of this article, and to <rs type="person">Anouk van der Weiden</rs> and <rs type="person">Gerdientje Danner-Vlaardingerbroek</rs> for their help in creating the stimuli for Study 4.</p></div>
+			</div>			<div type="references">
+
+				<listBibl>
+
+<biblStruct coords="7,311.53,358.55,251.06,6.03;7,323.49,366.48,170.06,6.03" xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Coordinated movement and rapport in teacher-student interactions</title>
+		<author>
+			<persName coords=""><forename type="first">Frank</forename><forename type="middle">J</forename><surname>Bernieri</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/bf00986930</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Nonverbal Behavior</title>
+		<title level="j" type="abbrev">J Nonverbal Behav</title>
+		<idno type="ISSN">0191-5886</idno>
+		<idno type="ISSNe">1573-3653</idno>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="120" to="138"/>
+			<date type="published" when="1988">1988</date>
+			<publisher>Springer Science and Business Media LLC</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bernieri, F. J. (1988). Coordinated movement and rapport in teacher student interactions. Journal of Nonverbal Behavior, 12, 120-138.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,374.48,251.07,6.03;7,323.49,382.41,239.09,6.03;7,323.49,390.41,164.45,6.03" xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Interactional Synchrony and Rapport: Measuring Synchrony in Displays Devoid of Sound and Facial Affect</title>
+		<author>
+			<persName><forename type="first">Frank</forename><forename type="middle">J</forename><surname>Bernieri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Janet</forename><forename type="middle">M</forename><surname>Davis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Rosenthal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">C</forename><forename type="middle">Raymond</forename><surname>Knee</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0146167294203008</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Bulletin</title>
+		<title level="j" type="abbrev">Pers Soc Psychol Bull</title>
+		<idno type="ISSN">0146-1672</idno>
+		<idno type="ISSNe">1552-7433</idno>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="303" to="311"/>
+			<date type="published" when="1994-06">1994</date>
+			<publisher>SAGE Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bernieri, F. J., Davis, J. M., Rosenthal, R., &amp; Knee, C. R. (1994). Interactional synchrony and rapport: Measuring synchrony in displays devoid of sound and facial affect. Personality and Social Psychology Bulletin, 20, 303-311.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,398.40,251.02,6.03;7,323.49,406.34,239.09,6.03;7,323.49,414.33,239.05,6.03;7,323.49,422.27,17.16,6.03" xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Interpersonal coordination: Behavior matching and interactional synchrony</title>
+		<author>
+			<persName coords=""><forename type="first">F</forename><forename type="middle">J</forename><surname>Bernieri</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">R</forename><surname>Rosenthal</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Fundamentals of nonverbal behavior</title>
+		<editor>
+			<persName><forename type="first">R</forename><forename type="middle">S</forename><surname>Feldman</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">B</forename><surname>Rime</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Cambridge, England</addrLine></address></meeting>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="1991">1991</date>
+			<biblScope unit="page" from="401" to="432"/>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bernieri, F. J., &amp; Rosenthal, R. (1991). Interpersonal coordination: Behavior matching and interactional synchrony. In R. S. Feldman &amp; B. Rime (Eds.), Fundamentals of nonverbal behavior (pp. 401-432). Cambridge, England: Cambridge University Press.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,430.26,251.02,6.03;7,323.49,438.20,239.05,6.03;7,323.49,446.19,239.09,6.03;7,323.49,454.18,95.00,6.03" xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Perceived Variability, Entitativity, and Essentialism</title>
+		<author>
+			<persName coords=""><forename type="first">M</forename><forename type="middle">B</forename><surname>Brewer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Y.-Y</forename><surname>Hong</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Q</forename><surname>Li</surname></persName>
+		</author>
+		<idno type="DOI">10.4324/9780203644973-8</idno>
+	</analytic>
+	<monogr>
+		<title level="m">The Psychology of Group Perception</title>
+		<editor>
+			<persName><forename type="first">V</forename><surname>Yzerbyt</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">C</forename><surname>Judd</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">O</forename><surname>Corneille</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Philadelphia</addrLine></address></meeting>
+		<imprint>
+			<publisher>Psychology Press</publisher>
+			<date type="published" when="2004-08-02">2004</date>
+			<biblScope unit="page" from="14" to="30"/>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Brewer, M. B., Hong, Y.-Y., &amp; Li, Q. (2004). Dynamic entitativity: Perceiving groups as actors. In V. Yzerbyt, C. Judd, &amp; O. Corneille (Eds.), The psychology of group perception: Perceived variability entitativity, and essentialism (pp. 25-38). Philadelphia: Psychology Press.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,462.12,251.01,6.03;7,323.49,470.12,239.04,6.03;7,323.49,478.05,66.73,6.03" xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Person memory in intergroup contexts: Categorization versus individuation.</title>
+		<author>
+			<persName><forename type="first">Marilynn</forename><forename type="middle">B</forename><surname>Brewer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joseph</forename><forename type="middle">G</forename><surname>Weber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Barbara</forename><surname>Carini</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.69.1.29</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<title level="j" type="abbrev">Journal of Personality and Social Psychology</title>
+		<idno type="ISSN">0022-3514</idno>
+		<imprint>
+			<biblScope unit="volume">69</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="29" to="40"/>
+			<date type="published" when="1995">1995</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Brewer, M. B., Weber, J. G., &amp; Carini, B. (1995). Person memory in intergroup contexts: Categorization versus individuation. Journal of Personality and Social Psychology, 69, 29-40.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,486.05,251.02,6.03;7,323.49,494.04,217.97,6.03" xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Interpersonal Adaptation</title>
+		<author>
+			<persName><forename type="first">Judee</forename><forename type="middle">K</forename><surname>Burgoon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lesa</forename><forename type="middle">A</forename><surname>Stern</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Leesa</forename><surname>Dillman</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/cbo9780511720314</idno>
+		<imprint>
+			<date type="published" when="1995-10-27">1995</date>
+			<publisher>Cambridge University Press</publisher>
+			<pubPlace>Cambridge; New York</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Burgoon, J. K., Stern, L. A., &amp; Dillman, L. (1995). Interpersonal adaptation: Dyadic interaction patterns. Cambridge; New York: Cambridge University Press.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,501.98,251.06,6.03;7,323.49,509.97,207.11,6.03" xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Common fate, similarity, and other indices of the status of aggregates of persons as social entities</title>
+		<author>
+			<persName coords=""><forename type="first">Donald</forename><forename type="middle">T</forename><surname>Campbell</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/bs.3830030103</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Behavioral Science</title>
+		<title level="j" type="abbrev">Syst. Res.</title>
+		<idno type="ISSN">0005-7940</idno>
+		<idno type="ISSNe">1099-1743</idno>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="14" to="25"/>
+			<date type="published" when="1958">1958</date>
+			<publisher>Wiley</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Campbell, D. T. (1958). Common fate, similarity, and other indices of the status of aggregates of persons as social entities. Behavioral Science, 3, 14-24.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,517.91,251.05,6.03;7,323.49,525.90,227.68,6.03" xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The Evolution of Truly Social Cognition: The Core Configurations Model</title>
+		<author>
+			<persName coords=""><forename type="first">Linnda</forename><forename type="middle">F</forename><surname>Caporael</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/s15327957pspr0104_1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Review</title>
+		<title level="j" type="abbrev">Pers Soc Psychol Rev</title>
+		<idno type="ISSN">1088-8683</idno>
+		<idno type="ISSNe">1532-7957</idno>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="276" to="298"/>
+			<date type="published" when="1997-11">1997</date>
+			<publisher>SAGE Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Caporael, L. F. (1997). The evolution of truly social cognition: The core configurations model. Personality and Social Psychology Review, 1, 276-298.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,533.84,251.04,6.03;7,323.49,541.83,239.06,6.03;7,323.49,549.82,239.07,6.03;7,323.49,557.76,77.86,6.03" xml:id="b8">
+	<analytic>
+		<title level="a" type="main">George P. Huber and Andrew H. Van de Ven (eds.): Longitudinal Field Research Methods, Studying Process Patterns of Organizational Change</title>
+		<author>
+			<persName coords=""><forename type="first">J</forename><forename type="middle">N</forename><surname>Cappella</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/017084069601700412</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Organization Studies</title>
+		<title level="j" type="abbrev">Organization Studies</title>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Watt</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">C</forename><surname>Van Lear</surname></persName>
+		</editor>
+		<idno type="ISSN">0170-8406</idno>
+		<idno type="ISSNe">1741-3044</idno>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="715" to="716"/>
+			<date type="published" when="1996-07">1996</date>
+			<publisher>SAGE Publications</publisher>
+			<pubPlace>Thousand Oaks, CA</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cappella, J. N. (1996). Dynamic coordination of vocal and kinesic behavior in dyadic interaction: Methods, problems, and interpersonal outcomes. In J. Watt &amp; C. Van Lear (Eds.), Dynamic patterns in communication processes (pp. 353-386). Thousand Oaks, CA: Sage.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,565.75,251.01,6.03;7,323.49,573.69,239.09,6.03;7,323.49,581.69,39.04,6.03" xml:id="b9">
+	<analytic>
+		<title level="a" type="main">The chameleon effect: The perception-behavior link and social interaction.</title>
+		<author>
+			<persName><forename type="first">Tanya</forename><forename type="middle">L</forename><surname>Chartrand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><forename type="middle">A</forename><surname>Bargh</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.76.6.893</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<title level="j" type="abbrev">Journal of Personality and Social Psychology</title>
+		<idno type="ISSN">0022-3514</idno>
+		<imprint>
+			<biblScope unit="volume">76</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="893" to="910"/>
+			<date type="published" when="1999">1999</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Chartrand, T. L., &amp; Bargh, J. A. (1999). The chameleon effect: The perception- behavior link and social interaction. Journal of Personality and Social Psychology, 76, 893-910.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,589.68,251.06,6.03;7,323.49,597.62,239.05,6.03;7,323.49,605.61,128.62,6.03" xml:id="b10">
+	<analytic>
+		<title level="a" type="main">The Relation of Interactional Synchrony to Cognitive and Emotional Processes</title>
+		<author>
+			<persName coords=""><forename type="first">William</forename><forename type="middle">S</forename><surname>Condon</surname></persName>
+		</author>
+		<idno type="DOI">10.1515/9783110813098.49</idno>
+	</analytic>
+	<monogr>
+		<title level="m">The Relationship of Verbal and Nonverbal Communication</title>
+		<editor>
+			<persName><forename type="first">M</forename><forename type="middle">R</forename><surname>Key</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>DE GRUYTER MOUTON</publisher>
+			<date type="published" when="1980-12-31">1980</date>
+			<biblScope unit="page" from="49" to="66"/>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Condon, W. S. (1980). The relation of interactional synchrony to cognitive and emotional processes. In M. R. Key (Ed.), The relation of verbal and nonverbal behavior (pp. 49-65). Mouton: The Hague.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,613.55,251.06,6.03;7,323.49,621.54,239.10,6.03;7,323.49,629.48,28.29,6.03" xml:id="b11">
+	<analytic>
+		<title level="a" type="main">SOUND FILM ANALYSIS OF NORMAL AND PATHOLOGICAL BEHAVIOR PATTERNS</title>
+		<author>
+			<persName coords=""><forename type="first">W</forename><forename type="middle">S</forename><surname>Condon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">W</forename><forename type="middle">D</forename><surname>Ogston</surname></persName>
+		</author>
+		<idno type="DOI">10.1097/00005053-196610000-00005</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Nervous and Mental Disease</title>
+		<title level="j" type="abbrev">The Journal of Nervous and Mental Disease</title>
+		<idno type="ISSN">0022-3018</idno>
+		<imprint>
+			<biblScope unit="volume">143</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="338" to="347"/>
+			<date type="published" when="1966-10">1966</date>
+			<publisher>Ovid Technologies (Wolters Kluwer Health)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Condon, W. S., &amp; Ogston, W. D. (1966). Sound film analysis of normal and pathological behavior patterns. Journal of Nervous and Mental Disease, 143, 338-457.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,637.47,250.99,6.03;7,323.49,645.46,237.09,6.03" xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Synchrony Demonstrated between Movements of the Neonate and Adult Speech</title>
+		<author>
+			<persName><forename type="first">William</forename><forename type="middle">S</forename><surname>Condon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Louis</forename><forename type="middle">W</forename><surname>Sander</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-8624.1974.tb00616.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Child Development</title>
+		<title level="j" type="abbrev">Child Development</title>
+		<idno type="ISSN">0009-3920</idno>
+		<idno type="ISSNe">1467-8624</idno>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="456" to="462"/>
+			<date type="published" when="1974-06">1974</date>
+			<publisher>Wiley</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Condon, W. S., &amp; Sander, L. W. (1974). Synchrony demonstrated between movements of the neonate and adult speech. Child Development, 45, 456-462.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,653.40,251.06,6.03;7,323.49,661.39,239.04,6.03;7,323.49,669.33,98.34,6.03" xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Synchrony, social behaviour and alliance affiliation in Indian Ocean bottlenose dolphins, Tursiops aduncus</title>
+		<author>
+			<persName><forename type="first">Richard</forename><forename type="middle">C</forename><surname>Connor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rachel</forename><surname>Smolker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lars</forename><surname>Bejder</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.anbehav.2006.03.014</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Animal Behaviour</title>
+		<title level="j" type="abbrev">Animal Behaviour</title>
+		<idno type="ISSN">0003-3472</idno>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1371" to="1378"/>
+			<date type="published" when="2006-12">2006</date>
+			<publisher>Elsevier BV</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Connor, R. C., Smolker, R., &amp; Bejder, L. (2006). Synchrony, social behaviour and alliance affiliation in Indian Ocean bottlenose dolphins, tursiops aduncus. Animal Behavior, 72, 1371-1378.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,677.32,251.07,6.03;7,323.49,685.32,239.09,6.03;7,323.49,693.25,147.80,6.03" xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Perceived entitativity, stereotype formation, and the interchangeability of group members.</title>
+		<author>
+			<persName><forename type="first">Matthew</forename><forename type="middle">T</forename><surname>Crawford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><forename type="middle">J</forename><surname>Sherman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.83.5.1076</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<title level="j" type="abbrev">Journal of Personality and Social Psychology</title>
+		<idno type="ISSN">0022-3514</idno>
+		<imprint>
+			<biblScope unit="volume">83</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1076" to="1094"/>
+			<date type="published" when="2002">2002</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Crawford, M. T., Sherman, S. J., &amp; Hamilton, D. L. (2002). Perceived entitativity, stereotype formation, and the interchangability of group members. Journal of Personality and Social Psychology, 83, 1076-1094.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,701.25,251.01,6.03;7,323.49,709.19,103.45,6.03" xml:id="b15">
+	<monogr>
+		<title level="m" type="main">Interaction rhythms: Periodicity in communicative behavior</title>
+		<author>
+			<persName coords=""><forename type="first">M</forename><forename type="middle">E</forename><surname>Davis</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1982">1982</date>
+			<publisher>Human Sciences Press</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Davis, M. E. (Ed.). (1982). Interaction rhythms: Periodicity in communicative behavior. New York: Human Sciences Press.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,717.18,251.01,6.03;7,323.49,725.17,239.04,6.03;7,323.49,733.11,207.42,6.03" xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Group entitativity and group perception: Associations between physical features and psychological judgment.</title>
+		<author>
+			<persName><forename type="first">Nilanjana</forename><surname>Dasgupta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mahzarin</forename><forename type="middle">R</forename><surname>Banaji</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><forename type="middle">P</forename><surname>Abelson</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.77.5.991</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<title level="j" type="abbrev">Journal of Personality and Social Psychology</title>
+		<idno type="ISSN">0022-3514</idno>
+		<imprint>
+			<biblScope unit="volume">77</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="991" to="1003"/>
+			<date type="published" when="1999">1999</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Dasgupta, N., Banaji, M. R., &amp; Abelson, R. P. (1999). Group entitativity and group perception: Associations between physical features and psychological judgment. Journal of Personality and Social Psychology, 77, 991-1003.</note>
+</biblStruct>
+
+<biblStruct coords="7,311.53,741.10,251.06,6.03;7,323.49,749.04,233.90,6.03" xml:id="b17">
+	<analytic>
+		<title level="a" type="main">A Neurobiological Role of Music in Social Bonding</title>
+		<author>
+			<persName coords=""><forename type="first">Walter</forename><surname>Freeman</surname></persName>
+		</author>
+		<idno type="DOI">10.7551/mitpress/5190.003.0028</idno>
+	</analytic>
+	<monogr>
+		<title level="m">The Origins of Music</title>
+		<editor>
+			<persName><forename type="first">B</forename><surname>Merker</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">N</forename><forename type="middle">L</forename><surname>Wallin</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">&amp;</forename><forename type="middle">S</forename><surname>Brown</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>The MIT Press</publisher>
+			<date type="published" when="2000">2000</date>
+			<biblScope unit="page" from="411" to="424"/>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Freeman, W. (2000). A neurobiological role of music in social bonding. In B. Merker, N. L. Wallin, &amp; S. Brown (Eds.), The origins of music (pp. 411-424). MIT Press.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,67.94,251.05,6.03;8,44.67,75.93,66.95,6.03" xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Perceiving persons and groups.</title>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><forename type="middle">J</forename><surname>Sherman</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0033-295x.103.2.336</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Review</title>
+		<title level="j" type="abbrev">Psychological Review</title>
+		<idno type="ISSN">0033-295X</idno>
+		<imprint>
+			<biblScope unit="volume">103</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="336" to="355"/>
+			<date type="published" when="1996">1996</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hamilton, D. L., &amp; Sherman, S. J. (1996). Perceiving persons and groups. Psychological Review, 103, 336-355.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,83.87,251.02,6.03;8,44.67,91.86,239.10,6.03;8,44.67,99.80,239.07,6.03;8,44.67,107.79,38.47,6.03" xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Intergroup Cognition and Intergroup Behavior</title>
+		<author>
+			<persName coords=""><forename type="first">D</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">S</forename><forename type="middle">J</forename><surname>Sherman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">B</forename><surname>Lickel</surname></persName>
+		</author>
+		<idno type="DOI">10.4324/9780203763575</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Intergroup cognition and intergroup behavior</title>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Schopler</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">C</forename><surname>Sedikides</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">C</forename><forename type="middle">A</forename><surname>Insko</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Mahwah, NJ</addrLine></address></meeting>
+		<imprint>
+			<publisher>Psychology Press</publisher>
+			<date type="published" when="1998">1998</date>
+			<biblScope unit="page" from="47" to="74"/>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hamilton, D. L., Sherman, S. J., &amp; Lickel, B. (1998). Perceiving social groups: The importance of the entitativity continuum. In J. Schopler, C. Sedikides, &amp; C. A. Insko (Eds.), Intergroup cognition and intergroup behavior (pp. 47-74). Mahwah, NJ: Erlbaum.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,115.79,251.04,6.03;8,44.67,123.72,239.07,6.03;8,44.67,131.72,226.83,6.03" xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Birds of a feather and birds flocking together: Physical versus behavioral cues may lead to trait-versus goal-based group perception</title>
+		<author>
+			<persName coords=""><forename type="first">G</forename><forename type="middle">W</forename><surname>Ip</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">-M</forename><surname>Chiu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">C-Y</forename><surname>Wan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">C</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="page" from="368" to="381"/>
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ip, G. W.-M., Chiu, C-Y., &amp; Wan, C. (2006). Birds of a feather and birds flocking together: Physical versus behavioral cues may lead to trait-versus goal-based group perception. Journal of Personality and Social Psychology, 90, 368-381.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,139.65,251.04,6.03;8,44.67,147.65,135.41,6.03" xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Movement coordination in social interaction: Some examples described</title>
+		<author>
+			<persName coords=""><forename type="first">Adam</forename><surname>Kendon</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/0001-6918(70)90094-6</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Acta Psychologica</title>
+		<title level="j" type="abbrev">Acta Psychologica</title>
+		<idno type="ISSN">0001-6918</idno>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="101" to="125"/>
+			<date type="published" when="1970-01">1970</date>
+			<publisher>Elsevier BV</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kendon, A. (1970). Movement coordination in social interaction -some examples described. Acta Psychologica, 32(2), 100-125.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,155.64,251.07,6.03;8,44.67,163.58,156.06,6.03" xml:id="b22">
+	<monogr>
+		<title level="m" type="main">Conducting interaction: Patterns of behavior in focused encounters</title>
+		<author>
+			<persName coords=""><forename type="first">A</forename><surname>Kendon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1990">1990</date>
+			<publisher>Cambridge University Press</publisher>
+			<pubPlace>Cambridge, New York</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kendon, A. (1990). Conducting interaction: Patterns of behavior in focused encounters. Cambridge, New York: Cambridge University Press.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,171.57,251.03,6.03;8,44.67,179.51,239.13,6.03" xml:id="b23">
+	<analytic>
+		<title level="a" type="main">The social psychophysics of cooperation: Nonverbal communication in a public goods game</title>
+		<author>
+			<persName coords=""><forename type="first">Robert</forename><surname>Kurzban</surname></persName>
+		</author>
+		<idno type="DOI">10.1023/a:1012563421824</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Nonverbal Behavior</title>
+		<idno type="ISSN">0191-5886</idno>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="241" to="259"/>
+			<date type="published" when="2001">2001</date>
+			<publisher>Springer Science and Business Media LLC</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kurzban, R. (2001). The social psychophysics of cooperation: Nonverbal communication in a public goods game. Journal of Nonverbal Behavior, 25, 241-259.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,187.50,251.06,6.03;8,44.67,195.44,69.04,6.03" xml:id="b24">
+	<monogr>
+		<title level="m" type="main">Posture mirroring and rapport: Interaction rhythms</title>
+		<author>
+			<persName coords=""><forename type="first">M</forename><surname>Lafrance</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1982">1982</date>
+			<publisher>Human Sciences Press</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">LaFrance, M. (1982). Posture mirroring and rapport: Interaction rhythms. New York: Human Sciences Press.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,203.43,251.04,6.03;8,44.67,211.43,117.45,6.03" xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Postural Mirroring and Intergroup Relations</title>
+		<author>
+			<persName coords=""><forename type="first">Marianne</forename><surname>Lafrance</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0146167285112008</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Bulletin</title>
+		<title level="j" type="abbrev">Pers Soc Psychol Bull</title>
+		<idno type="ISSN">0146-1672</idno>
+		<idno type="ISSNe">1552-7433</idno>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="207" to="217"/>
+			<date type="published" when="1985-06">1985</date>
+			<publisher>SAGE Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">LaFrance, M. (1985). Posture mirroring and intergroup orientation. Personality and Social Psychology Bulletin, 11, 207-218.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,219.36,251.04,6.03;8,44.67,227.36,239.10,6.03;8,44.67,235.29,82.07,6.03" xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Toward a radically embodied, embedded social psychology</title>
+		<author>
+			<persName><forename type="first">Kerry</forename><forename type="middle">L</forename><surname>Marsh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lucy</forename><surname>Johnston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">R</forename><forename type="middle">C</forename><surname>Schmidt</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/ejsp.666</idno>
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Social Psychology</title>
+		<title level="j" type="abbrev">Euro J Social Psych</title>
+		<idno type="ISSN">0046-2772</idno>
+		<idno type="ISSNe">1099-0992</idno>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1217" to="1225"/>
+			<date type="published" when="2009-11-13">2009b</date>
+			<publisher>Wiley</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Marsh, K. L., Johnston, L., Richardson, M. J., &amp; Schmidt, R. C. (2009b). Toward a radically embodied, embedded social psychology. European Journal of Social Psychology, 39, 1217-1225.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,243.29,251.02,6.03;8,44.67,251.28,239.07,6.03" xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Contrasting Approaches to Perceiving and Acting With Others</title>
+		<author>
+			<persName><forename type="first">Kerry</forename><forename type="middle">L</forename><surname>Marsh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Reuben</forename><forename type="middle">M</forename><surname>Baron</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">R</forename><forename type="middle">C</forename><surname>Schmidt</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/s15326969eco1801_1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Ecological Psychology</title>
+		<title level="j" type="abbrev">Ecological Psychology</title>
+		<idno type="ISSN">1040-7413</idno>
+		<idno type="ISSNe">1532-6969</idno>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="38"/>
+			<date type="published" when="2006-01">2006</date>
+			<publisher>Informa UK Limited</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Marsh, K. L., Richardson, M. J., Baron, R. M., &amp; Schmidt, R. C. (2006). Contrasting approaches to perceiving and acting with others. Ecological Psychology, 18, 1-38.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,259.22,251.03,6.03;8,44.67,267.21,239.10,6.03;8,44.67,275.15,28.22,6.03" xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Social Connection Through Joint Action and Interpersonal Coordination</title>
+		<author>
+			<persName><forename type="first">Kerry</forename><forename type="middle">L</forename><surname>Marsh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">R</forename><forename type="middle">C</forename><surname>Schmidt</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1756-8765.2009.01022.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Topics in Cognitive Science</title>
+		<title level="j" type="abbrev">Topics in Cognitive Science</title>
+		<idno type="ISSN">1756-8757</idno>
+		<idno type="ISSNe">1756-8765</idno>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="320" to="339"/>
+			<date type="published" when="2009-04">2009</date>
+			<publisher>Wiley</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Marsh, K. L., Richardson, M. J., &amp; Schmidt, R. C. (2009a). Social connection through joint action and interpersonal coordination. Topics in Cognitive Science, 1, 320-339.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,283.14,251.04,6.03;8,44.67,291.13,239.10,6.03;8,44.67,299.07,170.74,6.03" xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Target entitativity: Implications for information processing about individual and group targets.</title>
+		<author>
+			<persName><forename type="first">Allen</forename><forename type="middle">R</forename><surname>Mcconnell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><forename type="middle">J</forename><surname>Sherman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.72.4.750</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<title level="j" type="abbrev">Journal of Personality and Social Psychology</title>
+		<idno type="ISSN">0022-3514</idno>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="750" to="762"/>
+			<date type="published" when="1997">1997</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">McConnell, A. R., Sherman, S. J., &amp; Hamilton, D. L. (1997). Target cohesiveness: Implications for information processing about individual and group targets. Journal of Personality and Social Psychology, 72, 750-762.</note>
+</biblStruct>
+
+<biblStruct coords="8,32.71,307.06,251.06,6.03;8,44.67,315.00,239.08,6.03;8,44.67,322.99,236.63,6.03" xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Determinants of perceived consistency: The relationship between group entitativity and the meaningfulness of categories</title>
+		<author>
+			<persName><forename type="first">Craig</forename><surname>Mcgarty</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">S</forename><forename type="middle">Alexander</forename><surname>Haslam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Karen</forename><forename type="middle">J</forename><surname>Hutchinson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Diana</forename><forename type="middle">M</forename><surname>Grace</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.2044-8309.1995.tb01061.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">British Journal of Social Psychology</title>
+		<title level="j" type="abbrev">British J Social Psychol</title>
+		<idno type="ISSN">0144-6665</idno>
+		<idno type="ISSNe">2044-8309</idno>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="237" to="256"/>
+			<date type="published" when="1995-09">1995</date>
+			<publisher>Wiley</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">McGarty, C., Haslam, S. A., Hutchinson, K. J., &amp; Grace, D. M. (1995). Determinants of perceived consistency: The relationship between group entitativity and the meaningfulness of categories. British Journal of Social Psychology, 34, 237-256.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,67.93,251.01,6.03;8,313.62,75.93,128.34,6.03" xml:id="b31">
+	<analytic>
+		<title level="a" type="main">William H. McNeill. &lt;italic&gt;Keeping Together in Time: Dance and Drill in Human History&lt;/italic&gt;. Cambridge, Mass.: Harvard University Press. 1995. Pp. viii, 198. $22.00</title>
+		<author>
+			<persName coords=""><forename type="first">W</forename><forename type="middle">H</forename><surname>Mcneill</surname></persName>
+		</author>
+		<idno type="DOI">10.1086/ahr/102.3.775</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The American Historical Review</title>
+		<idno type="ISSNe">1937-5239</idno>
+		<imprint>
+			<date type="published" when="1995">1995</date>
+			<publisher>Oxford University Press (OUP)</publisher>
+			<pubPlace>Cambridge, MA</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">McNeill, W. H. (1995). Keeping together in time: Dance and drill in human history. Cambridge, MA: Harvard University Press.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,83.86,251.06,6.03;8,313.62,91.86,239.16,6.03;8,313.62,99.79,158.33,6.03" xml:id="b32">
+	<analytic>
+		<title level="a" type="main">The sound of many hands clapping -Tumultuous applause can transform itself into waves of synchronized clapping</title>
+		<author>
+			<persName coords=""><forename type="first">Z</forename><surname>Neda</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">E</forename><surname>Ravasz</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Y</forename><surname>Brechet</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">T</forename><surname>Vicsek</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">A</forename><forename type="middle">L</forename><surname>Barabasi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">403</biblScope>
+			<biblScope unit="issue">6772</biblScope>
+			<biblScope unit="page" from="849" to="850"/>
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Neda, Z., Ravasz, E., Brechet, Y., Vicsek, T., &amp; Barabasi, A. L. (2000). The sound of many hands clapping -Tumultuous applause can transform itself into waves of synchronized clapping. Nature, 403(6772), 849-850.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,107.79,251.06,6.03;8,313.62,115.78,165.09,6.03" xml:id="b33">
+	<analytic>
+		<title level="a" type="main">The Structure of Action and Interaction</title>
+		<author>
+			<persName><forename type="first">Darren</forename><surname>Newtson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joan</forename><surname>Hairfield</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><surname>Bloomingdale</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><surname>Cutino</surname></persName>
+		</author>
+		<idno type="DOI">10.1521/soco.1987.5.3.191</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Social Cognition</title>
+		<title level="j" type="abbrev">Social Cognition</title>
+		<idno type="ISSN">0278-016X</idno>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="191" to="237"/>
+			<date type="published" when="1987-09">1987</date>
+			<publisher>Guilford Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Newtson, D., Hairfield, J., Bloomingdale, J., &amp; Cutino, S. (1987). The structure of action and interaction. Social Cognition, 5(3), 191-237.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,123.72,251.05,6.03;8,313.62,131.71,239.14,6.03;8,313.62,139.65,28.29,6.03" xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Social coordination dynamics: Measuring human bonding</title>
+		<author>
+			<persName><forename type="first">Olivier</forename><surname>Oullier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gonzalo</forename><forename type="middle">C</forename><surname>De Guzman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kelly</forename><forename type="middle">J</forename><surname>Jantzen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julien</forename><surname>Lagarde</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Scott Kelso</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17470910701563392</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Social Neuroscience</title>
+		<title level="j" type="abbrev">Social Neuroscience</title>
+		<idno type="ISSN">1747-0919</idno>
+		<idno type="ISSNe">1747-0927</idno>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="178" to="192"/>
+			<date type="published" when="2008-06">2008</date>
+			<publisher>Informa UK Limited</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Oullier, O., de Guzman, G. C., Jantzen, K. J., Lagarde, J., &amp; Kelso, J. A. S. (2008). Social coordination dynamics: Measuring human bonding. Social Neuroscience, 3(2), 178-192.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,147.64,251.01,6.03;8,313.62,155.63,195.47,6.03" xml:id="b35">
+	<monogr>
+		<title level="m" type="main">Individuality and the Group: Advances in Social Identity</title>
+		<author>
+			<persName><forename type="first">Tom</forename><surname>Postmes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jolanda</forename><surname>Jetten</surname></persName>
+		</author>
+		<idno type="DOI">10.4135/9781446211946</idno>
+		<imprint>
+			<date type="published" when="2008">2008</date>
+			<publisher>SAGE Publications Ltd</publisher>
+		</imprint>
+		<respStmt>
+			<orgName>University of Groningen</orgName>
+		</respStmt>
+	</monogr>
+	<note>Unpublished manuscript</note>
+	<note type="raw_reference">Postmes, T., Brooke, D., &amp; Jetten, J. (2008). Social identity formation and team performance. University of Groningen, Unpublished manuscript.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,163.57,251.03,6.03;8,313.62,171.56,239.11,6.03;8,313.62,179.50,162.14,6.03" xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Rocking together: Dynamics of intentional and unintentional interpersonal coordination</title>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kerry</forename><forename type="middle">L</forename><surname>Marsh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><forename type="middle">W</forename><surname>Isenhower</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Justin</forename><forename type="middle">R L</forename><surname>Goodman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">R</forename><forename type="middle">C</forename><surname>Schmidt</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.humov.2007.07.002</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Human Movement Science</title>
+		<title level="j" type="abbrev">Human Movement Science</title>
+		<idno type="ISSN">0167-9457</idno>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="867" to="891"/>
+			<date type="published" when="2007-12">2007</date>
+			<publisher>Elsevier BV</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Richardson, M. J., Marsh, K. L., Isenhower, R., Goodman, J., &amp; Schmidt, R. C. (2007). Rocking together: Dynamics of intentional and unintentional interpersonal coordination. Human Movement Science, 26, 867-891.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,187.50,251.00,6.03;8,313.62,195.43,194.78,6.03" xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Evaluating the Dynamics of Unintended Interpersonal Coordination</title>
+		<author>
+			<persName coords=""><forename type="first">R</forename><forename type="middle">C</forename><surname>Schmidt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Beth</forename><surname>O'brien</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/s15326969eco0903_2</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Ecological Psychology</title>
+		<title level="j" type="abbrev">Ecological Psychology</title>
+		<idno type="ISSN">1040-7413</idno>
+		<idno type="ISSNe">1532-6969</idno>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="189" to="206"/>
+			<date type="published" when="1997-09">1997</date>
+			<publisher>Informa UK Limited</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Schmidt, R. C., &amp; O'Brien, B. (1997). Evaluating the dynamics of unintended interpersonal coordination. Ecological Psychology, 9(3), 189-206.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,203.43,251.05,6.03;8,313.62,211.42,239.11,6.03;8,313.62,219.36,183.65,6.03" xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Articulatory constraints on interpersonal postural coordination.</title>
+		<author>
+			<persName><forename type="first">Kevin</forename><surname>Shockley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Aimee</forename><forename type="middle">A</forename><surname>Baker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carol</forename><forename type="middle">A</forename><surname>Fowler</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0096-1523.33.1.201</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Psychology: Human Perception and Performance</title>
+		<title level="j" type="abbrev">Journal of Experimental Psychology: Human Perception and Performance</title>
+		<idno type="ISSN">0096-1523</idno>
+		<idno type="ISSNe">1939-1277</idno>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="201" to="208"/>
+			<date type="published" when="2007">2007</date>
+			<publisher>American Psychological Association (APA)</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shockley, K. D., Baker, A. A., Richardson, M. J., &amp; Fowler, C. A. (2007). Verbal constraints on interpersonal postural coordination. Journal of Experimental Psychology: Human Perception and Performance, 33, 201-208.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,227.35,251.05,6.03;8,313.62,235.29,133.91,6.03" xml:id="b39">
+	<analytic>
+		<title level="a" type="main">The Nature of Rapport and Its Nonverbal Correlates</title>
+		<author>
+			<persName><forename type="first">Linda</forename><surname>Tickle-Degnen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Rosenthal</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/s15327965pli0104_1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Inquiry</title>
+		<title level="j" type="abbrev">Psychological Inquiry</title>
+		<idno type="ISSN">1047-840X</idno>
+		<idno type="ISSNe">1532-7965</idno>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="285" to="293"/>
+			<date type="published" when="1990-10">1990</date>
+			<publisher>Informa UK Limited</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tickle-Degnen, L., &amp; Rosenthal, R. (1990). The nature of rapport and its nonverbal correlates. Psychological Inquiry, 1, 285-293.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,243.28,251.03,6.03;8,313.62,251.27,239.15,6.03;8,313.62,259.21,165.11,6.03" xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Characteristics of instructed and uninstructed interpersonal coordination while walking side-by-side</title>
+		<author>
+			<persName><forename type="first">Niek</forename><forename type="middle">R</forename><surname>Van Ulzen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Claudine</forename><forename type="middle">J C</forename><surname>Lamoth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andreas</forename><surname>Daffertshofer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gün</forename><forename type="middle">R</forename><surname>Semin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">J</forename><surname>Beek</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neulet.2007.11.070</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience Letters</title>
+		<title level="j" type="abbrev">Neuroscience Letters</title>
+		<idno type="ISSN">0304-3940</idno>
+		<imprint>
+			<biblScope unit="volume">432</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="88" to="93"/>
+			<date type="published" when="2008-02">2008</date>
+			<publisher>Elsevier BV</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">van Ulzen, N. R., Lamoth, C. J. C., Daffertshofer, A., Semin, G. R., &amp; Beek, P. J. (2008). Characteristics of instructed and uninstructed interpersonal coordination while walking side-by-side. Neuroscience Letters, 432, 88-93.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,267.21,251.00,6.03;8,313.62,275.15,48.45,6.03" xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Synchrony and Cooperation</title>
+		<author>
+			<persName><forename type="first">Scott</forename><forename type="middle">S</forename><surname>Wiltermuth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chip</forename><surname>Heath</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-9280.2008.02253.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<title level="j" type="abbrev">Psychol Sci</title>
+		<idno type="ISSN">0956-7976</idno>
+		<idno type="ISSNe">1467-9280</idno>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="5"/>
+			<date type="published" when="2009-01">2009</date>
+			<publisher>SAGE Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Wilmermuth, S. S., &amp; Heath, C. (2009). Synchrony and cooperation. Psychological Science, 20, 1-5.</note>
+</biblStruct>
+
+<biblStruct coords="8,301.72,283.14,251.02,6.03;8,313.62,291.14,239.14,6.03;8,313.62,299.07,112.42,6.03" xml:id="b42">
+	<analytic>
+		<title level="a" type="main">The Interplay of Subjective Essentialism and Entitativity in the Formation of Stereotypes</title>
+		<author>
+			<persName><forename type="first">Vincent</forename><surname>Yzerbyt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Olivier</forename><surname>Corneille</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Claudia</forename><surname>Estrada</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/s15327957pspr0502_5</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Review</title>
+		<title level="j" type="abbrev">Pers Soc Psychol Rev</title>
+		<idno type="ISSN">1088-8683</idno>
+		<idno type="ISSNe">1532-7957</idno>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="141" to="155"/>
+			<date type="published" when="2001-05">2001</date>
+			<publisher>SAGE Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yzerbyt, V., Corneille, O., &amp; Estrada, C. (2001). The interplay of subjective essentialism and entitativity in the formation of stereotypes. Personality and Social Psychology Review, 5, 141-155.</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

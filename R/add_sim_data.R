@@ -9,7 +9,7 @@
 #' @param n the number of samples required
 #' @param mu the means of the variables
 #' @param sd the standard deviations of the variables
-#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix
+#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matrix or vector, or a vector of the upper right triangle of the correlation matrix
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param dv the name of the dv for long plots (defaults to y)

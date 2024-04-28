@@ -1,14 +1,27 @@
+path <- file.path(tempdir(), "scivrs_test")
+unlink(path, recursive = TRUE) # clean up
+dir.create(path)
+setwd(path)
+
+test_that("errors", {
+  expect_true(is.function(study_save))
+
+  expect_error(study_save(1),
+               "The study argument needs to be a scivrs_study object or a list of them.",
+               fixed = TRUE)
+})
+
 test_that("defaults", {
   s <- study()
 
   # make sure file doesn't already exist
-  if (file.exists("study.json")) unlink("study.json")
+  if (file.exists("demo_study.json")) unlink("demo_study.json")
   study_save(s)
 
-  expect_true(file.exists("study.json"))
+  expect_true(file.exists("demo_study.json"))
 
   # check file contexts are as expected
-  filecontents <- readLines("study.json") %>% paste(collapse = "\n")
+  filecontents <- readLines("demo_study.json") %>% paste(collapse = "\n")
   expected <- '{
     "name": "Demo Study",
     "info": [],
@@ -20,8 +33,6 @@ test_that("defaults", {
 }
 '
   expect_equal(filecontents, expected)
-
-  if (file.exists("study.json")) unlink("study.json") # clean up
 })
 
 test_that("file name json suffix", {
@@ -32,7 +43,6 @@ test_that("file name json suffix", {
   study_save(s, fname)
 
   expect_true(file.exists(fname))
-  if (file.exists(fname)) unlink(fname) # clean up
 })
 
 test_that("file name no suffix", {
@@ -44,7 +54,6 @@ test_that("file name no suffix", {
   study_save(s, nname)
 
   expect_true(file.exists(fname))
-  if (file.exists(fname)) unlink(fname) # clean up
 })
 
 test_that("data", {
@@ -64,6 +73,21 @@ test_that("data", {
 test_that("verbose", {
   scienceverse_options(verbose = FALSE)
   expect_silent(study() %>% study_save())
-  if (file.exists("study.json")) unlink("study.json") # clean up
   scienceverse_options(verbose = TRUE)
 })
+
+test_that("iteration", {
+  studies <- list(
+    study("A"),
+    study("B")
+  )
+
+  if (file.exists("a.json")) unlink("a.json")
+  if (file.exists("b.json")) unlink("b.json")
+  study_save(studies)
+  expect_true(file.exists("a.json"))
+  expect_true(file.exists("b.json"))
+})
+
+# list.files(path)
+unlink(path, recursive = TRUE) # clean up
