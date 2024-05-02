@@ -18,12 +18,15 @@ test_that("basics", {
   expect_equal(s$name, "Facial resemblance enhances trust")
   expect_equal(s$info$title, "Facial resemblance enhances trust")
   lisa <- author(
-   surname = "Debruine", given = "Lisa"#,
-   #orcid = "0000-0002-7523-5539"
+   surname = "Debruine", given = "Lisa",
+   orcid = "0000-0002-7523-5539",
+   email = "debruilm@mcmaster.ca"
   )
   expect_equal(s$authors[[1]], lisa)
 
   expect_equal(substr(s$info$abstract, 1, 9), "Organisms")
+
+
 })
 
 test_that("iteration", {

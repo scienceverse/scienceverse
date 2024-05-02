@@ -209,6 +209,8 @@ power <- get_power(study, values = TRUE)
 #                values_to = "value") %>%
 #   ggplot(aes(value, color = criteria)) +
 #   geom_density()
+
+
 ```
 
 
