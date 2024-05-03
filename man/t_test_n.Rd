@@ -21,3 +21,4 @@ list of Ns
 \description{
 Calculate Ns for t_test
 }
+\keyword{internal}

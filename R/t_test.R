@@ -130,6 +130,7 @@ t_test.formula <- function (formula, data, subset, na.action, ...)
 #' @param names optional group names for 2-sample tests.
 #'
 #' @return list of Ns
+#' @keywords internal
 #'
 t_test_n <- function(x, y = NULL, paired = FALSE, names = NULL) {
   if (is.null(y)) { # 1-sample

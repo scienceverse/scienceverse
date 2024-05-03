@@ -15,3 +15,4 @@ named list of all the variable descriptions
 \description{
 List codebook variables
 }
+\keyword{internal}

@@ -133,7 +133,7 @@
         {
             "id": "trust",
             "code": "t.test(kin$trust_self, kin$trust_other, paired = TRUE, conf.level = 0.975)",
-            "software": "R version 4.0.2 (2020-06-22)",
+            "software": "R version 4.4.0 (2024-04-24)",
             "results": {
                 "statistic": 2.5045,
                 "parameter": 23,
@@ -150,7 +150,7 @@
         {
             "id": "recip",
             "code": "t.test(kin$recip_self, kin$recip_other, paired = TRUE, conf.level = 0.975)",
-            "software": "R version 4.0.2 (2020-06-22)",
+            "software": "R version 4.4.0 (2024-04-24)",
             "results": {
                 "statistic": -0.2138,
                 "parameter": 23,

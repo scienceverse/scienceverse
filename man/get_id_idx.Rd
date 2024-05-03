@@ -19,3 +19,4 @@ A list of id and idx
 \description{
 Get the index and id from an item in the hypotheses, analyses, or data sections of a study object
 }
+\keyword{internal}

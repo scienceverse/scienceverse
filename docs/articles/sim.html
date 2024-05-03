@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9021</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -68,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/scienceverse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/scienceverse/scienceverse/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,210 +79,232 @@
 
       
 
-      </header><script src="sim_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulating Data for Power</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/sim.Rmd"><code>vignettes/sim.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/HEAD/vignettes/sim.Rmd" class="external-link"><code>vignettes/sim.Rmd</code></a></small>
       <div class="hidden name"><code>sim.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></pre></div>
-<p>First, I use the <code><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design()</a></code> function from faux to visualise the design for my proposed study. I’m simulating 30 dog owners with average happiness score of 10 and an average smugness score of 5, and 30 cat owners with an average happiness score of 9 and an average smugness score of 6. Since all have an SD of 2, these are effect sizes of d = 0.5.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">simdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design</a></span><span class="op">(</span>
-  between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>,
-  within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>emotion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"smug"</span><span class="op">)</span><span class="op">)</span>,
-  n <span class="op">=</span> <span class="fl">30</span>, <span class="co"># in each between-subject cell</span>
-  mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">6</span><span class="op">)</span>,
-  sd <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse" class="external-link">scienceverse</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux" class="external-link">faux</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>First, I use the <code><a href="https://rdrr.io/pkg/faux/man/sim_design.html" class="external-link">sim_design()</a></code> function from faux to
+visualise the design for my proposed study. I’m simulating 30 dog owners
+with average happiness score of 10 and an average smugness score of 5,
+and 30 cat owners with an average happiness score of 9 and an average
+smugness score of 6. Since all have an SD of 2, these are effect sizes
+of d = 0.5.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/faux/man/sim_design.html" class="external-link">sim_design</a></span><span class="op">(</span></span>
+<span>  between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>emotion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"smug"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">30</span>, <span class="co"># in each between-subject cell</span></span>
+<span>  mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  sd <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="sim_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>I can then use this simulated data to plan my analyses.</p>
-<p>I’ll use a one-sided, two-sample t-test against a mu of 0 to test if my hypothesis that dog owners are happier than cat owners is corroborated</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-<span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0</span>, 
-       alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  Welch Two Sample t-test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; data:  dog_happy and cat_happy</span>
-<span class="co">#&gt; t = 2.4711, df = 53.854, p-value = 0.008333</span>
-<span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span>
-<span class="co">#&gt; 95 percent confidence interval:</span>
-<span class="co">#&gt;  0.4669045       Inf</span>
-<span class="co">#&gt; sample estimates:</span>
-<span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt; 10.444280  8.997448</span></pre></div>
-<p>I’ll use a one-sided, two-sample t-test against a mu of 0.2 (my smallest effect size of interest; SESOI) to assess falsification of my hypothesis.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-<span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, 
-       alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  Welch Two Sample t-test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; data:  dog_happy and cat_happy</span>
-<span class="co">#&gt; t = 2.1295, df = 53.854, p-value = 0.9811</span>
-<span class="co">#&gt; alternative hypothesis: true difference in means is less than 0.2</span>
-<span class="co">#&gt; 95 percent confidence interval:</span>
-<span class="co">#&gt;     -Inf 2.42676</span>
-<span class="co">#&gt; sample estimates:</span>
-<span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt; 10.444280  8.997448</span></pre></div>
-<p>I’ll use a one-sided, two-sample t-test against a mu of 0 to test if my hypothesis that cat owners are smugger than dog owners is corroborated.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-<span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0</span>, 
-       alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  Welch Two Sample t-test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; data:  cat_smug and dog_smug</span>
-<span class="co">#&gt; t = 1.7868, df = 52.936, p-value = 0.03985</span>
-<span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span>
-<span class="co">#&gt; 95 percent confidence interval:</span>
-<span class="co">#&gt;  0.06651642        Inf</span>
-<span class="co">#&gt; sample estimates:</span>
-<span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  6.035758  4.980895</span></pre></div>
-<p>I’ll use a one-sided, two-sample t-test against a mu of 0.2 (my smallest effect size of interest; SESOI) to assess falsification of my hypothesis.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-<span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, 
-       alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  Welch Two Sample t-test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; data:  cat_smug and dog_smug</span>
-<span class="co">#&gt; t = 1.448, df = 52.936, p-value = 0.9232</span>
-<span class="co">#&gt; alternative hypothesis: true difference in means is less than 0.2</span>
-<span class="co">#&gt; 95 percent confidence interval:</span>
-<span class="co">#&gt;      -Inf 2.043209</span>
-<span class="co">#&gt; sample estimates:</span>
-<span class="co">#&gt; mean of x mean of y </span>
-<span class="co">#&gt;  6.035758  4.980895</span></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Simple Simulation Demo"</span><span class="op">)</span>  <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"Dog owners will be happier than cat owners."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"happy_main"</span>, <span class="op">{</span>
-    <span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-    <span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"happy_c"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"happ_equiv"</span>, <span class="op">{</span>
-    <span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-    <span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"happy_f"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"corroboration"</span>, <span class="st">"happy_c"</span>, <span class="st">"The hypothesis will be corroborated if dog owners are significantly happier than cat owners."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"falsification"</span>, <span class="st">"happy_f"</span>, <span class="st">"The hypothesis will be falsified if dog owners are significantly less than 0.2 units happier than cat owners."</span><span class="op">)</span></pre></div>
-<p>Add a second hypothesis, with all associated analyses, criteria, and evaluation rules.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="va">study</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"smug"</span>, <span class="st">"Cat owners will be smugger than dog owners."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"smug_main"</span>, <span class="op">{</span>
-    <span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-    <span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"smug_c"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"smug_equiv"</span>, <span class="op">{</span>
-    <span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span>
-    <span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"smug_f"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"corroboration"</span>, <span class="st">"smug_c"</span>, <span class="st">"The hypothesis will be corroborated if cat owners are significantly smugger than dog owners."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"falsification"</span>, <span class="st">"smug_f"</span>, <span class="st">"The hypothesis will be falsified if cat owners are significantly less than 0.2 units smugger than dog owners."</span><span class="op">)</span></pre></div>
-<p>Now we can simulate a dataset. Make sure to give it the same <code>data_id</code> that you used to reference it in the analysis.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">simstudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span>
-  <span class="va">study</span>,
-  data_id <span class="op">=</span> <span class="st">"pet_data"</span>,
-  between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>,
-  within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>emotion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"smug"</span><span class="op">)</span><span class="op">)</span>,
-  n <span class="op">=</span> <span class="fl">30</span>, <span class="co"># in each between-subject cell</span>
-  mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">6</span><span class="op">)</span>,
-  sd <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; id set to dataType string</span>
-<span class="co">#&gt; pet set to dataType string</span>
-<span class="co">#&gt; happy set to dataType float</span>
-<span class="co">#&gt; smug set to dataType float</span>
-<span class="co">#&gt; Hypothesis happy: Dog owners will be happier than cat owners.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Criterion happy_c:</span>
-<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.131</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Criterion happy_f:</span>
-<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.774</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Conclusion: inconclusive</span>
-<span class="co">#&gt; * Corroborate (happy_c): FALSE</span>
-<span class="co">#&gt; * Falsify (happy_f): FALSE</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Hypothesis smug: Cat owners will be smugger than dog owners.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Criterion smug_c:</span>
-<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.201</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Criterion smug_f:</span>
-<span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span>
-<span class="co">#&gt; * p.value = 0.687</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Conclusion: inconclusive</span>
-<span class="co">#&gt; * Corroborate (smug_c): FALSE</span>
-<span class="co">#&gt; * Falsify (smug_f): FALSE</span></pre></div>
-<p>Use the <code>study_power</code> function to run the analyses on each simulated dataset and return the percent of datasets that lead to each possible conclusion for each hypothesis. You can also increase the number of replications in the simulation to calculate the power of your study. This is especially helpful for studies with complex analyses or evaluation criteria.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">simstudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span><span class="op">(</span><span class="va">simstudy</span>, rep <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
-<span class="co">#&gt; Simulating Datasets...</span>
-<span class="co">#&gt; Running Analyses...</span>
-<span class="co">#&gt; Evaluating Hypotheses...</span>
-<span class="co">#&gt; Hypothesis happy</span>
-<span class="co">#&gt;       corroboration: 62.3%</span>
-<span class="co">#&gt;       falsification: 0.1%</span>
-<span class="co">#&gt;       inconclusive:  37.6%</span>
-<span class="co">#&gt; Hypothesis smug</span>
-<span class="co">#&gt;       corroboration: 59.4%</span>
-<span class="co">#&gt;       falsification: 0.1%</span>
-<span class="co">#&gt;       inconclusive:  40.5%</span></pre></div>
-<p>Use the <code>get_power</code> function to get the results in a list format. Set <code>values</code> to <code>TRUE</code> to get the individual values for the analysis results.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span><span class="op">(</span><span class="va">simstudy</span>, values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># get power for each hypothesis</span>
-<span class="co"># corroboration, falsification, or inconclusive</span>
-<span class="va">happy_power</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">$</span><span class="va">happy</span>
-<span class="va">smug_power</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">$</span><span class="va">smug</span>
-
-<span class="co"># get values for specific analysis results</span>
-<span class="va">happy_c</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">happy_main</span><span class="op">$</span><span class="va">p.value</span>
-<span class="va">smug_c</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">smug_main</span><span class="op">$</span><span class="va">p.value</span></pre></div>
+<p>I’ll use a one-sided, two-sample t-test against a mu of 0 to test if
+my hypothesis that dog owners are happier than cat owners is
+corroborated</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span><span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>       alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  dog_happy and cat_happy</span></span>
+<span><span class="co">#&gt; t = 2.4711, df = 53.854, p-value = 0.008333</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.4669045       Inf</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x mean of y </span></span>
+<span><span class="co">#&gt; 10.444280  8.997448</span></span></code></pre></div>
+<p>I’ll use a one-sided, two-sample t-test against a mu of 0.2 (my
+smallest effect size of interest; SESOI) to assess falsification of my
+hypothesis.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span><span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, </span>
+<span>       alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  dog_happy and cat_happy</span></span>
+<span><span class="co">#&gt; t = 2.1295, df = 53.854, p-value = 0.9811</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true difference in means is less than 0.2</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;     -Inf 2.42676</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x mean of y </span></span>
+<span><span class="co">#&gt; 10.444280  8.997448</span></span></code></pre></div>
+<p>I’ll use a one-sided, two-sample t-test against a mu of 0 to test if
+my hypothesis that cat owners are smugger than dog owners is
+corroborated.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span><span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>       alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  cat_smug and dog_smug</span></span>
+<span><span class="co">#&gt; t = 1.7868, df = 52.936, p-value = 0.03985</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.06651642        Inf</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x mean of y </span></span>
+<span><span class="co">#&gt;  6.035758  4.980895</span></span></code></pre></div>
+<p>I’ll use a one-sided, two-sample t-test against a mu of 0.2 (my
+smallest effect size of interest; SESOI) to assess falsification of my
+hypothesis.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span><span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">simdat</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">simdat</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, </span>
+<span>       alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  cat_smug and dog_smug</span></span>
+<span><span class="co">#&gt; t = 1.448, df = 52.936, p-value = 0.9232</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true difference in means is less than 0.2</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;      -Inf 2.043209</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x mean of y </span></span>
+<span><span class="co">#&gt;  6.035758  4.980895</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Simple Simulation Demo"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"Dog owners will be happier than cat owners."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"happy_main"</span>, <span class="op">{</span></span>
+<span>    <span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span>    <span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"happy_c"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"happ_equiv"</span>, <span class="op">{</span></span>
+<span>    <span class="va">dog_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span>    <span class="va">cat_happy</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">happy</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dog_happy</span>, <span class="va">cat_happy</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"happy_f"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"corroboration"</span>, <span class="st">"happy_c"</span>, <span class="st">"The hypothesis will be corroborated if dog owners are significantly happier than cat owners."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"falsification"</span>, <span class="st">"happy_f"</span>, <span class="st">"The hypothesis will be falsified if dog owners are significantly less than 0.2 units happier than cat owners."</span><span class="op">)</span></span></code></pre></div>
+<p>Add a second hypothesis, with all associated analyses, criteria, and
+evaluation rules.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="va">study</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"smug"</span>, <span class="st">"Cat owners will be smugger than dog owners."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"smug_main"</span>, <span class="op">{</span></span>
+<span>    <span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span>    <span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"smug_c"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"smug_equiv"</span>, <span class="op">{</span></span>
+<span>    <span class="va">dog_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">]</span></span>
+<span>    <span class="va">cat_smug</span> <span class="op">&lt;-</span> <span class="va">pet_data</span><span class="op">$</span><span class="va">smug</span><span class="op">[</span><span class="va">pet_data</span><span class="op">$</span><span class="va">pet</span> <span class="op">==</span> <span class="st">"cat"</span><span class="op">]</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">cat_smug</span>, <span class="va">dog_smug</span>, mu <span class="op">=</span> <span class="fl">0.2</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"smug_f"</span>, <span class="st">"p.value"</span>, <span class="st">"&lt;"</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"corroboration"</span>, <span class="st">"smug_c"</span>, <span class="st">"The hypothesis will be corroborated if cat owners are significantly smugger than dog owners."</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="st">"falsification"</span>, <span class="st">"smug_f"</span>, <span class="st">"The hypothesis will be falsified if cat owners are significantly less than 0.2 units smugger than dog owners."</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can simulate a dataset. Make sure to give it the same
+<code>data_id</code> that you used to reference it in the analysis.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simstudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">study</span>,</span>
+<span>  data_id <span class="op">=</span> <span class="st">"pet_data"</span>,</span>
+<span>  between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>emotion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"happy"</span>, <span class="st">"smug"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">30</span>, <span class="co"># in each between-subject cell</span></span>
+<span>  mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  sd <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; id set to dataType string</span></span>
+<span><span class="co">#&gt; pet set to dataType string</span></span>
+<span><span class="co">#&gt; happy set to dataType float</span></span>
+<span><span class="co">#&gt; smug set to dataType float</span></span>
+<span><span class="co">#&gt; Hypothesis happy: Dog owners will be happier than cat owners.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion happy_c:</span></span>
+<span><span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span></span>
+<span><span class="co">#&gt; * p.value = 0.131</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion happy_f:</span></span>
+<span><span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span></span>
+<span><span class="co">#&gt; * p.value = 0.774</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Conclusion: inconclusive</span></span>
+<span><span class="co">#&gt; * Corroborate (happy_c): FALSE</span></span>
+<span><span class="co">#&gt; * Falsify (happy_f): FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Hypothesis smug: Cat owners will be smugger than dog owners.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion smug_c:</span></span>
+<span><span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span></span>
+<span><span class="co">#&gt; * p.value = 0.201</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion smug_f:</span></span>
+<span><span class="co">#&gt; * p.value &lt; 0.05 is FALSE</span></span>
+<span><span class="co">#&gt; * p.value = 0.687</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Conclusion: inconclusive</span></span>
+<span><span class="co">#&gt; * Corroborate (smug_c): FALSE</span></span>
+<span><span class="co">#&gt; * Falsify (smug_f): FALSE</span></span></code></pre></div>
+<p>Use the <code>study_power</code> function to run the analyses on each
+simulated dataset and return the percent of datasets that lead to each
+possible conclusion for each hypothesis. You can also increase the
+number of replications in the simulation to calculate the power of your
+study. This is especially helpful for studies with complex analyses or
+evaluation criteria.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simstudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span><span class="op">(</span><span class="va">simstudy</span>, rep <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simulating Datasets...</span></span>
+<span><span class="co">#&gt; Running Analyses...</span></span>
+<span><span class="co">#&gt; Evaluating Hypotheses...</span></span>
+<span><span class="co">#&gt; Hypothesis happy</span></span>
+<span><span class="co">#&gt;       corroboration: 62.3%</span></span>
+<span><span class="co">#&gt;       falsification: 0.1%</span></span>
+<span><span class="co">#&gt;       inconclusive:  37.6%</span></span>
+<span><span class="co">#&gt; Hypothesis smug</span></span>
+<span><span class="co">#&gt;       corroboration: 59.4%</span></span>
+<span><span class="co">#&gt;       falsification: 0.1%</span></span>
+<span><span class="co">#&gt;       inconclusive:  40.5%</span></span></code></pre></div>
+<p>Use the <code>get_power</code> function to get the results in a list
+format. Set <code>values</code> to <code>TRUE</code> to get the
+individual values for the analysis results.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span><span class="op">(</span><span class="va">simstudy</span>, values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get power for each hypothesis</span></span>
+<span><span class="co"># corroboration, falsification, or inconclusive</span></span>
+<span><span class="va">happy_power</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">$</span><span class="va">happy</span></span>
+<span><span class="va">smug_power</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">$</span><span class="va">smug</span></span>
+<span></span>
+<span><span class="co"># get values for specific analysis results</span></span>
+<span><span class="va">happy_c</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">happy_main</span><span class="op">$</span><span class="va">p.value</span></span>
+<span><span class="va">smug_c</span> <span class="op">&lt;-</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">smug_main</span><span class="op">$</span><span class="va">p.value</span></span></code></pre></div>
 <p><img src="sim_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
   </div>
 
@@ -299,11 +317,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine, Daniel Lakens.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine, Daniel Lakens.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
@@ -311,6 +331,8 @@
 
   
 
+
+  
 
   </body>
 </html>

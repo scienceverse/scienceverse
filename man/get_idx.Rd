@@ -19,3 +19,4 @@ A numeric index
 \description{
 Get the index from id for an item in the hypotheses, analyses, or data sections of a study object
 }
+\keyword{internal}

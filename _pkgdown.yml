@@ -19,6 +19,8 @@ reference:
       - add_data
       - add_sim_data
       - add_method
+      - study_from_json
+      - study_from_xml
       - update_hypothesis
       - update_analysis
       - update_criterion
@@ -26,12 +28,15 @@ reference:
   - title: "Study Functions"
     desc: "Running analyses, generating reports, and saving data"
     contents:
-      - study_analyse
-      - study_save
-      - study_power
-      - make_script
       - make_data
+      - make_script
+      - study_analyse
+      - study_eval
+      - study_power
+      - study_report
+      - study_save
       - eval_summary
+      - study_to_json
   - title: "Data"
     contents:
       - study_demo
@@ -57,13 +62,16 @@ reference:
       - output_analyses
       - output_results
       - t_test
+      - t_test.default
+      - t_test.formula
       - scienceverse_options
+      - search_full_text
   - title: "Utilities"
     contents:
       - if_nowt
       - is_nowt
-      - nested_list
       - nlist
+      - round_char
 articles:
   - title: "Articles"
     contents:
@@ -76,3 +84,4 @@ articles:
       - credit
       - functions
       - export
+      - grobid

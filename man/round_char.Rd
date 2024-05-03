@@ -21,3 +21,4 @@ The character vector or the rounded version if numeric.
 \description{
 Round a vector if it is numeric, but return the original vector if it is character.
 }
+\keyword{internal}

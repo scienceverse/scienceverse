@@ -14,7 +14,7 @@ search_full_text(
 )
 }
 \arguments{
-\item{study}{a study object created by \code{study_from_grobid} or a list of study objects}
+\item{study}{a study object created by \code{study_from_xml} or a list of study objects}
 
 \item{term}{the regex term to search for}
 
@@ -30,7 +30,7 @@ search_full_text(
 a data frame of matching sentences
 }
 \description{
-Search the full text
+Search the full text of a study paper. Currently only works with study objects that have full text imported from grobid (e.g., using \code{study_from_xml()}).
 }
 \examples{
 grobid_dir <- system.file("grobid", package="scienceverse")

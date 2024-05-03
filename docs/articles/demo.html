@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9021</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -68,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/scienceverse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/scienceverse/scienceverse/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,235 +79,287 @@
 
       
 
-      </header><script src="demo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Demo</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/demo.Rmd"><code>vignettes/demo.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/HEAD/vignettes/demo.Rmd" class="external-link"><code>vignettes/demo.Rmd</code></a></small>
       <div class="hidden name"><code>demo.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span></pre></div>
-<pre><code>#&gt; 
-#&gt; ************
-#&gt; Welcome to scienceverse For support and examples visit:
-#&gt; http://scienceverse.github.io/
-#&gt; - Get and set global package options with: scienceverse_options()
-#&gt; ************</code></pre>
-<p>One goal of scienceverse is to automate the evaluation of predictions. A researcher specifies the prediction in the preregistration, collects the data, and the scienceverse R package (or other platforms that handle scienceverse-formatted files) can then use the preregistration file and the data to automatically evaluate whether the predictions were confirmed or not.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse" class="external-link">scienceverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ************</span></span>
+<span><span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span></span>
+<span><span class="co">#&gt; http://scienceverse.github.io/</span></span>
+<span><span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span></span>
+<span><span class="co">#&gt; ************</span></span></code></pre>
+<p>One goal of scienceverse is to automate the evaluation of
+predictions. A researcher specifies the prediction in the
+preregistration, collects the data, and the scienceverse R package (or
+other platforms that handle scienceverse-formatted files) can then use
+the preregistration file and the data to automatically evaluate whether
+the predictions were confirmed or not.</p>
 <p>The demo below follows the example from:</p>
-<p>Lakens, D., &amp; DeBruine, L. M. (2020, January 27). Improving Transparency, Falsifiability, and Rigour by Making Hypothesis Tests Machine Readable. <a href="https://doi.org/10.31234/osf.io/5xcda" class="uri">https://doi.org/10.31234/osf.io/5xcda</a></p>
-<div id="set-up-the-study" class="section level2">
-<h2 class="hasAnchor">
-<a href="#set-up-the-study" class="anchor"></a>Set up the study</h2>
-<p>Set up the study with a name and any additional info you want to add.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Kinship and Prosocial Behaviour"</span>,
-               abstract <span class="op">=</span> <span class="st">"A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."</span><span class="op">)</span></pre></div>
+<p>Lakens, D., &amp; DeBruine, L. M. (2020, January 27). Improving
+Transparency, Falsifiability, and Rigour by Making Hypothesis Tests
+Machine Readable. <a href="https://doi.org/10.31234/osf.io/5xcda" class="external-link uri">https://doi.org/10.31234/osf.io/5xcda</a></p>
+<div class="section level2">
+<h2 id="set-up-the-study">Set up the study<a class="anchor" aria-label="anchor" href="#set-up-the-study"></a>
+</h2>
+<p>Set up the study with a name and any additional info you want to
+add.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Kinship and Prosocial Behaviour"</span>,</span>
+<span>               abstract <span class="op">=</span> <span class="st">"A reanalysis of data from DeBruine (2002) Facial Resemblance Enhances Trust, PRSLB."</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="authors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authors" class="anchor"></a>Authors</h2>
-<p>Add each author in the following format. Use the function <code><a href="../reference/credit_roles.html">credit_roles()</a></code> to see a list of the roles and their descriptions. Use <code><a href="../reference/credit_roles.html">credit_roles("name")</a></code> or <code><a href="../reference/credit_roles.html">credit_roles("abbr")</a></code> to just see their names or abbreviations. You can also add any further info, like an orcid or email address.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span><span class="va">study</span>, 
-                    orcid <span class="op">=</span> <span class="st">"0000-0002-7523-5539"</span>,
-                    surname <span class="op">=</span> <span class="st">"DeBruine"</span>,
-                    given <span class="op">=</span> <span class="st">"Lisa M."</span>,
-                    roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"dat"</span>, <span class="st">"sof"</span>, <span class="st">"dra"</span>, <span class="st">"edi"</span><span class="op">)</span>,
-                    email <span class="op">=</span> <span class="st">"lisa.debruine@glasgow.ac.uk"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-         <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span>orcid <span class="op">=</span> <span class="st">"0000-0002-0247-239X"</span>,
-                    surname <span class="op">=</span> <span class="st">"Lakens"</span>,
-                    given <span class="op">=</span> <span class="st">"Daniël"</span>,
-                    roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"ana"</span>, <span class="st">"dra"</span>, <span class="st">"edi"</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="authors">Authors<a class="anchor" aria-label="anchor" href="#authors"></a>
+</h2>
+<p>Add each author in the following format. Use the function
+<code><a href="../reference/credit_roles.html">credit_roles()</a></code> to see a list of the roles and their
+descriptions. Use <code>credit_roles("name")</code> or
+<code>credit_roles("abbr")</code> to just see their names or
+abbreviations. You can also add any further info, like an orcid or email
+address.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span><span class="va">study</span>, </span>
+<span>                    orcid <span class="op">=</span> <span class="st">"0000-0002-7523-5539"</span>,</span>
+<span>                    surname <span class="op">=</span> <span class="st">"DeBruine"</span>,</span>
+<span>                    given <span class="op">=</span> <span class="st">"Lisa M."</span>,</span>
+<span>                    roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"dat"</span>, <span class="st">"sof"</span>, <span class="st">"dra"</span>, <span class="st">"edi"</span><span class="op">)</span>,</span>
+<span>                    email <span class="op">=</span> <span class="st">"lisa.debruine@glasgow.ac.uk"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>         <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span>orcid <span class="op">=</span> <span class="st">"0000-0002-0247-239X"</span>,</span>
+<span>                    surname <span class="op">=</span> <span class="st">"Lakens"</span>,</span>
+<span>                    given <span class="op">=</span> <span class="st">"Daniël"</span>,</span>
+<span>                    roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"ana"</span>, <span class="st">"dra"</span>, <span class="st">"edi"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="hypotheses" class="section level2">
-<h2 class="hasAnchor">
-<a href="#hypotheses" class="anchor"></a>Hypotheses</h2>
-<p>Now add a hypothesis with a verbal description. You can add more than one hypothesis, but this demo study only has one.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"self_pref"</span>,
-                        description <span class="op">=</span> <span class="st">"Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs."</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="hypotheses">Hypotheses<a class="anchor" aria-label="anchor" href="#hypotheses"></a>
+</h2>
+<p>Now add a hypothesis with a verbal description. You can add more than
+one hypothesis, but this demo study only has one.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"self_pref"</span>,</span>
+<span>                        description <span class="op">=</span> <span class="st">"Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs."</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="analyses" class="section level2">
-<h2 class="hasAnchor">
-<a href="#analyses" class="anchor"></a>Analyses</h2>
-<p>Add all relevant analyses for testing this hypothesis in the order that they should be run. Do any data prep first. Each analysis needs an <code>id</code> for reference in the criteria later. The <code>code</code> can be R code (wrap it in {} if you need more than one line) or the file path for a .R file. You can also add other information about your analysis, such as the software it’s running on.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"trust"</span>,
-                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">kin</span><span class="op">$</span><span class="va">trust_self</span>, 
-                                    <span class="va">kin</span><span class="op">$</span><span class="va">trust_other</span>, 
-                                    paired <span class="op">=</span> <span class="cn">TRUE</span>, 
-                                    conf.level <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span>, 
-                      software <span class="op">=</span> <span class="va">R.version.string</span><span class="op">)</span> <span class="op">%&gt;%</span>
-         <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"recip"</span>,
-                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">kin</span><span class="op">$</span><span class="va">recip_self</span>,
-                                    <span class="va">kin</span><span class="op">$</span><span class="va">recip_other</span>,
-                                    paired <span class="op">=</span> <span class="cn">TRUE</span>,
-                                    conf.level <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span>, 
-                      software <span class="op">=</span> <span class="va">R.version.string</span><span class="op">)</span></pre></div>
-<p>If your analysis was run using other software or you only have summary statistics available, you can add a list of arbitrary named values like this (setting unknown values to <code>NA</code> for preregistration):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"tr_self"</span>,
-                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-                        t <span class="op">=</span> <span class="op">-</span><span class="fl">2.50</span>,
-                        df <span class="op">=</span> <span class="fl">23</span>,
-                        p <span class="op">=</span> <span class="fl">0.0198</span>,
-                        ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.9787</span>, <span class="op">-</span><span class="fl">0.0213</span><span class="op">)</span>,
-                        estimate <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>,
-                        stderr <span class="op">=</span> <span class="fl">0.2</span>,
-                        description <span class="op">=</span> <span class="st">"two-tailed paired t-test of trust_self vs recip_self"</span>
-                      <span class="op">)</span>, 
-                      software <span class="op">=</span> <span class="st">"SPSS"</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="analyses">Analyses<a class="anchor" aria-label="anchor" href="#analyses"></a>
+</h2>
+<p>Add all relevant analyses for testing this hypothesis in the order
+that they should be run. Do any data prep first. Each analysis needs an
+<code>id</code> for reference in the criteria later. The
+<code>code</code> can be R code (wrap it in {} if you need more than one
+line) or the file path for a .R file. You can also add other information
+about your analysis, such as the software it’s running on.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"trust"</span>,</span>
+<span>                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">kin</span><span class="op">$</span><span class="va">trust_self</span>, </span>
+<span>                                    <span class="va">kin</span><span class="op">$</span><span class="va">trust_other</span>, </span>
+<span>                                    paired <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                                    conf.level <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span>, </span>
+<span>                      software <span class="op">=</span> <span class="va">R.version.string</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>         <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"recip"</span>,</span>
+<span>                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">kin</span><span class="op">$</span><span class="va">recip_self</span>,</span>
+<span>                                    <span class="va">kin</span><span class="op">$</span><span class="va">recip_other</span>,</span>
+<span>                                    paired <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                    conf.level <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span>, </span>
+<span>                      software <span class="op">=</span> <span class="va">R.version.string</span><span class="op">)</span></span></code></pre></div>
+<p>If your analysis was run using other software or you only have
+summary statistics available, you can add a list of arbitrary named
+values like this (setting unknown values to <code>NA</code> for
+preregistration):</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"tr_self"</span>,</span>
+<span>                      code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>                        t <span class="op">=</span> <span class="op">-</span><span class="fl">2.50</span>,</span>
+<span>                        df <span class="op">=</span> <span class="fl">23</span>,</span>
+<span>                        p <span class="op">=</span> <span class="fl">0.0198</span>,</span>
+<span>                        ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.9787</span>, <span class="op">-</span><span class="fl">0.0213</span><span class="op">)</span>,</span>
+<span>                        estimate <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>,</span>
+<span>                        stderr <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>                        description <span class="op">=</span> <span class="st">"two-tailed paired t-test of trust_self vs recip_self"</span></span>
+<span>                      <span class="op">)</span>, </span>
+<span>                      software <span class="op">=</span> <span class="st">"SPSS"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="criteria" class="section level2">
-<h2 class="hasAnchor">
-<a href="#criteria" class="anchor"></a>Criteria</h2>
-<p>Next, add the criteria you will need to check to corroborate or falsify each hypothesis. Each criterion needs a unique <code>id</code> so you can reference it next in the evaluation. Then, optionally specify the <code>hypothesis_id</code> and <code>analysis_id</code> where you’ll look for the result. If you omit these it will default to the last one added. For example, the analysis <code>trust</code> returns a list from the function <code>t.test</code>, which includes a value for <code>conf.int</code>. To see if the first number in this vector is larger than 0, set <code>result</code> to “conf.int[1]”, <code>operator</code> to “&gt;” , and <code>comparator</code> to <span class="math inline">\(0\)</span>. The options for <code>operator</code> are “&gt;”, “&lt;”, “=”, and “!=”.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="va">study</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_lo"</span>,
-                result <span class="op">=</span> <span class="st">"conf.int[1]"</span>,
-                operator <span class="op">=</span> <span class="st">"&gt;"</span>,
-                comparator <span class="op">=</span> <span class="fl">0.0</span>,
-                analysis_id <span class="op">=</span> <span class="st">"trust"</span>,
-                hypothesis_id <span class="op">=</span> <span class="st">"self_pref"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"t_hi"</span>, <span class="st">"conf.int[2]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.2</span>, <span class="st">"trust"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"r_lo"</span>, <span class="st">"conf.int[1]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.0</span>, <span class="st">"recip"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"r_hi"</span>, <span class="st">"conf.int[2]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.2</span>, <span class="st">"recip"</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="criteria">Criteria<a class="anchor" aria-label="anchor" href="#criteria"></a>
+</h2>
+<p>Next, add the criteria you will need to check to corroborate or
+falsify each hypothesis. Each criterion needs a unique <code>id</code>
+so you can reference it next in the evaluation. Then, optionally specify
+the <code>hypothesis_id</code> and <code>analysis_id</code> where you’ll
+look for the result. If you omit these it will default to the last one
+added. For example, the analysis <code>trust</code> returns a list from
+the function <code>t.test</code>, which includes a value for
+<code>conf.int</code>. To see if the first number in this vector is
+larger than 0, set <code>result</code> to “conf.int[1]”,
+<code>operator</code> to “&gt;” , and <code>comparator</code> to <span class="math inline">\(0\)</span>. The options for <code>operator</code>
+are “&gt;”, “&lt;”, “=”, and “!=”.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="va">study</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_lo"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"conf.int[1]"</span>,</span>
+<span>                operator <span class="op">=</span> <span class="st">"&gt;"</span>,</span>
+<span>                comparator <span class="op">=</span> <span class="fl">0.0</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"trust"</span>,</span>
+<span>                hypothesis_id <span class="op">=</span> <span class="st">"self_pref"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"t_hi"</span>, <span class="st">"conf.int[2]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.2</span>, <span class="st">"trust"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"r_lo"</span>, <span class="st">"conf.int[1]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.0</span>, <span class="st">"recip"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"r_hi"</span>, <span class="st">"conf.int[2]"</span>, <span class="st">"&gt;"</span>, <span class="fl">0.2</span>, <span class="st">"recip"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="evaluation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#evaluation" class="anchor"></a>Evaluation</h2>
-<p>Add evaluation criteria for corroboration and falsification. The logical <code>evaluation</code> should reference the criterion <code>id</code>s above and can consist of those ids and the symbols <code>(</code>, <code>)</code>, <code><a href="https://rdrr.io/r/base/Logic.html">&amp;</a></code>, and <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code>. You can optionally include a verbal <code>description</code> of the criterion to clarify the logical evaluation.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"corroboration"</span>,
-                  evaluation <span class="op">=</span> <span class="st">"(t_lo &amp; t_hi) | (r_lo &amp; r_hi)"</span>,
-                  description <span class="op">=</span> <span class="st">"The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves."</span><span class="op">)</span>
-
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"falsification"</span>,
-                  evaluation <span class="op">=</span> <span class="st">"!t_hi &amp; !r_hi"</span>,
-                  description <span class="op">=</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="evaluation">Evaluation<a class="anchor" aria-label="anchor" href="#evaluation"></a>
+</h2>
+<p>Add evaluation criteria for corroboration and falsification. The
+logical <code>evaluation</code> should reference the criterion
+<code>id</code>s above and can consist of those ids and the symbols
+<code>(</code>, <code>)</code>, <code>&amp;</code>, and <code>|</code>.
+You can optionally include a verbal <code>description</code> of the
+criterion to clarify the logical evaluation.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"corroboration"</span>,</span>
+<span>                  evaluation <span class="op">=</span> <span class="st">"(t_lo &amp; t_hi) | (r_lo &amp; r_hi)"</span>,</span>
+<span>                  description <span class="op">=</span> <span class="st">"The hypothesis is corroborated if the 97.5% CI lower bound is greater than 0 and the 97.5% CI upper bound is greater than 0.2 (the SESOI) for either the trust or reciprocation moves."</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"falsification"</span>,</span>
+<span>                  evaluation <span class="op">=</span> <span class="st">"!t_hi &amp; !r_hi"</span>,</span>
+<span>                  description <span class="op">=</span> <span class="st">"The hypothesis is falsified if the 97.5% CI upper bound is smaller than 0.2 (the SESOI) for both trust and reciprocation."</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="saving" class="section level2">
-<h2 class="hasAnchor">
-<a href="#saving" class="anchor"></a>Saving</h2>
-<p>At this point, you can save your study to a machine-readable JSON-formatted file.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"prereg.json"</span>, format <span class="op">=</span> <span class="st">"json"</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/prereg.json</code></pre>
-<p>You can also export a human-readable pre-registration using the built-in “prereg” template.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"prereg.html"</span>, format <span class="op">=</span> <span class="st">"prereg"</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/prereg.html</code></pre>
+<div class="section level2">
+<h2 id="saving">Saving<a class="anchor" aria-label="anchor" href="#saving"></a>
+</h2>
+<p>At this point, you can save your study to a machine-readable
+JSON-formatted file.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"prereg.json"</span>, format <span class="op">=</span> <span class="st">"json"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Saving to /Users/debruine/rproj/scienceverse/scienceverse/vignettes/prereg.json</span></span></code></pre>
+<p>You can also export a human-readable pre-registration using the
+built-in “prereg” template.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"prereg.html"</span>, format <span class="op">=</span> <span class="st">"prereg"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Saving to /Users/debruine/rproj/scienceverse/scienceverse/vignettes/prereg.html</span></span></code></pre>
 </div>
-<div id="data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h2>
-<p>The <code>id</code> you give the data can be used in the analysis code to refer to this dataset. The <code>data</code> argument can be a data frame or a file path to a data file or a PsychDS-formatted codebook. You can optionally add column parameters such as descriptions with the argument <code>vardesc</code> and other dataset parameters as additional arguments.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">kin_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  trust_self  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,
-  trust_other <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>,
-  recip_self  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,
-  recip_other <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    trust_self  <span class="op">=</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,
-    trust_other <span class="op">=</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,
-    recip_self  <span class="op">=</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,
-    recip_other <span class="op">=</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>
-  <span class="op">)</span>,
-  dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"int"</span>, <span class="fl">4</span><span class="op">)</span> <span class="co"># all variables are integer types</span>
-<span class="op">)</span>
-
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_data.html">add_data</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"kin"</span>, 
-                  data <span class="op">=</span> <span class="va">kin_data</span>, 
-                  vardesc <span class="op">=</span> <span class="va">desc</span>, 
-                  url <span class="op">=</span> <span class="st">"https://osf.io/ewfhs/"</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Registered S3 method overwritten by 'faux':
-#&gt;   method            from        
-#&gt;   print.nested_list scienceverse</code></pre>
+<div class="section level2">
+<h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h2>
+<p>The <code>id</code> you give the data can be used in the analysis
+code to refer to this dataset. The <code>data</code> argument can be a
+data frame or a file path to a data file or a PsychDS-formatted
+codebook. You can optionally add column parameters such as descriptions
+with the argument <code>vardesc</code> and other dataset parameters as
+additional arguments.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kin_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trust_self  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>  trust_other <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>  recip_self  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>  recip_other <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">desc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    trust_self  <span class="op">=</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</span>
+<span>    trust_other <span class="op">=</span> <span class="st">"Number of trusting moves towards self-morphs"</span>,</span>
+<span>    recip_self  <span class="op">=</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span>,</span>
+<span>    recip_other <span class="op">=</span> <span class="st">"Number of reciprocating moves towards other-morphs"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"int"</span>, <span class="fl">4</span><span class="op">)</span> <span class="co"># all variables are integer types</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_data.html">add_data</a></span><span class="op">(</span><span class="va">study</span>, id <span class="op">=</span> <span class="st">"kin"</span>, </span>
+<span>                  data <span class="op">=</span> <span class="va">kin_data</span>, </span>
+<span>                  vardesc <span class="op">=</span> <span class="va">desc</span>, </span>
+<span>                  url <span class="op">=</span> <span class="st">"https://osf.io/ewfhs/"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="run-analyses" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-analyses" class="anchor"></a>Run Analyses</h2>
-<p>When you run <code>study_analyse</code>, the data are loaded as their <code>id</code> names and the analyses are run in order. For example, the data from the section above will be available to your analyses as a dataframe called <code>kin</code>. The analysis is run in a separate environment, so you won’t see any new objects in the global environment. Therefore, changes you make to, e.g., a dataframe called <code>kin</code> in your global environment won’t affect the analysis. The evaluation of each criterion and hypothesis is printed as a message.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">study</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Hypothesis self_pref: Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.
-#&gt; 
-#&gt; Criterion t_lo:
-#&gt; * conf.int[1] &gt; 0 is TRUE
-#&gt; * conf.int[1] = 0.021
-#&gt; 
-#&gt; Criterion t_hi:
-#&gt; * conf.int[2] &gt; 0.2 is TRUE
-#&gt; * conf.int[2] = 0.979
-#&gt; 
-#&gt; Criterion r_lo:
-#&gt; * conf.int[1] &gt; 0 is FALSE
-#&gt; * conf.int[1] = -0.509
-#&gt; 
-#&gt; Criterion r_hi:
-#&gt; * conf.int[2] &gt; 0.2 is TRUE
-#&gt; * conf.int[2] = 0.426
-#&gt; 
-#&gt; Conclusion: corroborate
-#&gt; * Corroborate ((t_lo &amp; t_hi) | (r_lo &amp; r_hi)): TRUE
-#&gt; * Falsify (!t_hi &amp; !r_hi): FALSE</code></pre>
+<div class="section level2">
+<h2 id="run-analyses">Run Analyses<a class="anchor" aria-label="anchor" href="#run-analyses"></a>
+</h2>
+<p>When you run <code>study_analyse</code>, the data are loaded as their
+<code>id</code> names and the analyses are run in order. For example,
+the data from the section above will be available to your analyses as a
+dataframe called <code>kin</code>. The analysis is run in a separate
+environment, so you won’t see any new objects in the global environment.
+Therefore, changes you make to, e.g., a dataframe called
+<code>kin</code> in your global environment won’t affect the analysis.
+The evaluation of each criterion and hypothesis is printed as a
+message.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">study</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Hypothesis self_pref: Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion t_lo:</span></span>
+<span><span class="co">#&gt; * conf.int[1] &gt; 0 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[1] = 0.021</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion t_hi:</span></span>
+<span><span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[2] = 0.979</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion r_lo:</span></span>
+<span><span class="co">#&gt; * conf.int[1] &gt; 0 is FALSE</span></span>
+<span><span class="co">#&gt; * conf.int[1] = -0.509</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion r_hi:</span></span>
+<span><span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[2] = 0.426</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Conclusion: corroborate</span></span>
+<span><span class="co">#&gt; * Corroborate ((t_lo &amp; t_hi) | (r_lo &amp; r_hi)): TRUE</span></span>
+<span><span class="co">#&gt; * Falsify (!t_hi &amp; !r_hi): FALSE</span></span></code></pre>
 </div>
-<div id="save-and-reload" class="section level2">
-<h2 class="hasAnchor">
-<a href="#save-and-reload" class="anchor"></a>Save and reload</h2>
-<p>At this point, you can save the post-registration version of your study to a JSON-formatted file and also export a human-readable post-registration report.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"postreg.json"</span>, <span class="st">"json"</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/postreg.json</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"postreg.html"</span>, <span class="st">"postreg"</span><span class="op">)</span></pre></div>
-<pre><code>#&gt; Saving to /Users/lisad/rproj/scienceverse/scienceverse/vignettes/postreg.html</code></pre>
-<p>You can reload and edit your study by loading the .json file with the study() function.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="va">study2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"postreg.json"</span><span class="op">)</span>
-
-<span class="va">study2</span> <span class="co"># displays a summary</span></pre></div>
-<pre><code>#&gt; Kinship and Prosocial Behaviour
-#&gt; -------------------------------
-#&gt; 
-#&gt; * Hypotheses: self_pref
-#&gt; * Data: kin
-#&gt; * Analyses: trust, recip
-#&gt; 
-#&gt; Hypothesis self_pref: Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.
-#&gt; 
-#&gt; Criterion t_lo:
-#&gt; * conf.int[1] &gt; 0 is TRUE
-#&gt; * conf.int[1] = 0.021
-#&gt; 
-#&gt; Criterion t_hi:
-#&gt; * conf.int[2] &gt; 0.2 is TRUE
-#&gt; * conf.int[2] = 0.979
-#&gt; 
-#&gt; Criterion r_lo:
-#&gt; * conf.int[1] &gt; 0 is FALSE
-#&gt; * conf.int[1] = -0.509
-#&gt; 
-#&gt; Criterion r_hi:
-#&gt; * conf.int[2] &gt; 0.2 is TRUE
-#&gt; * conf.int[2] = 0.426
-#&gt; 
-#&gt; Conclusion: corroborate
-#&gt; * Corroborate ((t_lo &amp; t_hi) | (r_lo &amp; r_hi)): TRUE
-#&gt; * Falsify (!t_hi &amp; !r_hi): FALSE</code></pre>
+<div class="section level2">
+<h2 id="save-and-reload">Save and reload<a class="anchor" aria-label="anchor" href="#save-and-reload"></a>
+</h2>
+<p>At this point, you can save the post-registration version of your
+study to a JSON-formatted file and also export a human-readable
+post-registration report.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"postreg.json"</span>, <span class="st">"json"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Saving to /Users/debruine/rproj/scienceverse/scienceverse/vignettes/postreg.json</span></span></code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/study_save.html">study_save</a></span><span class="op">(</span><span class="va">study</span>, <span class="st">"postreg.html"</span>, <span class="st">"postreg"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Saving to /Users/debruine/rproj/scienceverse/scienceverse/vignettes/postreg.html</span></span></code></pre>
+<p>You can reload and edit your study by loading the .json file with the
+study() function.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"postreg.json"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">study2</span> <span class="co"># displays a summary</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Kinship and Prosocial Behaviour</span></span>
+<span><span class="co">#&gt; -------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; * Hypotheses: self_pref</span></span>
+<span><span class="co">#&gt; * Data: kin</span></span>
+<span><span class="co">#&gt; * Analyses: trust, recip</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Hypothesis self_pref: Cues of kinship will increase prosocial behaviour. Cues of kinship will be manipulated by morphed facial self-resemblance. Prosocial behaviour will be measured by responses in the trust game. The prediction is that the number of trusting AND/OR reciprocating moves will be greater to self morphs than to other morphs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion t_lo:</span></span>
+<span><span class="co">#&gt; * conf.int[1] &gt; 0 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[1] = 0.021</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion t_hi:</span></span>
+<span><span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[2] = 0.979</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion r_lo:</span></span>
+<span><span class="co">#&gt; * conf.int[1] &gt; 0 is FALSE</span></span>
+<span><span class="co">#&gt; * conf.int[1] = -0.509</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Criterion r_hi:</span></span>
+<span><span class="co">#&gt; * conf.int[2] &gt; 0.2 is TRUE</span></span>
+<span><span class="co">#&gt; * conf.int[2] = 0.426</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Conclusion: corroborate</span></span>
+<span><span class="co">#&gt; * Corroborate ((t_lo &amp; t_hi) | (r_lo &amp; r_hi)): TRUE</span></span>
+<span><span class="co">#&gt; * Falsify (!t_hi &amp; !r_hi): FALSE</span></span></code></pre>
 </div>
   </div>
 
@@ -326,11 +374,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine, Daniel Lakens.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine, Daniel Lakens.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
@@ -338,6 +388,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -215,7 +215,9 @@ full_text_table_from_grobid <- function(body) {
 
 #' Search the full text
 #'
-#' @param study a study object created by `study_from_grobid` or a list of study objects
+#' Search the full text of a study paper. Currently only works with study objects that have full text imported from grobid (e.g., using `study_from_xml()`).
+#'
+#' @param study a study object created by `study_from_xml` or a list of study objects
 #' @param term the regex term to search for
 #' @param section the section(s) to search in
 #' @param refs whether to include references

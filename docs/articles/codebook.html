@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9021</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -68,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/scienceverse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/scienceverse/scienceverse/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,268 +79,276 @@
 
       
 
-      </header><script src="codebook_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Codebook Tutorial</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/codebook.Rmd"><code>vignettes/codebook.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/HEAD/vignettes/codebook.Rmd" class="external-link"><code>vignettes/codebook.Rmd</code></a></small>
       <div class="hidden name"><code>codebook.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ************</span>
-<span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span>
-<span class="co">#&gt; http://scienceverse.github.io/</span>
-<span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span>
-<span class="co">#&gt; ************</span></pre></div>
-<p>Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default as set up in the function <code><a href="https://rdrr.io/pkg/faux/man/codebook.html">faux::codebook()</a></code>, although you can manually add your own codebook to the JSON file.</p>
-<div id="automatic-codebooks-for-simulated-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#automatic-codebooks-for-simulated-data" class="anchor"></a>Automatic Codebooks for Simulated Data</h2>
-<p>When you add simulated data to a study object, the codebook is generated by default.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span><span class="st">"pets"</span>,
-               between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
-                                      dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>,
-               n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,
-               dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>happy <span class="op">=</span> <span class="st">"Happiness Score"</span><span class="op">)</span>,
-               id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"Subject ID"</span><span class="op">)</span>,
-               mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>,
-               sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'faux':</span>
-<span class="co">#&gt;   method            from        </span>
-<span class="co">#&gt;   print.nested_list scienceverse</span>
-<span class="co">#&gt; id set to dataType string</span>
-<span class="co">#&gt; pet set to dataType string</span>
-<span class="co">#&gt; happy set to dataType float</span></pre></div>
-<p>You can retrieve the codebook with the function <code><a href="../reference/get_codebook.html">get_codebook()</a></code>. If you don’t specify the data_id, it defaults to the first data set in the study.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span><span class="op">(</span><span class="va">study</span>, data_id <span class="op">=</span> <span class="st">"pets"</span><span class="op">)</span></pre></div>
-<p>If you just type the codebook object into the console, you’ll see the info formatted like this.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">cb</span>
-<span class="co">#&gt; Codebook for pets (Psych-DS 0.1.0)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Dataset Parameters</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; * name: pets</span>
-<span class="co">#&gt; * schemaVersion: Psych-DS 0.1.0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Column Parameters</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; * id (string): Subject ID</span>
-<span class="co">#&gt; * pet (string)</span>
-<span class="co">#&gt;   * Levels</span>
-<span class="co">#&gt;     * cat: Cat Owners</span>
-<span class="co">#&gt;     * dog: Dog Owners</span>
-<span class="co">#&gt;   * Ordered: FALSE</span>
-<span class="co">#&gt; * happy (float): Happiness Score</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse" class="external-link">scienceverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ************</span></span>
+<span><span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span></span>
+<span><span class="co">#&gt; http://scienceverse.github.io/</span></span>
+<span><span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span></span>
+<span><span class="co">#&gt; ************</span></span></code></pre></div>
+<p>Codebooks in scienceverse follow the Psych-DS 0.1.0 format by default
+as set up in the function <code><a href="https://rdrr.io/pkg/faux/man/codebook.html" class="external-link">faux::codebook()</a></code>, although you
+can manually add your own codebook to the JSON file.</p>
+<div class="section level2">
+<h2 id="automatic-codebooks-for-simulated-data">Automatic Codebooks for Simulated Data<a class="anchor" aria-label="anchor" href="#automatic-codebooks-for-simulated-data"></a>
+</h2>
+<p>When you add simulated data to a study object, the codebook is
+generated by default.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span><span class="st">"pets"</span>,</span>
+<span>               between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, </span>
+<span>                                      dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>               n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>               dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>happy <span class="op">=</span> <span class="st">"Happiness Score"</span><span class="op">)</span>,</span>
+<span>               id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"Subject ID"</span><span class="op">)</span>,</span>
+<span>               mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>,</span>
+<span>               sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; id set to dataType string</span></span>
+<span><span class="co">#&gt; pet set to dataType string</span></span>
+<span><span class="co">#&gt; happy set to dataType float</span></span></code></pre></div>
+<p>You can retrieve the codebook with the function
+<code><a href="../reference/get_codebook.html">get_codebook()</a></code>. If you don’t specify the data_id, it
+defaults to the first data set in the study.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span><span class="op">(</span><span class="va">study</span>, data_id <span class="op">=</span> <span class="st">"pets"</span><span class="op">)</span></span></code></pre></div>
+<p>If you just type the codebook object into the console, you’ll see the
+info formatted like this.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cb</span></span>
+<span><span class="co">#&gt; Codebook for pets (Psych-DS 0.1.0)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Dataset Parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; * name: pets</span></span>
+<span><span class="co">#&gt; * schemaVersion: Psych-DS 0.1.0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Column Parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; * id (string): Subject ID</span></span>
+<span><span class="co">#&gt; * pet (string)</span></span>
+<span><span class="co">#&gt;   * Levels</span></span>
+<span><span class="co">#&gt;     * cat: Cat Owners</span></span>
+<span><span class="co">#&gt;     * dog: Dog Owners</span></span>
+<span><span class="co">#&gt;   * Ordered: FALSE</span></span>
+<span><span class="co">#&gt; * happy (float): Happiness Score</span></span></code></pre></div>
 <p>But the codebook is actually a nested list formatted like this:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cb</span><span class="op">)</span>
-<span class="co">#&gt; List of 5</span>
-<span class="co">#&gt;  $ @context        : chr "https://schema.org/"</span>
-<span class="co">#&gt;  $ @type           : chr "Dataset"</span>
-<span class="co">#&gt;  $ name            : chr "pets"</span>
-<span class="co">#&gt;  $ schemaVersion   : chr "Psych-DS 0.1.0"</span>
-<span class="co">#&gt;  $ variableMeasured:List of 3</span>
-<span class="co">#&gt;   ..$ :List of 4</span>
-<span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
-<span class="co">#&gt;   .. ..$ name       : chr "id"</span>
-<span class="co">#&gt;   .. ..$ description: chr "Subject ID"</span>
-<span class="co">#&gt;   .. ..$ dataType   : chr "string"</span>
-<span class="co">#&gt;   ..$ :List of 6</span>
-<span class="co">#&gt;   .. ..$ @type        : chr "PropertyValue"</span>
-<span class="co">#&gt;   .. ..$ name         : chr "pet"</span>
-<span class="co">#&gt;   .. ..$ description  : chr "pet"</span>
-<span class="co">#&gt;   .. ..$ levels       :List of 2</span>
-<span class="co">#&gt;   .. .. ..$ cat: chr "Cat Owners"</span>
-<span class="co">#&gt;   .. .. ..$ dog: chr "Dog Owners"</span>
-<span class="co">#&gt;   .. ..$ dataType     : chr "string"</span>
-<span class="co">#&gt;   .. ..$ levelsOrdered: logi FALSE</span>
-<span class="co">#&gt;   ..$ :List of 4</span>
-<span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span>
-<span class="co">#&gt;   .. ..$ name       : chr "happy"</span>
-<span class="co">#&gt;   .. ..$ description: chr "Happiness Score"</span>
-<span class="co">#&gt;   .. ..$ dataType   : chr "float"</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">cb</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 5</span></span>
+<span><span class="co">#&gt;  $ @context        : chr "https://schema.org/"</span></span>
+<span><span class="co">#&gt;  $ @type           : chr "Dataset"</span></span>
+<span><span class="co">#&gt;  $ name            : chr "pets"</span></span>
+<span><span class="co">#&gt;  $ schemaVersion   : chr "Psych-DS 0.1.0"</span></span>
+<span><span class="co">#&gt;  $ variableMeasured:List of 3</span></span>
+<span><span class="co">#&gt;   ..$ :List of 4</span></span>
+<span><span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span></span>
+<span><span class="co">#&gt;   .. ..$ name       : chr "id"</span></span>
+<span><span class="co">#&gt;   .. ..$ description: chr "Subject ID"</span></span>
+<span><span class="co">#&gt;   .. ..$ dataType   : chr "string"</span></span>
+<span><span class="co">#&gt;   ..$ :List of 6</span></span>
+<span><span class="co">#&gt;   .. ..$ @type        : chr "PropertyValue"</span></span>
+<span><span class="co">#&gt;   .. ..$ name         : chr "pet"</span></span>
+<span><span class="co">#&gt;   .. ..$ description  : chr "pet"</span></span>
+<span><span class="co">#&gt;   .. ..$ levels       :List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ cat: chr "Cat Owners"</span></span>
+<span><span class="co">#&gt;   .. .. ..$ dog: chr "Dog Owners"</span></span>
+<span><span class="co">#&gt;   .. ..$ dataType     : chr "string"</span></span>
+<span><span class="co">#&gt;   .. ..$ levelsOrdered: logi FALSE</span></span>
+<span><span class="co">#&gt;   ..$ :List of 4</span></span>
+<span><span class="co">#&gt;   .. ..$ @type      : chr "PropertyValue"</span></span>
+<span><span class="co">#&gt;   .. ..$ name       : chr "happy"</span></span>
+<span><span class="co">#&gt;   .. ..$ description: chr "Happiness Score"</span></span>
+<span><span class="co">#&gt;   .. ..$ dataType   : chr "float"</span></span>
+<span><span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></span></code></pre></div>
 <p>You can also view it in JSON format.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span><span class="op">(</span><span class="va">study</span>, data_id <span class="op">=</span> <span class="st">"pets"</span>, as_json <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     "@context": "https://schema.org/",</span>
-<span class="co">#&gt;     "@type": "Dataset",</span>
-<span class="co">#&gt;     "name": "pets",</span>
-<span class="co">#&gt;     "schemaVersion": "Psych-DS 0.1.0",</span>
-<span class="co">#&gt;     "variableMeasured": [</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "id",</span>
-<span class="co">#&gt;             "description": "Subject ID",</span>
-<span class="co">#&gt;             "dataType": "string"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "pet",</span>
-<span class="co">#&gt;             "description": "pet",</span>
-<span class="co">#&gt;             "levels": {</span>
-<span class="co">#&gt;                 "cat": "Cat Owners",</span>
-<span class="co">#&gt;                 "dog": "Dog Owners"</span>
-<span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "dataType": "string",</span>
-<span class="co">#&gt;             "levelsOrdered": false</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "happy",</span>
-<span class="co">#&gt;             "description": "Happiness Score",</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         }</span>
-<span class="co">#&gt;     ]</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; </span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_codebook.html">get_codebook</a></span><span class="op">(</span><span class="va">study</span>, data_id <span class="op">=</span> <span class="st">"pets"</span>, as_json <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {</span></span>
+<span><span class="co">#&gt;     "@context": "https://schema.org/",</span></span>
+<span><span class="co">#&gt;     "@type": "Dataset",</span></span>
+<span><span class="co">#&gt;     "name": "pets",</span></span>
+<span><span class="co">#&gt;     "schemaVersion": "Psych-DS 0.1.0",</span></span>
+<span><span class="co">#&gt;     "variableMeasured": [</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "id",</span></span>
+<span><span class="co">#&gt;             "description": "Subject ID",</span></span>
+<span><span class="co">#&gt;             "dataType": "string"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "pet",</span></span>
+<span><span class="co">#&gt;             "description": "pet",</span></span>
+<span><span class="co">#&gt;             "levels": {</span></span>
+<span><span class="co">#&gt;                 "cat": "Cat Owners",</span></span>
+<span><span class="co">#&gt;                 "dog": "Dog Owners"</span></span>
+<span><span class="co">#&gt;             },</span></span>
+<span><span class="co">#&gt;             "dataType": "string",</span></span>
+<span><span class="co">#&gt;             "levelsOrdered": false</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "happy",</span></span>
+<span><span class="co">#&gt;             "description": "Happiness Score",</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         }</span></span>
+<span><span class="co">#&gt;     ]</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 </div>
-<div id="run-codebook-on-existing-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-codebook-on-existing-data" class="anchor"></a>Run Codebook on Existing Data</h2>
-<p>You can run the codebook function on existing data, but will need to manually input some things. For now, the supported properties are: “description”, “privacy”, “dataType”, “propertyID”, “minValue”, “maxValue”, “levels”, “levelsOrdered”, “na”, “naValue”, “alternateName”, “unitCode” and “unitText”. You can set unsupported properties, but this will produce a warning.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-
-
-<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    mpg <span class="op">=</span> <span class="st">"Miles/(US) gallon"</span>,
-    cyl <span class="op">=</span> <span class="st">"Number of cylinders"</span>,
-    disp <span class="op">=</span> <span class="st">"Displacement (cu.in.)"</span>,
-    hp <span class="op">=</span> <span class="st">"Gross horsepower"</span>,
-    drat <span class="op">=</span> <span class="st">"Rear axle ratio"</span>,
-    wt <span class="op">=</span> <span class="st">"Weight (1000 lbs)"</span>,
-    qsec <span class="op">=</span> <span class="st">"1/4 mile time"</span>,
-    vs <span class="op">=</span> <span class="st">"Engine (0 = V-shaped, 1 = straight)"</span>,
-    am <span class="op">=</span> <span class="st">"Transmission (0 = automatic, 1 = manual)"</span>,
-    gear <span class="op">=</span> <span class="st">"Number of forward gears"</span>,
-    carb <span class="op">=</span> <span class="st">"Number of carburetors"</span>
-  <span class="op">)</span>,
-  <span class="co"># min and max values can be set manually or from data</span>
-  <span class="co"># min and max are often outside the observed range</span>
-  minValue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="fl">0</span>, cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span>,
-  maxValue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span>,
-  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    vs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"V-shaped"</span>, <span class="st">"1"</span> <span class="op">=</span> <span class="st">"straight"</span><span class="op">)</span>,
-    am <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"automatic"</span>, <span class="st">"1"</span> <span class="op">=</span> <span class="st">"manual"</span><span class="op">)</span>
-  <span class="op">)</span>,
-  dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    cyl <span class="op">=</span> <span class="st">"integer"</span>,
-    hp <span class="op">=</span> <span class="st">"integer"</span>,
-    vs <span class="op">=</span> <span class="st">"factor"</span>,
-    am <span class="op">=</span> <span class="st">"factor"</span>,
-    gear <span class="op">=</span> <span class="st">"integer"</span>,
-    carb <span class="op">=</span> <span class="st">"integer"</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="va">vardesc</span><span class="op">)</span>
-<span class="co">#&gt; mpg set to dataType float</span>
-<span class="co">#&gt; disp set to dataType float</span>
-<span class="co">#&gt; drat set to dataType float</span>
-<span class="co">#&gt; wt set to dataType float</span>
-<span class="co">#&gt; qsec set to dataType float</span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     "@context": "https://schema.org/",</span>
-<span class="co">#&gt;     "@type": "Dataset",</span>
-<span class="co">#&gt;     "name": "Motor Trend Car Road Tests",</span>
-<span class="co">#&gt;     "schemaVersion": "Psych-DS 0.1.0",</span>
-<span class="co">#&gt;     "variableMeasured": [</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "mpg",</span>
-<span class="co">#&gt;             "description": "Miles/(US) gallon",</span>
-<span class="co">#&gt;             "minValue": 0,</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "cyl",</span>
-<span class="co">#&gt;             "description": "Number of cylinders",</span>
-<span class="co">#&gt;             "minValue": 4,</span>
-<span class="co">#&gt;             "maxValue": 8,</span>
-<span class="co">#&gt;             "dataType": "int"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "disp",</span>
-<span class="co">#&gt;             "description": "Displacement (cu.in.)",</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "hp",</span>
-<span class="co">#&gt;             "description": "Gross horsepower",</span>
-<span class="co">#&gt;             "dataType": "int"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "drat",</span>
-<span class="co">#&gt;             "description": "Rear axle ratio",</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "wt",</span>
-<span class="co">#&gt;             "description": "Weight (1000 lbs)",</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "qsec",</span>
-<span class="co">#&gt;             "description": "1/4 mile time",</span>
-<span class="co">#&gt;             "dataType": "float"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "vs",</span>
-<span class="co">#&gt;             "description": "Engine (0 = V-shaped, 1 = straight)",</span>
-<span class="co">#&gt;             "levels": {</span>
-<span class="co">#&gt;                 "0": "V-shaped",</span>
-<span class="co">#&gt;                 "1": "straight"</span>
-<span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "dataType": "string",</span>
-<span class="co">#&gt;             "levelsOrdered": false</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "am",</span>
-<span class="co">#&gt;             "description": "Transmission (0 = automatic, 1 = manual)",</span>
-<span class="co">#&gt;             "levels": {</span>
-<span class="co">#&gt;                 "0": "automatic",</span>
-<span class="co">#&gt;                 "1": "manual"</span>
-<span class="co">#&gt;             },</span>
-<span class="co">#&gt;             "dataType": "string",</span>
-<span class="co">#&gt;             "levelsOrdered": false</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "gear",</span>
-<span class="co">#&gt;             "description": "Number of forward gears",</span>
-<span class="co">#&gt;             "dataType": "int"</span>
-<span class="co">#&gt;         },</span>
-<span class="co">#&gt;         {</span>
-<span class="co">#&gt;             "@type": "PropertyValue",</span>
-<span class="co">#&gt;             "name": "carb",</span>
-<span class="co">#&gt;             "description": "Number of carburetors",</span>
-<span class="co">#&gt;             "dataType": "int"</span>
-<span class="co">#&gt;         }</span>
-<span class="co">#&gt;     ]</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; </span></pre></div>
+<div class="section level2">
+<h2 id="run-codebook-on-existing-data">Run Codebook on Existing Data<a class="anchor" aria-label="anchor" href="#run-codebook-on-existing-data"></a>
+</h2>
+<p>You can run the codebook function on existing data, but will need to
+manually input some things. For now, the supported properties are:
+“description”, “privacy”, “dataType”, “propertyID”, “minValue”,
+“maxValue”, “levels”, “levelsOrdered”, “na”, “naValue”, “alternateName”,
+“unitCode” and “unitText”. You can set unsupported properties, but this
+will produce a warning.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    mpg <span class="op">=</span> <span class="st">"Miles/(US) gallon"</span>,</span>
+<span>    cyl <span class="op">=</span> <span class="st">"Number of cylinders"</span>,</span>
+<span>    disp <span class="op">=</span> <span class="st">"Displacement (cu.in.)"</span>,</span>
+<span>    hp <span class="op">=</span> <span class="st">"Gross horsepower"</span>,</span>
+<span>    drat <span class="op">=</span> <span class="st">"Rear axle ratio"</span>,</span>
+<span>    wt <span class="op">=</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
+<span>    qsec <span class="op">=</span> <span class="st">"1/4 mile time"</span>,</span>
+<span>    vs <span class="op">=</span> <span class="st">"Engine (0 = V-shaped, 1 = straight)"</span>,</span>
+<span>    am <span class="op">=</span> <span class="st">"Transmission (0 = automatic, 1 = manual)"</span>,</span>
+<span>    gear <span class="op">=</span> <span class="st">"Number of forward gears"</span>,</span>
+<span>    carb <span class="op">=</span> <span class="st">"Number of carburetors"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="co"># min and max values can be set manually or from data</span></span>
+<span>  <span class="co"># min and max are often outside the observed range</span></span>
+<span>  minValue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="fl">0</span>, cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  maxValue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    vs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"V-shaped"</span>, <span class="st">"1"</span> <span class="op">=</span> <span class="st">"straight"</span><span class="op">)</span>,</span>
+<span>    am <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"automatic"</span>, <span class="st">"1"</span> <span class="op">=</span> <span class="st">"manual"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    cyl <span class="op">=</span> <span class="st">"integer"</span>,</span>
+<span>    hp <span class="op">=</span> <span class="st">"integer"</span>,</span>
+<span>    vs <span class="op">=</span> <span class="st">"factor"</span>,</span>
+<span>    am <span class="op">=</span> <span class="st">"factor"</span>,</span>
+<span>    gear <span class="op">=</span> <span class="st">"integer"</span>,</span>
+<span>    carb <span class="op">=</span> <span class="st">"integer"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"Motor Trend Car Road Tests"</span>, <span class="va">vardesc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; mpg set to dataType float</span></span>
+<span><span class="co">#&gt; disp set to dataType float</span></span>
+<span><span class="co">#&gt; drat set to dataType float</span></span>
+<span><span class="co">#&gt; wt set to dataType float</span></span>
+<span><span class="co">#&gt; qsec set to dataType float</span></span>
+<span><span class="co">#&gt; {</span></span>
+<span><span class="co">#&gt;     "@context": "https://schema.org/",</span></span>
+<span><span class="co">#&gt;     "@type": "Dataset",</span></span>
+<span><span class="co">#&gt;     "name": "Motor Trend Car Road Tests",</span></span>
+<span><span class="co">#&gt;     "schemaVersion": "Psych-DS 0.1.0",</span></span>
+<span><span class="co">#&gt;     "variableMeasured": [</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "mpg",</span></span>
+<span><span class="co">#&gt;             "description": "Miles/(US) gallon",</span></span>
+<span><span class="co">#&gt;             "minValue": 0,</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "cyl",</span></span>
+<span><span class="co">#&gt;             "description": "Number of cylinders",</span></span>
+<span><span class="co">#&gt;             "minValue": 4,</span></span>
+<span><span class="co">#&gt;             "maxValue": 8,</span></span>
+<span><span class="co">#&gt;             "dataType": "int"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "disp",</span></span>
+<span><span class="co">#&gt;             "description": "Displacement (cu.in.)",</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "hp",</span></span>
+<span><span class="co">#&gt;             "description": "Gross horsepower",</span></span>
+<span><span class="co">#&gt;             "dataType": "int"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "drat",</span></span>
+<span><span class="co">#&gt;             "description": "Rear axle ratio",</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "wt",</span></span>
+<span><span class="co">#&gt;             "description": "Weight (1000 lbs)",</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "qsec",</span></span>
+<span><span class="co">#&gt;             "description": "1/4 mile time",</span></span>
+<span><span class="co">#&gt;             "dataType": "float"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "vs",</span></span>
+<span><span class="co">#&gt;             "description": "Engine (0 = V-shaped, 1 = straight)",</span></span>
+<span><span class="co">#&gt;             "levels": {</span></span>
+<span><span class="co">#&gt;                 "0": "V-shaped",</span></span>
+<span><span class="co">#&gt;                 "1": "straight"</span></span>
+<span><span class="co">#&gt;             },</span></span>
+<span><span class="co">#&gt;             "dataType": "string",</span></span>
+<span><span class="co">#&gt;             "levelsOrdered": false</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "am",</span></span>
+<span><span class="co">#&gt;             "description": "Transmission (0 = automatic, 1 = manual)",</span></span>
+<span><span class="co">#&gt;             "levels": {</span></span>
+<span><span class="co">#&gt;                 "0": "automatic",</span></span>
+<span><span class="co">#&gt;                 "1": "manual"</span></span>
+<span><span class="co">#&gt;             },</span></span>
+<span><span class="co">#&gt;             "dataType": "string",</span></span>
+<span><span class="co">#&gt;             "levelsOrdered": false</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "gear",</span></span>
+<span><span class="co">#&gt;             "description": "Number of forward gears",</span></span>
+<span><span class="co">#&gt;             "dataType": "int"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;             "@type": "PropertyValue",</span></span>
+<span><span class="co">#&gt;             "name": "carb",</span></span>
+<span><span class="co">#&gt;             "description": "Number of carburetors",</span></span>
+<span><span class="co">#&gt;             "dataType": "int"</span></span>
+<span><span class="co">#&gt;         }</span></span>
+<span><span class="co">#&gt;     ]</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 </div>
   </div>
 
@@ -359,11 +363,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine, Daniel Lakens.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine, Daniel Lakens.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
@@ -371,6 +377,8 @@
 
   
 
+
+  
 
   </body>
 </html>

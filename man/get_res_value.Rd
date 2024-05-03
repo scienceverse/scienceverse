@@ -17,3 +17,4 @@ value from results list or the txt if not found
 \description{
 Get value from results list
 }
+\keyword{internal}

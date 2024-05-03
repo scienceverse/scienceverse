@@ -131,6 +131,7 @@ make_script <- function(study, path = NULL,
 #' @param cb The codebook
 #'
 #' @return named list of all the variable descriptions
+#' @keywords internal
 #'
 cb_vars <- function(cb) {
   vars <- list()

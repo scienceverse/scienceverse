@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9021</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -68,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/scienceverse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/scienceverse/scienceverse/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,90 +79,104 @@
 
       
 
-      </header><script src="credit_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Crediting Authors</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/credit.Rmd"><code>vignettes/credit.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/HEAD/vignettes/credit.Rmd" class="external-link"><code>vignettes/credit.Rmd</code></a></small>
       <div class="hidden name"><code>credit.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ************</span>
-<span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span>
-<span class="co">#&gt; http://scienceverse.github.io/</span>
-<span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span>
-<span class="co">#&gt; ************</span></pre></div>
-<div id="credit" class="section level2">
-<h2 class="hasAnchor">
-<a href="#credit" class="anchor"></a>CRediT</h2>
-<p>Scienceverse supports the <a href="https://casrai.org/credit/">CRediT taxonomy</a> for authorship roles.</p>
-<p>Use the function <code><a href="../reference/credit_roles.html">credit_roles()</a></code> to view a list of possible roles and their abbreviations. Set <code>display</code> to <code>"names"</code> or <code>"abbr"</code> to just list the names or abbreviations.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1/con] Conceptualization: Ideas; formulation or evolution of overarching research goals and aims.</span>
-<span class="co">#&gt; [2/dat] Data curation: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.</span>
-<span class="co">#&gt; [3/ana] Formal analysis: Application of statistical, mathematical, computational, or other formal techniques to analyse or synthesize study data.</span>
-<span class="co">#&gt; [4/fun] Funding acquisition: Acquisition of the financial support for the project leading to this publication.</span>
-<span class="co">#&gt; [5/inv] Investigation: Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.</span>
-<span class="co">#&gt; [6/met] Methodology: Development or design of methodology; creation of models.</span>
-<span class="co">#&gt; [7/adm] Project administration: Management and coordination responsibility for the research activity planning and execution.</span>
-<span class="co">#&gt; [8/res] Resources: Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.</span>
-<span class="co">#&gt; [9/sof] Software: Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms; testing of existing code components.</span>
-<span class="co">#&gt; [10/sup] Supervision: Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.</span>
-<span class="co">#&gt; [11/val] Validation: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.</span>
-<span class="co">#&gt; [12/vis] Visualization: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.</span>
-<span class="co">#&gt; [13/dra] Writing - original draft: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).</span>
-<span class="co">#&gt; [14/edi] Writing - review &amp; editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.</span></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "Conceptualization"          "Data curation"             </span>
-<span class="co">#&gt;  [3] "Formal analysis"            "Funding acquisition"       </span>
-<span class="co">#&gt;  [5] "Investigation"              "Methodology"               </span>
-<span class="co">#&gt;  [7] "Project administration"     "Resources"                 </span>
-<span class="co">#&gt;  [9] "Software"                   "Supervision"               </span>
-<span class="co">#&gt; [11] "Validation"                 "Visualization"             </span>
-<span class="co">#&gt; [13] "Writing - original draft"   "Writing - review &amp; editing"</span></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"abbr"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "con" "dat" "ana" "fun" "inv" "met" "adm" "res" "sof" "sup" "val" "vis"</span>
-<span class="co">#&gt; [13] "dra" "edi"</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse" class="external-link">scienceverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ************</span></span>
+<span><span class="co">#&gt; Welcome to scienceverse For support and examples visit:</span></span>
+<span><span class="co">#&gt; http://scienceverse.github.io/</span></span>
+<span><span class="co">#&gt; - Get and set global package options with: scienceverse_options()</span></span>
+<span><span class="co">#&gt; ************</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="credit">CRediT<a class="anchor" aria-label="anchor" href="#credit"></a>
+</h2>
+<p>Scienceverse supports the <a href="https://casrai.org/credit/" class="external-link">CRediT
+taxonomy</a> for authorship roles.</p>
+<p>Use the function <code><a href="../reference/credit_roles.html">credit_roles()</a></code> to view a list of
+possible roles and their abbreviations. Set <code>display</code> to
+<code>"names"</code> or <code>"abbr"</code> to just list the names or
+abbreviations.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1/con] Conceptualization: Ideas; formulation or evolution of overarching research goals and aims.</span></span>
+<span><span class="co">#&gt; [2/dat] Data curation: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.</span></span>
+<span><span class="co">#&gt; [3/ana] Formal analysis: Application of statistical, mathematical, computational, or other formal techniques to analyse or synthesize study data.</span></span>
+<span><span class="co">#&gt; [4/fun] Funding acquisition: Acquisition of the financial support for the project leading to this publication.</span></span>
+<span><span class="co">#&gt; [5/inv] Investigation: Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.</span></span>
+<span><span class="co">#&gt; [6/met] Methodology: Development or design of methodology; creation of models.</span></span>
+<span><span class="co">#&gt; [7/adm] Project administration: Management and coordination responsibility for the research activity planning and execution.</span></span>
+<span><span class="co">#&gt; [8/res] Resources: Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.</span></span>
+<span><span class="co">#&gt; [9/sof] Software: Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms; testing of existing code components.</span></span>
+<span><span class="co">#&gt; [10/sup] Supervision: Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.</span></span>
+<span><span class="co">#&gt; [11/val] Validation: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.</span></span>
+<span><span class="co">#&gt; [12/vis] Visualization: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.</span></span>
+<span><span class="co">#&gt; [13/dra] Writing - original draft: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).</span></span>
+<span><span class="co">#&gt; [14/edi] Writing - review &amp; editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "Conceptualization"          "Data curation"             </span></span>
+<span><span class="co">#&gt;  [3] "Formal analysis"            "Funding acquisition"       </span></span>
+<span><span class="co">#&gt;  [5] "Investigation"              "Methodology"               </span></span>
+<span><span class="co">#&gt;  [7] "Project administration"     "Resources"                 </span></span>
+<span><span class="co">#&gt;  [9] "Software"                   "Supervision"               </span></span>
+<span><span class="co">#&gt; [11] "Validation"                 "Visualization"             </span></span>
+<span><span class="co">#&gt; [13] "Writing - original draft"   "Writing - review &amp; editing"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/credit_roles.html">credit_roles</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"abbr"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "con" "dat" "ana" "fun" "inv" "met" "adm" "res" "sof" "sup" "val" "vis"</span></span>
+<span><span class="co">#&gt; [13] "dra" "edi"</span></span></code></pre></div>
 </div>
-<div id="orcid" class="section level2">
-<h2 class="hasAnchor">
-<a href="#orcid" class="anchor"></a>ORCiD</h2>
-<p>Scienceverse supports recording and searching for <a href="https://orcid.org/">ORCiDs</a>. Every researcher should have an ORCiD to link their papers and avoid problems with name changes.</p>
-<p>You can use the <code><a href="../reference/get_orcid.html">get_orcid()</a></code> function to search for an ORCiD quickly, although you might need to go to their website for more advanced search if they have a common name and you get multiple hits. This function requires a web connection.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">ldb_orcid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"DeBruine"</span>, <span class="st">"Lisa"</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="orcid">ORCiD<a class="anchor" aria-label="anchor" href="#orcid"></a>
+</h2>
+<p>Scienceverse supports recording and searching for <a href="https://orcid.org/" class="external-link">ORCiDs</a>. Every researcher should have an
+ORCiD to link their papers and avoid problems with name changes.</p>
+<p>You can use the <code><a href="../reference/get_orcid.html">get_orcid()</a></code> function to search for an
+ORCiD quickly, although you might need to go to their website for more
+advanced search if they have a common name and you get multiple hits.
+This function requires a web connection.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ldb_orcid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"DeBruine"</span>, <span class="st">"Lisa"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="adding-an-author-to-a-study" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-an-author-to-a-study" class="anchor"></a>Adding an author to a study</h2>
-<p>You can add authors to a study object with the <code><a href="../reference/add_author.html">add_author()</a></code> function. Authors must have a <code>surname</code>, and you can optionally add a <code>given</code> name, <code>orcid</code> and <code>roles</code> (using the names, abbreviations, or indices above). You can also make up any other category of information, such as <code>email</code> or <code>affiliation</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="co"># set up an empty study</span>
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> 
-
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span><span class="va">s</span>, 
-                surname <span class="op">=</span> <span class="st">"DeBruine"</span>,
-                given <span class="op">=</span> <span class="st">"Lisa M."</span>,
-                orcid <span class="op">=</span> <span class="va">ldb_orcid</span>, 
-                roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"sof"</span>, <span class="st">"edi"</span><span class="op">)</span>,
-                email <span class="op">=</span> <span class="st">"debruine@gmail.com"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span>surname <span class="op">=</span> <span class="st">"Lakens"</span>,
-             given <span class="op">=</span> <span class="st">"Daniel"</span>,
-             orcid <span class="op">=</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"Lakens"</span>, <span class="st">"Daniel"</span><span class="op">)</span>,
-             roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">s</span><span class="op">$</span><span class="va">authors</span></pre></div>
+<div class="section level2">
+<h2 id="adding-an-author-to-a-study">Adding an author to a study<a class="anchor" aria-label="anchor" href="#adding-an-author-to-a-study"></a>
+</h2>
+<p>You can add authors to a study object with the
+<code><a href="../reference/add_author.html">add_author()</a></code> function. Authors must have a
+<code>surname</code>, and you can optionally add a <code>given</code>
+name, <code>orcid</code> and <code>roles</code> (using the names,
+abbreviations, or indices above). You can also make up any other
+category of information, such as <code>email</code> or
+<code>affiliation</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># set up an empty study</span></span>
+<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span><span class="va">s</span>, </span>
+<span>                surname <span class="op">=</span> <span class="st">"DeBruine"</span>,</span>
+<span>                given <span class="op">=</span> <span class="st">"Lisa M."</span>,</span>
+<span>                orcid <span class="op">=</span> <span class="va">ldb_orcid</span>, </span>
+<span>                roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"con"</span>, <span class="st">"sof"</span>, <span class="st">"edi"</span><span class="op">)</span>,</span>
+<span>                email <span class="op">=</span> <span class="st">"debruine@gmail.com"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_author.html">add_author</a></span><span class="op">(</span>surname <span class="op">=</span> <span class="st">"Lakens"</span>,</span>
+<span>             given <span class="op">=</span> <span class="st">"Daniel"</span>,</span>
+<span>             orcid <span class="op">=</span> <span class="fu"><a href="../reference/get_orcid.html">get_orcid</a></span><span class="op">(</span><span class="st">"Lakens"</span>, <span class="st">"Daniel"</span><span class="op">)</span>,</span>
+<span>             roles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">s</span><span class="op">$</span><span class="va">authors</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><ul>
 <li>orcid: 0000-0002-7523-5539</li>
@@ -204,13 +214,16 @@
 </ul></li>
 </ol>
 </div>
-<div id="credit-format" class="section level2">
-<h2 class="hasAnchor">
-<a href="#credit-format" class="anchor"></a>CRediT format</h2>
-<p>You can use the <code><a href="../reference/author_jats.html">author_jats()</a></code> function to format a study’s author list in the machine-readable JATS format requested by CRediT.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">jats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/author_jats.html">author_jats</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></pre></div>
-<p>The output of <code><a href="../reference/author_jats.html">author_jats()</a></code> looks like this in the source code of a webpage:</p>
+<div class="section level2">
+<h2 id="credit-format">CRediT format<a class="anchor" aria-label="anchor" href="#credit-format"></a>
+</h2>
+<p>You can use the <code><a href="../reference/author_jats.html">author_jats()</a></code> function to format a
+study’s author list in the machine-readable JATS format requested by
+CRediT.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">jats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/author_jats.html">author_jats</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></code></pre></div>
+<p>The output of <code><a href="../reference/author_jats.html">author_jats()</a></code> looks like this in the
+source code of a webpage:</p>
 <pre>
 &lt;contrib-group&gt;
 &lt;contrib&gt;
@@ -267,11 +280,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine, Daniel Lakens.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine, Daniel Lakens.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
@@ -279,6 +294,8 @@
 
   
 
+
+  
 
   </body>
 </html>

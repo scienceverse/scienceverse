@@ -6,6 +6,7 @@
 #' @param id The id for the section (index or character) if NULL, assigns to the last item in the list
 #' @param section The section to search, c("hypotheses", "analyses", "data")
 #' @return A numeric index
+#' @keywords internal
 #'
 get_idx <- function(study, id = NULL, section = "hypotheses") {
   n <- length(study[[section]])
@@ -30,6 +31,7 @@ get_idx <- function(study, id = NULL, section = "hypotheses") {
 #' @param id The id for the section (index or character) if NULL, assigns to the last item in the list
 #' @param section The section to search, c("hypotheses", "analyses", "data")
 #' @return A list of id and idx
+#' @keywords internal
 #'
 get_id_idx <- function(study, id = NULL, section = "hypotheses") {
   if (length(study[[section]]) == 0) {
@@ -91,6 +93,8 @@ get_id_idx <- function(study, id = NULL, section = "hypotheses") {
 #' @param id the id to fix
 #'
 #' @return a fixed ID character string (only a-z, A-Z, 0-9, and _)
+#'
+#' @keywords internal
 fix_id <- function(id) {
   new_id <- gsub("[^a-zA-Z0-9_]+", "_", id)
 
@@ -107,6 +111,7 @@ fix_id <- function(id) {
 #' @param results named list of results
 #'
 #' @return value from results list or the txt if not found
+#' @keywords internal
 #'
 get_res_value <- function(txt, results) {
   # return txt if it is boolean
@@ -157,6 +162,7 @@ get_res_value <- function(txt, results) {
 #' @param as_char Whether the result should be formatted as a character with trailing 0s (if relevant)
 #' @param ...	arguments to be passed to methods.
 #' @return The character vector or the rounded version if numeric.
+#' @keywords internal
 #'
 round_char <- function(x, digits = 0, as_char = FALSE, ...) {
   if (length(x) == 0) return("NA")
@@ -254,6 +260,7 @@ load_params <- function(params, study) {
 #' @param ... Additional parameters for print
 #'
 #' @export
+#' @keywords internal
 #'
 print.scivrs_study <- function(x, ...) {
   hyp <- sapply(x$hypotheses, `[[`, "id") %>%
@@ -280,6 +287,7 @@ print.scivrs_study <- function(x, ...) {
 #' @param ... Additional parameters for print
 #'
 #' @export
+#' @keywords internal
 #'
 print.scivrs_results <- function(x, ...) {
   cat(nested_list(x))
@@ -291,6 +299,7 @@ print.scivrs_results <- function(x, ...) {
 #' @param ... Additional parameters for print
 #'
 #' @export
+#' @keywords internal
 #'
 print.scivrs_author <- function(x, ...) {
   cat(nested_list(x))
@@ -302,6 +311,7 @@ print.scivrs_author <- function(x, ...) {
 #' @param ... Additional parameters for print
 #'
 #' @export
+#' @keywords internal
 #'
 print.scivrs_authors <- function(x, ...) {
   cat(nested_list(x))

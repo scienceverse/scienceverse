@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scienceverse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9021</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -68,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/scienceverse/scienceverse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/scienceverse/scienceverse/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,393 +79,427 @@
 
       
 
-      </header><script src="power_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Power Demo (ANOVA)</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/master/vignettes/power.Rmd"><code>vignettes/power.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/scienceverse/scienceverse/blob/HEAD/vignettes/power.Rmd" class="external-link"><code>vignettes/power.Rmd</code></a></small>
       <div class="hidden name"><code>power.Rmd</code></div>
 
     </div>
 
     
     
-<p>How do you test a specific hypothesis for a complex hypothesis, such as a 4x3x2 mixed-design ANOVA? For example, suppose you have a hypothesis about two within-subject factors (A and B) in three between-subject conditions (control, C1 and C2). You predict that there will be no effects of A or B (and no interaction) in the control condition, an effect of B only on A1 in the first experimental condition, and an effect of B only on A2 in the second experimental condition.</p>
-<p>The point of this tutorial is to show just how complex the decision criteria can be for an interaction. I don’t think I’ve chosen ideal criteria, but this is a model for how to start thinking about how you’d specify hypothesis corroboration criteria that are more sophisticated than just “predict a significant 3-way interaction”.</p>
-<div id="packages-used" class="section level2">
-<h2 class="hasAnchor">
-<a href="#packages-used" class="anchor"></a>Packages Used</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse">scienceverse</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/">afex</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<p>How do you test a specific hypothesis for a complex hypothesis, such
+as a 4x3x2 mixed-design ANOVA? For example, suppose you have a
+hypothesis about two within-subject factors (A and B) in three
+between-subject conditions (control, C1 and C2). You predict that there
+will be no effects of A or B (and no interaction) in the control
+condition, an effect of B only on A1 in the first experimental
+condition, and an effect of B only on A2 in the second experimental
+condition.</p>
+<p>The point of this tutorial is to show just how complex the decision
+criteria can be for an interaction. I don’t think I’ve chosen ideal
+criteria, but this is a model for how to start thinking about how you’d
+specify hypothesis corroboration criteria that are more sophisticated
+than just “predict a significant 3-way interaction”.</p>
+<div class="section level2">
+<h2 id="packages-used">Packages Used<a class="anchor" aria-label="anchor" href="#packages-used"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/scienceverse/scienceverse" class="external-link">scienceverse</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux" class="external-link">faux</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/scienceverse_options.html">scienceverse_options</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="test-data-simulation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#test-data-simulation" class="anchor"></a>Test Data Simulation</h2>
-<p>First, simulate some data so you can build your analysis structure. I’ve built in a pretty big interaction, with nothing at all going on in the control condition, and opposite interactions among the within-subject factors in experimental conditions 1 and 2. There are 20 observations (<code>n</code>) in each between cell. Check the</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">faux</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/faux/man/sim_design.html">sim_design</a></span><span class="op">(</span>
-   within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A4"</span><span class="op">)</span>,
-                 B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1"</span>, <span class="st">"B2"</span><span class="op">)</span><span class="op">)</span>,
-   between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"C0"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span><span class="op">)</span><span class="op">)</span>,
-   n <span class="op">=</span> <span class="fl">20</span>,
-        <span class="co"># A1_B1, A1_B2, A2_B1 ... A4_B2</span>
-   mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="co"># C0</span>
-          <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span>,  <span class="fl">0</span>,  <span class="co"># C1</span>
-          <span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span><span class="op">)</span>, <span class="co"># C2</span>
-   sd <span class="op">=</span> <span class="fl">1</span>,
-   r <span class="op">=</span> <span class="fl">0.5</span>,
-   id <span class="op">=</span> <span class="st">"sub_id"</span>,
-   dv <span class="op">=</span> <span class="st">"score"</span>,
-   long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="test-data-simulation">Test Data Simulation<a class="anchor" aria-label="anchor" href="#test-data-simulation"></a>
+</h2>
+<p>First, simulate some data so you can build your analysis structure.
+I’ve built in a pretty big interaction, with nothing at all going on in
+the control condition, and opposite interactions among the
+within-subject factors in experimental conditions 1 and 2. There are 20
+observations (<code>n</code>) in each between cell. Check the</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">faux</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/faux/man/sim_design.html" class="external-link">sim_design</a></span><span class="op">(</span></span>
+<span>   within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A4"</span><span class="op">)</span>,</span>
+<span>                 B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B1"</span>, <span class="st">"B2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>   between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C0"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>   n <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>        <span class="co"># A1_B1, A1_B2, A2_B1 ... A4_B2</span></span>
+<span>   mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="co"># C0</span></span>
+<span>          <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span>,  <span class="fl">0</span>,  <span class="co"># C1</span></span>
+<span>          <span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span><span class="op">)</span>, <span class="co"># C2</span></span>
+<span>   sd <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>   r <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>   id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>   dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>   long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="power_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
-<div id="test-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#test-analysis" class="anchor"></a>Test analysis</h2>
-<p>I’m using the <code><a href="https://rdrr.io/pkg/afex/man/aov_car.html">afex::aov_ez()</a></code> function to run an ANOVA. This maps on pretty straightforwardly to the way you simulate the data in {faux}.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># run ANOVA</span>
-<span class="va">omnibus</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,
-                        dv <span class="op">=</span> <span class="st">"score"</span>,
-                        between <span class="op">=</span> <span class="st">"C"</span>,
-                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                        data <span class="op">=</span> <span class="va">dat</span>,
-                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></pre></div>
-<pre><code>## Contrasts set to contr.sum for the following variables: C</code></pre>
-<p>{scienceverse} requires any numbers you use from an analysis to be returned as a named list, and we only care about the 3-way interaction for this study, so we’ll use {dplyr} and {tidyr} to get just the values we want.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># get stats for 3-way interaction</span>
-<span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">omnibus</span><span class="op">)</span><span class="op">[</span><span class="st">"C:A:B"</span>, <span class="op">]</span>
-
-<span class="co"># calculate group means</span>
-<span class="va">means</span> <span class="op">&lt;-</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">dat</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">summarise</span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"grp"</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span>
-
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">m</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">grp</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,
-  F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>,
-  means <span class="op">=</span> <span class="va">m</span>
-<span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<pre><code>## List of 3
-##  $ p    : num 0.175
-##  $ F    : num 1.53
-##  $ means: Named num [1:24] 0.0693 0.2482 0.2407 -0.0398 0.0253 ...
-##   ..- attr(*, "names")= chr [1:24] "A1_B1_C0" "A1_B1_C1" "A1_B1_C2" "A1_B2_C0" ...</code></pre>
-<p>Now you might also want to do some analyses to check that the pattern of any significant 3-way interaction is consistent with your hypothesis.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">aov_control</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,
-                        dv <span class="op">=</span> <span class="st">"score"</span>,
-                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                        data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C0"</span><span class="op">)</span>,
-                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-<span class="va">aov_c1</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,
-                        dv <span class="op">=</span> <span class="st">"score"</span>,
-                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                        data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C1"</span><span class="op">)</span>,
-                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-<span class="va">aov_c2</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,
-                        dv <span class="op">=</span> <span class="st">"score"</span>,
-                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                        data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C2"</span><span class="op">)</span>,
-                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_control</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span>,
-  cond1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_c1</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span>,
-  cond2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_c2</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span>
-<span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<pre><code>## List of 3
-##  $ control: num 0.859
-##  $ cond1  : num 0.263
-##  $ cond2  : num 0.223</code></pre>
+<div class="section level2">
+<h2 id="test-analysis">Test analysis<a class="anchor" aria-label="anchor" href="#test-analysis"></a>
+</h2>
+<p>I’m using the <code><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">afex::aov_ez()</a></code> function to run an ANOVA.
+This maps on pretty straightforwardly to the way you simulate the data
+in {faux}.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># run ANOVA</span></span>
+<span><span class="va">omnibus</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>                        dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>                        between <span class="op">=</span> <span class="st">"C"</span>,</span>
+<span>                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>                        data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Contrasts set to contr.sum for the following variables: C</span></span></code></pre>
+<p>{scienceverse} requires any numbers you use from an analysis to be
+returned as a named list, and we only care about the 3-way interaction
+for this study, so we’ll use {dplyr} and {tidyr} to get just the values
+we want.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get stats for 3-way interaction</span></span>
+<span><span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">omnibus</span><span class="op">)</span><span class="op">[</span><span class="st">"C:A:B"</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># calculate group means</span></span>
+<span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html" class="external-link">unite</a></span><span class="op">(</span><span class="st">"grp"</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">m</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">grp</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,</span>
+<span>  F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>,</span>
+<span>  means <span class="op">=</span> <span class="va">m</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## List of 3</span></span>
+<span><span class="co">##  $ p    : num 0.00134</span></span>
+<span><span class="co">##  $ F    : num 3.92</span></span>
+<span><span class="co">##  $ means: Named num [1:24] 0.2259 0.1663 0.2055 -0.0404 0.0899 ...</span></span>
+<span><span class="co">##   ..- attr(*, "names")= chr [1:24] "A1_B1_C0" "A1_B1_C1" "A1_B1_C2" "A1_B2_C0" ...</span></span></code></pre>
+<p>Now you might also want to do some analyses to check that the pattern
+of any significant 3-way interaction is consistent with your
+hypothesis.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aov_control</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>                        dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>                        data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C0"</span><span class="op">)</span>,</span>
+<span>                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">aov_c1</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>                        dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>                        data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C1"</span><span class="op">)</span>,</span>
+<span>                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">aov_c2</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>                        dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>                        within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>                        data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C2"</span><span class="op">)</span>,</span>
+<span>                        return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_control</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span>,</span>
+<span>  cond1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_c1</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span>,</span>
+<span>  cond2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_c2</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="st">"Pr(&gt;F)"</span><span class="op">]</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## List of 3</span></span>
+<span><span class="co">##  $ control: num 0.517</span></span>
+<span><span class="co">##  $ cond1  : num 7.82e-05</span></span>
+<span><span class="co">##  $ cond2  : num 0.723</span></span></code></pre>
 </div>
-<div id="set-up-scienceverse-study" class="section level2">
-<h2 class="hasAnchor">
-<a href="#set-up-scienceverse-study" class="anchor"></a>Set up Scienceverse study</h2>
-<p>Set up the study by adding simulated data (use the argument from <code><a href="https://rdrr.io/pkg/faux/man/sim_design.html">faux::sim_design()</a></code> above), the analyses above (make sure to add the library calls at the start of the analysis code or preface each function with the package name).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span>data_id <span class="op">=</span> <span class="st">"dat"</span>,
-    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A4"</span><span class="op">)</span>,
-                  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1"</span>, <span class="st">"B2"</span><span class="op">)</span><span class="op">)</span>,
-    between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"C0"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span><span class="op">)</span><span class="op">)</span>,
-    n <span class="op">=</span> <span class="fl">20</span>,
-         <span class="co"># A1_B1, A1_B2, A2_B1 ... A4_B2</span>
-    mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="co"># C0</span>
-           <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span>,  <span class="fl">0</span>,  <span class="co"># C1</span>
-           <span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span><span class="op">)</span>, <span class="co"># C2</span>
-    sd <span class="op">=</span> <span class="fl">1</span>,
-    r <span class="op">=</span> <span class="fl">0.5</span>,
-    id <span class="op">=</span> <span class="st">"sub_id"</span>,
-    dv <span class="op">=</span> <span class="st">"score"</span>,
-    long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"ANOVA"</span>, code <span class="op">=</span> <span class="op">{</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># add for pipes</span>
-    
-    <span class="co"># run ANOVA</span>
-    <span class="va">omnibus</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,
-                            dv <span class="op">=</span> <span class="st">"score"</span>,
-                            between <span class="op">=</span> <span class="st">"C"</span>,
-                            within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                            data <span class="op">=</span> <span class="va">dat</span>,
-                            return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-    <span class="co"># get stats for 3-way interaction</span>
-    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">omnibus</span><span class="op">)</span><span class="op">[</span><span class="st">"C:A:B"</span>, <span class="op">]</span>
-
-    <span class="co"># calculate group means</span>
-    <span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"grp"</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span>
-    
-    <span class="va">m</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">m</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">grp</span>
-    
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,
-      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>,
-      means <span class="op">=</span> <span class="va">m</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="set-up-scienceverse-study">Set up Scienceverse study<a class="anchor" aria-label="anchor" href="#set-up-scienceverse-study"></a>
+</h2>
+<p>Set up the study by adding simulated data (use the argument from
+<code><a href="https://rdrr.io/pkg/faux/man/sim_design.html" class="external-link">faux::sim_design()</a></code> above), the analyses above (make sure to
+add the library calls at the start of the analysis code or preface each
+function with the package name).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study.html">study</a></span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_sim_data.html">add_sim_data</a></span><span class="op">(</span>data_id <span class="op">=</span> <span class="st">"dat"</span>,</span>
+<span>    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A4"</span><span class="op">)</span>,</span>
+<span>                  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B1"</span>, <span class="st">"B2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C0"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    n <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>         <span class="co"># A1_B1, A1_B2, A2_B1 ... A4_B2</span></span>
+<span>    mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="co"># C0</span></span>
+<span>           <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span>,  <span class="fl">0</span>,  <span class="co"># C1</span></span>
+<span>           <span class="fl">0</span>, <span class="fl">0</span>,  <span class="fl">0</span>, <span class="fl">.2</span>,  <span class="fl">0</span>, <span class="fl">.4</span>,  <span class="fl">0</span>, <span class="fl">.6</span><span class="op">)</span>, <span class="co"># C2</span></span>
+<span>    sd <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    r <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>    dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>    long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"ANOVA"</span>, code <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span> <span class="co"># add for pipes</span></span>
+<span>    </span>
+<span>    <span class="co"># run ANOVA</span></span>
+<span>    <span class="va">omnibus</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>                            dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>                            between <span class="op">=</span> <span class="st">"C"</span>,</span>
+<span>                            within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>                            data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>                            return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># get stats for 3-way interaction</span></span>
+<span>    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">omnibus</span><span class="op">)</span><span class="op">[</span><span class="st">"C:A:B"</span>, <span class="op">]</span></span>
+<span></span>
+<span>    <span class="co"># calculate group means</span></span>
+<span>    <span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html" class="external-link">unite</a></span><span class="op">(</span><span class="st">"grp"</span>, <span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">m</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">means</span><span class="op">$</span><span class="va">grp</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,</span>
+<span>      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>,</span>
+<span>      means <span class="op">=</span> <span class="va">m</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Check the analysis works.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<pre><code>## Contrasts set to contr.sum for the following variables: C</code></pre>
-<pre><code>## * p: 0.0799278
-## * F: 1.9424453
-## * means: 
-##     * A1_B1_C0: -0.1513062
-##     * A1_B1_C1: 0.5302605
-##     * A1_B1_C2: 0.2147065
-##     * A1_B2_C0: -0.1150104
-##     * A1_B2_C1: 0.2394406
-##     * A1_B2_C2: -0.1316707
-##     * A2_B1_C0: -0.0752131
-##     * A2_B1_C1: 0.5149828
-##     * A2_B1_C2: -0.0294286
-##     * A2_B2_C0: -0.2582569
-##     * A2_B2_C1: 0.1935122
-##     * A2_B2_C2: 0.3162614
-##     * A3_B1_C0: 0.2860275
-##     * A3_B1_C1: 0.4743795
-##     * A3_B1_C2: -0.0102132
-##     * A3_B2_C0: -0.0348743
-##     * A3_B2_C1: 0.27751
-##     * A3_B2_C2: 0.4565901
-##     * A4_B1_C0: 0.0889195
-##     * A4_B1_C1: 0.7312793
-##     * A4_B1_C2: -0.001072
-##     * A4_B2_C0: -0.0123132
-##     * A4_B2_C1: 0.2371247
-##     * A4_B2_C2: 0.6997963</code></pre>
-<p>Add the extra analyses. They can go in the code of the main analysis and their results can be added to the returned list, or they can be added as separate analysis objects.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C0"</span>, code <span class="op">=</span> <span class="op">{</span>
-    <span class="co"># run ANOVA</span>
-    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>
-      id <span class="op">=</span> <span class="st">"sub_id"</span>,
-      dv <span class="op">=</span> <span class="st">"score"</span>,
-      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C0"</span><span class="op">)</span>,
-      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-    <span class="co"># get stats for 2-way interaction</span>
-    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span>
-
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,
-      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C1"</span>, code <span class="op">=</span> <span class="op">{</span>
-    <span class="co"># run ANOVA</span>
-    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>
-      id <span class="op">=</span> <span class="st">"sub_id"</span>,
-      dv <span class="op">=</span> <span class="st">"score"</span>,
-      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C1"</span><span class="op">)</span>,
-      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-    <span class="co"># get stats for 2-way interaction</span>
-    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span>
-
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,
-      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C2"</span>, code <span class="op">=</span> <span class="op">{</span>
-    <span class="co"># run ANOVA</span>
-    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_ez</a></span><span class="op">(</span>
-      id <span class="op">=</span> <span class="st">"sub_id"</span>,
-      dv <span class="op">=</span> <span class="st">"score"</span>,
-      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C2"</span><span class="op">)</span>,
-      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span>
-
-    <span class="co"># get stats for 2-way interaction</span>
-    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span>
-
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,
-      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Contrasts set to contr.sum for the following variables: C</span></span></code></pre>
+<pre><code><span><span class="co">## * p: 0.0266132</span></span>
+<span><span class="co">## * F: 2.4877548</span></span>
+<span><span class="co">## * means: </span></span>
+<span><span class="co">##     * A1_B1_C0: -0.1337731</span></span>
+<span><span class="co">##     * A1_B1_C1: 0.1267129</span></span>
+<span><span class="co">##     * A1_B1_C2: 0.0862133</span></span>
+<span><span class="co">##     * A1_B2_C0: 0.1689413</span></span>
+<span><span class="co">##     * A1_B2_C1: -0.0306296</span></span>
+<span><span class="co">##     * A1_B2_C2: -0.0097975</span></span>
+<span><span class="co">##     * A2_B1_C0: -0.4170866</span></span>
+<span><span class="co">##     * A2_B1_C1: 0.5754561</span></span>
+<span><span class="co">##     * A2_B1_C2: 0.0971473</span></span>
+<span><span class="co">##     * A2_B2_C0: 0.1441423</span></span>
+<span><span class="co">##     * A2_B2_C1: 0.1385843</span></span>
+<span><span class="co">##     * A2_B2_C2: 0.4122881</span></span>
+<span><span class="co">##     * A3_B1_C0: -0.1840667</span></span>
+<span><span class="co">##     * A3_B1_C1: 0.590779</span></span>
+<span><span class="co">##     * A3_B1_C2: -0.2317178</span></span>
+<span><span class="co">##     * A3_B2_C0: -0.1017749</span></span>
+<span><span class="co">##     * A3_B2_C1: 0.1340324</span></span>
+<span><span class="co">##     * A3_B2_C2: 0.3220298</span></span>
+<span><span class="co">##     * A4_B1_C0: -0.1415867</span></span>
+<span><span class="co">##     * A4_B1_C1: 0.3902043</span></span>
+<span><span class="co">##     * A4_B1_C2: -0.0509695</span></span>
+<span><span class="co">##     * A4_B2_C0: -0.4350458</span></span>
+<span><span class="co">##     * A4_B2_C1: -0.0131861</span></span>
+<span><span class="co">##     * A4_B2_C2: 0.6406034</span></span></code></pre>
+<p>Add the extra analyses. They can go in the code of the main analysis
+and their results can be added to the returned list, or they can be
+added as separate analysis objects.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C0"</span>, code <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="co"># run ANOVA</span></span>
+<span>    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>      dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C0"</span><span class="op">)</span>,</span>
+<span>      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># get stats for 2-way interaction</span></span>
+<span>    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,</span>
+<span>      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C1"</span>, code <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="co"># run ANOVA</span></span>
+<span>    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>      dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C1"</span><span class="op">)</span>,</span>
+<span>      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># get stats for 2-way interaction</span></span>
+<span>    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,</span>
+<span>      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_analysis.html">add_analysis</a></span><span class="op">(</span><span class="st">"C2"</span>, code <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="co"># run ANOVA</span></span>
+<span>    <span class="va">aov_c</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"sub_id"</span>,</span>
+<span>      dv <span class="op">=</span> <span class="st">"score"</span>,</span>
+<span>      within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">C</span> <span class="op">==</span> <span class="st">"C2"</span><span class="op">)</span>,</span>
+<span>      return <span class="op">=</span> <span class="st">"afex_aov"</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># get stats for 2-way interaction</span></span>
+<span>    <span class="va">ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aov_c</span><span class="op">)</span><span class="op">[</span><span class="st">"A:B"</span>, <span class="op">]</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      p <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="va">`Pr(&gt;F)`</span>,</span>
+<span>      F <span class="op">=</span> <span class="va">ixn</span><span class="op">$</span><span class="cn">F</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Check the new analyses works.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> </pre></div>
-<pre><code>## Contrasts set to contr.sum for the following variables: C</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C0"</span><span class="op">)</span></pre></div>
-<pre><code>## * p: 0.5811598
-## * F: 0.5923327</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C1"</span><span class="op">)</span></pre></div>
-<pre><code>## * p: 0.8629406
-## * F: 0.2308999</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C2"</span><span class="op">)</span></pre></div>
-<pre><code>## * p: 0.0288904
-## * F: 3.5212271</code></pre>
-<p>Add a hypothesis, specify criteria, and add evaluation rules You can add rules for both “corroboration” and “falsification”, but here we just have corroboration rules.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"IXN"</span>, <span class="st">"There will be a significant 3-way interaction among factors A, B and C"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="co"># C:A:B interaction significant</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"sig_ixn"</span>, 
-                result <span class="op">=</span> <span class="st">"p"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="fl">0.05</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-
-  <span class="co"># add criteria to show the pattern is as expected</span>
-  
-  <span class="co"># A1 &lt; A2 &lt; A3 &lt; A4 from B1 in C1</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_1"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A1_B1_C1"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A2_B1_C1"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_2"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A2_B1_C1"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A3_B1_C1"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_3"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A3_B1_C1"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A4_B1_C1"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="co"># A1 &lt; A2 &lt; A3 &lt; A4 from B2 in C2</span>
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_1"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A1_B2_C2"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A2_B2_C2"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_2"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A2_B2_C2"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A3_B2_C2"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_3"</span>,
-                result <span class="op">=</span> <span class="st">"mean$A3_B2_C2"</span>, 
-                operator <span class="op">=</span> <span class="st">"&lt;"</span>, 
-                comparator <span class="op">=</span> <span class="st">"mean$A4_B2_C2"</span>,
-                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="co"># all criteria must be true to corroborate</span>
-  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"corroboration"</span>,
-          evaluation <span class="op">=</span> <span class="st">"sig_ixn &amp; c1_1 &amp; c1_2 &amp; c1_3 &amp; c2_1 &amp; c2_2 &amp; c2_3"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_analyse.html">study_analyse</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> </span></code></pre></div>
+<pre><code><span><span class="co">## Contrasts set to contr.sum for the following variables: C</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C0"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## * p: 0.100249</span></span>
+<span><span class="co">## * F: 2.242503</span></span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C1"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## * p: 0.7597787</span></span>
+<span><span class="co">## * F: 0.3556755</span></span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_result.html">get_result</a></span><span class="op">(</span><span class="va">s</span>, analysis_id <span class="op">=</span> <span class="st">"C2"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## * p: 0.0492075</span></span>
+<span><span class="co">## * F: 2.8592385</span></span></code></pre>
+<p>Add a hypothesis, specify criteria, and add evaluation rules You can
+add rules for both “corroboration” and “falsification”, but here we just
+have corroboration rules.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_hypothesis.html">add_hypothesis</a></span><span class="op">(</span><span class="st">"IXN"</span>, <span class="st">"There will be a significant 3-way interaction among factors A, B and C"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># C:A:B interaction significant</span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"sig_ixn"</span>, </span>
+<span>                result <span class="op">=</span> <span class="st">"p"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
+<span>  <span class="co"># add criteria to show the pattern is as expected</span></span>
+<span>  </span>
+<span>  <span class="co"># A1 &lt; A2 &lt; A3 &lt; A4 from B1 in C1</span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_1"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A1_B1_C1"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A2_B1_C1"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_2"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A2_B1_C1"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A3_B1_C1"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c1_3"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A3_B1_C1"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A4_B1_C1"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># A1 &lt; A2 &lt; A3 &lt; A4 from B2 in C2</span></span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_1"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A1_B2_C2"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A2_B2_C2"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_2"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A2_B2_C2"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A3_B2_C2"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/add_criterion.html">add_criterion</a></span><span class="op">(</span><span class="st">"c2_3"</span>,</span>
+<span>                result <span class="op">=</span> <span class="st">"mean$A3_B2_C2"</span>, </span>
+<span>                operator <span class="op">=</span> <span class="st">"&lt;"</span>, </span>
+<span>                comparator <span class="op">=</span> <span class="st">"mean$A4_B2_C2"</span>,</span>
+<span>                analysis_id <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># all criteria must be true to corroborate</span></span>
+<span>  <span class="fu"><a href="../reference/add_eval.html">add_eval</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"corroboration"</span>,</span>
+<span>          evaluation <span class="op">=</span> <span class="st">"sig_ixn &amp; c1_1 &amp; c1_2 &amp; c1_3 &amp; c2_1 &amp; c2_2 &amp; c2_3"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="run-power-simulation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-power-simulation" class="anchor"></a>Run power simulation</h2>
-<p>Running <code><a href="../reference/study_power.html">study_power()</a></code> returns a study object that has <code>rep</code> values stored for the analysis criteria and evaluations. <code><a href="../reference/get_power.html">get_power()</a></code> returns the evaluation for each hypothesis and, optionally, the results values for each analysis.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span><span class="op">(</span><span class="va">s</span>, rep <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></pre></div>
-<pre><code>## Warning in study_power(s, rep = 100): Hypothesis IXN has no evaluation criteria
-## for falsification</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span><span class="op">(</span><span class="va">s</span>, values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">)</span></pre></div>
-<pre><code>## List of 1
-##  $ IXN:List of 3
-##   ..$ corroboration: num 0.54
-##   ..$ falsification: num 0
-##   ..$ inconclusive : num 0.46</code></pre>
+<div class="section level2">
+<h2 id="run-power-simulation">Run power simulation<a class="anchor" aria-label="anchor" href="#run-power-simulation"></a>
+</h2>
+<p>Running <code><a href="../reference/study_power.html">study_power()</a></code> returns a study object that has
+<code>rep</code> values stored for the analysis criteria and
+evaluations. <code><a href="../reference/get_power.html">get_power()</a></code> returns the evaluation for each
+hypothesis and, optionally, the results values for each analysis.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/study_power.html">study_power</a></span><span class="op">(</span><span class="va">s</span>, rep <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in study_power(s, rep = 100): Hypothesis IXN has no evaluation criteria</span></span>
+<span><span class="co">## for falsification</span></span></code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_power.html">get_power</a></span><span class="op">(</span><span class="va">s</span>, values <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">power</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## List of 1</span></span>
+<span><span class="co">##  $ IXN:List of 3</span></span>
+<span><span class="co">##   ..$ corroboration: num 0.5</span></span>
+<span><span class="co">##   ..$ falsification: num 0</span></span>
+<span><span class="co">##   ..$ inconclusive : num 0.5</span></span></code></pre>
 </div>
-<div id="plot-the-resulting-values" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plot-the-resulting-values" class="anchor"></a>Plot the resulting values</h2>
-<div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  ixn <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">p</span>,
-  c0 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C0</span><span class="op">$</span><span class="va">p</span>,
-  c1 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C1</span><span class="op">$</span><span class="va">p</span>,
-  c2 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C2</span><span class="op">$</span><span class="va">p</span>
-<span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">gather</span><span class="op">(</span><span class="st">"analysis"</span>, <span class="st">"p"</span>, <span class="va">ixn</span><span class="op">:</span><span class="va">c2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">p</span>, fill <span class="op">=</span> <span class="va">analysis</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.05</span>, color <span class="op">=</span> <span class="st">"black"</span>, 
-                 boundary <span class="op">=</span> <span class="fl">0</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="op">~</span><span class="va">analysis</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">xlab</span><span class="op">(</span><span class="st">"p-values"</span><span class="op">)</span></pre></div>
+<div class="section level2">
+<h2 id="plot-the-resulting-values">Plot the resulting values<a class="anchor" aria-label="anchor" href="#plot-the-resulting-values"></a>
+</h2>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  ixn <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">p</span>,</span>
+<span>  c0 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C0</span><span class="op">$</span><span class="va">p</span>,</span>
+<span>  c1 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C1</span><span class="op">$</span><span class="va">p</span>,</span>
+<span>  c2 <span class="op">=</span> <span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">C2</span><span class="op">$</span><span class="va">p</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="st">"analysis"</span>, <span class="st">"p"</span>, <span class="va">ixn</span><span class="op">:</span><span class="va">c2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">p</span>, fill <span class="op">=</span> <span class="va">analysis</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.05</span>, color <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                 boundary <span class="op">=</span> <span class="fl">0</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="op">~</span><span class="va">analysis</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"p-values"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="power_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">means</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">pivot_longer</span><span class="op">(</span>
-    cols <span class="op">=</span> <span class="va">A1_B1_C0</span><span class="op">:</span><span class="va">A4_B2_C2</span>,
-    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,
-    names_sep <span class="op">=</span> <span class="st">"_"</span>,
-    values_to <span class="op">=</span> <span class="st">"mean"</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">A</span>, y <span class="op">=</span> <span class="va">mean</span>, colour <span class="op">=</span> <span class="va">B</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">C</span><span class="op">~</span><span class="va">.</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">means</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="va">A1_B1_C0</span><span class="op">:</span><span class="va">A4_B2_C2</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span>
+<span>    names_sep <span class="op">=</span> <span class="st">"_"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"mean"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">A</span>, y <span class="op">=</span> <span class="va">mean</span>, colour <span class="op">=</span> <span class="va">B</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html" class="external-link">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">C</span><span class="op">~</span><span class="va">.</span><span class="op">)</span></span></code></pre></div>
 <p><img src="power_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">means</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rep <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">pivot_longer</span><span class="op">(</span>
-    cols <span class="op">=</span> <span class="va">A1_B1_C0</span><span class="op">:</span><span class="va">A4_B2_C2</span>,
-    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,
-    names_sep <span class="op">=</span> <span class="st">"_"</span>,
-    values_to <span class="op">=</span> <span class="st">"mean"</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">pivot_wider</span><span class="op">(</span>
-    names_from <span class="op">=</span> <span class="va">B</span>,
-    values_from <span class="op">=</span> <span class="va">`mean`</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>B_diff <span class="op">=</span> <span class="va">B2</span> <span class="op">-</span> <span class="va">B1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">A</span>, y <span class="op">=</span> <span class="va">B_diff</span>, colour <span class="op">=</span> <span class="va">C</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span>, position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">power</span><span class="op">$</span><span class="va">results</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">means</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rep <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="va">A1_B1_C0</span><span class="op">:</span><span class="va">A4_B2_C2</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span>
+<span>    names_sep <span class="op">=</span> <span class="st">"_"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"mean"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span></span>
+<span>    names_from <span class="op">=</span> <span class="va">B</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">`mean`</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>B_diff <span class="op">=</span> <span class="va">B2</span> <span class="op">-</span> <span class="va">B1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">A</span>, y <span class="op">=</span> <span class="va">B_diff</span>, colour <span class="op">=</span> <span class="va">C</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html" class="external-link">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="power_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
 </div>
   </div>
@@ -485,11 +515,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine, Daniel Lakens.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine, Daniel Lakens.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
@@ -497,6 +529,8 @@
 
   
 
+
+  
 
   </body>
 </html>

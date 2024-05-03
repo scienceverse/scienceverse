@@ -1,6 +1,8 @@
 ---
 title: "Make Study from Grobid XML"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{grobid}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
 library(scienceverse)
 library(dplyr)
 ```
@@ -25,7 +27,7 @@ The function `study_from_xml()` can read XML files in [TEI](https://tei-c.org/) 
 
 ```{r}
 grobid_dir <- system.file("grobid", package="scienceverse")
-filename <- file.path(grobid_dir, "eyecolor.pdf.tei.xml")
+filename <- file.path(grobid_dir, "incest.pdf.tei.xml")
 s <- study_from_xml(filename)
 ```
 
@@ -40,9 +42,7 @@ count(s$full_text, section_class)
 However, you may find it more convenient to use the function `search_full_text()`.
 
 ```{r}
-sig <- search_full_text(s, "significan[t|ce]")
-
-sig$text
+search_full_text(s, "significan[t|ce]")
 ```
 
 (Note that grobid is often bad at parsing sentences with statistics, and will break them into multiple sentences. We are working on ways of detecting and fixing this.)
@@ -50,9 +50,7 @@ sig$text
 References are omitted by default, but you can add them back in.
 
 ```{r}
-hypo <- search_full_text(s, "hypothes", section = "intro", refs = TRUE)
-
-hypo$text
+search_full_text(s, "third-party", section = "intro", refs = TRUE)
 ```
 
 
@@ -62,12 +60,7 @@ The function `study_from_xml()` also works on a folder of XML files, returning a
 
 ```{r}
 studies <- study_from_xml(grobid_dir)
-```
 
-
-```{r}
-hypo <- search_full_text(studies, "hypothesi", section = "intro")
-
-hypo[, c("study", "section_class")]
+search_full_text(studies, "hypothesi", section = "intro")
 ```
 

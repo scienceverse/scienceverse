@@ -1,0 +1,90 @@
+---
+title: "Demo"
+author: ""
+date: "03/05/2024"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+
+## Data
+
+### dat
+
+
+* id (string)
+* pet (string)
+  * Levels
+    * dog
+    * cat
+  * Ordered: FALSE
+* time (string)
+  * Levels
+    * morning
+    * night
+  * Ordered: FALSE
+* y (float): Happiness Score
+
+
+```{r}
+dat <- read.csv('data/dat_data.tsv', sep='\t')
+```
+
+
+
+## Analysis 1: A1 {#analysis_1}
+
+```{r}
+scienceverse::t_test(y ~ pet, dat)
+```
+
+### Stored Results
+
+* statistic: `0.3234`
+* parameter: `117.3873`
+* p.value: `0.747`
+* conf.int: 
+    1. `-1.5737`
+    2. `2.1881`
+* estimate: 
+    1. `8.9267`
+    2. `8.6195`
+* null.value: `0`
+* stderr: `0.9498`
+* alternative: `two.sided`
+* method: `Welch Two Sample t-test`
+* data.name: `y by pet`
+* n: 
+    1. `60`
+    2. `60`
+
+## Analysis 2: A2 {#analysis_2}
+
+```{r}
+scienceverse::t_test(y ~ time, dat)
+```
+
+### Stored Results
+
+* statistic: `-0.5117`
+* parameter: `117.5653`
+* p.value: `0.6098`
+* conf.int: 
+    1. `-2.3653`
+    2. `1.3939`
+* estimate: 
+    1. `8.5302`
+    2. `9.0159`
+* null.value: `0`
+* stderr: `0.9491`
+* alternative: `two.sided`
+* method: `Welch Two Sample t-test`
+* data.name: `y by time`
+* n: 
+    1. `60`
+    2. `60`
+
+
