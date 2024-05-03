@@ -22,7 +22,9 @@ suppressPackageStartupMessages({
   library(scienceverse)
   library(faux)
   library(afex)
-  library(tidyverse)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
 })
 scienceverse_options(verbose = FALSE)
 ```

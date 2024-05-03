@@ -5,9 +5,9 @@
 #' @param study A study list object with class scivrs_study
 #' @param id The id for this dataset (index or character) if a dataset with this id already exists, it will overwrite it
 #' @param data The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file
-#' @param vardesc Optional variable properties (see {{codebook}})
+#' @param vardesc Optional variable properties (see \link{codebook})
 #' @param design A faux design specification
-#' @param ... Further dataset properties (see {{codebook}})
+#' @param ... Further dataset properties (see \link{codebook})
 #'
 #' @return A study object with class scivrs_study
 #' @examples

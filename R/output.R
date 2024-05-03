@@ -259,7 +259,7 @@ output_data <- function(study, header_lvl = 2,
     ds <- "No data\n\n"
   } else {
     ds <- sapply(study$data, function(d) {
-      cb <- scienceverse:::cb_vars(d$codebook)
+      cb <- cb_vars(d$codebook)
       desc <- if_nowt(d$codebook$description)
 
       sprintf("%s# %s\n\n%s\n\n%s",

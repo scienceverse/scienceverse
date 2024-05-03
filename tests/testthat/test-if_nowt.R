@@ -34,3 +34,4 @@ test_that("if_nowt", {
   expect_equal(if_nowt(x, test_for = "trim"), list(NULL, NA, "", list()))
   expect_equal(if_nowt(x, test_for = "empty"), list(NULL, NA, " ", ""))
 })
+

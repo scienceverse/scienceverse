@@ -1,0 +1,73 @@
+---
+title: "Make Study from Grobid XML"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{grobid}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scienceverse)
+library(dplyr)
+```
+
+## Load from XML
+
+The function `study_from_xml()` can read XML files in [TEI](https://tei-c.org/) format created by [grobid](https://grobid.readthedocs.io/). 
+
+```{r}
+grobid_dir <- system.file("grobid", package="scienceverse")
+filename <- file.path(grobid_dir, "eyecolor.pdf.tei.xml")
+s <- study_from_xml(filename)
+```
+
+## Full Text
+
+You can access a parsed table of the full text of the paper via `s$full_text`
+
+```{r}
+count(s$full_text, section_class)
+```
+
+However, you may find it more convenient to use the function `search_full_text()`.
+
+```{r}
+sig <- search_full_text(s, "significan[t|ce]")
+
+sig$text
+```
+
+(Note that grobid is often bad at parsing sentences with statistics, and will break them into multiple sentences. We are working on ways of detecting and fixing this.)
+
+References are omitted by default, but you can add them back in.
+
+```{r}
+hypo <- search_full_text(s, "hypothes", section = "intro", refs = TRUE)
+
+hypo$text
+```
+
+
+## Batch Processing
+
+The function `study_from_xml()` also works on a folder of XML files, returning a list of scienceverse study objects, and `search_full_text()` works on such a list.
+
+```{r}
+studies <- study_from_xml(grobid_dir)
+```
+
+
+```{r}
+hypo <- search_full_text(studies, "hypothesi", section = "intro")
+
+hypo[, c("study", "section_class")]
+```
+

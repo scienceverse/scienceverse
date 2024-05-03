@@ -347,6 +347,9 @@ message <- function (..., domain = NULL, appendLF = TRUE) {
 #' is_nowt(x, test_for = "empty")
 #'
 is_nowt <- function(x, test_for = c("null", "na", "trim", "empty")) {
+  # NULL is no longer atomic as of 2023
+  if (is.null(x) & "null" %in% test_for) return(TRUE)
+
   # only handles atomic vectors and lists
   if (!is.atomic(x) & !is.list(x)) return(FALSE)
 

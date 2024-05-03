@@ -17,3 +17,9 @@ A study object with class scivrs_study
 \description{
 Currently only works for XML created by grobid
 }
+\examples{
+grobid_dir <- system.file("grobid", package="scienceverse")
+filename <- file.path(grobid_dir, "eyecolor.pdf.tei.xml")
+study <- study_from_xml(filename)
+
+}

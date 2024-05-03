@@ -13,11 +13,11 @@ add_data(study, id, data = NULL, vardesc = list(), design = NULL, ...)
 
 \item{data}{The dataset as a data.frame, codebook object, path to a data file, or path to a codebook file}
 
-\item{vardesc}{Optional variable properties (see {{codebook}})}
+\item{vardesc}{Optional variable properties (see \link{codebook})}
 
 \item{design}{A faux design specification}
 
-\item{...}{Further dataset properties (see {{codebook}})}
+\item{...}{Further dataset properties (see \link{codebook})}
 }
 \value{
 A study object with class scivrs_study

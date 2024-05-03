@@ -1,3 +1,9 @@
+# scienceverse 0.0.0.9021 (2024-05-03)
+
+* `study_from_xml()` loads directories of xml files
+* `search_full_text()` to search the full text of study full_text objects.
+* included "grobid" directory in system file for XML examples
+
 # scienceverse 0.0.0.9020 (2024-04-28)
 
 * `scivrs_app()` now takes an optional `study` argument to load a study object and returns the edited study object
