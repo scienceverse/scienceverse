@@ -26,7 +26,8 @@ test_that("basics", {
   expect_equal(s$info$title, title)
   lisa <- author(
    surname = "Debruine", given = "Lisa",
-   orcid = "0000-0002-7523-5539",
+   orcid = NULL,
+   #orcid = "0000-0002-7523-5539",
    email = "lisa.debruine@glasgow.ac.uk"
   )
   expect_equal(s$authors[[1]], lisa)

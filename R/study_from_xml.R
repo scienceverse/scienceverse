@@ -76,10 +76,10 @@ study_from_xml <- function(filename, xml_type = c("auto", "grobid")) {
       given <- a$persName$forename[[1]]
       email <- a$email[[1]]
       orcid <- a$idno[[1]]
-      if (is.null(orcid) & !is.null(family)) {
-        orcid_lookup <- get_orcid(family, given)
-        if (length(orcid_lookup) == 1) orcid <- orcid_lookup
-      }
+      # if (is.null(orcid) & !is.null(family)) {
+      #   orcid_lookup <- get_orcid(family, given)
+      #   if (length(orcid_lookup) == 1) orcid <- orcid_lookup
+      # }
 
       s <- add_author(s, family, given, orcid, email = email)
     }
