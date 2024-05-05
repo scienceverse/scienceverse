@@ -1,6 +1,7 @@
 pandoc: 1.19.2.1
 pkgdown: 1.4.1
 pkgdown_sha: ~
+url: https://scienceverse.github.io/scienceverse/
 template:
   params:
     bootswatch: spacelab
@@ -20,7 +21,6 @@ reference:
       - add_sim_data
       - add_method
       - study_from_json
-      - study_from_xml
       - update_hypothesis
       - update_analysis
       - update_criterion
@@ -65,7 +65,6 @@ reference:
       - t_test.default
       - t_test.formula
       - scienceverse_options
-      - search_full_text
   - title: "Utilities"
     contents:
       - if_nowt
@@ -75,7 +74,7 @@ reference:
 articles:
   - title: "Articles"
     contents:
-      - demo
+      - scienceverse
       - extended
       - meta
       - sim
@@ -84,4 +83,3 @@ articles:
       - credit
       - functions
       - export
-      - grobid

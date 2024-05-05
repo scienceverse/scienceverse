@@ -1,324 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/News.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/News.html</loc>
   </url>
   <url>
-    <loc>/articles/analysis.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/analysis.html</loc>
   </url>
   <url>
-    <loc>/articles/codebook.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/codebook.html</loc>
   </url>
   <url>
-    <loc>/articles/credit.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/credit.html</loc>
   </url>
   <url>
-    <loc>/articles/demo.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/demo.html</loc>
   </url>
   <url>
-    <loc>/articles/export.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/export.html</loc>
   </url>
   <url>
-    <loc>/articles/ext_postreg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/ext_postreg.html</loc>
   </url>
   <url>
-    <loc>/articles/ext_prereg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/ext_prereg.html</loc>
   </url>
   <url>
-    <loc>/articles/extended.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/extended.html</loc>
   </url>
   <url>
-    <loc>/articles/files/postreg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/files/postreg.html</loc>
   </url>
   <url>
-    <loc>/articles/files/prereg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/files/prereg.html</loc>
   </url>
   <url>
-    <loc>/articles/functions.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/functions.html</loc>
   </url>
   <url>
-    <loc>/articles/grobid.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/grobid.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/meta.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/meta.html</loc>
   </url>
   <url>
-    <loc>/articles/postreg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/postreg.html</loc>
   </url>
   <url>
-    <loc>/articles/power.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/power.html</loc>
   </url>
   <url>
-    <loc>/articles/prereg.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/prereg.html</loc>
   </url>
   <url>
-    <loc>/articles/sim.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/scienceverse.html</loc>
   </url>
   <url>
-    <loc>/articles/test.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/sim.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/articles/test.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/authors.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_analysis.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_assumption.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_analysis.html</loc>
   </url>
   <url>
-    <loc>/reference/add_author.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_assumption.html</loc>
   </url>
   <url>
-    <loc>/reference/add_criterion.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_author.html</loc>
   </url>
   <url>
-    <loc>/reference/add_data.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_criterion.html</loc>
   </url>
   <url>
-    <loc>/reference/add_eval.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_data.html</loc>
   </url>
   <url>
-    <loc>/reference/add_hypothesis.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_eval.html</loc>
   </url>
   <url>
-    <loc>/reference/add_method.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_hypothesis.html</loc>
   </url>
   <url>
-    <loc>/reference/add_prep.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_method.html</loc>
   </url>
   <url>
-    <loc>/reference/add_sim_data.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_prep.html</loc>
   </url>
   <url>
-    <loc>/reference/author.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/add_sim_data.html</loc>
   </url>
   <url>
-    <loc>/reference/author_jats.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/author.html</loc>
   </url>
   <url>
-    <loc>/reference/cb_vars.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/author_jats.html</loc>
   </url>
   <url>
-    <loc>/reference/check_orcid.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/cb_vars.html</loc>
   </url>
   <url>
-    <loc>/reference/codebook.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/check_orcid.html</loc>
   </url>
   <url>
-    <loc>/reference/credit_roles.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/codebook.html</loc>
   </url>
   <url>
-    <loc>/reference/data_prep.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/credit_roles.html</loc>
   </url>
   <url>
-    <loc>/reference/eval_summary.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/data_prep.html</loc>
   </url>
   <url>
-    <loc>/reference/fix_id.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/eval_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/format_output.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/fix_id.html</loc>
   </url>
   <url>
-    <loc>/reference/full_text_table_from_grobid.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/format_output.html</loc>
   </url>
   <url>
-    <loc>/reference/getEnvName.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/full_text_table_from_grobid.html</loc>
   </url>
   <url>
-    <loc>/reference/get_codebook.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/getEnvName.html</loc>
   </url>
   <url>
-    <loc>/reference/get_data.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_codebook.html</loc>
   </url>
   <url>
-    <loc>/reference/get_env_name.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_data.html</loc>
   </url>
   <url>
-    <loc>/reference/get_html.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_env_name.html</loc>
   </url>
   <url>
-    <loc>/reference/get_id_idx.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_html.html</loc>
   </url>
   <url>
-    <loc>/reference/get_idx.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_id_idx.html</loc>
   </url>
   <url>
-    <loc>/reference/get_orcid.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_idx.html</loc>
   </url>
   <url>
-    <loc>/reference/get_power.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_orcid.html</loc>
   </url>
   <url>
-    <loc>/reference/get_res_value.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_power.html</loc>
   </url>
   <url>
-    <loc>/reference/get_result.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_res_value.html</loc>
   </url>
   <url>
-    <loc>/reference/if_nowt.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/get_result.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/if_nowt.html</loc>
   </url>
   <url>
-    <loc>/reference/is_nowt.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/kin.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/is_nowt.html</loc>
   </url>
   <url>
-    <loc>/reference/load_params.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/kin.html</loc>
   </url>
   <url>
-    <loc>/reference/make_data.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/load_params.html</loc>
   </url>
   <url>
-    <loc>/reference/make_func.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/make_data.html</loc>
   </url>
   <url>
-    <loc>/reference/make_return.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/make_func.html</loc>
   </url>
   <url>
-    <loc>/reference/make_script.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/make_return.html</loc>
   </url>
   <url>
-    <loc>/reference/message.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/make_script.html</loc>
   </url>
   <url>
-    <loc>/reference/nested_list.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/message.html</loc>
   </url>
   <url>
-    <loc>/reference/nlist.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/nested_list.html</loc>
   </url>
   <url>
-    <loc>/reference/output_analyses.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/nlist.html</loc>
   </url>
   <url>
-    <loc>/reference/output_custom_code.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_analyses.html</loc>
   </url>
   <url>
-    <loc>/reference/output_data.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_custom_code.html</loc>
   </url>
   <url>
-    <loc>/reference/output_hypotheses.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_data.html</loc>
   </url>
   <url>
-    <loc>/reference/output_info.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_hypotheses.html</loc>
   </url>
   <url>
-    <loc>/reference/output_results.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_info.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/output_results.html</loc>
   </url>
   <url>
-    <loc>/reference/print.nested_list.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/print.scivrs_author.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/print.nested_list.html</loc>
   </url>
   <url>
-    <loc>/reference/print.scivrs_authors.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/print.scivrs_author.html</loc>
   </url>
   <url>
-    <loc>/reference/print.scivrs_results.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/print.scivrs_authors.html</loc>
   </url>
   <url>
-    <loc>/reference/print.scivrs_study.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/print.scivrs_results.html</loc>
   </url>
   <url>
-    <loc>/reference/round_char.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/print.scivrs_study.html</loc>
   </url>
   <url>
-    <loc>/reference/scienceverse-package.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/round_char.html</loc>
   </url>
   <url>
-    <loc>/reference/scienceverse_options.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/scienceverse-package.html</loc>
   </url>
   <url>
-    <loc>/reference/scivrs_app.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/scienceverse_options.html</loc>
   </url>
   <url>
-    <loc>/reference/search_full_text.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/scivrs_app.html</loc>
   </url>
   <url>
-    <loc>/reference/stroop.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/search_full_text.html</loc>
   </url>
   <url>
-    <loc>/reference/study.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/stroop.html</loc>
   </url>
   <url>
-    <loc>/reference/study_analyse.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study.html</loc>
   </url>
   <url>
-    <loc>/reference/study_demo.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_analyse.html</loc>
   </url>
   <url>
-    <loc>/reference/study_eval.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_demo.html</loc>
   </url>
   <url>
-    <loc>/reference/study_from_json.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_eval.html</loc>
   </url>
   <url>
-    <loc>/reference/study_from_xml.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_from_json.html</loc>
   </url>
   <url>
-    <loc>/reference/study_json.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_from_xml.html</loc>
   </url>
   <url>
-    <loc>/reference/study_power.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_json.html</loc>
   </url>
   <url>
-    <loc>/reference/study_report.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_power.html</loc>
   </url>
   <url>
-    <loc>/reference/study_save.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_report.html</loc>
   </url>
   <url>
-    <loc>/reference/study_to_json.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_save.html</loc>
   </url>
   <url>
-    <loc>/reference/t_test.default.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/study_to_json.html</loc>
   </url>
   <url>
-    <loc>/reference/t_test.formula.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/t_test.default.html</loc>
   </url>
   <url>
-    <loc>/reference/t_test.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/t_test.formula.html</loc>
   </url>
   <url>
-    <loc>/reference/t_test_n.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/t_test.html</loc>
   </url>
   <url>
-    <loc>/reference/update_analysis.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/t_test_n.html</loc>
   </url>
   <url>
-    <loc>/reference/update_criterion.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/update_analysis.html</loc>
   </url>
   <url>
-    <loc>/reference/update_hypothesis.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/update_criterion.html</loc>
   </url>
   <url>
-    <loc>/reference/update_method.html</loc>
+    <loc>https://scienceverse.github.io/scienceverse/reference/update_hypothesis.html</loc>
+  </url>
+  <url>
+    <loc>https://scienceverse.github.io/scienceverse/reference/update_method.html</loc>
   </url>
 </urlset>
